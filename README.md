@@ -1,24 +1,22 @@
-# mikado_reborn_2
+# mikado_reborn
 
-## Project setup
-```
-yarn install
-```
+## Getting started
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
-
-### Compiles and minifies for production
-```
-yarn build
+```sh
+# Go in the project directory
+cd mikado_reborn
+# Install dependencies
+yarn
+# Run Storybook for documentation
+yarn workspace doc storybook
+# Or
+yarn --cwd packages/doc storybook
 ```
 
-### Lints and fixes files
-```
-yarn lint
-```
+### Project structure
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+This project is a mono repo, using yarn workspaces.
+
+You will find two packages:
+    - doc (the documentation, built using storybook)
+    - mikado_reborn (the vue.js ui library)
