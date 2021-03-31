@@ -1,1 +1,13 @@
-@import "./variables"
+@import "./variables";
+
+@each $name, $color in $colors {
+  .#{$name} {
+    color: $color;
+  }
+}
+
+@each $name, $color in $colors {
+  .#{$name}-bg {
+    background-color: $color;
+  }
+}

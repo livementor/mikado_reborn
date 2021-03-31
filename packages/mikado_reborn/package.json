@@ -4,9 +4,8 @@
   "private": true,
   "scripts": {
     "build": "vue-cli-service build --target lib --name mikadoReborn ./src/index.ts",
-    "lint": "vue-cli-service lint",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build:tokens": "style-dictionary build",
+    "lint": "vue-cli-service lint"
   },
   "sideEffects": [
     "*.scss"
@@ -34,6 +33,7 @@
     "eslint-plugin-vue": "^6.2.2",
     "sass": "^1.26.5",
     "sass-loader": "^10.0.0",
+    "style-dictionary": "^2.10.3",
     "typescript": "~4.1.5",
     "vue-loader": "^15.9.6",
     "vue-template-compiler": "^2.6.11"

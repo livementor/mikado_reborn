@@ -1,19 +1,20 @@
 import { MkrButton } from "../../../mikado_reborn/src/components";
+import colors from '../../../mikado_reborn/src/utils/colors';
 
 export default {
   title: 'Example/Button',
   component: MkrButton,
   argTypes: {
-    label: { control: { type: 'text' } },
+    color: { control: { type: 'select', options: colors } },
   },
 };
 
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
-  template: '<mkr-button @onClick="onClick" v-bind="$props" />',
+  template: '<mkr-button v-bind="$props">Hello</mkr-button>',
 });
 
 export const Primary = Template.bind({});
 Primary.args = {
-  label: 'Button',
+  color: 'primary',
 };
