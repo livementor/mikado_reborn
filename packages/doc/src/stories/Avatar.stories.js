@@ -4,7 +4,7 @@ export default {
   title: 'Example/Avatar',
   component: MkrAvatar,
   argTypes: {
-    url: { control: { type: 'text' } },
+    src: { control: { type: 'text' } },
     alt: { control: { type: 'text' } },
   },
 };
@@ -16,6 +16,6 @@ const Template = (args, { argTypes }) => ({
 
 export const Avatar = Template.bind({});
 Avatar.args = {
-  url: 'https://randomuser.me/api/portraits/men/34.jpg',
+  src: 'https://randomuser.me/api/portraits/men/34.jpg',
   alt: 'Reginald Hughes',
 };
