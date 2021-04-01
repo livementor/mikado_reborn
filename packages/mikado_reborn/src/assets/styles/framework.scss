@@ -1,0 +1,17 @@
+@import "./variables";
+
+@each $name, $color in $colors {
+  .#{$name} {
+    color: $color;
+  }
+}
+
+@each $name, $color in $colors {
+  .#{$name}-bg {
+    background-color: $color;
+  }
+}
+
+html {
+  font-size: $baseFontSize / 16 * 100%;
+}
