@@ -11,3 +11,7 @@
     background-color: $color;
   }
 }
+
+html {
+  font-size: $baseFontSize / 16 * 100%;
+}
