@@ -1,19 +1,33 @@
 {
-  "name": "mikado_reborn",
+  "name": "@livementor/mikado_reborn",
   "version": "0.1.0",
-  "private": true,
   "scripts": {
     "build": "vue-cli-service build --target lib --name mikadoReborn ./src/index.ts",
     "build:tokens": "style-dictionary build",
     "lint": "vue-cli-service lint"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/livementor/mikado_reborn.git"
+  },
+  "publishConfig": {
+    "registry":"https://npm.pkg.github.com"
+  },
+  "files": [
+    "dist/*",
+    "src/*",
+    "*.json",
+    "*.js",
+    "types/"
+  ],
   "sideEffects": [
     "*.scss"
   ],
+  "peerDependencies": {
+    "vue": "^2.6.11"
+  },
   "dependencies": {
-    "axios": "^0.21.1",
     "core-js": "^3.6.5",
-    "vue": "^2.6.11",
     "vue-class-component": "^7.2.3",
     "vue-property-decorator": "^9.1.2"
   },
