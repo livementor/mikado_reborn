@@ -1,5 +1,7 @@
 <template>
-  <img class="mkr__avatar" v-bind="$props" />
+  <div class="mkr__avatar">
+    <img v-bind="$props" />
+  </div>
 </template>
 
 <script lang="ts">
