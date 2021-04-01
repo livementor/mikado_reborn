@@ -1,0 +1,19 @@
+name: Mikado Reborn
+on:
+  release:
+    types: [created]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./packages/mikado_reborn
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build
+      run: |
+        yarn install
+        yarn build
+    - run: yarn publish
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
