@@ -1,4 +1,5 @@
-@import "./variables";
+@import './fonts.scss';
+@import './styles.scss';
 
 @each $name, $color in $colors {
   .#{$name} {
@@ -14,4 +15,8 @@
 
 html {
   font-size: $baseFontSize / 16 * 100%;
+}
+
+body {
+  font-size: 2rem;
 }

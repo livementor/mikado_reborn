@@ -1,7 +1,7 @@
 import { MkrAvatar } from "../../../mikado_reborn/src/components";
 
 export default {
-  title: 'Example/Avatar',
+  title: 'Components/Avatar',
   component: MkrAvatar,
   argTypes: {
     src: { control: { type: 'text' } },

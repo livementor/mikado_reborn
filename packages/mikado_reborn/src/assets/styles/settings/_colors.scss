@@ -1,0 +1,26 @@
+@import "./tokens";
+
+$colors: (
+  'primary': $primary-primary,
+  'primary-light': $primary-primary-l,
+  'primary-dark': $primary-primary-d,
+  'secondary': $primary-secondary,
+  'secondary-light': $primary-secondary-l,
+  'secondary-dark': $primary-secondary-d,
+  'accent': $accent-accent,
+  'accent-light': $accent-accent-l,
+  'white': $neutral-white,
+  'neutral': $neutral-neutral,
+  'neutral-light': $neutral-neutral-l,
+  'neutral-dark': $neutral-neutral-d,
+  'neutral-80': $neutral-neutral-80,
+  'neutral-60': $neutral-neutral-60,
+  'neutral-40': $neutral-neutral-40,
+  'neutral-20': $neutral-neutral-20,
+  'success': $alert-success,
+  'success-light': $alert-success-l,
+  'danger': $alert-danger,
+  'danger-light': $alert-danger-l,
+  'warning': $alert-warning,
+  'warning-light': $alert-warning-l,
+);
