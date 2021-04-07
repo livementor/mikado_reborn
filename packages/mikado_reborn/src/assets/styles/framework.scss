@@ -1,4 +1,7 @@
-@import "./variables";
+@import './fonts.scss';
+@import './styles.scss';
+
+/* COLORS */
 
 @each $name, $color in $colors {
   .#{$name} {
@@ -12,6 +15,42 @@
   }
 }
 
+/* FONTS */
+
+.caption-small-font {
+  @include caption-small-font
+}
+
+.body-small-font {
+  @include body-small-font
+}
+
+.body-medium-font {
+  @include body-medium-font
+}
+
+.body-large-font {
+  @include body-large-font
+}
+
+.heading-small-font {
+  @include heading-small-font
+}
+
+.heading-medium-font {
+  @include heading-medium-font
+}
+
+.heading-large-font {
+  @include heading-large-font
+}
+
+/* GLOBAL CSS */
+
 html {
   font-size: $baseFontSize / 16 * 100%;
+}
+
+body {
+  font-size: 2rem;
 }

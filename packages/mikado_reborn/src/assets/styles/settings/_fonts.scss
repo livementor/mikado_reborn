@@ -1,0 +1,98 @@
+@import "./variables";
+@import "./tokens";
+
+@mixin caption-small-font {
+  font-size: ($caption-small-font-size / $baseFontSize) * 1rem;
+  text-decoration: $caption-small-text-decoration;
+  font-family: $caption-small-font-family;
+  font-weight: $caption-small-font-weight;
+  font-style: $caption-small-font-style;
+  font-stretch: $caption-small-font-stretch;
+  letter-spacing: ($caption-small-letter-spacing / 100) * 1em;
+  line-height: ($caption-small-line-height / $baseFontSize) * 1rem;
+  text-transform: $caption-small-text-case;
+}
+
+@mixin body-small-font {
+  font-size: ($body-small-font-size / $baseFontSize) * 1rem;
+  text-decoration: $body-small-text-decoration;
+  font-family: $body-small-font-family;
+  font-weight: $body-small-font-weight;
+  font-style: $body-small-font-style;
+  font-stretch: $body-small-font-stretch;
+  letter-spacing: ($body-small-letter-spacing / 100) * 1em;
+  line-height: ($body-small-line-height / $baseFontSize) * 1rem;
+  text-transform: $body-small-text-case;
+}
+
+@mixin body-medium-font {
+  font-size: ($body-medium-font-size / $baseFontSize) * 1rem;
+  text-decoration: $body-medium-text-decoration;
+  font-family: $body-medium-font-family;
+  font-weight: $body-medium-font-weight;
+  font-style: $body-medium-font-style;
+  font-stretch: $body-medium-font-stretch;
+  letter-spacing: ($body-medium-letter-spacing / 100) * 1em;
+  line-height: ($body-medium-line-height / $baseFontSize) * 1rem;
+  text-transform: $body-medium-text-case;
+}
+
+@mixin body-medium-bold-font {
+  font-size: ($body-medium-bold-font-size / $baseFontSize) * 1rem;
+  text-decoration: $body-medium-bold-text-decoration;
+  font-family: $body-medium-bold-font-family;
+  font-weight: $body-medium-bold-font-weight;
+  font-style: $body-medium-bold-font-style;
+  font-stretch: $body-medium-bold-font-stretch;
+  letter-spacing: ($body-medium-bold-letter-spacing / 100) * 1em;
+  line-height: ($body-medium-bold-line-height / $baseFontSize) * 1rem;
+  text-transform: $body-medium-bold-text-case;
+}
+
+@mixin body-large-font {
+  font-size: ($body-large-font-size / $baseFontSize) * 1rem;
+  text-decoration: $body-large-text-decoration;
+  font-family: $body-large-font-family;
+  font-weight: $body-large-font-weight;
+  font-style: $body-large-font-style;
+  font-stretch: $body-large-font-stretch;
+  letter-spacing: ($body-large-letter-spacing / 100) * 1em;
+  line-height: ($body-large-line-height / $baseFontSize) * 1rem;
+  text-transform: $body-large-text-case;
+}
+
+@mixin heading-small-font {
+  font-size: ($heading-small-font-size / $baseFontSize) * 1rem;
+  text-decoration: $heading-small-text-decoration;
+  font-family: $heading-small-font-family;
+  font-weight: $heading-small-font-weight;
+  font-style: $heading-small-font-style;
+  font-stretch: $heading-small-font-stretch;
+  letter-spacing: ($heading-small-letter-spacing / 100) * 1em;
+  line-height: ($heading-small-line-height / $baseFontSize) * 1rem;
+  text-transform: $heading-small-text-case;
+}
+
+@mixin heading-medium-font {
+  font-size: ($heading-medium-font-size / $baseFontSize) * 1rem;
+  text-decoration: $heading-medium-text-decoration;
+  font-family: $heading-medium-font-family;
+  font-weight: $heading-medium-font-weight;
+  font-style: $heading-medium-font-style;
+  font-stretch: $heading-medium-font-stretch;
+  letter-spacing: ($heading-medium-letter-spacing / 100) * 1em;
+  line-height: ($heading-medium-line-height / $baseFontSize) * 1rem;
+  text-transform: $heading-medium-text-case;
+}
+
+@mixin heading-large-font {
+  font-size: ($heading-large-font-size / $baseFontSize) * 1rem;
+  text-decoration: $heading-large-text-decoration;
+  font-family: $heading-large-font-family;
+  font-weight: $heading-large-font-weight;
+  font-style: $heading-large-font-style;
+  font-stretch: $heading-large-font-stretch;
+  letter-spacing: ($heading-large-letter-spacing / 100) * 1em;
+  line-height: ($heading-large-line-height / $baseFontSize) * 1rem;
+  text-transform: $heading-large-text-case;
+}

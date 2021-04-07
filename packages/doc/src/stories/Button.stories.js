@@ -2,7 +2,7 @@ import { MkrButton } from "../../../mikado_reborn/src/components";
 import colors from '../../../mikado_reborn/src/utils/colors';
 
 export default {
-  title: 'Example/Button',
+  title: 'Components/Button',
   component: MkrButton,
   argTypes: {
     color: { control: { type: 'select', options: colors } },
