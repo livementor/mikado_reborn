@@ -1,5 +1,5 @@
 <template>
-  <div class="mkr__textarea">
+  <div :class="['mkr__textarea', {'error' : error}]">
     <textarea
       rows="1"
       :maxlength="maxlength"
@@ -22,6 +22,9 @@
 
     @Prop({type: String})
     placeholder: string
+
+    @Prop({ type: Boolean })
+    error: boolean;
   }
 </script>
 
