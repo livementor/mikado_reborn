@@ -1,5 +1,8 @@
 <template>
-  <button :class="classNames"><slot /></button>
+  <button :disabled="disabled" :class="['mkr__button', type]">
+    <mkr-icon v-if="icon" :name="icon" />
+    <slot />
+  </button>
 </template>
 
 <script lang="ts">
@@ -7,13 +10,11 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 
 @Component
 export default class Button extends Vue {
-  @Prop() private color!: string;
+  @Prop() type!: string;
 
-  get classNames() : string[] {
-    const classes = [];
-    if (this.color) classes.push(`${this.color}-bg`);
-    return classes;
-  }
+  @Prop() disabled: boolean;
+
+  @Prop() icon?: string;
 }
 </script>
 <style src="./Button.scss" lang="scss"></style>

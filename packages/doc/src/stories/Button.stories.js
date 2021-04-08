@@ -1,11 +1,10 @@
-import { MkrButton } from "../../../mikado_reborn/src/components";
-import colors from '../../../mikado_reborn/src/utils/colors';
+import { MkrButton } from '../../../mikado_reborn/src/components';
 
 export default {
   title: 'Components/Button',
   component: MkrButton,
   argTypes: {
-    color: { control: { type: 'select', options: colors } },
+    type: { control: { type: 'select', options: ['primary', 'secondary'] } },
   },
 };
 
@@ -16,5 +15,5 @@ const Template = (args, { argTypes }) => ({
 
 export const Primary = Template.bind({});
 Primary.args = {
-  color: 'primary',
+  type: 'primary',
 };

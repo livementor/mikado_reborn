@@ -1,1 +1,60 @@
 @import '../../assets/styles/styles.scss';
+
+.mkr__button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 16px 24px;
+  border-radius: 4px;
+
+  text-decoration: none;
+  outline: none;
+  box-shadow: none;
+
+  /* button/medium */
+  font-family: Rubik;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 16px;
+  border-width: 0px;
+
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  };
+
+  &.primary {
+    background-color: map-get($colors, 'primary');
+    color: map-get($colors, 'secondary-dark');
+
+    &:hover:enabled {
+      box-shadow: 0px 0px 8px -4px map-get($colors, 'neutral-20');
+      background: linear-gradient(0deg, #FFC233, #FFC233),#FFFFFF;
+    };
+    .mkr__icon {
+      margin-right: 1rem;
+      color: map-get($colors, 'secondary-dark');
+    }
+  };
+
+  &.secondary {
+    background-color: map-get($colors, 'secondary');
+    color: map-get($colors, 'white');
+
+    &:hover:enabled {
+      box-shadow: 0px 0px 8px -4px map-get($colors, 'neutral-20');
+      background: map-get($colors, 'secondary-dark');
+    };
+
+    .mkr__icon {
+      margin-right: 1rem;
+      color: map-get($colors, 'white');
+
+    }
+  };
+}
