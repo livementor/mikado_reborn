@@ -5,6 +5,7 @@ export default {
   component: MkrButton,
   argTypes: {
     type: { control: { type: 'select', options: ['primary', 'secondary'] } },
+    size: { control: { type: 'select', options: ['medium', 'small'] } },
   },
 };
 
@@ -16,4 +17,5 @@ const Template = (args, { argTypes }) => ({
 export const Primary = Template.bind({});
 Primary.args = {
   type: 'primary',
+  size: 'medium',
 };
