@@ -1,8 +1,9 @@
 <template>
   <div :class="['mkr__textfield', {'error' : error}]">
     <mkr-icon v-if="iconName" class="icon" :color="iconColor" :name="iconName"/>
-    <input :type="type" @focus="focused = true" @blur="focused = false" :placeholder="placeholder">
+    <input :type="getType" @focus="focused = true" @blur="focused = false" :placeholder="placeholder">
     <mkr-icon v-if="error" name="exclamation-circle" color="danger" />
+    <mkr-icon v-if="type === 'password' || showPassword" :name="showPassword ? 'eye-off' : 'eye'" :color="iconColor" @click.native="showPasswordClick"/>
   </div>
 </template>
 
@@ -25,14 +26,25 @@
       validator: (x) => { return ['text', 'email', 'password'].includes(x)}
     })
     type: string
+
     focused: boolean = false
+    showPassword: boolean = false
 
     get iconColor () {
-       if (this.focused) {
-         return this.error ? 'danger' : 'secondary'
-       }
-        return 'neutral-60'
+      if (this.focused) {
+        return this.error ? 'danger' : 'secondary'
+      }
+      return 'neutral-60'
+    }
 
+    get getType() {
+      if (this.showPassword) {
+        return 'text'
+      }
+      return this.type
+    }
+    showPasswordClick () {
+      this.showPassword = !this.showPassword
     }
   }
 </script>
