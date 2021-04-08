@@ -1,0 +1,32 @@
+@import '../../assets/styles/styles.scss';
+
+.mkr__textfield {
+  background: map-get($colors, 'white');
+  border: 1px solid map-get($colors, 'neutral-60');
+  box-sizing: border-box;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 1.5rem 2rem;
+
+  &:focus-within {
+    border: 1px solid map-get($colors, 'secondary');
+  }
+
+  &.error {
+    border: 1px solid map-get($colors, 'danger');
+  }
+
+  .mkr__icon.icon {
+    margin-right: 1rem;
+  }
+
+  input {
+    text-decoration: none;
+    background-color: transparent;
+    border-width: 0px;
+    outline: 0;
+    width: 100%;
+  };
+}
