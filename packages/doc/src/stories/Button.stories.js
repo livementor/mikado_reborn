@@ -19,3 +19,36 @@ Primary.args = {
   type: 'primary',
   size: 'medium',
 };
+
+export const Secondary = Template.bind({});
+Secondary.args = {
+  type: 'secondary',
+  size: 'medium',
+};
+
+export const SmallPrimary = Template.bind({});
+SmallPrimary.args = {
+  type: 'primary',
+  size: 'small',
+};
+
+export const PrimaryWithIcon = Template.bind({});
+PrimaryWithIcon.args = {
+  type: 'primary',
+  size: 'medium',
+  icon: 'chat',
+};
+
+export const SecondaryWithIcon = Template.bind({});
+SecondaryWithIcon.args = {
+  type: 'secondary',
+  size: 'medium',
+  icon: 'chat',
+};
+
+export const SmallPrimaryWithIcon = Template.bind({});
+SmallPrimaryWithIcon.args = {
+  type: 'primary',
+  size: 'small',
+  icon: 'chat',
+};
