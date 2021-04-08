@@ -2,12 +2,14 @@
 
 .mkr__radio {
   label {
+    @include body-medium-font;
     display: flex;
     align-items: center;
     margin: 1rem 0;
     color: map-get($colors, 'neutral-80');
     cursor: pointer;
   }
+
   input {
     position: relative;
     height: 3rem;
@@ -19,7 +21,7 @@
     cursor: pointer;
     appearance: none;
     border-radius: 50%;
-    border: 1px solid map-get($colors, 'success');
+    border: 1px solid map-get($colors, 'neutral-40');
 
     &:focus {
       outline: none;
@@ -41,9 +43,11 @@
 
   &--checked {
     label {
-      font-weight: bold;
+      color: map-get($colors, 'neutral-dark');
     }
+
     input {
+      border-color: map-get($colors, 'success');
       background-clip: content-box;
       background-color: map-get($colors, 'success');
     }

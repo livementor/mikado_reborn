@@ -1,6 +1,5 @@
 <template>
   <div role="radiogroup">
-    {{value}}
     <slot />
   </div>
 </template>
