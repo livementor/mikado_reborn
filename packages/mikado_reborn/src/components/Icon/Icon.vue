@@ -1,5 +1,5 @@
 <template>
-  <span class="mkr__icon" :class="classNames"/>
+  <span class="mkr__icon" :class="classNames" @click="click"/>
 </template>
 
 <script lang="ts">
@@ -16,6 +16,9 @@ export default class Icon extends Vue {
     if (this.color) classes.push(this.color);
     if (this.name) classes.push(`icon-${this.name}`);
     return classes;
+  }
+  click(event) {
+    this.$emit('click', event)
   }
 }
 </script>

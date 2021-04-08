@@ -3,7 +3,12 @@
     <mkr-icon v-if="iconName" class="icon" :color="iconColor" :name="iconName"/>
     <input :type="getType" @focus="focused = true" @blur="focused = false" :placeholder="placeholder">
     <mkr-icon v-if="error" name="exclamation-circle" color="danger" />
-    <mkr-icon v-if="type === 'password' || showPassword" :name="showPassword ? 'eye-off' : 'eye'" :color="iconColor" @click.native="showPasswordClick"/>
+    <mkr-icon
+      v-if="type === 'password' || showPassword"
+      :name="showPassword ? 'eye-off' : 'eye'"
+      :color="iconColor"
+      @click="showPasswordClick"
+    />
   </div>
 </template>
 
@@ -15,15 +20,15 @@
     @Prop()
     iconName?: string;
 
-    @Prop({type: String})
+    @Prop({ type: String })
     placeholder: string;
 
-    @Prop({type: Boolean})
+    @Prop({ type: Boolean })
     error: boolean;
 
     @Prop({
       type: String,
-      validator: (x) => { return ['text', 'email', 'password'].includes(x)}
+      validator: (type) => { return ['text', 'email', 'password'].includes(type)}
     })
     type: string
 
