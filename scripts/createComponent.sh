@@ -19,9 +19,7 @@ templateVue="<template>
   }
 </script>
 
-<style scoped>
-
-</style>"
+<style src=\"./$1.scss\" lang="scss"></style>"
 
 templateComponentIndex="import Mkr$1 from './$1.vue';
 
