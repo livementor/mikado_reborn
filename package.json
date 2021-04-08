@@ -1,5 +1,8 @@
 {
   "private": true,
+  "scripts": {
+    "create-component": "./scripts/createComponent.sh"
+  },
   "workspaces": [
     "packages/*"
   ]
