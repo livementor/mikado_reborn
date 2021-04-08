@@ -1,17 +1,15 @@
 @import '../../assets/styles/styles.scss';
 
-.mkr__textfield  {
+.mkr__textarea {
   @include mkr__input;
 
-  .mkr__icon.icon {
-    margin-right: 1rem;
-  }
-
-  input {
+  textarea {
     text-decoration: none;
     background-color: transparent;
     border-width: 0px;
     outline: 0;
     width: 100%;
+    resize: none;
+    appearance: none;
   };
 }

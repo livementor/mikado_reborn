@@ -1,1 +1,20 @@
 @import './settings/index';
+
+@mixin mkr__input {
+    background: map-get($colors, 'white');
+    border: 1px solid map-get($colors, 'neutral-60');
+    box-sizing: border-box;
+    border-radius: 0.5rem;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 1.5rem 2rem;
+
+    &:focus-within {
+      border: 1px solid map-get($colors, 'secondary');
+    }
+
+    &.error {
+      border: 1px solid map-get($colors, 'danger');
+    }
+}
