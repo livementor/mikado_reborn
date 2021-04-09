@@ -10,22 +10,22 @@
 </template>
 
 <script lang=ts>
-  import { Component, Vue, Prop } from 'vue-property-decorator';
+import { Component, Vue, Prop } from 'vue-property-decorator';
 
   @Component
-  export default class Textarea extends Vue {
-    @Prop({type: Number})
+export default class Textarea extends Vue {
+    @Prop({ type: Number })
     minlength: number
 
-    @Prop({type: Number})
+    @Prop({ type: Number })
     maxlength: number
 
-    @Prop({type: String})
+    @Prop({ type: String })
     placeholder: string
 
     @Prop({ type: Boolean })
     error: boolean;
-  }
+}
 </script>
 
 <style src="./Textarea.scss" lang="scss"></style>

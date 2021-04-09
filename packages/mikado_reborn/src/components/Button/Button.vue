@@ -9,10 +9,17 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 export default class Button extends Vue {
   @Prop() private color!: string;
 
-  get classNames() : string[] {
-    const classes = [];
-    if (this.color) classes.push(`${this.color}-bg`);
-    return classes;
+  @Prop({ default: false })
+  disabled: boolean;
+
+  @Prop()
+  icon?: string;
+
+  @Prop({ validator: (size) => ['small', 'medium', 'large'].includes(size) })
+  size: string;
+
+  click(event: Event): void {
+    this.$emit('click', event);
   }
 }
 </script>
