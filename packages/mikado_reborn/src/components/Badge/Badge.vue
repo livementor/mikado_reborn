@@ -3,13 +3,13 @@
 </template>
 
 <script lang=ts>
-  import { Component, Vue, Prop } from 'vue-property-decorator';
+import { Component, Vue, Prop } from 'vue-property-decorator';
 
   @Component
-  export default class Badge extends Vue {
-    @Prop({default: 'warning', validator: (type) => {return ['danger', 'success'].includes(type)}})
+export default class Badge extends Vue {
+    @Prop({ default: 'warning', validator: (type) => ['danger', 'success'].includes(type) })
     type!: string
-  }
+}
 </script>
 
 <style src="./Badge.scss" lang=scss></style>

@@ -17,8 +17,9 @@ export default class Icon extends Vue {
     if (this.name) classes.push(`icon-${this.name}`);
     return classes;
   }
-  click(event) {
-    this.$emit('click', event)
+
+  click(event: Event): void {
+    this.$emit('click', event);
   }
 }
 </script>
