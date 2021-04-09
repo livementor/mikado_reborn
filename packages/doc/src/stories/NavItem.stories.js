@@ -43,5 +43,5 @@ const Template = (args) => ({
   `,
 });
 
-export const Nav = Template.bind({});
-Nav.args = {};
+export const NavItem = Template.bind({});
+NavItem.args = {};
