@@ -1,10 +1,12 @@
 import { MkrTexfield } from "../../../mikado_reborn/src/components";
+import icons from '../../../mikado_reborn/src/utils/icons';
 
 export default {
   title: 'Components/Textfield',
   component: MkrTexfield,
   argTypes: {
-    type: { control: { type: 'select', options: ['text', 'email', 'password'] } }
+    type: { control: { type: 'select', options: ['text', 'email', 'password'] } },
+    icon: { control: { type: 'select', options: icons } },
   },
 };
 
