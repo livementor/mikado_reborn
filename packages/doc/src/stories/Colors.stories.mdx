@@ -1,0 +1,12 @@
+import { Meta, ColorPalette, ColorItem } from '@storybook/addon-docs/blocks';
+import {colorMap} from '../../../mikado_reborn/src/utils/colors';
+
+<Meta title="Colors" />
+
+# Colors
+<ColorPalette>
+  {Object.entries(colorMap).map((color) => {
+    return (<ColorItem title={color[0]} subtitle={color[1][0]} colors={[color[1][1]]} />)
+  })
+  }
+</ColorPalette>
