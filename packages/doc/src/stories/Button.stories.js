@@ -1,4 +1,5 @@
 import { MkrButton } from '../../../mikado_reborn/src/components';
+import icons from '../../../mikado_reborn/src/utils/icons';
 
 export default {
   title: 'Components/Button',
@@ -6,6 +7,7 @@ export default {
   argTypes: {
     type: { control: { type: 'select', options: ['primary', 'secondary', 'outlined'] } },
     size: { control: { type: 'select', options: ['medium', 'small'] } },
+    icon: { control: { type: 'select', options: icons } },
   },
 };
 
