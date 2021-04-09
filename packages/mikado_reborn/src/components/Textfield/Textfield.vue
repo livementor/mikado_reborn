@@ -22,20 +22,21 @@ import { Component, Vue, Prop } from 'vue-property-decorator';
 
   @Component
 export default class TextField extends Vue {
-    @Prop()
+    @Prop({ type: String })
     iconName?: string;
 
-    @Prop({ type: String })
-    placeholder: string;
+    @Prop({ default: 'placeholder', type: String })
+    placeholder!: string;
 
     @Prop({ type: Boolean })
-    error: boolean;
+    error!: boolean;
 
     @Prop({
+      default: 'text',
       type: String,
       validator: (type) => ['text', 'email', 'password'].includes(type),
     })
-    type: string
+    type!: string
 
     focused = false
 

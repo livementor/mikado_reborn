@@ -14,13 +14,13 @@ export default class Button extends Vue {
   type!: string;
 
   @Prop({ default: false })
-  disabled: boolean;
+  disabled!: boolean;
 
   @Prop()
   icon?: string;
 
-  @Prop({ validator: (size) => ['small', 'medium', 'large'].includes(size) })
-  size: string;
+  @Prop({ default: 'medium', validator: (size) => ['small', 'medium', 'large'].includes(size) })
+  size!: string;
 
   click(event: Event): void {
     this.$emit('click', event);

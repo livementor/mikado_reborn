@@ -15,16 +15,16 @@ import { Component, Vue, Prop } from 'vue-property-decorator';
   @Component
 export default class Textarea extends Vue {
     @Prop({ type: Number })
-    minlength: number
+    minlength?: number
 
     @Prop({ type: Number })
-    maxlength: number
+    maxlength?: number
 
     @Prop({ type: String })
-    placeholder: string
+    placeholder!: string
 
     @Prop({ type: Boolean })
-    error: boolean;
+    error!: boolean;
 }
 </script>
 
