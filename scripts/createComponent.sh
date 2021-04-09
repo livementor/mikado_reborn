@@ -11,12 +11,12 @@ templateVue="<template>
 </template>
 
 <script lang="ts">
-  import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue } from 'vue-property-decorator';
 
-  @Component
-  export default class $1 extends Vue {
+@Component
+export default class $1 extends Vue {
 
-  }
+}
 </script>
 
 <style src=\"./$1.scss\" lang="scss"></style>"
