@@ -4,7 +4,7 @@ export default {
   title: 'Components/Button',
   component: MkrButton,
   argTypes: {
-    type: { control: { type: 'select', options: ['primary', 'secondary'] } },
+    type: { control: { type: 'select', options: ['primary', 'secondary', 'outlined'] } },
     size: { control: { type: 'select', options: ['medium', 'small'] } },
   },
 };
@@ -51,4 +51,23 @@ SmallPrimaryWithIcon.args = {
   type: 'primary',
   size: 'small',
   icon: 'chat',
+};
+
+export const Outlined = Template.bind({});
+Outlined.args = {
+  type: 'outlined',
+  size: 'medium',
+};
+
+export const SmallOutlined = Template.bind({});
+SmallOutlined.args = {
+  type: 'outlined',
+  size: 'small',
+};
+
+export const OutlinedWithIcon = Template.bind({});
+OutlinedWithIcon.args = {
+  type: 'outlined',
+  size: 'small',
+  icon: 'chat'
 };

@@ -10,9 +10,9 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 
 @Component
 export default class Button extends Vue {
-  @Prop() type!: string;
+  @Prop({ default: 'primary' }) type!: string;
 
-  @Prop() disabled: boolean;
+  @Prop({ default: false }) disabled: boolean;
 
   @Prop() icon?: string;
 
