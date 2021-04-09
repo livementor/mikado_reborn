@@ -1,0 +1,22 @@
+@import '../../assets/styles/styles.scss';
+
+.mkr__badge {
+  @include caption-small-font;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 2px 12px;
+  width: fit-content;
+  border-radius: 22px;
+
+  /* alert/danger */
+  &.danger {
+    background: map-get($colors, 'danger-light');
+    color: map-get($colors, 'danger');
+  }
+  &.success {
+    background: map-get($colors, 'success-light');
+    color: map-get($colors, 'success');
+  }
+}
