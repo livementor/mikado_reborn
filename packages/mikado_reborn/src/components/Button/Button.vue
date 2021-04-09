@@ -1,5 +1,8 @@
 <template>
-  <button :class="classNames"><slot /></button>
+  <button :disabled="disabled" :class="['mkr__button', type, size]" @click="click">
+    <mkr-icon v-if="icon" :name="icon" />
+    <slot />
+  </button>
 </template>
 
 <script lang="ts">
@@ -7,7 +10,8 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 
 @Component
 export default class Button extends Vue {
-  @Prop() private color!: string;
+  @Prop({ default: 'primary' })
+  type!: string;
 
   @Prop({ default: false })
   disabled: boolean;
