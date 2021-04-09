@@ -6,7 +6,7 @@ export default {
   component: MkrTexfield,
   argTypes: {
     type: { control: { type: 'select', options: ['text', 'email', 'password'] } },
-    icon: { control: { type: 'select', options: icons } },
+    iconName: { control: { type: 'select', options: icons } },
   },
 };
 
