@@ -1,0 +1,72 @@
+@import '../../assets/styles/styles.scss';
+
+.mkr__dropdown {
+  @include body-medium-font;
+  display: flex;
+  position: relative;
+
+  .mkr__dropdown__input {
+    $input: &;
+    @include mkr__input;
+    outline: 0;
+    color: map-get($colors, 'neutral');
+    font: inherit;
+
+    .mkr__icon {
+      margin-left: auto;
+      color: map-get($colors, 'neutral-60');
+    }
+
+    &:focus, &--focused {
+      border-color: map-get($colors, 'secondary');
+
+      .mkr__icon {
+        color: map-get($colors, 'secondary');
+      }
+    }
+
+    &__value {
+      min-height: 3rem;
+
+      &--placeholder {
+        color: map-get($colors, 'neutral-60');
+      }
+    }
+
+    &--error, &--error:focus, &--error#{$input}--focused {
+      border-color: map-get($colors, 'danger');
+
+      .mkr__icon {
+        color: map-get($colors, 'danger');
+      }
+    }
+  }
+
+  &__list {
+    width: 100%;
+
+    &--hidden {
+      display: none;
+    }
+
+    &__container {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      max-height: 30rem;
+      overflow: auto;
+
+      &:focus {
+        outline: none;
+      }
+
+      li {
+        padding: 1rem 2rem;
+
+        &:hover {
+          background-color: map-get($colors, 'neutral-light');
+        }
+      }
+    }
+  }
+}
