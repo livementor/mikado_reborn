@@ -97,11 +97,11 @@ export default class Dropdown extends Mixins(Uuid) {
 
   isTooltipVisible = false
 
-  popperInstance: PopperInstance
+  popperInstance: PopperInstance | null = null
 
   currentSearch = ''
 
-  clearCurrentSearchTimeout: ReturnType<typeof setTimeout> = null
+  clearCurrentSearchTimeout: ReturnType<typeof setTimeout> | null = null
 
   get componentId(): string {
     return `dropdown-${this.uuid}`;
@@ -127,7 +127,7 @@ export default class Dropdown extends Mixins(Uuid) {
     });
   }
 
-  get selectedItem(): Item {
+  get selectedItem(): Item | undefined {
     return this.itemList.find((item) => item.selected);
   }
 
@@ -168,19 +168,23 @@ export default class Dropdown extends Mixins(Uuid) {
     this.$emit('change', item.value);
     // Scroll selected item into view if needed
     const dropdownElement = (this.$refs['dropdown-list'] as HTMLElement).querySelector('ul');
-    const selectedElement = dropdownElement.querySelector(`#${item.id}`);
-    const dropdownElementPosition = dropdownElement.getBoundingClientRect();
-    const selectedElementPosition = selectedElement.getBoundingClientRect();
-    if (dropdownElementPosition.bottom - selectedElementPosition.bottom < 0) {
-      dropdownElement.scrollBy({
-        top: selectedElementPosition.bottom - dropdownElementPosition.bottom,
-        behavior: 'smooth',
-      });
-    } else if (dropdownElementPosition.top - selectedElementPosition.top > 0) {
-      dropdownElement.scrollBy({
-        top: selectedElementPosition.top - dropdownElementPosition.top,
-        behavior: 'smooth',
-      });
+    if (dropdownElement) {
+      const selectedElement = dropdownElement.querySelector(`#${item.id}`);
+      if (selectedElement) {
+        const dropdownElementPosition = dropdownElement.getBoundingClientRect();
+        const selectedElementPosition = selectedElement.getBoundingClientRect();
+        if (dropdownElementPosition.bottom - selectedElementPosition.bottom < 0) {
+          dropdownElement.scrollBy({
+            top: selectedElementPosition.bottom - dropdownElementPosition.bottom,
+            behavior: 'smooth',
+          });
+        } else if (dropdownElementPosition.top - selectedElementPosition.top > 0) {
+          dropdownElement.scrollBy({
+            top: selectedElementPosition.top - dropdownElementPosition.top,
+            behavior: 'smooth',
+          });
+        }
+      }
     }
   }
 
@@ -230,9 +234,12 @@ export default class Dropdown extends Mixins(Uuid) {
 
   showTooltip(): void {
     this.isTooltipVisible = true;
-    this.popperInstance.update();
+    if (this.popperInstance) this.popperInstance.update();
     this.$nextTick(() => {
-      (this.$refs['dropdown-list'] as HTMLElement).querySelector('ul').focus();
+      const dropdownElement = (this.$refs['dropdown-list'] as HTMLElement).querySelector('ul');
+      if (dropdownElement) {
+        dropdownElement.focus();
+      }
     });
   }
 
