@@ -11,6 +11,8 @@
         'mkr__dropdown__input--error': error,
       }"
       @click="handleButtonClick"
+      @mousedown="buttonClick = true"
+      @mouseup="buttonClick = false"
       @keydown="handleKeyDown"
     >
       <span
@@ -35,7 +37,7 @@
         tabindex="-1"
         role="listbox"
         :aria-activedescendant="selectedItem ? selectedItem.id : null"
-        @blur="hideTooltip"
+        @blur="handleListBlur"
         @keydown="handleListKeyDown"
       >
         <li
@@ -96,6 +98,9 @@ export default class Dropdown extends Mixins(Uuid) {
   error!: boolean;
 
   isTooltipVisible = false
+
+  // Flag button click on mousedown before blur event is trigger
+  buttonClick = false
 
   popperInstance: PopperInstance | null = null
 
@@ -226,6 +231,10 @@ export default class Dropdown extends Mixins(Uuid) {
         }
         break;
     }
+  }
+
+  handleListBlur(): void {
+    if (!this.buttonClick) this.hideTooltip();
   }
 
   hideTooltip(): void {
