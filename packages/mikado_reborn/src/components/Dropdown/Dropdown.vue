@@ -12,7 +12,6 @@
       }"
       @click="handleButtonClick"
       @mousedown="buttonClick = true"
-      @mouseup="buttonClick = false"
       @keydown="handleKeyDown"
     >
       <span
@@ -162,6 +161,7 @@ export default class Dropdown extends Mixins(Uuid) {
     } else {
       this.showTooltip();
     }
+    this.buttonClick = false;
   }
 
   handleItemListClick(item: Item): void {
@@ -234,6 +234,7 @@ export default class Dropdown extends Mixins(Uuid) {
   }
 
   handleListBlur(): void {
+    // If blur comes from a click on the button, let the button toggle
     if (!this.buttonClick) this.hideTooltip();
   }
 
