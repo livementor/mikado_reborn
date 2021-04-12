@@ -33,43 +33,56 @@
     cursor: not-allowed;
   };
 
+  &:hover:enabled {
+    outline: 1px solid #FFFFFF;
+    box-shadow: 0px 0px 8px -4px map-get($colors, 'neutral-20');
+  };
+
   &.small {
     padding: 8px 16px;
     font-size: 12px;
     line-height: 16px;
   }
 
+  &.danger--light {
+    background-color: map-get($colors, 'danger-light');
+    color: map-get($colors, 'danger');
+
+    .mkr__icon {
+      color: map-get($colors, 'danger');
+    }
+  }
+
   &.primary {
     background-color: map-get($colors, 'primary');
     color: map-get($colors, 'secondary-dark');
 
-    &:hover:enabled {
-      box-shadow: 0px 0px 8px -4px map-get($colors, 'neutral-20');
-      background: linear-gradient(0deg, #FFC233, #FFC233),#FFFFFF;
-    };
-
     .mkr__icon {
       color: map-get($colors, 'secondary-dark');
+    }
+
+    &--light {
+      background-color: map-get($colors, 'primary-light');
     }
   };
 
   &.secondary {
-    background-color: map-get($colors, 'secondary');
+    background-color: map-get($colors, 'secondary-dark');
     color: map-get($colors, 'white');
-
-    &:hover:enabled {
-      box-shadow: 0px 0px 8px -4px map-get($colors, 'neutral-20');
-      background: map-get($colors, 'secondary-dark');
-    };
 
     .mkr__icon {
       color: map-get($colors, 'white');
-    }
+    };
+
+    &--light {
+      color: map-get($colors, 'secondary-dark');
+      background-color: map-get($colors, 'secondary-light');
+    };
   };
 
   &.outlined {
     border: 1px solid map-get($colors, 'neutral-40');
-    background-color: map-get($colors, 'primary-light');
+    background-color: transparent;
     color: map-get($colors, 'neutral');
     box-sizing: border-box;
     border-radius: 4px;
@@ -79,8 +92,7 @@
     }
 
     &:hover:enabled {
-      box-shadow: 0px 0px 8px -4px map-get($colors, 'neutral-20');
-      background: map-get($colors, 'secondary-light');
+      background: map-get($colors, 'primary-light');
     };
 
     .mkr__icon {
