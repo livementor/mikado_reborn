@@ -22,9 +22,27 @@ Primary.args = {
   size: 'medium',
 };
 
+export const PrimaryLight = Template.bind({});
+PrimaryLight.args = {
+  type: 'primary--light',
+  size: 'medium',
+};
+
 export const Secondary = Template.bind({});
 Secondary.args = {
   type: 'secondary',
+  size: 'medium',
+};
+
+export const SecondaryLight = Template.bind({});
+SecondaryLight.args = {
+  type: 'secondary--light',
+  size: 'medium',
+};
+
+export const DangerLight = Template.bind({});
+DangerLight.args = {
+  type: 'danger--light',
   size: 'medium',
 };
 
