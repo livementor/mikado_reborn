@@ -10,7 +10,7 @@ export default {
 
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
-  template: '<mkr-card style="height: 100px;" v-bind="$props" />',
+  template: '<mkr-card style="height: 100px; display:flex;" v-bind="$props" ><mkr-button style="margin:auto;" v-bind="primary">Hello</mkr-button></mkr-card>',
 });
 
 export const Card = Template.bind({});
