@@ -44,9 +44,10 @@
           :id="item.id"
           :aria-selected="item.selected"
           role="option"
-          v-text="item.label"
           @click="handleItemListClick(item)"
-        />
+        >
+          <mkr-icon v-if="item.selected" name="check" />{{ item.label }}
+        </li>
       </ul>
     </mkr-card>
   </div>
