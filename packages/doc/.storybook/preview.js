@@ -17,4 +17,14 @@ export const parameters = {
       date: /Date$/,
     },
   },
+  options: {
+    storySort: {
+      order: ['Getting Started'],
+    },
+  },
 }
+
+export const decorators = [(story) => ({
+  components: { story },
+  template: '<mkr-app><story /></mkr-app>'
+})];
