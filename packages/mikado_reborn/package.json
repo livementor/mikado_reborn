@@ -27,8 +27,10 @@
     "vue": "^2.6.11"
   },
   "dependencies": {
+    "@popperjs/core": "^2.9.2",
     "core-js": "^3.6.5",
     "vue-class-component": "^7.2.3",
+    "vue-functional-data-merge": "^3.1.0",
     "vue-property-decorator": "^9.1.2"
   },
   "devDependencies": {

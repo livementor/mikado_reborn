@@ -1,0 +1,12 @@
+@import '../../assets/styles/styles.scss';
+
+.mkr__card {
+  background: map-get($colors, 'white');
+  border: 1px solid map-get($colors, 'neutral-20');
+  box-sizing: border-box;
+  border-radius: 4px;
+
+  &--elevated {
+    @include shadow;
+  }
+}
