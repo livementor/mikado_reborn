@@ -234,7 +234,8 @@ export default class Dropdown extends Mixins(Uuid) {
   }
 
   handleListBlur(): void {
-    // If blur comes from a click on the button, let the button toggle
+    /* If blur comes from a click on the button, let the handleButtonClick hide the tooltip
+    otherwise handleButtonClick will re-open the tooltip */
     if (!this.buttonClick) this.hideTooltip();
   }
 
