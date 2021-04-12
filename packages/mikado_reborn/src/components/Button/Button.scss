@@ -54,12 +54,11 @@
   };
 
   &.secondary {
-    background-color: map-get($colors, 'secondary');
+    background-color: map-get($colors, 'secondary-dark');
     color: map-get($colors, 'white');
 
     &:hover:enabled {
       box-shadow: 0px 0px 8px -4px map-get($colors, 'neutral-20');
-      background: map-get($colors, 'secondary-dark');
     };
 
     .mkr__icon {
@@ -69,7 +68,7 @@
 
   &.outlined {
     border: 1px solid map-get($colors, 'neutral-40');
-    background-color: map-get($colors, 'primary-light');
+    background-color: transparent;
     color: map-get($colors, 'neutral');
     box-sizing: border-box;
     border-radius: 4px;
@@ -80,7 +79,7 @@
 
     &:hover:enabled {
       box-shadow: 0px 0px 8px -4px map-get($colors, 'neutral-20');
-      background: map-get($colors, 'secondary-light');
+      background: map-get($colors, 'primary-light');
     };
 
     .mkr__icon {
