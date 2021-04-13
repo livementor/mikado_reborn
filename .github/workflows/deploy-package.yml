@@ -9,14 +9,14 @@ jobs:
       run:
         working-directory: ./packages/mikado_reborn
     steps:
-    - uses: actions/checkout@v2
-    - name: Build
-      run: |
-        yarn install
-        yarn build
-    - uses: actions/setup-node@v1
-      with:
-        registry-url: 'https://npm.pkg.github.com'
-    - run: yarn publish
-      env:
-        NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/checkout@v2
+      - name: Build
+        run: |
+          yarn install
+          yarn build
+      - uses: actions/setup-node@v1
+        with:
+          registry-url: "https://npm.pkg.github.com"
+      - run: yarn publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
