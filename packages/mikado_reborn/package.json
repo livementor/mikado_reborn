@@ -1,6 +1,6 @@
 {
   "name": "@livementor/mikado_reborn",
-  "version": "0.2.5",
+  "version": "0.2.7",
   "scripts": {
     "build": "vue-cli-service build --target lib --name mikado_reborn ./src/index.ts",
     "build:tokens": "style-dictionary build",
@@ -9,6 +9,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/livementor/mikado_reborn.git"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
   },
   "files": [
     "dist/*",
