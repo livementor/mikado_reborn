@@ -1,0 +1,41 @@
+@import '../../assets/styles/styles.scss';
+
+.mkr__chips {
+  @include body-medium-font;
+  $chips: &;
+
+  display: flex;
+  align-items: center;
+  border-radius: 0.5rem;
+  padding: 1.5rem 2rem;
+  border: 1px solid map-get($colors, 'neutral-40');
+  color: map-get($colors, 'neutral-80');
+  height: 6rem;
+  box-sizing: border-box;
+  user-select: none;
+  cursor: pointer;
+  outline: none;
+
+  &:hover:not(&--selected), &:focus:not(&--selected) {
+    border-color: map-get($colors, 'secondary');
+    color: map-get($colors, 'neutral-dark');
+  }
+
+  &--selected {
+    background-color: map-get($colors, 'success');
+    color: map-get($colors, 'white');
+    border-color: map-get($colors, 'success');
+
+    .mkr__icon {
+      padding-right: 1.5rem;
+    }
+  }
+
+  &--small {
+    height: 4rem;
+    padding: 0.5rem 1rem;
+    &#{$chips}--selected .mkr__icon{
+      padding-right: 0.5rem;
+    }
+  }
+}
