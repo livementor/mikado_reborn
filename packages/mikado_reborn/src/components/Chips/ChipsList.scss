@@ -9,4 +9,8 @@
   &:focus {
     outline: none;
   }
+
+  .mkr__chips:not(:first-child) {
+    margin-left: 2rem;
+  }
 }
