@@ -2,9 +2,11 @@
   <div :class="['mkr__textarea', {'error' : error}]">
     <textarea
       rows="1"
-      :maxlength="maxlength"
       :placeholder="placeholder"
-      :minlength="minLength"
+      :maxlength="maxlength"
+      :minlength="minlength"
+      :value="value"
+      @input="emitInput"
     />
   </div>
 </template>
@@ -14,6 +16,9 @@ import { Component, Vue, Prop } from 'vue-property-decorator';
 
   @Component
 export default class Textarea extends Vue {
+    @Prop({ type: String })
+    value?: string;
+
     @Prop({ type: Number })
     minlength?: number
 
@@ -25,6 +30,13 @@ export default class Textarea extends Vue {
 
     @Prop({ type: Boolean })
     error!: boolean;
+
+    emitInput(event: Event): void {
+      const input = event.target as HTMLInputElement | null;
+      if (input) {
+        this.$emit('input', input.value);
+      }
+    }
 }
 </script>
 
