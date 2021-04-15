@@ -6,6 +6,8 @@
       @focus="focused = true"
       @blur="focused = false"
       :placeholder="placeholder"
+      :value="value"
+      @input="emitInput"
     >
     <mkr-icon v-if="error" name="exclamation-circle" color="danger" />
     <mkr-icon
@@ -28,6 +30,9 @@ import { MkrIcon } from '../Icon';
   },
 })
 export default class TextField extends Vue {
+    @Prop({ type: String })
+    value?: string;
+
     @Prop({ type: String })
     iconName?: string;
 
@@ -64,6 +69,13 @@ export default class TextField extends Vue {
 
     showPasswordClick(): void {
       this.showPassword = !this.showPassword;
+    }
+
+    emitInput(event: Event): void {
+      const input = event.target as HTMLInputElement | null;
+      if (input) {
+        this.$emit('input', input.value);
+      }
     }
 }
 </script>
