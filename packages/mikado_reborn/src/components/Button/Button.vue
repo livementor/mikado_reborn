@@ -1,5 +1,5 @@
 <template>
-  <button :disabled="disabled" :class="['mkr__button', type, size]" @click="click">
+  <button :disabled="disabled" :class="['mkr__button', variant, size]" @click="click">
     <mkr-icon v-if="icon" :name="icon" />
     <slot />
   </button>
@@ -11,7 +11,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 @Component
 export default class Button extends Vue {
   @Prop({ default: 'primary' })
-  type!: string;
+  variant!: string;
 
   @Prop({ default: false })
   disabled!: boolean;
