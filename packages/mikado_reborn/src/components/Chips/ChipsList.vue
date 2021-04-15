@@ -56,7 +56,7 @@ export default class ChipsList extends Vue {
 
   updated(): void {
     this.chips.sort((leftChild, rightChild) => {
-      const x = Array(...this.$el.children);
+      const x = Array.from(this.$el.children);
       return x.indexOf(leftChild.$el) - x.indexOf(rightChild.$el);
     });
   }
