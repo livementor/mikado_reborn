@@ -20,7 +20,13 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 
-  @Component
+import { MkrIcon } from '../Icon';
+
+@Component({
+  components: {
+    MkrIcon,
+  },
+})
 export default class TextField extends Vue {
     @Prop({ type: String })
     iconName?: string;

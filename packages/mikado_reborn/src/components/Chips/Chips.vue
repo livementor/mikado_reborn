@@ -19,7 +19,13 @@ import {
 import { ChipsListProvide } from './ChipsList.vue';
 import Uuid from '../../mixins/uuid';
 
-@Component
+import { MkrIcon } from '../Icon';
+
+@Component({
+  components: {
+    MkrIcon,
+  },
+})
 export default class Chips extends Mixins(Uuid) {
   @InjectReactive('list') readonly list?: ChipsListProvide
 

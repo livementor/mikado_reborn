@@ -8,7 +8,13 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 
-@Component
+import { MkrIcon } from '../Icon';
+
+@Component({
+  components: {
+    MkrIcon,
+  },
+})
 export default class Button extends Vue {
   @Prop({ default: 'primary' })
   variant!: string;
