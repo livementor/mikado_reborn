@@ -5,7 +5,7 @@ export default {
   title: 'Components/Button',
   component: MkrButton,
   argTypes: {
-    type: { control: { type: 'select', options: ['primary', 'secondary', 'outlined'] } },
+    variant: { control: { type: 'select', options: ['primary', 'secondary', 'outlined'] } },
     size: { control: { type: 'select', options: ['medium', 'small'] } },
     icon: { control: { type: 'select', options: icons } },
   },
@@ -18,76 +18,76 @@ const Template = (args, { argTypes }) => ({
 
 export const Primary = Template.bind({});
 Primary.args = {
-  type: 'primary',
+  variant: 'primary',
   size: 'medium',
 };
 
 export const PrimaryLight = Template.bind({});
 PrimaryLight.args = {
-  type: 'primary--light',
+  variant: 'primary--light',
   size: 'medium',
 };
 
 export const Secondary = Template.bind({});
 Secondary.args = {
-  type: 'secondary',
+  variant: 'secondary',
   size: 'medium',
 };
 
 export const SecondaryLight = Template.bind({});
 SecondaryLight.args = {
-  type: 'secondary--light',
+  variant: 'secondary--light',
   size: 'medium',
 };
 
 export const DangerLight = Template.bind({});
 DangerLight.args = {
-  type: 'danger--light',
+  variant: 'danger--light',
   size: 'medium',
 };
 
 export const SmallPrimary = Template.bind({});
 SmallPrimary.args = {
-  type: 'primary',
+  variant: 'primary',
   size: 'small',
 };
 
 export const PrimaryWithIcon = Template.bind({});
 PrimaryWithIcon.args = {
-  type: 'primary',
+  variant: 'primary',
   size: 'medium',
   icon: 'chat',
 };
 
 export const SecondaryWithIcon = Template.bind({});
 SecondaryWithIcon.args = {
-  type: 'secondary',
+  variant: 'secondary',
   size: 'medium',
   icon: 'chat',
 };
 
 export const SmallPrimaryWithIcon = Template.bind({});
 SmallPrimaryWithIcon.args = {
-  type: 'primary',
+  variant: 'primary',
   size: 'small',
   icon: 'chat',
 };
 
 export const Outlined = Template.bind({});
 Outlined.args = {
-  type: 'outlined',
+  variant: 'outlined',
   size: 'medium',
 };
 
 export const SmallOutlined = Template.bind({});
 SmallOutlined.args = {
-  type: 'outlined',
+  variant: 'outlined',
   size: 'small',
 };
 
 export const OutlinedWithIcon = Template.bind({});
 OutlinedWithIcon.args = {
-  type: 'outlined',
+  variant: 'outlined',
   size: 'small',
   icon: 'chat'
 };
