@@ -27,7 +27,7 @@
     border-color: map-get($colors, 'success');
 
     .mkr__icon {
-      padding-right: 1.5rem;
+      margin-right: 1.5rem;
     }
   }
 
@@ -35,7 +35,7 @@
     height: 4rem;
     padding: 0.5rem 1rem;
     &#{$chips}--selected .mkr__icon{
-      padding-right: 0.5rem;
+      margin-right: 0.5rem;
     }
   }
 }
