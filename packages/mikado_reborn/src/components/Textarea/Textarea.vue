@@ -1,11 +1,11 @@
 <template>
   <div :class="['mkr__textarea', {'error' : error}]">
     <textarea
-      rows="1"
       :placeholder="placeholder"
       :maxlength="maxlength"
       :minlength="minlength"
       :value="value"
+      :rows="rows"
       @input="emitInput"
     />
   </div>
@@ -30,6 +30,9 @@ export default class Textarea extends Vue {
 
     @Prop({ type: Boolean })
     error!: boolean;
+
+    @Prop({ type: Number })
+    rows!: number;
 
     emitInput(event: Event): void {
       const input = event.target as HTMLInputElement | null;

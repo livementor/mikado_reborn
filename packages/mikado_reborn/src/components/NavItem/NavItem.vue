@@ -1,5 +1,5 @@
 <template>
-  <li :class="classes">
+  <li :class="classes" @click="emitClick">
     <slot />
   </li>
 </template>
