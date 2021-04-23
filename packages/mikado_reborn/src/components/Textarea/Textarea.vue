@@ -32,7 +32,7 @@ export default class Textarea extends Vue {
     error!: boolean;
 
     @Prop({ type: Number })
-    rows!: boolean;
+    rows!: number;
 
     emitInput(event: Event): void {
       const input = event.target as HTMLInputElement | null;
