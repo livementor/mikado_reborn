@@ -1,89 +1,135 @@
-/* AUTO-GENERATED: DO NOT EDIT */
+.icon-trash:before {
+  content: "\e91d";
+}
+
+.icon-document-download:before {
+  content: "\e91e";
+}
+
+.icon-pencil:before {
+  content: "\e91f";
+}
+
+.icon-cross:before {
+  content: "\e920";
+}
+
+.icon-cross-circle:before {
+  content: "\e921";
+}
 
 .icon-arrow-full-bottom:before {
   content: "\e900";
 }
+
 .icon-arrow-full-top:before {
   content: "\e901";
 }
+
 .icon-book-open:before {
   content: "\e902";
 }
+
 .icon-briefcase:before {
   content: "\e903";
 }
+
 .icon-calendar:before {
   content: "\e904";
 }
+
 .icon-camera:before {
   content: "\e905";
 }
+
 .icon-chat:before {
   content: "\e906";
 }
+
 .icon-check-empty:before {
   content: "\e907";
 }
+
 .icon-check:before {
   content: "\e908";
 }
+
 .icon-cog:before {
   content: "\e909";
 }
+
 .icon-credit-card:before {
   content: "\e90a";
 }
+
 .icon-document-text:before {
   content: "\e90b";
 }
+
 .icon-exclamation-circle:before {
   content: "\e90c";
 }
+
 .icon-eye-off:before {
   content: "\e90d";
 }
+
 .icon-eye:before {
   content: "\e90e";
 }
+
 .icon-flag:before {
   content: "\e90f";
 }
+
 .icon-grid:before {
   content: "\e910";
 }
+
 .icon-mail:before {
   content: "\e911";
 }
+
 .icon-paper-airplane:before {
   content: "\e912";
 }
+
 .icon-pin-map:before {
   content: "\e913";
 }
+
 .icon-question-mark-circle:before {
   content: "\e914";
 }
+
 .icon-search:before {
   content: "\e915";
 }
+
 .icon-social-facebook:before {
   content: "\e916";
 }
+
 .icon-social-instagram:before {
   content: "\e917";
 }
+
 .icon-social-twitter:before {
   content: "\e918";
 }
+
 .icon-sun:before {
   content: "\e919";
 }
+
 .icon-tribe:before {
   content: "\e91a";
 }
+
 .icon-user-group:before {
   content: "\e91b";
 }
+
 .icon-user:before {
   content: "\e91c";
 }
