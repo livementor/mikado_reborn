@@ -1,0 +1,42 @@
+@import '../../assets/styles/styles.scss';
+
+.mkr__snackbar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 12px 16px;
+  justify-content: space-between;
+  position: static;
+  width: 240px;
+  height: 48px;
+  left: 16px;
+  top: 16px;
+  box-shadow: 0px 4px 16px -4px rgba(40, 56, 72, 0.2);
+  border-radius: 4px;
+  /* body/medium */
+
+  font-family: Rubik;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 24px;
+  /* Inside Auto Layout */
+
+  flex: none;
+  order: 0;
+  flex-grow: 1;
+  margin: 0px 10px;
+  color: #FFFFFF;
+
+  &.--error {
+    background-color: map-get($colors, 'danger');
+  };
+
+  &.--success {
+    background-color: map-get($colors, 'success');
+  };
+
+  &.--neutral {
+    background-color: map-get($colors, 'neutral');
+  };
+}
