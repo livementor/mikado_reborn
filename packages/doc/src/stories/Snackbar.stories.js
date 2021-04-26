@@ -35,5 +35,5 @@ export const NeutralSnackbarWithClose = Template.bind({});
 NeutralSnackbarWithClose.args = {
   neutral: true,
   message: 'Neutral Message',
-  close: true,
+  hasClose: true,
 };

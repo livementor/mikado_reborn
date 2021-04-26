@@ -1,5 +1,5 @@
 <template>
-  <div :class="['mkr__snackbar', {'--error': error, '--neutral': neutral, '--success' : success}]">
+  <div :class="['mkr__snackbar', {'--error': error, '--neutral': neutral, '--success' : success, 'hasClose': hasClose}]"  @click="click">
     <span>{{ message }}</span>
     <mkr-icon v-if="hasClose" name="cross" />
   </div>
@@ -16,13 +16,21 @@ export default class Snackbar extends Vue {
 
   @Prop({type: Boolean})
   error?: boolean
+
   @Prop({type: Boolean})
   success?: boolean
+
   @Prop({type: Boolean})
   neutral?: boolean
 
   @Prop({type: Boolean, default: false})
   hasClose?: boolean
+
+  click(event: Event): void {
+    if (this.hasClose) {
+      this.$emit('click', event);
+    }
+  }
 }
 </script>
 
