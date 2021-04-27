@@ -2,11 +2,11 @@
   <div
       :class="[
         'mkr__snackbar',
-        show ? 'show' : 'hidden',
+        show ? 'mkr__snackbar--show' : 'mkr__snackbar--hidden',
         {
-          '--error': error,
-          '--neutral': neutral,
-          '--success' : success,
+          'mkr__snackbar--error': error,
+          'mkr__snackbar--neutral': neutral,
+          'mkr__snackbar--success' : success,
           'hasClose': hasClose,
         }]"
         @click="click">

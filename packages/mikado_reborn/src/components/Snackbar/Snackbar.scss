@@ -22,7 +22,7 @@
   margin: 0px 10px;
   color: #FFFFFF;
 
-  &.--error {
+  &--error {
     background-color: map-get($colors, 'danger');
   };
 
@@ -30,24 +30,18 @@
     cursor: pointer;
   }
 
-  &.--success {
+  &--success {
     background-color: map-get($colors, 'success');
   };
 
-  &.--neutral {
+  &--neutral {
     background-color: map-get($colors, 'neutral');
   };
 
-  &.visible {
-    transition-delay: 0s;
-    visibility: visible;
-    opacity: 1;
-  }
-
-  &.hidden {
+  &--hidden {
     animation: disappear 0.5s normal forwards ease-in-out;
   }
-  &.show {
+  &--show {
     animation: appear 1s normal forwards ease-in-out;
   }
 
