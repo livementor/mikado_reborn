@@ -20,6 +20,7 @@
   flex-grow: 1;
   margin: 0px 10px;
   color: #FFFFFF;
+  z-index: 200;
 
   &--error {
     background-color: map-get($colors, 'danger');
@@ -38,6 +39,7 @@
   };
 
   &--hidden {
+
     animation: disappear 0.5s normal forwards ease-in-out;
   }
 
@@ -52,6 +54,10 @@
 
   @keyframes disappear {
     0% { opacity: 1; }
-    100% { opacity: 0; }
+    100% {
+      opacity: 0;
+      visibility: hidden;
+      display: none;
+    }
   }
 }
