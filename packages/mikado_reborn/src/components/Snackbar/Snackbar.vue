@@ -17,7 +17,7 @@
 
 <script lang=ts>
 import {
-  Component, Prop, Vue, Watch,
+  Component, Prop, Vue,
 } from 'vue-property-decorator';
 
 @Component
@@ -49,7 +49,7 @@ export default class Snackbar extends Vue {
     }
   }
 
-  mounted() {
+  mounted(): void {
     if (this.timeout > 0) {
       setTimeout(() => {
         this.show = false;
