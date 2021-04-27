@@ -1,6 +1,9 @@
 @import '../../assets/styles/styles.scss';
 
 .mkr__snackbar {
+  @include shadow-medium;
+  @include body-medium-font;
+
   display: flex;
   cursor: default;
   flex-direction: row;
@@ -11,10 +14,7 @@
   max-width: 240px;
   left: 16px;
   top: 16px;
-  box-shadow: 0px 4px 16px -4px rgba(40, 56, 72, 0.2);
   border-radius: 4px;
-  /* body/medium */
-  @include body-medium-font;
   flex: none;
   order: 0;
   flex-grow: 1;

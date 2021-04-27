@@ -3,9 +3,6 @@ import { MkrSnackbar } from "../../../mikado_reborn/src/components";
 export default {
   title: 'Components/Snackbar',
   component: MkrSnackbar,
-  argTypes: {
-
-  },
 };
 
 const Template = (args, { argTypes }) => ({
