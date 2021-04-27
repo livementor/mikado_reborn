@@ -2,13 +2,13 @@
   <div
       :class="[
         'mkr__snackbar',
+        show ? 'visible' : 'hidden',
         {
           '--error': error,
           '--neutral': neutral,
           '--success' : success,
           'hasClose': hasClose,
-        },
-        show ? 'visible' : 'hidden']"
+        }]"
         @click="click">
     <span>{{ message }}</span>
     <mkr-icon v-if="hasClose" name="cross" />
