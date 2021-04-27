@@ -19,8 +19,13 @@
 import {
   Component, Prop, Vue,
 } from 'vue-property-decorator';
+import { MkrIcon } from '../Icon';
 
-@Component
+@Component({
+  components: {
+    MkrIcon,
+  },
+})
 export default class Snackbar extends Vue {
   @Prop({ type: String, required: true })
   message!: string
