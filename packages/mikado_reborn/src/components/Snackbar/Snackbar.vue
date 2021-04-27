@@ -7,11 +7,11 @@
           'mkr__snackbar--error': error,
           'mkr__snackbar--neutral': neutral,
           'mkr__snackbar--success' : success,
-          'hasClose': hasClose,
+          'mkr__snackbar--closable': closable,
         }]"
         @click="click">
     <span>{{ message }}</span>
-    <mkr-icon v-if="hasClose" name="cross" />
+    <mkr-icon v-if="closable" name="cross" />
   </div>
 </template>
 
@@ -35,25 +35,30 @@ export default class Snackbar extends Vue {
   neutral?: boolean
 
   @Prop({ type: Boolean, default: false })
-  hasClose?: boolean
-
-  show = true
+  closable?: boolean
 
   @Prop({ type: Number, default: 5000 })
   timeout!: number
 
+  show = true
+
   click(event: Event): void {
-    if (this.hasClose) {
-      this.show = false;
-      this.$emit('close', event);
+    if (this.closable) {
+      this.close(event);
     }
+  }
+
+  close(event?: Event): void {
+    this.show = false;
+    this.$emit('close', event);
   }
 
   mounted(): void {
     if (this.timeout > 0) {
       setTimeout(() => {
-        this.show = false;
-        this.$emit('close', {});
+        if (this.show) {
+          this.close();
+        }
       }, this.timeout);
     }
   }
