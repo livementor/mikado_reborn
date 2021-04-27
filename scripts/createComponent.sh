@@ -10,7 +10,7 @@ templateVue="<template>
   </div>
 </template>
 
-<script lang="ts">
+<script lang=\"ts\">
 import { Component, Vue } from 'vue-property-decorator';
 
 @Component
@@ -19,7 +19,7 @@ export default class $1 extends Vue {
 }
 </script>
 
-<style src=\"./$1.scss\" lang="scss"></style>"
+<style src=\"./$1.scss\" lang=\"scss\"></style>"
 
 templateComponentIndex="import Mkr$1 from './$1.vue';
 
