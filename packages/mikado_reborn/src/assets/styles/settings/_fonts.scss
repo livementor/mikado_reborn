@@ -96,3 +96,33 @@
   line-height: ($heading-large-line-height / $baseFontSize) * 1rem;
   text-transform: $heading-large-text-case;
 }
+
+@mixin button-small-font{
+  font-size:($button-small-font-size: / $baseFontSize) * 1rem;
+  text-decoration:$button-small-text-decoration;
+  font-family:$button-small-font-family;
+  font-weight:$button-small-font-weight;
+  font-style:$button-small-font-style;
+  font-stretch:$button-small-font-stretch;
+  font-style:$button-small-font-style-old: Medium;
+  letter-spacing:($button-small-letter-spacing / 100) * 1em;
+  line-height:($button-small-line-height / $baseFontSize) * 1rem;
+  paragraph-indent:$button-small-paragraph-indent;
+  paragraph-spacing:$button-small-paragraph-spacing;
+  text-case:$button-small-text-case;
+}
+
+@mixin button-medium-font {
+  font-size: ($button-medium-font-size: / $baseFontSize) * 1rem;
+  text-decoration: $button-medium-text-decoration;
+  font-family: $button-medium-font-family;
+  font-weight: $button-medium-font-weight;
+  font-style: $button-medium-font-style;
+  font-stretch: $button-medium-font-stretch;
+  font-style: $button-medium-font-style-old: Medium;
+  letter-spacing: ($button-medium-letter-spacing / 100) * 1em;
+  line-height: ($button-medium-line-height / $baseFontSize) * 1rem;
+  paragraph-indent: $button-medium-paragraph-indent;
+  paragraph-spacing: $button-medium-paragraph-spacing;
+  text-case: $button-medium-text-case;
+}

@@ -7,6 +7,6 @@
   border-radius: 4px;
 
   &--elevated {
-    @include shadow;
+    @include shadow-medium;
   }
 }

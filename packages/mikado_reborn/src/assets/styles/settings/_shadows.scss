@@ -1,11 +1,21 @@
 @import "./tokens";
 
-@mixin shadow {
+@mixin shadow-medium {
   box-shadow:
-    #{$shadow-type-1-offset-x}px
-    #{$shadow-type-1-offset-y}px
-    #{$shadow-type-1-radius}px
-    #{$shadow-type-1-spread}px
-    $shadow-type-1-color
+    #{$shadow-medium-offset-x}px
+    #{$shadow-medium-offset-y}px
+    #{$shadow-medium-radius}px
+    #{$shadow-medium-spread}px
+    $shadow-medium-color
+  ;
+}
+
+@mixin shadow-small {
+  box-shadow:
+    #{$shadow-small-offset-x}px
+    #{$shadow-small-offset-y}px
+    #{$shadow-small-radius}px
+    #{$shadow-small-spread}px
+    $shadow-small-color
   ;
 }
