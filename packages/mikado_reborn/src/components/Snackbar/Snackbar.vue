@@ -1,8 +1,8 @@
 <template>
   <div
+      v-if="show"
       :class="[
         'mkr__snackbar',
-        show ? 'visible' : 'hidden',
         {
           '--error': error,
           '--neutral': neutral,
@@ -46,7 +46,7 @@ export default class Snackbar extends Vue {
   click(event: Event): void {
     if (this.hasClose) {
       this.show = false;
-      this.$emit('click', event);
+      this.$emit('close', event);
     }
   }
 
@@ -55,6 +55,7 @@ export default class Snackbar extends Vue {
     if (val && this.timeout > 0) {
       setTimeout(() => {
         this.show = false;
+        this.$emit('close', {});
       }, this.timeout);
     }
   }
