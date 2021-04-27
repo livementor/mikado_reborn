@@ -1,9 +1,8 @@
 <template>
   <div
-
       :class="[
         'mkr__snackbar',
-        show ? 'visible' : 'hidden',
+        show ? 'show' : 'hidden',
         {
           '--error': error,
           '--neutral': neutral,
