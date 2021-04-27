@@ -10,16 +10,12 @@
   align-items: center;
   padding: 12px 16px;
   justify-content: space-between;
-  position: static;
   max-width: 240px;
   left: 16px;
   top: 16px;
   border-radius: 4px;
-  flex: none;
-  order: 0;
-  flex-grow: 1;
   margin: 0px 10px;
-  color: #FFFFFF;
+  color: map-get($colors, 'white');
   z-index: 200;
 
   &--error {

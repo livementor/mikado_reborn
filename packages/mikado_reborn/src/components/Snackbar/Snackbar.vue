@@ -15,7 +15,7 @@
   </div>
 </template>
 
-<script lang=ts>
+<script lang="ts">
 import {
   Component, Prop, Vue,
 } from 'vue-property-decorator';
@@ -35,7 +35,7 @@ export default class Snackbar extends Vue {
   neutral?: boolean
 
   @Prop({ type: Boolean, default: false })
-  closable?: boolean
+  closable!: boolean
 
   @Prop({ type: Number, default: 5000 })
   timeout!: number
@@ -65,4 +65,4 @@ export default class Snackbar extends Vue {
 }
 </script>
 
-<style src="./Snackbar.scss" lang=scss></style>
+<style src="./Snackbar.scss" lang="scss"></style>
