@@ -44,4 +44,15 @@
   &.--neutral {
     background-color: map-get($colors, 'neutral');
   };
+
+  &.visible {
+    transition-delay: 0s;
+    visibility: visible;
+    opacity: 1;
+  }
+  &.hidden {
+    opacity: 0;
+    visibility: hidden;
+  }
+   transition: visibility 1s linear 0.7s, opacity 0.7s ease-in-out;
 }
