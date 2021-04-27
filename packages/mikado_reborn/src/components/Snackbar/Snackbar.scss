@@ -15,14 +15,7 @@
   box-shadow: 0px 4px 16px -4px rgba(40, 56, 72, 0.2);
   border-radius: 4px;
   /* body/medium */
-
-  font-family: Rubik;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 24px;
-  /* Inside Auto Layout */
-
+  @include body-medium-font;
   flex: none;
   order: 0;
   flex-grow: 1;
@@ -55,5 +48,5 @@
     opacity: 0;
     visibility: hidden;
   }
-   transition: visibility 1s linear 0.7s, opacity 0.7s ease-in-out;
+  transition: visibility 1s linear 0.7s, opacity 0.7s ease-in-out;
 }
