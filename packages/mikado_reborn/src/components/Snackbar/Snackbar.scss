@@ -9,7 +9,6 @@
   justify-content: space-between;
   position: static;
   max-width: 240px;
-
   left: 16px;
   top: 16px;
   box-shadow: 0px 4px 16px -4px rgba(40, 56, 72, 0.2);
@@ -41,6 +40,7 @@
   &--hidden {
     animation: disappear 0.5s normal forwards ease-in-out;
   }
+
   &--show {
     animation: appear 1s normal forwards ease-in-out;
   }
@@ -49,9 +49,9 @@
     0% { opacity: 0; }
     100% { opacity: 1; }
   }
+
   @keyframes disappear {
     0% { opacity: 1; }
-
     100% { opacity: 0; }
-    }
+  }
 }
