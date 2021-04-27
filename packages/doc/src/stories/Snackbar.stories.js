@@ -18,7 +18,6 @@ ErrorSnackbar.args = {
   error: true,
   message: 'Error Message',
   timeout: 0,
-  show: true,
 };
 
 export const SuccessSnackbar = Template.bind({});
@@ -26,7 +25,6 @@ SuccessSnackbar.args = {
   success: true,
   message: 'Success Message',
   timeout: 0,
-  show: true,
 };
 
 export const NeutralSnackbar = Template.bind({});
@@ -34,7 +32,6 @@ NeutralSnackbar.args = {
   neutral: true,
   message: 'Neutral Message',
   timeout: 0,
-  show: true,
 };
 
 export const NeutralSnackbarWithClose = Template.bind({});
@@ -43,5 +40,4 @@ NeutralSnackbarWithClose.args = {
   message: 'Neutral Message',
   hasClose: true,
   timeout: 0,
-  show: true,
 };

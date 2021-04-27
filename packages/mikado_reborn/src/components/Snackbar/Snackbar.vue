@@ -1,8 +1,9 @@
 <template>
   <div
-      v-if="show"
+
       :class="[
         'mkr__snackbar',
+        show ? 'visible' : 'hidden',
         {
           '--error': error,
           '--neutral': neutral,
@@ -37,8 +38,7 @@ export default class Snackbar extends Vue {
   @Prop({ type: Boolean, default: false })
   hasClose?: boolean
 
-  @Prop({ type: Boolean, default: false })
-  show!: boolean
+  show = true
 
   @Prop({ type: Number, default: 5000 })
   timeout!: number
@@ -50,9 +50,8 @@ export default class Snackbar extends Vue {
     }
   }
 
-  @Watch('show')
-  onChange(val: boolean): void {
-    if (val && this.timeout > 0) {
+  mounted() {
+    if (this.timeout > 0) {
       setTimeout(() => {
         this.show = false;
         this.$emit('close', {});
