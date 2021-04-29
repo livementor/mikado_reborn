@@ -10,7 +10,7 @@
         'mkr__dropdown__input--focused': isTooltipVisible,
         'mkr__dropdown__input--error': error,
       }"
-      @click="handleButtonClick"
+      @click.prevent="handleButtonClick"
       @mousedown="buttonClick = true"
       @keydown="handleKeyDown"
     >
