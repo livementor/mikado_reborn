@@ -1,6 +1,8 @@
 @import '../../assets/styles/styles.scss';
 
 .mkr__app {
+  font-size: 2rem;
+
   /* COLORS */
 
   @each $name, $color in $colors {
@@ -34,5 +36,9 @@
       }
     }
   }
+}
+
+html {
+  font-size: 50%;
 }
 
