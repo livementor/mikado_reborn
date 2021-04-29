@@ -45,7 +45,7 @@ export default class TextField extends Vue {
     @Prop({
       default: 'text',
       type: String,
-      validator: (type) => ['text', 'email', 'password'].includes(type),
+      validator: (type) => ['text', 'email', 'password', 'date'].includes(type),
     })
     type!: string
 
