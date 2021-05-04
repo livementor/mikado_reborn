@@ -2,6 +2,7 @@
 
 .mkr__textarea {
   @include mkr__input;
+  padding: 1.5rem 2rem;
 
   textarea {
     text-decoration: none;

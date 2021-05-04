@@ -2,14 +2,17 @@
 
 @mixin mkr__input {
     background: map-get($colors, 'white');
-    border: 1px solid map-get($colors, 'neutral-60');
+    border: 1px solid map-get($colors, 'neutral-40');
     box-sizing: border-box;
     border-radius: 0.5rem;
     display: flex;
     flex: 1;
     flex-direction: row;
     align-items: center;
-    padding: 1.5rem 2rem;
+
+    ::placeholder {
+      color: map-get($colors, 'neutral-60');
+    }
 
     &:focus, &:focus-within {
       border: 1px solid map-get($colors, 'secondary');

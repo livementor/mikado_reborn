@@ -1,6 +1,6 @@
 <template>
   <div :class="['mkr__textfield', {'error' : error}]">
-    <mkr-icon v-if="iconName" class="icon" :color="iconColor" :name="iconName"/>
+    <mkr-icon v-if="iconName" :color="iconColor" :name="iconName"/>
     <input
       :type="getType"
       @focus="focused = true"

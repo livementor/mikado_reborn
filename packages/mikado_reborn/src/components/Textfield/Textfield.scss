@@ -2,16 +2,19 @@
 
 .mkr__textfield  {
   @include mkr__input;
+  padding: 1.5rem 2rem;
 
-  .mkr__icon.icon {
+  .mkr__icon {
     margin-right: 1rem;
   }
 
   input {
+    line-height: 24px;
     text-decoration: none;
     background-color: transparent;
     border-width: 0px;
     outline: 0;
     width: 100%;
-  };
+    color: map-get($colors, 'neutral');
+   };
 }
