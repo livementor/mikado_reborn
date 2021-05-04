@@ -1,6 +1,6 @@
 <template>
   <div :class="['mkr__textfield', {'error' : error}]">
-    <mkr-icon v-if="iconName" class="icon" :color="iconColor" :name="iconName"/>
+    <mkr-icon v-if="iconName" :color="iconColor" :name="iconName"/>
     <input
       :type="getType"
       @focus="focused = true"
@@ -9,7 +9,7 @@
       :value="value"
       @input="emitInput"
     >
-    <mkr-icon v-if="error" class="icon" name="exclamation-circle" color="danger" />
+    <mkr-icon v-if="error" name="exclamation-circle" color="danger" />
     <mkr-icon
       v-if="type === 'password' || showPassword"
       :name="showPassword ? 'eye-off' : 'eye'"
