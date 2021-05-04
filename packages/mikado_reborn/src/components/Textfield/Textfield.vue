@@ -9,7 +9,7 @@
       :value="value"
       @input="emitInput"
     >
-    <mkr-icon v-if="error" name="exclamation-circle" color="danger" />
+    <mkr-icon v-if="error" class="icon" name="exclamation-circle" color="danger" />
     <mkr-icon
       v-if="type === 'password' || showPassword"
       :name="showPassword ? 'eye-off' : 'eye'"

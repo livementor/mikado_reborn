@@ -8,6 +8,7 @@
   .mkr__dropdown__input {
     $input: &;
     @include mkr__input;
+    padding: 1.5rem 2rem;
     outline: 0;
     color: map-get($colors, 'neutral');
     font: inherit;
