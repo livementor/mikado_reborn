@@ -109,7 +109,7 @@
   line-height:($button-small-line-height / $baseFontSize) * 1rem;
   paragraph-indent:$button-small-paragraph-indent;
   paragraph-spacing:$button-small-paragraph-spacing;
-  text-case:$button-small-text-case;
+  text-transform:$button-small-text-case;
 }
 
 @mixin button-medium-font {
@@ -124,5 +124,5 @@
   line-height: ($button-medium-line-height / $baseFontSize) * 1rem;
   paragraph-indent: $button-medium-paragraph-indent;
   paragraph-spacing: $button-medium-paragraph-spacing;
-  text-case: $button-medium-text-case;
+  text-transform: $button-medium-text-case;
 }
