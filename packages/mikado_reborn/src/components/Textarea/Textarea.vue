@@ -27,7 +27,7 @@ export default class Textarea extends Vue {
     maxlength?: number
 
     @Prop({ type: String })
-    placeholder!: string
+    placeholder?: string
 
     @Prop({ type: Boolean })
     error!: boolean;

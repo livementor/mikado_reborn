@@ -37,8 +37,8 @@ export default class TextField extends Vue {
     @Prop({ type: String })
     iconName?: string;
 
-    @Prop({ default: undefined, type: String })
-    placeholder!: string;
+    @Prop({ type: String })
+    placeholder?: string;
 
     @Prop({ type: Boolean })
     error!: boolean;
@@ -79,7 +79,7 @@ export default class TextField extends Vue {
       }
     }
 
-    emitChange(event:Event): void {
+    emitChange(event: Event): void {
       const input = event.target as HTMLInputElement | null;
       if (input) {
         this.$emit('change', input.value);
