@@ -1,19 +1,23 @@
 <template>
-  <div class="mkr__avatar">
-    <img v-bind="$props" />
+  <div class="mkr__avatar" :style="avatarStyle">
+    <img v-bind="$attrs" />
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 
-@Component
+@Component({
+  inheritAttrs: false,
+})
 export default class Avatar extends Vue {
-  @Prop() private src!: string;
+  @Prop({ default: 5, type: Number }) readonly size!: number;
 
-  @Prop() private alt!: string;
+  get avatarStyle(): Partial<CSSStyleDeclaration> {
+    const width = `${this.size}rem`;
 
-  @Prop() private loading!: 'lazy' | 'eager';
+    return { height: width, width };
+  }
 }
 </script>
 <style src="./Avatar.scss" lang="scss"></style>

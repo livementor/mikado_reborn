@@ -7,6 +7,7 @@
       :value="value"
       :rows="rows"
       @input="emitInput"
+      @change="emitChange"
     />
   </div>
 </template>
@@ -26,7 +27,7 @@ export default class Textarea extends Vue {
     maxlength?: number
 
     @Prop({ type: String })
-    placeholder!: string
+    placeholder?: string
 
     @Prop({ type: Boolean })
     error!: boolean;
@@ -38,6 +39,13 @@ export default class Textarea extends Vue {
       const input = event.target as HTMLInputElement | null;
       if (input) {
         this.$emit('input', input.value);
+      }
+    }
+
+    emitChange(event: Event): void {
+      const input = event.target as HTMLInputElement | null;
+      if (input) {
+        this.$emit('change', input.value);
       }
     }
 }
