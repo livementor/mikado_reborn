@@ -10,7 +10,8 @@
         'mkr__dropdown__input--focused': isTooltipVisible,
         'mkr__dropdown__input--error': error,
       }"
-      @click.prevent="handleButtonClick"
+      type="button"
+      @click="handleButtonClick"
       @mousedown="buttonClick = true"
       @keydown="handleKeyDown"
     >
@@ -45,7 +46,7 @@
           :id="item.id"
           :aria-selected="item.selected"
           role="option"
-          @click="handleItemListClick(item)"
+          @click.prevent="handleItemListClick(item)"
         >
           <mkr-icon v-if="item.selected" name="check" />{{ item.label }}
         </li>
@@ -243,15 +244,14 @@ export default class Dropdown extends Mixins(Uuid) {
     this.isTooltipVisible = false;
   }
 
-  showTooltip(): void {
+  async showTooltip(): Promise<void> {
     this.isTooltipVisible = true;
-    if (this.popperInstance) this.popperInstance.update();
-    this.$nextTick(() => {
-      const dropdownElement = (this.$refs['dropdown-list'] as HTMLElement).querySelector('ul');
-      if (dropdownElement) {
-        dropdownElement.focus();
-      }
-    });
+    if (this.popperInstance) await this.popperInstance.update();
+    await this.$nextTick();
+    const dropdownElement = (this.$refs['dropdown-list'] as HTMLElement).querySelector('ul');
+    if (dropdownElement) {
+      dropdownElement.focus();
+    }
   }
 
   searchItem(key: KeyboardEvent['key']): void {
