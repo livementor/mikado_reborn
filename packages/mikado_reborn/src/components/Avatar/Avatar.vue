@@ -11,7 +11,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
   inheritAttrs: false,
 })
 export default class Avatar extends Vue {
-  @Prop({ default: 5, type: Number }) private size!: number;
+  @Prop({ default: 5, type: Number }) readonly size!: number;
 
   get avatarStyle(): Partial<CSSStyleDeclaration> {
     const width = `${this.size}rem`;
