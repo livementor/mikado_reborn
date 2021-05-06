@@ -1,5 +1,5 @@
 <template>
-  <div class="mkr__avatar">
+  <div class="mkr__avatar" :style="avatarStyle">
     <img v-bind="$props" />
   </div>
 </template>
@@ -13,7 +13,16 @@ export default class Avatar extends Vue {
 
   @Prop() private alt!: string;
 
+  @Prop() private size!: string;
+
   @Prop() private loading!: 'lazy' | 'eager';
+
+  get avatarStyle(): { width: string, height: string } {
+    return {
+      height: `${this.size || 5}rem`,
+      width: `${this.size || 5}rem`,
+    };
+  }
 }
 </script>
 <style src="./Avatar.scss" lang="scss"></style>

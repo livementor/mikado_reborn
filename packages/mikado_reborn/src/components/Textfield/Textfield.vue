@@ -8,6 +8,7 @@
       :placeholder="placeholder"
       :value="value"
       @input="emitInput"
+      @change="emitChange"
     >
     <mkr-icon v-if="error" name="exclamation-circle" color="danger" />
     <mkr-icon
@@ -36,7 +37,7 @@ export default class TextField extends Vue {
     @Prop({ type: String })
     iconName?: string;
 
-    @Prop({ default: 'placeholder', type: String })
+    @Prop({ default: undefined, type: String })
     placeholder!: string;
 
     @Prop({ type: Boolean })
@@ -75,6 +76,13 @@ export default class TextField extends Vue {
       const input = event.target as HTMLInputElement | null;
       if (input) {
         this.$emit('input', input.value);
+      }
+    }
+
+    emitChange(event:Event): void {
+      const input = event.target as HTMLInputElement | null;
+      if (input) {
+        this.$emit('change', input.value);
       }
     }
 }
