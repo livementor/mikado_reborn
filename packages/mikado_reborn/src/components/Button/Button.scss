@@ -87,7 +87,27 @@
     };
 
     .mkr__icon {
-      color: map-get($colors, 'neural');
+      color: map-get($colors, 'neutral');
+    }
+  }
+
+  &.ghost {
+    border: 1px solid transparent;
+    background-color: transparent;
+    color: map-get($colors, 'neutral');
+    box-sizing: border-box;
+    border-radius: 4px;
+
+    &:disabled {
+      background: transparent;
+    }
+
+    &:hover:enabled {
+      background: map-get($colors, 'white');
+    };
+
+    .mkr__icon {
+      color: map-get($colors, 'neutral');
     }
   }
 }
