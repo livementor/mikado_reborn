@@ -40,6 +40,10 @@
     animation: appear 1s normal forwards ease-in-out;
   }
 
+  mkr__icon {
+    margin-left: 2rem;
+  }
+
   @keyframes appear {
     0% { opacity: 0; }
     100% { opacity: 1; }
