@@ -2,6 +2,7 @@
 
 .mkr__app {
   font-size: 2rem;
+  @include body-medium-font;
 
   /* COLORS */
 
@@ -14,26 +15,6 @@
   @each $name, $color in $colors {
     .#{$name}-bg {
       background-color: $color;
-    }
-  }
-
-  /* SPACINGS */
-
-  @each $spacing_value_key, $spacing_value in $spacings {
-    @each $spacing_type_key, $spacing_type in $spacing_types {
-      /* padding:auto doesn't exist so be sure to remove it */
-      @if ($spacing_type_key != 'p' or $spacing_value_key != 'auto') {
-        .#{$spacing_type_key}-#{$spacing_value_key} {
-          #{$spacing_type}: $spacing_value;
-        }
-        @each $spacing_direction_key, $spacing_direction in $spacing_directions {
-          .#{$spacing_type_key}#{$spacing_direction_key}-#{$spacing_value_key} {
-            @each $direction in $spacing_direction {
-              #{$spacing_type}-#{$direction}: $spacing_value;
-            }
-          }
-        }
-      }
     }
   }
 }
