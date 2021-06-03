@@ -1,6 +1,6 @@
 
 // Do not edit directly
-// Generated on Tue, 27 Apr 2021 09:26:51 GMT
+// Generated on Thu, 03 Jun 2021 12:43:49 GMT
 
 $primary-primary: rgba(255, 215, 122, 1);
 $primary-primary-l: rgba(255, 247, 228, 1);
@@ -13,6 +13,8 @@ $accent-accent: rgba(243, 189, 163, 1);
 $accent-accent-l: rgba(252, 239, 227, 1);
 $neutral-white: rgba(255, 255, 255, 1);
 $neutral-white-60: rgba(255, 255, 255, 0.6);
+$neutral-white-40: rgba(255, 255, 255, 0.4);
+$neutral-white-20: rgba(255, 255, 255, 0.2);
 $neutral-neutral: rgba(33, 46, 59, 1);
 $neutral-neutral-l: rgba(239, 241, 241, 1);
 $neutral-neutral-d: rgba(13, 22, 28, 1);
@@ -26,6 +28,8 @@ $alert-danger: rgba(191, 43, 13, 1);
 $alert-danger-l: rgba(248, 236, 236, 1);
 $alert-warning: rgba(148, 99, 0, 1);
 $alert-warning-l: rgba(254, 246, 230, 1);
+$alert-info: rgba(0, 41, 163, 1);
+$alert-info-l: rgba(229, 242, 255, 1);
 $layout-mobile-0-pattern: grid;
 $layout-mobile-0-section-size: 8;
 $layout-mobile-1-pattern: columns;
@@ -84,6 +88,18 @@ $body-medium-line-height: 24;
 $body-medium-paragraph-indent: 0;
 $body-medium-paragraph-spacing: 0;
 $body-medium-text-case: none;
+$body-medium-bold-font-size: 16;
+$body-medium-bold-text-decoration: none;
+$body-medium-bold-font-family: Rubik;
+$body-medium-bold-font-weight: 700;
+$body-medium-bold-font-style: normal;
+$body-medium-bold-font-stretch: normal;
+$body-medium-bold-font-style-old: Bold;
+$body-medium-bold-letter-spacing: 4;
+$body-medium-bold-line-height: 24;
+$body-medium-bold-paragraph-indent: 0;
+$body-medium-bold-paragraph-spacing: 0;
+$body-medium-bold-text-case: none;
 $body-large-font-size: 20;
 $body-large-text-decoration: none;
 $body-large-font-family: Rubik;

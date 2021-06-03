@@ -10,6 +10,9 @@ $colors: (
   'accent': $accent-accent,
   'accent-light': $accent-accent-l,
   'white': $neutral-white,
+  'white-60': $neutral-white-60,
+  'white-40': $neutral-white-40,
+  'white-20': $neutral-white-20,
   'neutral': $neutral-neutral,
   'neutral-light': $neutral-neutral-l,
   'neutral-dark': $neutral-neutral-d,
@@ -23,4 +26,6 @@ $colors: (
   'danger-light': $alert-danger-l,
   'warning': $alert-warning,
   'warning-light': $alert-warning-l,
+  'info': $alert-info,
+  'info-light': $alert-info-l,
 );
