@@ -1,3 +1,35 @@
+.icon-lock-closed:before {
+  content: "\e936";
+}
+
+.icon-lock-open:before {
+  content: "\e937";
+}
+
+.icon-editor-bold:before {
+  content: "\e938";
+}
+
+.icon-editor-image:before {
+  content: "\e939";
+}
+
+.icon-editor-italic:before {
+  content: "\e93a";
+}
+
+.icon-editor-list:before {
+  content: "\e93b";
+}
+
+.icon-editor-order-list:before {
+  content: "\e93c";
+}
+
+.icon-editor-underline:before {
+  content: "\e93d";
+}
+
 .icon-archive:before {
   content: "\e924";
 }
