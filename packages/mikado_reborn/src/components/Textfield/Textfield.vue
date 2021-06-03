@@ -12,7 +12,7 @@
     >
     <mkr-icon v-if="error" name="exclamation-circle" color="danger" />
     <mkr-icon
-      v-if="type === 'password' || showPassword"
+      v-if="type === 'password'"
       :name="showPassword ? 'eye-off' : 'eye'"
       :color="iconColor"
       @click="showPasswordClick"

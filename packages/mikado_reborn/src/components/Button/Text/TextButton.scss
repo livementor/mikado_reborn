@@ -1,0 +1,35 @@
+@import '../../../assets/styles/styles.scss';
+
+$themes: (
+  'neutral': (
+    'hover-background': map-get($colors, 'neutral-light'),
+    'hover-color': map-get($colors, 'neutral'),
+    'activated-background': map-get($colors, 'secondary-dark'),
+    'activated-color': map-get($colors, 'white'),
+  ),
+  'primary': (
+    'hover-background': map-get($colors, 'primary-light'),
+    'hover-color': map-get($colors, 'neutral'),
+    'activated-background': map-get($colors, 'primary'),
+    'activated-color': map-get($colors, 'neutral'),
+  ),
+);
+
+.mkr__button--text {
+  color: map-get($colors, 'neutral');
+  box-sizing: border-box;
+  border-radius: 4px;
+
+  @each $themeName, $themeValues in $themes {
+    &--#{$themeName} {
+      &:hover:enabled:not(&--activated) {
+        background-color: map-get($themeValues, 'hover-background');
+        color: map-get($themeValues, 'hover-color');
+      };
+      &--activated {
+        background-color: map-get($themeValues, 'activated-background');
+        color: map-get($themeValues, 'activated-color');
+      }
+    }
+  }
+}
