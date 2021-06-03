@@ -1,3 +1,87 @@
+.icon-archive:before {
+  content: "\e924";
+}
+
+.icon-arrow-narrow-left:before {
+  content: "\e925";
+}
+
+.icon-arrow-narrow-right:before {
+  content: "\e926";
+}
+
+.icon-arrows-expand:before {
+  content: "\e927";
+}
+
+.icon-arrows-reduce:before {
+  content: "\e928";
+}
+
+.icon-chevron-left:before {
+  content: "\e929";
+}
+
+.icon-chevron-right:before {
+  content: "\e92a";
+}
+
+.icon-documents:before {
+  content: "\e92b";
+}
+
+.icon-information-circle:before {
+  content: "\e92c";
+}
+
+.icon-link:before {
+  content: "\e92d";
+}
+
+.icon-microphone:before {
+  content: "\e92e";
+}
+
+.icon-paper-clip:before {
+  content: "\e92f";
+}
+
+.icon-pause:before {
+  content: "\e930";
+}
+
+.icon-play-backwards:before {
+  content: "\e931";
+}
+
+.icon-play-circle:before {
+  content: "\e932";
+}
+
+.icon-play-forwards:before {
+  content: "\e933";
+}
+
+.icon-play:before {
+  content: "\e934";
+}
+
+.icon-plus:before {
+  content: "\e935";
+}
+
+.icon-inbox:before {
+  content: "\e912";
+}
+
+.icon-paper-airplane:before {
+  content: "\e922";
+}
+
+.icon-speakerphone:before {
+  content: "\e923";
+}
+
 .icon-trash:before {
   content: "\e91d";
 }
@@ -88,10 +172,6 @@
 
 .icon-mail:before {
   content: "\e911";
-}
-
-.icon-paper-airplane:before {
-  content: "\e912";
 }
 
 .icon-pin-map:before {
