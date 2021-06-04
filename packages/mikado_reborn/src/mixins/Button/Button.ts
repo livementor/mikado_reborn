@@ -57,7 +57,7 @@ export default class Button extends Vue {
         props: { name: this.icon },
         staticClass: `${this.class}__icon--${this.iconSide}`,
       });
-      content[this.iconSide === 'left' ? 'unshift' : 'push'](icon);
+      content = this.iconSide === 'left' ? [icon, ...content] : [...content, icon]
     }
 
     return createElement('button', {
