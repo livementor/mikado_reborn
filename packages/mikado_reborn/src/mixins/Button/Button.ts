@@ -46,7 +46,7 @@ export default class Button extends Vue {
 
   render(createElement: CreateElement): VNode {
     const staticClasses = [this.class];
-    const content: VNodeChildren = [this.$slots.default];
+    let content: VNodeChildren = [this.$slots.default];
 
     staticClasses.push(`${this.class}--${this.size}`);
 
@@ -57,7 +57,7 @@ export default class Button extends Vue {
         props: { name: this.icon },
         staticClass: `${this.class}__icon--${this.iconSide}`,
       });
-      content = this.iconSide === 'left' ? [icon, ...content] : [...content, icon]
+      content = this.iconSide === 'left' ? [icon, ...content] : [...content, icon];
     }
 
     return createElement('button', {
