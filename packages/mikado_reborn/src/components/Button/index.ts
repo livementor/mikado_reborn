@@ -1,4 +1,5 @@
-import MkrButton from './Button.vue';
+import MkrContainedButton from './Contained/ContainedButton';
+import MkrOutlinedButton from './Outlined/OutlinedButton';
+import MkrTextButton from './Text/TextButton';
 
-export { MkrButton };
-export default MkrButton;
+export { MkrContainedButton, MkrOutlinedButton, MkrTextButton };

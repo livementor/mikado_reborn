@@ -1,0 +1,21 @@
+@import '../../../assets/styles/styles.scss';
+
+.mkr__button {
+  $button: &;
+  &--outlined {
+    border: 1px solid map-get($colors, 'neutral-40');
+    color: map-get($colors, 'neutral');
+    box-sizing: border-box;
+    border-radius: 4px;
+
+    &#{$button}--small {
+      padding: calc(1.5rem - 1px) calc(2rem - 1px);
+    }
+    padding: calc(2rem - 1px) calc(3rem - 1px);
+
+    &:hover:enabled {
+      background: map-get($colors, 'primary-light');
+      border-color: map-get($colors, 'primary');
+    };
+  }
+}
