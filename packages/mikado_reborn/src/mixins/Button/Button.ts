@@ -66,6 +66,9 @@ export default class Button extends Vue {
       attrs: {
         disabled: this.disabled,
       },
+      on: {
+        click: this.click,
+      },
     }, content);
   }
 }
