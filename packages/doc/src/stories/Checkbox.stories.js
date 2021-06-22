@@ -8,7 +8,7 @@ export default {
   }
 };
 
-const Template = (args) => ({
+const CheckboxTemplate = (args) => ({
   props: Object.keys(args),
   data: () => ({
     checked: true,
@@ -18,12 +18,37 @@ const Template = (args) => ({
   `,
 });
 
-export const Checkbox = Template.bind({});
+const CheckboxListTemplate = (args) => ({
+  props: Object.keys(args),
+  data: () => ({
+    values: []
+  }),
+  template: `
+    <div>
+      <div style="display: flex;">
+        <mkr-checkbox value="checkbox0" v-model="values" />
+        <mkr-checkbox value="checkbox1" v-model="values" style="margin-left: 10px" />
+        <mkr-checkbox value="checkbox2" v-model="values" style="margin-left: 10px;" />
+      </div>
+      
+      <div style="margin-top: 15px;">
+        {{values}}
+      </div>
+    </div>
+  `,
+})
+
+export const Checkbox = CheckboxTemplate.bind({});
 Checkbox.args = {
   size: 'medium'
 };
 
-export const CheckboxSmall = Template.bind({});
+export const CheckboxSmall = CheckboxTemplate.bind({});
 CheckboxSmall.args = {
   size: 'small'
+};
+
+export const CheckboxList = CheckboxListTemplate.bind({});
+Checkbox.args = {
+  size: 'medium'
 };

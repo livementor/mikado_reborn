@@ -2,13 +2,12 @@
   <div
     class="mkr__checkbox"
     role="checkbox"
-    :class="[{ 'mkr__checkbox--checked' : checked }, `mkr__checkbox--${size}`]"
+    :class="[{ 'mkr__checkbox--checked' : isChecked }, `mkr__checkbox--${size}`]"
     tabindex="0"
-    :aria-checked="checked"
-    @click="onToggle"
-    @keyup.space="onToggle"
+    :aria-checked="isChecked"
   >
-    <mkr-icon name="check" v-if="checked" />
+    <input type="checkbox" :checked="isChecked" :value="value" @change="onChange">
+    <mkr-icon v-if="isChecked" name="check" />
   </div>
 
 </template>
@@ -23,13 +22,35 @@ import { MkrIcon } from '../Icon';
   },
 })
 export default class Checkbox extends Vue {
-  @Model('change', { type: Boolean }) readonly checked!: boolean
+  @Model('change', { type: [Boolean, Array] }) readonly modelValue!: boolean | string[] | number[]
 
   @Prop({ default: 'medium', validator: (size) => ['small', 'medium'].includes(size) })
   size!: string;
 
-  onToggle(): void {
-    this.$emit('change', !this.checked);
+  @Prop({ type: [String, Number] })
+  value?: string | number;
+
+  get isChecked() {
+    if (Array.isArray(this.modelValue)) {
+      return this.modelValue.includes(this.value);
+    }
+    return this.modelValue === true;
+  }
+
+  onChange(event): void {
+    const isChecked = event.target.checked;
+
+    if (!Array.isArray(this.modelValue)) {
+      return this.$emit('change', isChecked);
+    }
+
+    const newValue = [...this.modelValue];
+    if (isChecked) {
+      newValue.push(this.value);
+    } else {
+      newValue.splice(newValue.indexOf(this.value), 1);
+    }
+    return this.$emit('change', newValue);
   }
 }
 </script>
