@@ -2,19 +2,19 @@
   <div
     class="mkr__checkbox"
     role="checkbox"
-    :class="[{ 'checked' : value }, size]"
+    :class="[{ 'mkr__checkbox--checked' : checked }, `mkr__checkbox--${size}`]"
     tabindex="0"
-    :aria-checked="value"
+    :aria-checked="checked"
     @click="onToggle"
     @keyup.space="onToggle"
   >
-    <mkr-icon name="check" v-if="value" />
+    <mkr-icon name="check" v-if="checked" />
   </div>
 
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import { Component, Model, Prop, Vue } from 'vue-property-decorator';
 import { MkrIcon } from '../Icon';
 
 @Component({
@@ -23,14 +23,13 @@ import { MkrIcon } from '../Icon';
   },
 })
 export default class Checkbox extends Vue {
-  @Prop({ required: true, type: Boolean })
-  value!: boolean
+  @Model('change', { type: Boolean }) readonly checked!: boolean
 
   @Prop({ default: 'medium', validator: (size) => ['small', 'medium'].includes(size) })
   size!: string;
 
   onToggle(): void {
-    this.$emit('input', !this.value);
+    this.$emit('change', !this.checked);
   }
 }
 </script>

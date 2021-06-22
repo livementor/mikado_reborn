@@ -1,34 +1,28 @@
 @import '../../assets/styles/styles.scss';
 
 .mkr__checkbox {
-
   background-color: map-get($colors, 'white');
   border: 1px solid map-get($colors, 'neutral-20');
-  border-radius: 1rem;
+  border-radius: 4px;
+  box-sizing: border-box;
 
-  &.medium {
+  &--medium {
     width: 3rem;
     height: 3rem;
     border-radius: 6px;
   }
 
-  &:focus {
+  &:focus, &:hover {
     outline: none;
-    box-shadow: 0 0 0 0.5rem transparentize(map-get($colors, 'secondary'), 0.8);
-    border-color: map-get($colors, 'secondary')
+    box-shadow: 0 0 0 0.5rem map-get($colors, 'secondary-20');
+    border-color: map-get($colors, 'secondary');
   }
 
 
-  &.small {
+  &--small {
     width: 2rem;
     height: 2rem;
     border-radius: 0.5rem;
-
-
-    &:focus {
-      box-shadow: 0 0 0 0.5rem transparentize(map-get($colors, 'secondary'), 0.8);
-      border-color: map-get($colors, 'secondary')
-    }
 
     .mkr__icon {
       font-size: 1.5rem;
@@ -36,9 +30,10 @@
   }
 
 
-  &.checked {
+  &--checked {
     background-color: map-get($colors, 'secondary');
-    color: map-get($colors, 'white')
+    color: map-get($colors, 'white');
+    border: none;
   }
 
   .mkr__icon {
