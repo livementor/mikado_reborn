@@ -1,20 +1,22 @@
 <template>
   <div
     class="mkr__checkbox"
-    role="checkbox"
     :class="[{ 'mkr__checkbox--checked' : isChecked }, `mkr__checkbox--${size}`]"
-    tabindex="0"
-    :aria-checked="isChecked"
-    @keyup.space="onChange"
   >
-    <input type="checkbox" :checked="isChecked" :value="value" @change="onChange" tabindex="-1">
+    <input
+      type="checkbox"
+      :value="value"
+      v-model="internalValue"
+    >
     <mkr-icon v-if="isChecked" name="check" />
   </div>
 
 </template>
 
 <script lang="ts">
-import { Component, Model, Prop, Vue } from 'vue-property-decorator';
+import {
+  Component, Model, Prop, Vue,
+} from 'vue-property-decorator';
 import { MkrIcon } from '../Icon';
 
 @Component({
@@ -23,7 +25,7 @@ import { MkrIcon } from '../Icon';
   },
 })
 export default class Checkbox extends Vue {
-  @Model('change', { type: [Boolean, Array] }) readonly modelValue!: boolean | string[] | number[]
+  @Model('change', { type: [Boolean, Array] }) readonly modelValue!: boolean | (string|number)[]
 
   @Prop({ default: 'medium', validator: (size) => ['small', 'medium'].includes(size) })
   size!: string;
@@ -31,27 +33,19 @@ export default class Checkbox extends Vue {
   @Prop({ type: [String, Number] })
   value?: string | number;
 
-  get isChecked() {
-    if (Array.isArray(this.modelValue)) {
+  get internalValue(): boolean | (string|number)[] {
+    return this.modelValue;
+  }
+
+  set internalValue(value: boolean | (string|number)[]) {
+    this.$emit('change', value);
+  }
+
+  get isChecked(): boolean {
+    if (Array.isArray(this.modelValue) && this.value) {
       return this.modelValue.includes(this.value);
     }
     return this.modelValue === true;
-  }
-
-  onChange(event): void {
-    const isChecked = !this.isChecked;
-
-    if (!Array.isArray(this.modelValue)) {
-      return this.$emit('change', isChecked);
-    }
-
-    const newValue = [...this.modelValue];
-    if (isChecked) {
-      newValue.push(this.value);
-    } else {
-      newValue.splice(newValue.indexOf(this.value), 1);
-    }
-    return this.$emit('change', newValue);
   }
 }
 </script>

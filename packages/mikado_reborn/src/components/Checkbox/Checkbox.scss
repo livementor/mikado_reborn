@@ -20,15 +20,13 @@
   &--medium {
     width: 3rem;
     height: 3rem;
-    border-radius: 6px;
   }
 
-  &:focus, &:hover {
+  &:focus-within, &:hover {
     outline: none;
     box-shadow: 0 0 0 0.5rem map-get($colors, 'secondary-20');
     border-color: map-get($colors, 'secondary');
   }
-
 
   &--small {
     width: 2rem;
@@ -39,7 +37,6 @@
       font-size: 1.5rem;
     }
   }
-
 
   &--checked {
     background-color: map-get($colors, 'secondary');
