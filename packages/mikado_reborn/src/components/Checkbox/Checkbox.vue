@@ -5,8 +5,9 @@
     :class="[{ 'mkr__checkbox--checked' : isChecked }, `mkr__checkbox--${size}`]"
     tabindex="0"
     :aria-checked="isChecked"
+    @keyup.space="onChange"
   >
-    <input type="checkbox" :checked="isChecked" :value="value" @change="onChange">
+    <input type="checkbox" :checked="isChecked" :value="value" @change="onChange" tabindex="-1">
     <mkr-icon v-if="isChecked" name="check" />
   </div>
 
@@ -38,7 +39,7 @@ export default class Checkbox extends Vue {
   }
 
   onChange(event): void {
-    const isChecked = event.target.checked;
+    const isChecked = !this.isChecked;
 
     if (!Array.isArray(this.modelValue)) {
       return this.$emit('change', isChecked);
