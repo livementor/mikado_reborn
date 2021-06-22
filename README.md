@@ -44,6 +44,6 @@ This should update `packages/mikado_reborn/src/assets/styles/settings/_tokens.sc
 
 Once this file is updated, all is done if there is no addition.
 
-If you have any colors added or font, you must go under the related partial sass files under the `packages/mikado_reborn/src/assets/styles/settings` directory (update `_fonts.scss`, `_variables.scss`, ...).
+If you have any colors or font added, you must modify the related partial sass files under the `packages/mikado_reborn/src/assets/styles/settings` directory (update `_fonts.scss`, `_variables.scss`, ...).
 
-If you added a font, you can create a class for that font if you wish to make accessible in the file: `packages/mikado_reborn/src/assets/styles/fonts.scss`
+If you added a font, you can create a class for that font if you want to make it accessible: `packages/mikado_reborn/src/assets/styles/fonts.scss`
