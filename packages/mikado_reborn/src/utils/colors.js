@@ -5,6 +5,7 @@ const colors = [
   'secondary',
   'secondary-light',
   'secondary-dark',
+  'secondary-30',
   'accent',
   'accent-light',
   'white',
