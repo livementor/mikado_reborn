@@ -31,7 +31,7 @@ export const colorMap = {
   'primary-dark': ['primary-primary-d', 'rgba(136, 71, 7, 1)'],
   secondary: ['primary-secondary', 'rgba(7, 146, 121, 1)'],
   'secondary-light': ['primary-secondary-l', 'rgba(231, 254, 250, 1)'],
-  'secondary-dark': ['primary-secondary-d', 'rgba(3, 64, 53, 1)'],
+  'secondary-dark': ['primary-secondary-d', 'rgba(4, 78, 64, 1)'],
   accent: ['accent-accent', 'rgba(243, 189, 163, 1)'],
   'accent-light': ['accent-accent-l', 'rgba(252, 239, 227, 1)'],
   white: ['neutral-white', 'rgba(255, 255, 255, 1)'],
