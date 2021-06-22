@@ -61,6 +61,18 @@
   text-transform: $body-large-text-case;
 }
 
+@mixin body-xlarge-font {
+  font-size: ($body-xlarge-font-size / $baseFontSize) * 1rem;
+  text-decoration: $body-xlarge-text-decoration;
+  font-family: $body-xlarge-font-family;
+  font-weight: $body-xlarge-font-weight;
+  font-style: $body-xlarge-font-style;
+  font-stretch: $body-xlarge-font-stretch;
+  letter-spacing: ($body-xlarge-letter-spacing / 100) * 1em;
+  line-height: ($body-xlarge-line-height / $baseFontSize) * 1rem;
+  text-transform: $body-xlarge-text-case;
+}
+
 @mixin heading-small-font {
   font-size: ($heading-small-font-size / $baseFontSize) * 1rem;
   text-decoration: $heading-small-text-decoration;
@@ -97,19 +109,17 @@
   text-transform: $heading-large-text-case;
 }
 
-@mixin button-small-font{
-  font-size:($button-small-font-size / $baseFontSize) * 1rem;
-  text-decoration:$button-small-text-decoration;
-  font-family:$button-small-font-family;
-  font-weight:$button-small-font-weight;
-  font-style:$button-small-font-style;
-  font-stretch:$button-small-font-stretch;
-  font-style:$button-small-font-style-old;
-  letter-spacing:($button-small-letter-spacing / 100) * 1em;
-  line-height:($button-small-line-height / $baseFontSize) * 1rem;
-  paragraph-indent:$button-small-paragraph-indent;
-  paragraph-spacing:$button-small-paragraph-spacing;
-  text-transform:$button-small-text-case;
+@mixin button-small-font {
+  font-size: ($button-small-font-size / $baseFontSize) * 1rem;
+  text-decoration: $button-small-text-decoration;
+  font-family: $button-small-font-family;
+  font-weight: $button-small-font-weight;
+  font-style: $button-small-font-style;
+  font-stretch: $button-small-font-stretch;
+  font-style: $button-small-font-style-old;
+  letter-spacing: ($button-small-letter-spacing / 100) * 1em;
+  line-height: ($button-small-line-height / $baseFontSize) * 1rem;
+  text-transform: $button-small-text-case;
 }
 
 @mixin button-medium-font {
@@ -122,7 +132,5 @@
   font-style: $button-medium-font-style-old;
   letter-spacing: ($button-medium-letter-spacing / 100) * 1em;
   line-height: ($button-medium-line-height / $baseFontSize) * 1rem;
-  paragraph-indent: $button-medium-paragraph-indent;
-  paragraph-spacing: $button-medium-paragraph-spacing;
   text-transform: $button-medium-text-case;
 }
