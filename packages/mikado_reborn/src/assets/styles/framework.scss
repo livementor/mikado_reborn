@@ -15,8 +15,16 @@
   @include body-medium-font
 }
 
+.body-medium-bold-font {
+  @include body-medium-bold-font
+}
+
 .body-large-font {
   @include body-large-font
+}
+
+.body-xlarge-font {
+  @include body-xlarge-font
 }
 
 .heading-small-font {
