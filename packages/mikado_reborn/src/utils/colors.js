@@ -21,6 +21,8 @@ const colors = [
   'danger-light',
   'warning',
   'warning-light',
+  'info',
+  'info-light',
 ];
 
 export const colorMap = {
@@ -46,6 +48,8 @@ export const colorMap = {
   'danger-light': ['alert-danger-l', 'rgba(245, 225, 225, 1)'],
   warning: ['alert-warning', 'rgba(148, 99, 0, 1)'],
   'warning-light': ['alert-warning-l', 'rgba(254, 241, 215, 1)'],
+  info: ['info', 'rgba(0, 41, 163, 1)'],
+  'info-light': ['info-light', 'rgba(229, 242, 255, 1)'],
 };
 
 export default colors;
