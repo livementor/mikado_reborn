@@ -11,3 +11,4 @@ export * from './Textfield';
 export * from './Textarea';
 export * from './Chips';
 export * from './Snackbar';
+export * from './Checkbox';
