@@ -1,3 +1,23 @@
+.icon-copy-id:before {
+  content: "\e93e";
+}
+
+.icon-dashboard:before {
+  content: "\e93f";
+}
+
+.icon-directory:before {
+  content: "\e940";
+}
+
+.icon-list:before {
+  content: "\e941";
+}
+
+.icon-lm-logo:before {
+  content: "\e942";
+}
+
 .icon-lock-closed:before {
   content: "\e936";
 }

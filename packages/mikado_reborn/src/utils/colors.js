@@ -21,6 +21,8 @@ const colors = [
   'danger-light',
   'warning',
   'warning-light',
+  'info',
+  'info-light',
 ];
 
 export const colorMap = {
@@ -29,7 +31,7 @@ export const colorMap = {
   'primary-dark': ['primary-primary-d', 'rgba(136, 71, 7, 1)'],
   secondary: ['primary-secondary', 'rgba(7, 146, 121, 1)'],
   'secondary-light': ['primary-secondary-l', 'rgba(231, 254, 250, 1)'],
-  'secondary-dark': ['primary-secondary-d', 'rgba(3, 64, 53, 1)'],
+  'secondary-dark': ['primary-secondary-d', 'rgba(4, 78, 64, 1)'],
   accent: ['accent-accent', 'rgba(243, 189, 163, 1)'],
   'accent-light': ['accent-accent-l', 'rgba(252, 239, 227, 1)'],
   white: ['neutral-white', 'rgba(255, 255, 255, 1)'],
@@ -46,6 +48,8 @@ export const colorMap = {
   'danger-light': ['alert-danger-l', 'rgba(245, 225, 225, 1)'],
   warning: ['alert-warning', 'rgba(148, 99, 0, 1)'],
   'warning-light': ['alert-warning-l', 'rgba(254, 241, 215, 1)'],
+  info: ['info', 'rgba(0, 41, 163, 1)'],
+  'info-light': ['info-light', 'rgba(229, 242, 255, 1)'],
 };
 
 export default colors;
