@@ -20,4 +20,3 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./packages/doc/storybook-static
           publish_branch: doc
-          force_orphan: true
