@@ -1,0 +1,58 @@
+@import '../../assets/styles/styles.scss';
+
+.mkr__checkbox {
+  background-color: map-get($colors, 'white');
+  border: 1px solid map-get($colors, 'neutral-20');
+  border-radius: 4px;
+  box-sizing: border-box;
+  position: relative;
+
+  > input {
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  &--medium {
+    width: 3rem;
+    height: 3rem;
+  }
+
+  &:focus-within, &:hover {
+    outline: none;
+    box-shadow: 0 0 0 0.5rem map-get($colors, 'secondary-20');
+    border-color: map-get($colors, 'secondary');
+  }
+
+  &--small {
+    width: 2rem;
+    height: 2rem;
+
+    .mkr__icon {
+      font-size: 1.5rem;
+    }
+  }
+
+  &--checked {
+    background-color: map-get($colors, 'secondary');
+    color: map-get($colors, 'white');
+    border: none;
+  }
+
+  .mkr__icon {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    place-items: center;
+    margin: auto;
+    text-align: center;
+
+    &::before {
+      width: 100%;
+    }
+  }
+}
