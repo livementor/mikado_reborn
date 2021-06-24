@@ -1,0 +1,39 @@
+@import '../../assets/styles/styles.scss';
+
+.mkr__slider {
+  --track-color:#{map-get($colors, 'secondary')};
+  --progress-color:#{map-get($colors, 'neutral-20')};
+  background: linear-gradient(to right, var('--track-color') 0%, var('--track-color') 0%, var('--progress-color') 0%, var('--progress-color') 100%);
+  border-radius: 4px;
+  height: 4px;
+  width: 100%;
+  outline: none;
+  transition: background 450ms ease-in;
+  -webkit-appearance: none;
+
+  &::-webkit-slider-thumb {
+    background: map-get($colors, 'secondary');
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #fff;
+    border-radius: 100%;
+    cursor: pointer;
+  }
+
+  &::-moz-range-thumb {
+    background: map-get($colors, 'secondary');
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #fff;
+    border-radius: 100%;
+    cursor: pointer;
+  }
+}
