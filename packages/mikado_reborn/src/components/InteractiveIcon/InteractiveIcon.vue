@@ -8,7 +8,11 @@
 import { VNodeData } from 'vue';
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import MkrIcon from '../Icon/Icon.vue';
-import themes from '../../utils/themes';
+
+export const interactiveIconThemes = {
+  light: 'light',
+  dark: 'dark',
+};
 
 @Component({
   components: {
@@ -16,19 +20,19 @@ import themes from '../../utils/themes';
   },
 })
 export default class Icon extends Vue {
-  @Prop() private name!: string;
+  @Prop({ type: String, required: true }) private name!: string;
 
   @Prop({
     default: 'light',
     type: String,
-    validator: (theme) => Object.values(themes).includes(theme),
+    validator: (theme) => Object.values(interactiveIconThemes).includes(theme),
   })
   theme!: string;
 
   @Prop({ default: false, type: Boolean })
   activated!: boolean;
 
-  private class = 'mkr__interactive-icon'
+  class = 'mkr__interactive-icon'
 
   get classes(): VNodeData['class'] {
     return [
