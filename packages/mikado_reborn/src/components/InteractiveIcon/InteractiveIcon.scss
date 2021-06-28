@@ -1,0 +1,51 @@
+@import '../../assets/styles/styles.scss';
+
+$themes: (
+  'light': (
+    'background': map-get($colors, 'white'),
+    'color': map-get($colors, 'neutral-60'),
+    'hover-background': map-get($colors, 'neutral-light'),
+    'hover-color': map-get($colors, 'secondary-dark'),
+    'activated-background': map-get($colors, 'secondary-dark'),
+    'activated-color': map-get($colors, 'white'),
+  ),
+  'dark': (
+    'background': map-get($colors, 'white'),
+    'color': map-get($colors, 'secondary-dark'),
+    'hover-background': map-get($colors, 'neutral-light'),
+    'hover-color': map-get($colors, 'secondary-dark'),
+    'activated-background': map-get($colors, 'secondary-dark'),
+    'activated-color': map-get($colors, 'white'),
+  ),
+);
+
+.mkr__interactive-icon {
+  outline: none;
+  border: none;
+  padding: 0.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+
+  @each $themeName, $themeValues in $themes {
+    &--#{$themeName} {
+      background: map-get($themeValues, 'background');
+      .mkr__icon {
+        color: map-get($themeValues, 'color');
+      }
+
+      &:hover:enabled:not(&--activated) {
+        background-color: map-get($themeValues, 'hover-background');
+        .mkr__icon {
+          color: map-get($themeValues, 'hover-color');
+        }
+      }
+
+      &--activated {
+        background-color: map-get($themeValues, 'activated-background');
+        .mkr__icon {
+          color: map-get($themeValues, 'activated-color');
+        }
+      }
+    }
+  }
+}

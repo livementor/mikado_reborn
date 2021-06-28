@@ -7,6 +7,7 @@ export * from './Checkbox';
 export * from './Chips';
 export * from './Dropdown';
 export * from './Icon';
+export * from './InteractiveIcon';
 export * from './NavItem';
 export * from './Radio';
 export * from './Textfield';
