@@ -34,7 +34,7 @@ export default class PopUp extends Vue {
         {
           name: 'offset',
           options: {
-            offset: [0, 4],
+            offset: [0, 8],
           },
         },
       ],
