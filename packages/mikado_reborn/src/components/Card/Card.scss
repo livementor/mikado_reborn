@@ -2,12 +2,28 @@
 
 .mkr__card {
   background: map-get($colors, 'white');
-  border: 1px solid map-get($colors, 'neutral-20');
   box-sizing: border-box;
-  border-radius: 4px;
   overflow: hidden;
 
   &--elevated {
     @include shadow-medium;
+  }
+
+  &--border {
+    border: 1px solid map-get($colors, 'neutral-20');
+  }
+
+  &--radius {
+    &-small {
+      border-radius: 4px;
+    }
+
+    &-medium {
+      border-radius: 8px;
+    }
+
+    &-large {
+      border-radius: 16px;
+    }
   }
 }
