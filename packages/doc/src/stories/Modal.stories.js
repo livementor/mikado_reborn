@@ -6,11 +6,10 @@ export default {
   argTypes: {},
 };
 
-const Template = (args, { argTypes }) => ({
+const ModalTemplate = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
   data: () => ({
     showModal: false,
-    text: 'test',
   }),
   methods: {
     open () {
@@ -20,16 +19,36 @@ const Template = (args, { argTypes }) => ({
   template: `
     <div>
       <mkr-modal v-bind="$props" v-model="showModal" >
-        <p>I'm in the modal: {{ text }}</p>
-        <input type="text" v-model="text"/>
+        <span>Hello World</span>
       </mkr-modal>
-      <button @click="open">Open</button>
-      {{ showModal }}
-      {{ text }}
-      <input type="text" v-model="text"/>
+      <mkr-contained-button @click="open">Open Modal</mkr-contained-button>
     </div>
   `,
 });
 
-export const Modal = Template.bind({});
+export const Modal = ModalTemplate.bind({});
 Modal.args = {};
+
+const ModalWithOverlayTemplate = (args, { argTypes }) => ({
+  props: Object.keys(argTypes),
+  data: () => ({
+    showModal: false,
+  }),
+  methods: {
+    open () {
+      this.showModal = true
+    }
+  },
+  template: `
+    <div>
+      <mkr-overlay :opened="showModal" />
+      <mkr-modal v-bind="$props" v-model="showModal">
+        <span>Hello World</span>
+      </mkr-modal>
+      <mkr-contained-button @click="open">Open Modal</mkr-contained-button>
+    </div>
+  `,
+});
+
+export const ModalWithOverlay = ModalWithOverlayTemplate.bind({});
+ModalWithOverlay.args = {};
