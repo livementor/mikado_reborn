@@ -1,9 +1,17 @@
 import { MkrModal } from "../../../mikado_reborn/src/components";
+import { sizes } from "../../../mikado_reborn/src/components/Modal/Modal.vue";
 
 export default {
   title: 'Components/Modal',
   component: MkrModal,
-  argTypes: {},
+  argTypes: {
+    size: {
+      options: Object.values(sizes),
+      control: {
+        type: 'select',
+      }
+    }
+  },
 };
 
 const ModalTemplate = (args, { argTypes }) => ({

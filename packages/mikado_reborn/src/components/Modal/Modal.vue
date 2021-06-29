@@ -36,7 +36,7 @@ import { MkrInteractiveIcon } from '../InteractiveIcon';
 
 export const sizes = {
   medium: 'medium',
-  small: 'small',
+  large: 'large',
 };
 
 @Component({
