@@ -3,7 +3,7 @@
     <div ref="anchor" @click="handleButtonClick">
       <slot name="anchor"/>
     </div>
-    <div ref="content" :class="[{'mkr__popup--hidden': !isTooltipVisible}]">
+    <div ref="content" :class="{'mkr__popup--hidden': !isTooltipVisible}">
       <slot />
     </div>
   </div>
