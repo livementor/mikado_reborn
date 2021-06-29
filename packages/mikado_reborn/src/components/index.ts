@@ -7,6 +7,8 @@ export * from './Checkbox';
 export * from './Chips';
 export * from './Dropdown';
 export * from './Icon';
+export * from './Modal';
+export * from './Overlay';
 export * from './NavItem';
 export * from './Radio';
 export * from './Textfield';
