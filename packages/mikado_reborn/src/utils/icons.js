@@ -30,6 +30,9 @@ const icons = [
   'tribe',
   'user-group',
   'user',
+  'copy-id',
+  'arrows-expand',
+  'arrows-reduce',
 ];
 
 export default icons;
