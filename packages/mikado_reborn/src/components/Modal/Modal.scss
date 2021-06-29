@@ -1,6 +1,7 @@
 @import '../../assets/styles/styles.scss';
 
 .mkr__modal {
+  $modal: &;
   display: none;
   position: absolute;
   left: 50vw;
@@ -20,5 +21,17 @@
 
   &--opened {
     display: block;
+  }
+
+  &--slim #{$modal}__content {
+    padding: 0;
+  }
+
+  &__header {
+    padding: 1rem;
+  }
+
+  &__content {
+    padding: 0 5rem 5rem 5rem;
   }
 }
