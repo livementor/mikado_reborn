@@ -31,6 +31,7 @@
         'mkr__dropdown__list--hidden': !isTooltipVisible,
       }"
       elevated
+      border
     >
       <ul
         class="mkr__dropdown__list__container"
