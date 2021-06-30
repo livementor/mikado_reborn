@@ -13,3 +13,4 @@ export * from './Radio';
 export * from './Textfield';
 export * from './Textarea';
 export * from './Snackbar';
+export * from './PopUp';
