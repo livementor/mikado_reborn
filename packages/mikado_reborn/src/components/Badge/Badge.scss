@@ -19,4 +19,8 @@
     background: map-get($colors, 'success-light');
     color: map-get($colors, 'success');
   }
+  &.warning {
+    background: map-get($colors, 'warning-light');
+    color: map-get($colors, 'warning');
+  }
 }
