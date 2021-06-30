@@ -1,10 +1,11 @@
 import { MkrBadge } from "../../../mikado_reborn/src/components";
+import { badgeType } from '../../../mikado_reborn/src/components/Badge'
 
 export default {
   title: 'Components/Badge',
   component: MkrBadge,
   argTypes: {
-    type: { control: { type:'select', options: ['danger', 'success'] } }
+    type: { control: { type:'select', options: badgeType } }
   },
 };
 

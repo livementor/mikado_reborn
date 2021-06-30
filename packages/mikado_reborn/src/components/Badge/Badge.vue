@@ -5,7 +5,7 @@
 <script lang=ts>
 import { Component, Vue, Prop } from 'vue-property-decorator';
 
-const badgeType = ['danger', 'success', 'warning'];
+export const badgeType = ['danger', 'success', 'warning'];
 
 @Component
 export default class Badge extends Vue {
