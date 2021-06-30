@@ -3,13 +3,11 @@ import { MkrDataTable } from "../../../mikado_reborn/src/components";
 export default {
   title: 'Components/DataTable',
   component: MkrDataTable,
-  argTypes: {},
 };
 
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
-  template: `
-    <mkr-data-table v-bind="$props" />`
+  template: '<mkr-data-table v-bind="$props" />'
 });
 
 export const DataTable = Template.bind({});
