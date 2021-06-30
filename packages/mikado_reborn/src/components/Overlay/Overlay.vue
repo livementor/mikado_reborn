@@ -38,7 +38,7 @@ export default class Modal extends Vue {
   readonly color!: (keyof typeof colors);
 
   @Prop({ type: Boolean, default: false })
-  readonly keepOnCick!: boolean;
+  readonly keepOnClick!: boolean;
 
   mounted(): void {
     const app = this.$app;
