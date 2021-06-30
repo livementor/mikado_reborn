@@ -1,0 +1,31 @@
+@import '../../assets/styles/styles.scss';
+
+.mkr__data-table {
+  border-spacing: 0;
+  border: 1px solid map-get($colors, "neutral-20");;
+  border-radius: 4px;
+  background-color: map-get($colors, "white");
+  color: map-get($colors, "neutral");
+  text-align: left;
+
+  caption {
+    @include body-large-font;
+    padding-bottom: 2rem;
+    text-align: left;
+  }
+
+  th {
+    @include caption-small-font;
+    color: map-get($colors, "neutral-80");
+  }
+
+  th, td {
+    padding: 2rem;
+  }
+
+  tr {
+    &:not(:last-child) td, th {
+      border-bottom: 1px solid map-get($colors, "neutral-20");
+    }
+  }
+}
