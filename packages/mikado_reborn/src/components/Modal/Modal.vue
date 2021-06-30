@@ -10,6 +10,8 @@
         'mkr__modal--slim': slim,
       }
     ]"
+    elevated
+    radius="large"
   >
     <div class="mkr__modal__header">
       <mkr-interactive-icon
