@@ -19,6 +19,10 @@
     color: map-get($colors, "neutral-80");
   }
 
+  td {
+    @include body-medium-alt-font;
+  }
+
   th, td {
     padding: 2rem;
   }
