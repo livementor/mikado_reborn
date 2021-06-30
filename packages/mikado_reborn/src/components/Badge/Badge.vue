@@ -5,9 +5,11 @@
 <script lang=ts>
 import { Component, Vue, Prop } from 'vue-property-decorator';
 
-  @Component
+export const badgeType = ['danger', 'success', 'warning'];
+
+@Component
 export default class Badge extends Vue {
-    @Prop({ default: 'warning', validator: (type) => ['danger', 'success'].includes(type) })
+    @Prop({ default: 'warning', validator: (type) => badgeType.includes(type) })
     type!: string
 }
 </script>
