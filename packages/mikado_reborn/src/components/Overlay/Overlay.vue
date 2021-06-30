@@ -46,7 +46,7 @@ export default class Modal extends Vue {
   }
 
   click(): void {
-    if (!this.keepOnCick) {
+    if (!this.keepOnClick) {
       this.$emit('close', false);
     }
     this.$emit('click');
