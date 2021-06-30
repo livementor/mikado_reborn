@@ -45,8 +45,11 @@ export default class PopUp extends Vue {
     });
   }
 
-  handleButtonClick(): void {
+  async handleButtonClick(): Promise<void> {
     this.isTooltipVisible = !this.isTooltipVisible;
+    if (this.isTooltipVisible) {
+      await this.popperInstance?.update();
+    }
     this.$emit('close', this.isTooltipVisible);
   }
 }
