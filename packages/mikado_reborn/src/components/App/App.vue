@@ -1,17 +1,18 @@
+<template>
+  <div class="mkr__app">
+    <slot />
+  </div>
+</template>
+
 <script lang="ts">
-import { CreateElement, RenderContext, VNode } from 'vue';
-import { mergeData } from 'vue-functional-data-merge';
+import { Component, Vue } from 'vue-property-decorator';
 
-export default {
-  functional: true,
-  render(h: CreateElement, { data, children }: RenderContext) : VNode {
-    const appData = {
-      staticClass: 'mkr__app',
-    };
-
-    return h('div', mergeData(data, appData), children);
-  },
-};
+@Component
+export default class App extends Vue {
+  created(): void {
+    Vue.prototype.$app = this;
+  }
+}
 </script>
 
 <style src="./App.scss" lang="scss"></style>

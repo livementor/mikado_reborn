@@ -1,0 +1,24 @@
+@import '../../assets/styles/styles.scss';
+
+.mkr__overlay {
+  display: none;
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  top: 0px;
+  bottom: 0px;
+  z-index: 1000;
+  backdrop-filter: blur(16px);
+
+  &--opened {
+    display: block;
+  }
+
+  &--dark {
+    background: map-get($colors, 'neutral-60')
+  }
+
+  &--light {
+    background: map-get($colors, 'white-60')
+  }
+}
