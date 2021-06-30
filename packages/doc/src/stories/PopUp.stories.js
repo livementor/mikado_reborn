@@ -24,8 +24,9 @@ const Template = (args, { argTypes }) => ({
       <template v-slot:anchor>
         <mkr-contained-button>button</mkr-contained-button>
       </template>
-      <mkr-card :elevated="true">
-        <mkr-contained-button>test</mkr-contained-button>
+      <mkr-card :elevated="true" style="padding: 16px;">
+        <span class="body-caption-font" style="margin: 16px;">un text de test</span>
+        <mkr-contained-button style="margin: auto;">test</mkr-contained-button>
       </mkr-card>
     </mkr-pop-up>
   `,
