@@ -37,6 +37,18 @@
   text-transform: $body-medium-text-case;
 }
 
+@mixin body-medium-alt-font {
+  font-size: ($body-medium-alt-font-size / $baseFontSize) * 1rem;
+  text-decoration: $body-medium-alt-text-decoration;
+  font-family: $body-medium-alt-font-family;
+  font-weight: $body-medium-alt-font-weight;
+  font-style: $body-medium-alt-font-style;
+  font-stretch: $body-medium-alt-font-stretch;
+  letter-spacing: ($body-medium-alt-letter-spacing / 100) * 1em;
+  line-height: ($body-medium-alt-line-height / $baseFontSize) * 1rem;
+  text-transform: $body-medium-alt-text-case;
+}
+
 @mixin body-medium-bold-font {
   font-size: ($body-medium-bold-font-size / $baseFontSize) * 1rem;
   text-decoration: $body-medium-bold-text-decoration;
