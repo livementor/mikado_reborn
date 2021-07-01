@@ -25,6 +25,8 @@ $themes: (
   padding: 0.5rem;
   border-radius: 4px;
   cursor: pointer;
+  appearance: none;
+  line-height: 0;
 
   @each $themeName, $themeValues in $themes {
     &--#{$themeName} {

@@ -1,6 +1,7 @@
 <template>
   <button :class="classes" @click="click">
     <mkr-icon :name="name" />
+    <slot />
   </button>
 </template>
 
