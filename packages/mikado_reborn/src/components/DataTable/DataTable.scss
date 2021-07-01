@@ -1,10 +1,11 @@
 @import '../../assets/styles/styles.scss';
 
 .mkr__data-table {
-  border-spacing: 0;
-  border: 1px solid map-get($colors, "neutral-20");;
-  border-radius: 4px;
   background-color: map-get($colors, "white");
+  border: 1px solid map-get($colors, "neutral-20");;
+  border-collapse: initial;
+  border-radius: 4px;
+  border-spacing: 0;
   color: map-get($colors, "neutral");
   text-align: left;
 
