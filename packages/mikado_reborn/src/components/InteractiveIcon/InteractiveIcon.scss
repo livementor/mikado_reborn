@@ -27,6 +27,7 @@ $themes: (
   border-radius: 4px;
   cursor: pointer;
   appearance: none;
+  text-decoration: none;
   line-height: 0;
 
   @each $themeName, $themeValues in $themes {

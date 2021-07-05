@@ -21,7 +21,12 @@ InteractiveIcon.args = {
   name: icons[0],
 }
 
-export const InteractiveIconLink = Template.bind({})
+const LinkTemplate = (args, { argTypes }) => ({
+  props: Object.keys(argTypes),
+  template: '<mkr-interactive-icon href="https://google.com" target="_blank" v-bind="$props"/>',
+})
+
+export const InteractiveIconLink = LinkTemplate.bind({})
 InteractiveIconLink.args = {
   name: icons[0],
   linkify: true,
