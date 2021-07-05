@@ -49,14 +49,9 @@ export default class Button extends Vue {
 
   render(createElement: CreateElement): VNode {
     const staticClasses = [this.class];
-    let element = 'button';
     let content: VNodeChildren = [this.$slots.default];
 
     staticClasses.push(`${this.class}--${this.size}`);
-
-    if (this.linkify) {
-      element = 'a';
-    }
 
     if (!this.hasContent) staticClasses.push(`${this.class}--icon-only`);
 
@@ -68,7 +63,7 @@ export default class Button extends Vue {
       content = this.iconSide === 'left' ? [icon, ...content] : [...content, icon];
     }
 
-    return createElement(element, {
+    return createElement(this.linkify ? 'a' : 'button', {
       staticClass: staticClasses.join(' '),
       class: this.classes,
       attrs: {
