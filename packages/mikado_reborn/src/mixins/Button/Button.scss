@@ -2,7 +2,7 @@
 
 .mkr__button {
   $button: &;
-  display: flex;
+  display: inline-flex;
   position: relative;
   z-index: 0;
   flex-direction: row;

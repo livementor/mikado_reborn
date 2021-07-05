@@ -13,7 +13,7 @@
     }
     padding: calc(2rem - 1px) calc(3rem - 1px);
 
-    &:hover:enabled {
+    &:hover:not(:disabled) {
       background: map-get($colors, 'primary-light');
       border-color: map-get($colors, 'primary');
     };

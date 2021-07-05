@@ -43,3 +43,13 @@ export const OutlinedButtonSmall = OutlinedButtonShowcaseTemplate.bind({});
 OutlinedButtonSmall.args = {
   size: 'small',
 };
+
+const OutlinedButtonLinkTemplate = (_args, { argTypes }) => ({
+  props: Object.keys(argTypes),
+  template: `<mkr-outlined-button href="https://www.google.com" target="_blank" v-bind="$props">Label</mkr-outlined-button>`,
+});
+
+export const OutlinedButtonLink = OutlinedButtonLinkTemplate.bind({});
+OutlinedButtonLink.args = {
+  linkify: true,
+};
