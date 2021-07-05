@@ -29,7 +29,7 @@ export default class Button extends Vue {
   })
   iconSide!: 'left' | 'right';
 
-  @Prop({ default: false })
+  @Prop({ type: Boolean, default: false })
   linkify!: boolean;
 
   class = 'mkr__button';
