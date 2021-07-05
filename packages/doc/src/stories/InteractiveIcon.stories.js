@@ -20,3 +20,9 @@ export const InteractiveIcon = Template.bind({})
 InteractiveIcon.args = {
   name: icons[0],
 }
+
+export const InteractiveIconLink = Template.bind({})
+InteractiveIconLink.args = {
+  name: icons[0],
+  linkify: true,
+}

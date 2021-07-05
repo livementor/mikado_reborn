@@ -1,14 +1,7 @@
-<template>
-  <button :class="classes" @click="click">
-    <mkr-icon :name="name" />
-    <slot />
-  </button>
-</template>
-
-<script lang="ts">
-import { VNodeData } from 'vue';
+import { VNodeData, VNode, CreateElement } from 'vue';
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import MkrIcon from '../Icon/Icon.vue';
+import './InteractiveIcon.scss';
 
 export const interactiveIconThemes = {
   light: 'light',
@@ -33,6 +26,9 @@ export default class Icon extends Vue {
   @Prop({ default: false, type: Boolean })
   activated!: boolean;
 
+  @Prop({ type: Boolean, default: false })
+  linkify!: boolean;
+
   class = 'mkr__interactive-icon'
 
   get classes(): VNodeData['class'] {
@@ -48,7 +44,17 @@ export default class Icon extends Vue {
   click(event: Event): void {
     this.$emit('click', event);
   }
-}
-</script>
 
-<style src="./InteractiveIcon.scss" lang="scss" />
+  render(createElement: CreateElement): VNode {
+    const icon = createElement(MkrIcon, {
+      props: { name: this.name },
+    });
+
+    return createElement(this.linkify ? 'a' : 'button', {
+      class: this.classes,
+      on: {
+        click: this.click,
+      },
+    }, [icon, this.$slots.default]);
+  }
+}

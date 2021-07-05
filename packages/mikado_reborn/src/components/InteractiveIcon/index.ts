@@ -1,4 +1,4 @@
-import MkrInteractiveIcon from './InteractiveIcon.vue';
+import MkrInteractiveIcon from './InteractiveIcon';
 
 export { MkrInteractiveIcon };
 export default MkrInteractiveIcon;
