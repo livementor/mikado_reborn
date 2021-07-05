@@ -69,3 +69,13 @@ ContainedButtonSmall.args = {
   theme: 'primary',
   size: 'small',
 };
+
+const ContainedButtonLinkTemplate = (_args, { argTypes }) => ({
+  props: Object.keys(argTypes),
+  template: `<mkr-contained-button href="https://www.google.com" target="_blank" v-bind="$props">Label</mkr-contained-button>`,
+});
+
+export const ContainedButtonLink = ContainedButtonLinkTemplate.bind({});
+ContainedButtonLink.args = {
+  linkify: true,
+};

@@ -22,7 +22,7 @@ $themes: (
 
   @each $themeName, $themeValues in $themes {
     &--#{$themeName} {
-      &:hover:enabled:not(&--activated) {
+      &:hover:not(:disabled):not(&--activated) {
         background-color: map-get($themeValues, 'hover-background');
         color: map-get($themeValues, 'hover-color');
       };

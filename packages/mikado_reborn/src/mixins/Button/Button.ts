@@ -29,6 +29,9 @@ export default class Button extends Vue {
   })
   iconSide!: 'left' | 'right';
 
+  @Prop({ type: Boolean, default: false })
+  linkify!: boolean;
+
   class = 'mkr__button';
 
   // eslint-disable-next-line class-methods-use-this
@@ -60,7 +63,7 @@ export default class Button extends Vue {
       content = this.iconSide === 'left' ? [icon, ...content] : [...content, icon];
     }
 
-    return createElement('button', {
+    return createElement(this.linkify ? 'a' : 'button', {
       staticClass: staticClasses.join(' '),
       class: this.classes,
       attrs: {

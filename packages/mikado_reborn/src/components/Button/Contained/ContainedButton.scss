@@ -24,7 +24,7 @@ $themes: (
 );
 
 .mkr__button--contained {
-  &:hover:enabled {
+  &:hover:not(:disabled) {
     box-shadow: 0px 0px 8px -4px map-get($colors, 'neutral-20');
   };
 

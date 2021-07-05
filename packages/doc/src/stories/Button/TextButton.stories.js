@@ -59,3 +59,13 @@ export const TextButtonSmall = TextButtonShowcaseTemplate.bind({});
 TextButtonSmall.args = {
   size: 'small',
 };
+
+const TextButtonLinkTemplate = (_args, { argTypes }) => ({
+  props: Object.keys(argTypes),
+  template: `<mkr-text-button href="https://www.google.com" target="_blank" v-bind="$props">Label</mkr-text-button>`,
+});
+
+export const TextButtonLink = TextButtonLinkTemplate.bind({});
+TextButtonLink.args = {
+  linkify: true,
+};
