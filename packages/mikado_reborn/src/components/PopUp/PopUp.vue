@@ -11,7 +11,7 @@
 
 <script lang="ts">
 import {
-  Component, Vue, Prop, Model,
+  Component, Vue, Prop, Model, Watch,
 } from 'vue-property-decorator';
 import {
   createPopper, Instance as PopperInstance, Placement,
@@ -26,7 +26,13 @@ export default class PopUp extends Vue {
 
   popperInstance: PopperInstance | null = null
 
-  isTooltipVisible = false
+  @Watch('opened')
+  async handleOpening(newVal: boolean): Promise<void> {
+    if (newVal) {
+      await this.$nextTick();
+      await this.popperInstance?.update();
+    }
+  }
 
   mounted(): void {
     const anchor = this.$refs.anchor as HTMLElement;
@@ -46,11 +52,7 @@ export default class PopUp extends Vue {
   }
 
   async handleButtonClick(): Promise<void> {
-    this.isTooltipVisible = !this.isTooltipVisible;
-    if (this.isTooltipVisible) {
-      await this.popperInstance?.update();
-    }
-    this.$emit('close', this.isTooltipVisible);
+    this.$emit('close', !this.opened);
   }
 }
 </script>
