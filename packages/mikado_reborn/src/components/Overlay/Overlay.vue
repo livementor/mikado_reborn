@@ -45,6 +45,10 @@ export default class Modal extends Vue {
     app.$el.insertBefore(this.$el, app.$el.children[0]);
   }
 
+  destroyed(): void {
+    this.$el.remove();
+  }
+
   click(): void {
     if (!this.keepOnClick) {
       this.$emit('close', false);

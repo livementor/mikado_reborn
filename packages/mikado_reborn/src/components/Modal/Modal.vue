@@ -68,6 +68,7 @@ export default class Modal extends Vue {
   }
 
   destroyed(): void {
+    this.$el.remove();
     document.removeEventListener('mousedown', this.onClickOutside);
     document.removeEventListener('keydown', this.keydownHandler);
   }
