@@ -26,8 +26,6 @@ export default class PopUp extends Vue {
 
   popperInstance: PopperInstance | null = null
 
-  isTooltipVisible = false
-
   @Watch('opened')
   async handleOpening(newVal: boolean): Promise<void> {
     if (newVal) {
