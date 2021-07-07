@@ -32,6 +32,7 @@ import {
   Component,
   Model,
   Prop,
+  Watch,
 } from 'vue-property-decorator';
 import { MkrCard } from '../Card';
 import { MkrInteractiveIcon } from '../InteractiveIcon';
@@ -63,21 +64,34 @@ export default class Modal extends Vue {
   @Prop({ type: Boolean, default: true })
   readonly closeable!: boolean;
 
+  @Watch('closeable')
+  onCloseableChanged(isCloseable: boolean): void {
+    if (isCloseable) {
+      this.initCloseEventListeners();
+      return;
+    }
+    this.removeCloseEventListeners();
+  }
+
   mounted(): void {
     const app = this.$app;
     app.$el.insertBefore(this.$el, app.$el.children[0]);
-    if (this.closeable) {
-      document.addEventListener('mousedown', this.onClickOutside);
-      document.addEventListener('keydown', this.keydownHandler);
-    }
+    if (this.closeable) this.initCloseEventListeners();
   }
 
   destroyed(): void {
     this.$el.remove();
-    if (this.closeable) {
-      document.removeEventListener('mousedown', this.onClickOutside);
-      document.removeEventListener('keydown', this.keydownHandler);
-    }
+    if (this.closeable) this.removeCloseEventListeners();
+  }
+
+  initCloseEventListeners(): void {
+    document.addEventListener('mousedown', this.onClickOutside);
+    document.addEventListener('keydown', this.keydownHandler);
+  }
+
+  removeCloseEventListeners(): void {
+    document.removeEventListener('mousedown', this.onClickOutside);
+    document.removeEventListener('keydown', this.keydownHandler);
   }
 
   onClickClose(): void {
