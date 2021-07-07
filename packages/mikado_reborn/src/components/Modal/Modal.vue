@@ -13,13 +13,13 @@
     elevated
     radius="large"
   >
-    <div class="mkr__modal__header">
-      <mkr-interactive-icon
-        name="cross"
-        @click="$emit('close', false)"
-        color="neutral"
-      />
-    </div>
+    <mkr-interactive-icon
+      v-if="closeable"
+      class="mkr__modal__close"
+      name="cross"
+      color="neutral"
+      @click="onClickClose"
+    />
     <div class="mkr__modal__content">
       <slot />
     </div>
@@ -32,6 +32,7 @@ import {
   Component,
   Model,
   Prop,
+  Watch,
 } from 'vue-property-decorator';
 import { MkrCard } from '../Card';
 import { MkrInteractiveIcon } from '../InteractiveIcon';
@@ -60,17 +61,41 @@ export default class Modal extends Vue {
   @Prop({ type: Boolean, default: false })
   readonly slim!: boolean;
 
+  @Prop({ type: Boolean, default: true })
+  readonly closeable!: boolean;
+
+  @Watch('closeable')
+  onCloseableChanged(isCloseable: boolean): void {
+    if (isCloseable) {
+      this.initCloseEventListeners();
+      return;
+    }
+    this.removeCloseEventListeners();
+  }
+
   mounted(): void {
     const app = this.$app;
     app.$el.insertBefore(this.$el, app.$el.children[0]);
-    document.addEventListener('mousedown', this.onClickOutside);
-    document.addEventListener('keydown', this.keydownHandler);
+    if (this.closeable) this.initCloseEventListeners();
   }
 
   destroyed(): void {
     this.$el.remove();
+    if (this.closeable) this.removeCloseEventListeners();
+  }
+
+  initCloseEventListeners(): void {
+    document.addEventListener('mousedown', this.onClickOutside);
+    document.addEventListener('keydown', this.keydownHandler);
+  }
+
+  removeCloseEventListeners(): void {
     document.removeEventListener('mousedown', this.onClickOutside);
     document.removeEventListener('keydown', this.keydownHandler);
+  }
+
+  onClickClose(): void {
+    this.$emit('close', false);
   }
 
   onClickOutside(event: MouseEvent): void {
