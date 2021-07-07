@@ -13,13 +13,13 @@
     elevated
     radius="large"
   >
-    <div class="mkr__modal__header">
-      <mkr-interactive-icon
-        name="cross"
-        @click="$emit('close', false)"
-        color="neutral"
-      />
-    </div>
+    <mkr-interactive-icon
+      class="mkr__modal__close"
+      v-if="closeable"
+      name="cross"
+      @click="onClickClose"
+      color="neutral"
+    />
     <div class="mkr__modal__content">
       <slot />
     </div>
@@ -60,17 +60,28 @@ export default class Modal extends Vue {
   @Prop({ type: Boolean, default: false })
   readonly slim!: boolean;
 
+  @Prop({ type: Boolean, default: true })
+  readonly closeable!: boolean;
+
   mounted(): void {
     const app = this.$app;
     app.$el.insertBefore(this.$el, app.$el.children[0]);
-    document.addEventListener('mousedown', this.onClickOutside);
-    document.addEventListener('keydown', this.keydownHandler);
+    if (this.closeable) {
+      document.addEventListener('mousedown', this.onClickOutside);
+      document.addEventListener('keydown', this.keydownHandler);
+    }
   }
 
   destroyed(): void {
     this.$el.remove();
-    document.removeEventListener('mousedown', this.onClickOutside);
-    document.removeEventListener('keydown', this.keydownHandler);
+    if (this.closeable) {
+      document.removeEventListener('mousedown', this.onClickOutside);
+      document.removeEventListener('keydown', this.keydownHandler);
+    }
+  }
+
+  onClickClose(): void {
+    this.$emit('close', false);
   }
 
   onClickOutside(event: MouseEvent): void {
