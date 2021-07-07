@@ -14,11 +14,11 @@
     radius="large"
   >
     <mkr-interactive-icon
-      class="mkr__modal__close"
       v-if="closeable"
+      class="mkr__modal__close"
       name="cross"
-      @click="onClickClose"
       color="neutral"
+      @click="onClickClose"
     />
     <div class="mkr__modal__content">
       <slot />
