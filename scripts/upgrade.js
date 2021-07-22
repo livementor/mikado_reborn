@@ -7,11 +7,20 @@ commandExists('gh', function (_err, isGithubCLIInstalled) {
   if (isGithubCLIInstalled) {
     try {
       // Check if user is logged in with github CLI
-      execSync('gh auth status', { stdio: 'ignore' });
+      try {
+        execSync('gh auth status', { stdio: 'ignore' });
+      } catch (err) {
+        console.error(`
+          Seems like you are not authenticated.
+          Run ${"\033[1m"}gh auth login${"\x1b[0m"} to authenticate with your GitHub account.
+          gh will also respect tokens set using ${"\033[1m"}GITHUB_TOKEN${"\x1b[0m"}.
+        `)
+        throw err
+      }
       const packageJsonPath = '../packages/mikado_reborn/package.json';
       const packageJson = require(packageJsonPath);
-      const lastTag = child.execSync('git describe --abbrev=0 --tags').toString('utf-8').trim();
-      const log = child.execSync(`git log ${lastTag}..HEAD --format=%s`).toString('utf-8').trim();
+      const lastTag = execSync('git describe --abbrev=0 --tags').toString('utf-8').trim();
+      const log = execSync(`git log ${lastTag}..HEAD --format=%s`).toString('utf-8').trim();
       const commits = log.split('\n');
       const currentVersion = packageJson.version;
       let [major, minor, fix] = currentVersion.split('.').map(s => parseInt(s));
@@ -66,15 +75,15 @@ commandExists('gh', function (_err, isGithubCLIInstalled) {
         fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2) + '\n');
 
         // commit package changes
-        child.execSync('git add .');
-        child.execSync(`git commit -m "chore(package.json): bump version to ${newVersionString}"`);
+        execSync('git add .');
+        execSync(`git commit -m "chore(package.json): bump version to ${newVersionString}"`);
         // commit tag
-        child.execSync(`git tag -a v${newVersionString} -m "v${newVersionString}"`);
+        execSync(`git tag -a v${newVersionString} -m "v${newVersionString}"`);
         // push
-        child.execSync('git push');
-        child.execSync(`git push origin tag v${newVersionString}`);
+        execSync('git push');
+        execSync(`git push origin tag v${newVersionString}`);
         // Ensure prompt is disabled for github cli
-        child.execSync('gh config set prompt disabled');
+        execSync('gh config set prompt disabled');
 
         // Build changelog
         Object.keys(changes).forEach((changeType) => {
@@ -92,8 +101,7 @@ commandExists('gh', function (_err, isGithubCLIInstalled) {
           })
         })
 
-        fs.writeFileSync("./CHANGELOG.md", changelog);
-        child.execSync(`gh release create v${newVersionString} -t v${newVersionString} -F CHANGELOG.md`);
+        execSync(`gh release create v${newVersionString} -t v${newVersionString} --notes "${changelog}"`);
       } else {
         console.error(`
           Seems like changes have been made to your package.json version.
@@ -102,11 +110,7 @@ commandExists('gh', function (_err, isGithubCLIInstalled) {
         `)
       }
     } catch (err) {
-      console.error(`
-        Seems like you are not authenticated.
-        Run ${"\033[1m"}gh auth login${"\x1b[0m"} to authenticate with your GitHub account.
-        gh will also respect tokens set using ${"\033[1m"}GITHUB_TOKEN${"\x1b[0m"}.
-      `)
+      console.error('Something went wrong: ', err)
     }
   } else {
     console.error(`
