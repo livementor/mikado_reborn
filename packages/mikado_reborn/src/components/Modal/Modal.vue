@@ -64,6 +64,15 @@ export default class Modal extends Vue {
   @Prop({ type: Boolean, default: true })
   readonly closeable!: boolean;
 
+  @Watch('opened', { immediate: true })
+  onOpenedChanged(): void {
+    if (this.opened) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'visible';
+    }
+  }
+
   @Watch('closeable')
   onCloseableChanged(isCloseable: boolean): void {
     if (isCloseable) {
