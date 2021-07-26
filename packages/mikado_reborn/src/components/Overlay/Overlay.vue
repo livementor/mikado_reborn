@@ -19,6 +19,7 @@ import {
   Prop,
   Vue,
   Model,
+  Watch,
 } from 'vue-property-decorator';
 
 export const colors = {
@@ -42,12 +43,7 @@ export default class Modal extends Vue {
 
   @Watch('opened', { immediate: true })
   onOpenedChanged(): void {
-    if (this.opened) {
-      document.body.style.overflow = 'hidden';
-      return;
-    }
-
-    document.body.style.overflow = 'visible';
+    document.body.style.overflow = this.opened ? 'hidden' : 'visible';
   }
 
   mounted(): void {
