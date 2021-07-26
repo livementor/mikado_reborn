@@ -3,7 +3,7 @@
 .mkr__modal {
   $modal: &;
   display: none;
-  position: absolute;
+  position: fixed;
   left: 50vw;
   top: 50vh;
   z-index: 1500;

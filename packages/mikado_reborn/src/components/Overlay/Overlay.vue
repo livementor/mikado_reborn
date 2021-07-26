@@ -19,6 +19,7 @@ import {
   Prop,
   Vue,
   Model,
+  Watch,
 } from 'vue-property-decorator';
 
 export const colors = {
@@ -40,6 +41,11 @@ export default class Modal extends Vue {
   @Prop({ type: Boolean, default: false })
   readonly keepOnClick!: boolean;
 
+  @Watch('opened', { immediate: true })
+  onOpenedChanged(): void {
+    document.body.style.overflow = this.opened ? 'hidden' : 'visible';
+  }
+
   mounted(): void {
     const app = this.$app;
     app.$el.insertBefore(this.$el, app.$el.children[0]);
@@ -47,6 +53,7 @@ export default class Modal extends Vue {
 
   destroyed(): void {
     this.$el.remove();
+    document.body.style.overflow = 'visible';
   }
 
   click(): void {
