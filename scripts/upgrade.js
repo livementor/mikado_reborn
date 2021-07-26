@@ -2,6 +2,7 @@
 const commandExists = require('command-exists');
 const { execSync } = require('child_process');
 const fs = require('fs');
+const path = require('path');
 
 commandExists('gh', function (_err, isGithubCLIInstalled) {
   if (isGithubCLIInstalled) {
@@ -17,7 +18,8 @@ commandExists('gh', function (_err, isGithubCLIInstalled) {
         `)
         throw err
       }
-      const packageJsonPath = '../packages/mikado_reborn/package.json';
+      console.log(execSync('pwd').toString('utf-8').trim())
+      const packageJsonPath = path.resolve(__dirname, '../packages/mikado_reborn/package.json');
       const packageJson = require(packageJsonPath);
       const lastTag = execSync('git describe --abbrev=0 --tags').toString('utf-8').trim();
       const log = execSync(`git log ${lastTag}..HEAD --format=%s`).toString('utf-8').trim();
