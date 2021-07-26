@@ -18,7 +18,6 @@ commandExists('gh', function (_err, isGithubCLIInstalled) {
         `)
         throw err
       }
-      console.log(execSync('pwd').toString('utf-8').trim())
       const packageJsonPath = path.resolve(__dirname, '../packages/mikado_reborn/package.json');
       const packageJson = require(packageJsonPath);
       const lastTag = execSync('git describe --abbrev=0 --tags').toString('utf-8').trim();
