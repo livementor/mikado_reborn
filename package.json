@@ -1,9 +1,13 @@
 {
   "private": true,
   "scripts": {
-    "create-component": "./scripts/createComponent.sh"
+    "create-component": "./scripts/createComponent.sh",
+    "upgrade:mikado": "node ./scripts/upgrade.js"
   },
   "workspaces": [
     "packages/*"
-  ]
+  ],
+  "devDependencies": {
+    "command-exists": "^1.2.9"
+  }
 }
