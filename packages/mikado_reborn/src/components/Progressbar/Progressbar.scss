@@ -9,30 +9,43 @@
   }
 
   &--emoji {
+    flex-shrink: 0;
     height: 1.5rem;
     display: flex;
     align-items: center;
+    opacity: 0;
+
+    &-visible {
+      opacity: 1;
+    }
   }
 
   &--text {
     @include body-small-font;
+    flex-shrink: 0;
     color: map-get($colors, 'success');
     font-variant-numeric: tabular-nums;
   }
 
   &--bar {
-    background-color: map-get($colors, 'neutral-20');
-    width: 200px;
+    flex-grow: 1;
     height: 1.5rem;
-    border-radius: 999px;
     position: relative;
     overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 2px;
+      border-radius: 999px;
+      background-color: map-get($colors, 'neutral-20');
+    }
 
     & > span {
       position: absolute;
       top: 0;
       left: 0;
-      height: 1.5rem;
+      height: 100%;
       border: 2px solid map-get($colors, 'white');
       box-sizing: border-box;
       border-radius: 999px;

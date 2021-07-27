@@ -1,6 +1,8 @@
 <template>
   <div class="mkr__progressbar">
-    <div class="mkr__progressbar--emoji" v-show="isCompleted">👍</div>
+    <div :class="['mkr__progressbar--emoji', { 'mkr__progressbar--emoji-visible': isCompleted }]">
+      <slot> 👍 </slot>
+    </div>
     <div class="mkr__progressbar--text">{{ current }}/{{ total }}</div>
 
     <div class="mkr__progressbar--bar">
@@ -27,7 +29,7 @@ export default class Progressbar extends Vue {
   get spanStyle(): Partial<CSSStyleDeclaration> {
     const percentage = Math.max(Math.min((this.current / this.total) * 100, 100), 0);
     return {
-      transform: this.current === 0 ? 'translateX(-4px)' : '', // hide border-width
+      transform: this.current <= 0 ? 'translateX(-4px)' : '', // hide border-width
       width: `${percentage}%`,
     };
   }
