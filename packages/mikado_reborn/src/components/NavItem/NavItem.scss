@@ -2,9 +2,6 @@
 
 .mkr__nav-item {
   @include caption-small-font;
-  cursor: pointer;
-  border-radius: 0.5rem;
-  overflow: hidden;
   color: map-get($colors, 'neutral-80');
 
   a {
@@ -14,7 +11,10 @@
     padding: 0 1.5rem;
     text-decoration: none;
     user-select: none;
+    border-radius: 0.5rem;
+    overflow: hidden;
     color: currentColor;
+    cursor: pointer;
 
     &:focus {
       outline: none;

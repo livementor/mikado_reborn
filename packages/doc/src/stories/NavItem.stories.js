@@ -69,3 +69,25 @@ export const NavItems = NavItemsTemplate.bind({});
 NavItems.args = {
   type: 'main'
 };
+
+const TopNavItemsTemplate = () => ({
+  template: `
+    <div style="padding:2rem;">
+      <nav style="margin-right:2rem;height:72px;">
+        <mkr-nav-item-group top-nav>
+          <mkr-nav-item
+            v-for="index in 3"
+            :key="index"
+            :active="index === 3"
+            href="#"
+            icon="book-open"
+          >
+            Label
+          </mkr-nav-item>
+        </mkr-nav-item-group>
+      </nav>
+    </div>
+  `,
+});
+
+export const TopNavItems = TopNavItemsTemplate.bind({});

@@ -12,7 +12,7 @@
         color: map-get($colors, 'secondary-dark');
       }
 
-      &:hover {
+      &:hover a {
         background-color: map-get($colors, 'accent-light');;
       }
     }
@@ -24,7 +24,7 @@
       color: map-get($colors, 'secondary-dark');
     }
 
-    &--active {
+    &--active a {
       background-color: map-get($colors, 'secondary-dark');
       color: map-get($colors, 'white');
 
@@ -39,7 +39,7 @@
       color: map-get($colors, 'secondary-dark');
     }
 
-    &--active {
+    &--active a {
       background-color: map-get($colors, 'neutral-light');
     }
   }
@@ -47,6 +47,31 @@
   &:not(&--top-nav) {
     .mkr__nav-item + .mkr__nav-item {
       margin-top: 1rem;
+    }
+  }
+
+  &--top-nav {
+    height: 100%;
+    display: flex;
+    align-items: center;
+
+    .mkr__nav-item--active {
+      position: relative;
+      height: 100%;
+      display: flex;
+      align-items: center;
+
+      &::after {
+        content: close-quote;
+        position: absolute;
+        height: 4px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: map-get($colors, 'secondary-dark');
+        border-top-left-radius: 2px;
+        border-top-right-radius: 2px;
+      }
     }
   }
 }
