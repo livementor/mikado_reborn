@@ -1,0 +1,43 @@
+@import '../../assets/styles/styles.scss';
+
+.mkr__progressbar {
+  display: flex;
+  align-items: center;
+
+  > * + * {
+    margin-left: 1.5rem;
+  }
+
+  &--emoji {
+    height: 1.5rem;
+    display: flex;
+    align-items: center;
+  }
+
+  &--text {
+    @include body-small-font;
+    color: map-get($colors, 'success');
+    font-variant-numeric: tabular-nums;
+  }
+
+  &--bar {
+    background-color: map-get($colors, 'neutral-20');
+    width: 200px;
+    height: 1.5rem;
+    border-radius: 999px;
+    position: relative;
+    overflow: hidden;
+
+    & > span {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 1.5rem;
+      border: 2px solid map-get($colors, 'white');
+      box-sizing: border-box;
+      border-radius: 999px;
+      background-color: map-get($colors, 'success');
+      transition: transform 0.2s ease-in-out, width 0.2s ease-in-out;
+    }
+  }
+}
