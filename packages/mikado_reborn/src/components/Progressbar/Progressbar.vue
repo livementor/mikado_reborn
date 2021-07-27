@@ -1,5 +1,11 @@
 <template>
-  <div class="mkr__progressbar">
+  <div
+    class="mkr__progressbar"
+    role="progressbar"
+    aria-valuemin="0"
+    :aria-valuemax="total"
+    :aria-valuenow="current"
+  >
     <div :class="['mkr__progressbar--emoji', { 'mkr__progressbar--emoji-visible': isCompleted }]">
       <slot> 👍 </slot>
     </div>
