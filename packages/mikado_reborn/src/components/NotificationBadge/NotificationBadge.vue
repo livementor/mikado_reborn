@@ -24,4 +24,4 @@ export default {
 };
 </script>
 
-<style src="./NotificationBadge.scss" lang=scss></style>
+<style src="./NotificationBadge.scss" lang="scss"></style>
