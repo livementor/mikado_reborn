@@ -48,7 +48,7 @@ const NavItemsTemplate = (args) => ({
   props: Object.keys(args),
   template: `
     <div style="padding:2rem;">
-      <nav style="margin-right:2rem;">
+      <nav>
         <mkr-nav-item-group :type="type">
           <mkr-nav-item
             v-for="index in 3"
@@ -73,7 +73,7 @@ NavItems.args = {
 const TopNavItemsTemplate = () => ({
   template: `
     <div style="padding:2rem;">
-      <nav style="margin-right:2rem;height:72px;">
+      <nav style="height:72px;">
         <mkr-nav-item-group top-nav>
           <mkr-nav-item
             v-for="index in 3"
