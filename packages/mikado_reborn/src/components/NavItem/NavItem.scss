@@ -21,7 +21,7 @@
     }
   }
 
-  .mkr__icon:first-child {
+  .mkr__icon:first-child:not(.mkr__icon:last-child) {
     margin-right: 1.5rem;
   }
 
