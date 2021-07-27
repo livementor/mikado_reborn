@@ -31,7 +31,7 @@ export default class NavItem extends Vue {
     ];
   }
 
-  private get hasContent(): boolean {
+  get hasContent(): boolean {
     return Boolean(this.$slots.default?.length);
   }
 
