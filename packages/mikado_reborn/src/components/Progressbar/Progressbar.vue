@@ -6,7 +6,7 @@
     :aria-valuemax="total"
     :aria-valuenow="current"
   >
-    <div :class="['mkr__progressbar__emoji', { 'mkr__progressbar__emoji-visible': isCompleted }]">
+    <div :class="['mkr__progressbar__emoji', { 'mkr__progressbar__emoji--visible': isCompleted }]">
       <slot> 👍 </slot>
     </div>
     <div class="mkr__progressbar__text">{{ current }}/{{ total }}</div>
