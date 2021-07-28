@@ -18,3 +18,4 @@ export * from './Textfield';
 export * from './Textarea';
 export * from './Snackbar';
 export * from './PopUp';
+export * from './Progressbar';

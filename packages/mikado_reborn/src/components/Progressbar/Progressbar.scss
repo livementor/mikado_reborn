@@ -1,0 +1,56 @@
+@import '../../assets/styles/styles.scss';
+
+.mkr__progressbar {
+  display: flex;
+  align-items: center;
+
+  > * + * {
+    margin-left: 1.5rem;
+  }
+
+  &__emoji {
+    flex-shrink: 0;
+    height: 1.5rem;
+    display: flex;
+    align-items: center;
+    opacity: 0;
+
+    &--visible {
+      opacity: 1;
+    }
+  }
+
+  &__text {
+    @include body-small-font;
+    flex-shrink: 0;
+    color: map-get($colors, 'success');
+    font-variant-numeric: tabular-nums;
+  }
+
+  &__bar {
+    flex-grow: 1;
+    height: 1.5rem;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 2px;
+      border-radius: 999px;
+      background-color: map-get($colors, 'neutral-20');
+    }
+
+    & > span {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      border: 2px solid map-get($colors, 'white');
+      box-sizing: border-box;
+      border-radius: 999px;
+      background-color: map-get($colors, 'success');
+      transition: transform 0.2s ease-in-out, width 0.2s ease-in-out;
+    }
+  }
+}
