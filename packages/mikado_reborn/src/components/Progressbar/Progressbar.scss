@@ -8,7 +8,7 @@
     margin-left: 1.5rem;
   }
 
-  &--emoji {
+  &__emoji {
     flex-shrink: 0;
     height: 1.5rem;
     display: flex;
@@ -20,14 +20,14 @@
     }
   }
 
-  &--text {
+  &__text {
     @include body-small-font;
     flex-shrink: 0;
     color: map-get($colors, 'success');
     font-variant-numeric: tabular-nums;
   }
 
-  &--bar {
+  &__bar {
     flex-grow: 1;
     height: 1.5rem;
     position: relative;
