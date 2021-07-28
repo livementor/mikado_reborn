@@ -12,6 +12,7 @@ export * from './InteractiveIcon';
 export * from './Modal';
 export * from './Overlay';
 export * from './NavItem';
+export * from './NotificationBadge';
 export * from './Radio';
 export * from './Textfield';
 export * from './Textarea';
