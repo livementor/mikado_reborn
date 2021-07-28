@@ -1,5 +1,5 @@
 import { MkrBadge } from "../../../mikado_reborn/src/components";
-import { badgeType } from '../../../mikado_reborn/src/components/Badge'
+import { badgeType } from '../../../mikado_reborn/src/components/Badge/Badge.vue';
 
 export default {
   title: 'Components/Badge',
