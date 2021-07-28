@@ -1,47 +1,93 @@
-import { MkrNavItem, MkrNavItemGroup } from "../../../mikado_reborn/src/components";
+import { MkrNavItem, MkrNavItemGroup } from '../../../mikado_reborn/src/components';
+import { NavItemTypes } from '../../../mikado_reborn/src/components/NavItem/NavItemGroup.vue'
 
 export default {
   title: 'Components/NavItem',
   component: MkrNavItem,
   subcomponents: { 'MkrNavItemGroup': MkrNavItemGroup },
+  argTypes: {
+    type: { control: { type: 'select', options: NavItemTypes, default: NavItemTypes[0] } },
+  },
 };
 
-const Template = (args) => ({
-  props: Object.keys(args),
+const MainNavTemplate = () => ({
   template: `
-    <div class="primary-light-bg" style="padding:2rem;">
-      <!-- application links -->
-      <nav aria-label="application">
+    <div style="padding:2rem;display:flex;">
+      <nav style="margin-right:2rem;" aria-label="Application links">
         <mkr-nav-item-group>
-          <mkr-nav-item active>
-            <mkr-icon name="user"/>
-            <a href="#">Mon profil</a>
-          </mkr-nav-item>
-          <mkr-nav-item>
-            <mkr-icon name="briefcase"/>
-            <a href="#">Mon projet</a>
-          </mkr-nav-item>
-          <mkr-nav-item>
-            <mkr-icon name="cog"/>
-            <a href="#">Paramètres</a>
+          <mkr-nav-item
+            v-for="index in 3"
+            :key="index"
+            :active="index === 3"
+            href="#"
+            icon="book-open"
+          >
+            Label
           </mkr-nav-item>
         </mkr-nav-item-group>
       </nav>
-      <!-- external links -->
-      <mkr-nav-item-group style="padding-top:5rem;">
-        <mkr-nav-item>
-          <a href="#" target="_blank">Programme de fidélité</a>
-        </mkr-nav-item>
-        <mkr-nav-item>
-          <a href="#">Parrainage</a>
-        </mkr-nav-item>
-        <mkr-nav-item>
-          <a href="#">Codes promo</a>
-        </mkr-nav-item>
-      </mkr-nav-item-group>
+      <nav aria-label="Application icon links">
+        <mkr-nav-item-group>
+          <mkr-nav-item
+            v-for="index in 3"
+            :key="index"
+            :active="index === 3"
+            href="#"
+            icon="book-open"
+          />
+        </mkr-nav-item-group>
+      </nav>
     </div>
   `,
 });
 
-export const NavItem = Template.bind({});
-NavItem.args = {};
+export const MainNavItems = MainNavTemplate.bind({});
+MainNavItems.args = {};
+
+const NavItemsTemplate = (args) => ({
+  props: Object.keys(args),
+  template: `
+    <div style="padding:2rem;">
+      <nav>
+        <mkr-nav-item-group :type="type">
+          <mkr-nav-item
+            v-for="index in 3"
+            :key="index"
+            :active="index === 3"
+            href="#"
+            icon="book-open"
+          >
+            Label
+          </mkr-nav-item>
+        </mkr-nav-item-group>
+      </nav>
+    </div>
+  `,
+});
+
+export const NavItems = NavItemsTemplate.bind({});
+NavItems.args = {
+  type: 'main'
+};
+
+const TopNavItemsTemplate = () => ({
+  template: `
+    <div style="padding:2rem;">
+      <nav style="height:72px;">
+        <mkr-nav-item-group top-nav>
+          <mkr-nav-item
+            v-for="index in 3"
+            :key="index"
+            :active="index === 3"
+            href="#"
+            icon="book-open"
+          >
+            Label
+          </mkr-nav-item>
+        </mkr-nav-item-group>
+      </nav>
+    </div>
+  `,
+});
+
+export const TopNavItems = TopNavItemsTemplate.bind({});

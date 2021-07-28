@@ -2,48 +2,26 @@
 
 .mkr__nav-item {
   @include caption-small-font;
-  display: flex;
-  align-items: center;
-  height: 5rem;
-  flex: 1;
-  padding: 0 1.5rem;
-  cursor: pointer;
-  border-radius: 0.5rem;
-  overflow: hidden;
   color: map-get($colors, 'neutral-80');
 
   a {
+    display: flex;
+    align-items: center;
+    height: 5rem;
+    padding: 0 1.5rem;
     text-decoration: none;
+    user-select: none;
+    border-radius: 0.5rem;
+    overflow: hidden;
     color: currentColor;
+    cursor: pointer;
 
     &:focus {
       outline: none;
     }
   }
 
-  .mkr__icon:first-child {
+  &:not(&--icon-only) .mkr__icon:first-child {
     margin-right: 1.5rem;
-  }
-
-  .mkr__icon:last-child:not(.mkr__icon:first-child) {
-    margin-left: 1.5rem;
-  }
-
-  &:focus-within:not(&--active),
-  &:hover:not(&--active) {
-    background: rgba(255, 255, 255, 0.6);
-    color: map-get($colors, 'secondary-dark');
-  }
-
-  &--active {
-    background: map-get($colors, 'secondary-dark');
-    color: map-get($colors, 'white');
-    .mkr__icon {
-      color: map-get($colors, 'primary');
-    }
-  }
-
-  + .mkr__nav-item {
-    margin-top: 1rem;
   }
 }
