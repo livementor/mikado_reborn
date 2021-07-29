@@ -12,6 +12,10 @@
         color: map-get($colors, 'secondary-dark');
       }
 
+      a {
+        background-color: map-get($colors, 'white');
+      }
+
       &:hover a {
         background-color: map-get($colors, 'accent-light');;
       }
@@ -22,6 +26,10 @@
     &:focus-within:not(&--active),
     &:hover:not(&--active) {
       color: map-get($colors, 'secondary-dark');
+
+      a {
+        background-color: map-get($colors, 'white-60');
+      }
     }
 
     &--active a {
@@ -37,6 +45,10 @@
   &--sub-light .mkr__nav-item {
     &--active, &:hover, &:focus-within {
       color: map-get($colors, 'secondary-dark');
+
+      a {
+        background-color: map-get($colors, 'white-60');
+      }
     }
 
     &--active a {
