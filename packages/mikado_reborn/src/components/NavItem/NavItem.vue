@@ -9,8 +9,13 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
+import { MkrIcon } from '../Icon';
 
-@Component
+@Component({
+  components: {
+    MkrIcon,
+  },
+})
 export default class NavItem extends Vue {
   @Prop({ type: Boolean })
   active!: boolean;
