@@ -23,8 +23,8 @@
   }
 
   &--sub .mkr__nav-item {
-    &:focus-within:not(&--active),
-    &:hover:not(&--active) {
+    &:focus-within:not(.mkr__nav-item--active),
+    &:hover:not(.mkr__nav-item--active) {
       color: map-get($colors, 'secondary-dark');
 
       a {
@@ -45,10 +45,11 @@
   &--sub-light .mkr__nav-item {
     &--active, &:hover, &:focus-within {
       color: map-get($colors, 'secondary-dark');
+    }
 
-      a {
-        background-color: map-get($colors, 'white-60');
-      }
+    &:focus-within:not(.mkr__nav-item--active) a,
+    &:hover:not(.mkr__nav-item--active) a {
+      background-color: map-get($colors, 'white-60');
     }
 
     &--active a {
