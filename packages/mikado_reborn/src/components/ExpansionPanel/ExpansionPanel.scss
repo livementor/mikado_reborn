@@ -1,0 +1,27 @@
+@import '../../assets/styles/styles.scss';
+
+.mkr__expansion-panel {
+  &__header {
+    display: flex;
+    align-items: center;
+
+    &-icon {
+      margin-right: 1rem;
+      flex-shrink: 0;
+    }
+
+    &-title {
+      @include body-large-font;
+      color: map-get($colors, 'neutral');
+      border-bottom: 1px solid map-get($colors, 'neutral-20');
+      padding-bottom: 2rem;
+      padding-top: 2rem;
+      flex-grow: 1;
+    }
+  }
+
+  &__content {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+}
