@@ -34,6 +34,7 @@ const icons = [
   'social-twitter',
   'sun',
   'target',
+  'trash',
   'tribe',
   'user-group',
   'user',
