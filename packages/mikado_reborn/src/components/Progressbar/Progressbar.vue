@@ -29,7 +29,7 @@ export default class Progressbar extends Vue {
   total!: number;
 
   get isCompleted(): boolean {
-    return this.current >= this.total;
+    return this.total > 0 && this.current >= this.total;
   }
 
   get spanStyle(): Partial<CSSStyleDeclaration> {
