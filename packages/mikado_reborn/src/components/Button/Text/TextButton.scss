@@ -2,30 +2,39 @@
 
 $themes: (
   'neutral': (
+    'color': map-get($colors, 'neutral'),
     'hover-background': map-get($colors, 'neutral-light'),
     'hover-color': map-get($colors, 'neutral'),
     'activated-background': map-get($colors, 'secondary-dark'),
     'activated-color': map-get($colors, 'white'),
   ),
   'primary': (
+    'color': map-get($colors, 'neutral'),
     'hover-background': map-get($colors, 'primary-light'),
     'hover-color': map-get($colors, 'neutral'),
     'activated-background': map-get($colors, 'primary'),
     'activated-color': map-get($colors, 'neutral'),
   ),
+  'danger': (
+    'color': map-get($colors, 'danger'),
+    'hover-background': map-get($colors, 'danger-light'),
+    'hover-color': map-get($colors, 'danger'),
+    'activated-background': map-get($colors, 'danger'),
+    'activated-color': map-get($colors, 'neutral-light'),
+  ),
 );
 
 .mkr__button--text {
-  color: map-get($colors, 'neutral');
   box-sizing: border-box;
   border-radius: 4px;
 
   @each $themeName, $themeValues in $themes {
     &--#{$themeName} {
+      color: map-get($themeValues, 'color');
       &:hover:not(:disabled):not(&--activated) {
         background-color: map-get($themeValues, 'hover-background');
         color: map-get($themeValues, 'hover-color');
-      };
+      }
       &--activated {
         background-color: map-get($themeValues, 'activated-background');
         color: map-get($themeValues, 'activated-color');
