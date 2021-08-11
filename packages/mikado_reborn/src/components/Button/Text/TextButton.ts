@@ -5,6 +5,7 @@ import './TextButton.scss';
 export const textButtonThemes = {
   neutral: 'neutral',
   primary: 'primary',
+  secondary: 'secondary',
   danger: 'danger',
 };
 

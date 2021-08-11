@@ -15,6 +15,13 @@ $themes: (
     'activated-background': map-get($colors, 'primary'),
     'activated-color': map-get($colors, 'neutral'),
   ),
+  'secondary': (
+    'color': map-get($colors, 'secondary-dark'),
+    'hover-background': map-get($colors, 'secondary-light'),
+    'hover-color': map-get($colors, 'secondary-dark'),
+    'activated-background': map-get($colors, 'secondary-dark'),
+    'activated-color': map-get($colors, 'white'),
+  ),
   'danger': (
     'color': map-get($colors, 'danger'),
     'hover-background': map-get($colors, 'danger-light'),
