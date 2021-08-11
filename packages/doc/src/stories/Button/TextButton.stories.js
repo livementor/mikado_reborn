@@ -1,5 +1,6 @@
 import { MkrTextButton } from '../../../../mikado_reborn/src/components';
 import icons from '../../../../mikado_reborn/src/utils/icons';
+import { textButtonThemes } from '../../../../mikado_reborn/src/components/Button/Text/TextButton';
 
 export default {
   title: 'Components/Button/TextButton',
@@ -7,11 +8,9 @@ export default {
   argTypes: {
     theme: {
       control: {
-        type: 'select', options: [
-          'neutral',
-          'primary',
-        ],
-      }
+        type: 'select',
+        options: Object.keys(textButtonThemes),
+      },
     },
     size: { control: { type: 'select', options: ['medium', 'small'] } },
     icon: { control: { type: 'select', options: icons } },
@@ -32,7 +31,6 @@ TextButton.args = {
   disabled: false,
   activated: false,
 };
-
 
 const TextButtonShowcaseTemplate = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
