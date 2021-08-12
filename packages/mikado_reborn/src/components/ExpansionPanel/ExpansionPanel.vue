@@ -30,6 +30,7 @@ export default class ExpansionPanel extends Vue {
   expanded = this.defaultExpanded;
 
   togglePanel(): void {
+    this.$emit('header:clicked', !this.expanded);
     this.expanded = !this.expanded;
   }
 }
