@@ -6,6 +6,7 @@ import './InteractiveIcon.scss';
 export const interactiveIconThemes = {
   light: 'light',
   dark: 'dark',
+  danger: 'danger',
 };
 
 @Component({
@@ -29,7 +30,7 @@ export default class Icon extends Vue {
   @Prop({ type: Boolean, default: false })
   linkify!: boolean;
 
-  class = 'mkr__interactive-icon'
+  class = 'mkr__interactive-icon';
 
   get classes(): VNodeData['class'] {
     return [
@@ -50,11 +51,15 @@ export default class Icon extends Vue {
       props: { name: this.name },
     });
 
-    return createElement(this.linkify ? 'a' : 'button', {
-      class: this.classes,
-      on: {
-        click: this.click,
+    return createElement(
+      this.linkify ? 'a' : 'button',
+      {
+        class: this.classes,
+        on: {
+          click: this.click,
+        },
       },
-    }, [icon, this.$slots.default]);
+      [icon, this.$slots.default]
+    );
   }
 }

@@ -17,6 +17,14 @@ $themes: (
     'activated-background': map-get($colors, 'secondary-dark'),
     'activated-color': map-get($colors, 'white'),
   ),
+  'danger': (
+    'background': map-get($colors, 'white'),
+    'color': map-get($colors, 'danger'),
+    'hover-background': map-get($colors, 'danger-light'),
+    'hover-color': map-get($colors, 'danger'),
+    'activated-background': map-get($colors, 'danger'),
+    'activated-color': map-get($colors, 'white'),
+  ),
 );
 
 .mkr__interactive-icon {
@@ -37,7 +45,8 @@ $themes: (
         color: map-get($themeValues, 'color');
       }
 
-      &:hover:not(&--activated):not(:disabled), &:focus:not(:disabled) {
+      &:hover:not(&--activated):not(:disabled),
+      &:focus:not(:disabled) {
         background-color: map-get($themeValues, 'hover-background');
         .mkr__icon {
           color: map-get($themeValues, 'hover-color');
