@@ -8,7 +8,7 @@
       {
         'mkr__modal--opened': opened,
         'mkr__modal--slim': slim,
-      }
+      },
     ]"
     elevated
     radius="large"
@@ -27,13 +27,7 @@
 </template>
 
 <script lang="ts">
-import {
-  Vue,
-  Component,
-  Model,
-  Prop,
-  Watch,
-} from 'vue-property-decorator';
+import { Vue, Component, Model, Prop, Watch } from 'vue-property-decorator';
 import { MkrCard } from '../Card';
 import { MkrInteractiveIcon } from '../InteractiveIcon';
 
@@ -49,14 +43,14 @@ export const sizes = {
   },
 })
 export default class Modal extends Vue {
-  @Model('close', { type: Boolean }) readonly opened!: boolean
+  @Model('close', { type: Boolean }) readonly opened!: boolean;
 
   @Prop({
     type: String,
     validator: (value: string): boolean => Object.values(sizes).includes(value),
     default: 'medium',
   })
-  readonly size!: (keyof typeof sizes);
+  readonly size!: keyof typeof sizes;
 
   @Prop({ type: Boolean, default: false })
   readonly slim!: boolean;
@@ -73,10 +67,20 @@ export default class Modal extends Vue {
     this.removeCloseEventListeners();
   }
 
+  @Watch('opened')
+  onOpenedChanged(isOpened: boolean): void {
+    if (!this.closeable) return;
+
+    if (isOpened) {
+      this.initCloseEventListeners();
+    } else {
+      this.removeCloseEventListeners();
+    }
+  }
+
   mounted(): void {
     const app = this.$app;
     app.$el.insertBefore(this.$el, app.$el.children[0]);
-    if (this.closeable) this.initCloseEventListeners();
   }
 
   destroyed(): void {
@@ -99,7 +103,7 @@ export default class Modal extends Vue {
   }
 
   onClickOutside(event: MouseEvent): void {
-    const target = (event.target as Node | null);
+    const target = event.target as Node | null;
     if (!target) {
       return;
     }
