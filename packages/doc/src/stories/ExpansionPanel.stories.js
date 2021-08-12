@@ -7,8 +7,19 @@ export default {
 
 const Template = (args) => ({
   props: Object.keys(args),
-  template: `<mkr-expansion-panel v-bind="$props" :hide-arrow="true">
-  <template #header="{expanded, toggle}">Header {{ expanded ? 'expanded' : 'collapsed' }} <div @click="toggle">toggle manually</div></template>
+  template: `<mkr-expansion-panel v-bind="$props">
+  <template #header="{expanded}">Header {{ expanded ? 'expanded' : 'collapsed' }}</template>
+  <template #content>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Faucibus tortor semper faucibus scelerisque dignissim ipsum. Feugiat senectus dui non in morbi congue quis consectetur vitae. Non ac at rhoncus, turpis amet, faucibus diam commodo, dui. Massa amet morbi arcu, fringilla eu commodo sit. Viverra lobortis lacus rutrum nibh velit. Sapien nisl, mauris tellus luctus netus diam. Quisque enim, dictumst diam at suscipit mattis consectetur imperdiet.
+  </template>
+  </mkr-expansion-panel>`,
+});
+
+const Template2 = (args) => ({
+  props: Object.keys(args),
+  template: `<mkr-expansion-panel v-bind="$props">
+  <template #activator="{expanded, toggle}"><mkr-interactive-icon :name="expanded ? 'eye-off' : 'eye'" @click="toggle" /></template>
+  <template #header="{expanded}">Header {{ expanded ? 'expanded' : 'collapsed' }}</template>
   <template #content>
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Faucibus tortor semper faucibus scelerisque dignissim ipsum. Feugiat senectus dui non in morbi congue quis consectetur vitae. Non ac at rhoncus, turpis amet, faucibus diam commodo, dui. Massa amet morbi arcu, fringilla eu commodo sit. Viverra lobortis lacus rutrum nibh velit. Sapien nisl, mauris tellus luctus netus diam. Quisque enim, dictumst diam at suscipit mattis consectetur imperdiet.
   </template>
@@ -20,7 +31,7 @@ ExpansionPanel.args = {
   defaultExpanded: false,
 };
 
-export const ExpansionPanelExpanded = Template.bind({});
+export const ExpansionPanelExpanded = Template2.bind({});
 ExpansionPanelExpanded.args = {
   defaultExpanded: true,
 };

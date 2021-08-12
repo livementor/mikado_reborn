@@ -1,13 +1,15 @@
 <template>
   <div class="mkr__expansion-panel">
     <div class="mkr__expansion-panel__header">
-      <mkr-interactive-icon
-        v-if="hideArrow"
-        class="mkr__expansion-panel__header-icon"
-        :name="expanded ? 'arrow-full-top' : 'arrow-full-bottom'"
-        color="neutral-60"
-        @click.prevent="togglePanel"
-      />
+      <div class="mkr__expansion-panel__header-activator">
+        <slot name="activator" v-bind="{ expanded, toggle: togglePanel }">
+          <mkr-interactive-icon
+            :name="expanded ? 'arrow-full-top' : 'arrow-full-bottom'"
+            color="neutral-60"
+            @click.prevent="togglePanel"
+          />
+        </slot>
+      </div>
       <div class="mkr__expansion-panel__header-title">
         <slot name="header" v-bind="{ expanded, toggle: togglePanel }" />
       </div>
@@ -27,9 +29,6 @@ import MkrInteractiveIcon from '../InteractiveIcon/InteractiveIcon';
 export default class ExpansionPanel extends Vue {
   @Prop({ default: false, type: Boolean })
   defaultExpanded!: boolean;
-
-  @Prop({ default: false, type: Boolean })
-  hideArrow!: boolean;
 
   expanded = this.defaultExpanded;
 
