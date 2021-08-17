@@ -3,7 +3,10 @@
     class="mkr__nav-item-group"
     :class="[
       `mkr__nav-item-group--${type}`,
-      { 'mkr__nav-item-group--top-nav': topNav },
+      {
+        'mkr__nav-item-group--top-nav': topNav,
+        'mkr__nav-item-group--horizontal': horizontal
+      },
     ]"
   >
     <slot />
@@ -29,6 +32,9 @@ export default class NavItemGroup extends Vue {
 
   @Prop({ type: Boolean, default: false })
   topNav!: boolean;
+
+  @Prop({ type: Boolean, default: false })
+  horizontal!: boolean;
 }
 </script>
 <style src="./NavItemGroup.scss" lang="scss"></style>

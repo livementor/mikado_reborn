@@ -57,16 +57,24 @@
     }
   }
 
-  &:not(&--top-nav) {
+  &:not(&--top-nav):not(&--horizontal) {
     .mkr__nav-item + .mkr__nav-item {
       margin-top: 1rem;
     }
   }
 
-  &--top-nav {
-    height: 100%;
+  &--top-nav,
+  &--horizontal {
     display: flex;
     align-items: center;
+
+    .mkr__nav-item + .mkr__nav-item {
+      margin-left: 1rem;
+    }
+  }
+
+  &--top-nav {
+    height: 100%;
 
     .mkr__nav-item--active {
       position: relative;
