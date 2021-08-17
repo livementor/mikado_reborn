@@ -67,6 +67,10 @@
   &--horizontal {
     display: flex;
     align-items: center;
+
+    .mkr__nav-item + .mkr__nav-item {
+      margin-left: 1rem;
+    }
   }
 
   &--top-nav {
