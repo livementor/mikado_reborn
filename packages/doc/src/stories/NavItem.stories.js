@@ -10,11 +10,12 @@ export default {
   },
 };
 
-const MainNavTemplate = () => ({
+const MainNavTemplate = (args) => ({
+  props: Object.keys(args),
   template: `
     <div style="padding:2rem;display:flex;">
       <nav style="margin-right:2rem;" aria-label="Application links">
-        <mkr-nav-item-group>
+        <mkr-nav-item-group :horizontal="horizontal">
           <mkr-nav-item
             v-for="index in 3"
             :key="index"
@@ -27,7 +28,7 @@ const MainNavTemplate = () => ({
         </mkr-nav-item-group>
       </nav>
       <nav aria-label="Application icon links">
-        <mkr-nav-item-group>
+        <mkr-nav-item-group :horizontal="horizontal">
           <mkr-nav-item
             v-for="index in 3"
             :key="index"
@@ -42,14 +43,16 @@ const MainNavTemplate = () => ({
 });
 
 export const MainNavItems = MainNavTemplate.bind({});
-MainNavItems.args = {};
+MainNavItems.args = {
+  horizontal: false,
+};
 
 const NavItemsTemplate = (args) => ({
   props: Object.keys(args),
   template: `
     <div style="padding:2rem;">
       <nav>
-        <mkr-nav-item-group :type="type">
+        <mkr-nav-item-group :type="type" :horizontal="horizontal">
           <mkr-nav-item
             v-for="index in 3"
             :key="index"
@@ -67,7 +70,8 @@ const NavItemsTemplate = (args) => ({
 
 export const NavItems = NavItemsTemplate.bind({});
 NavItems.args = {
-  type: 'main'
+  type: 'main',
+  horizontal: false,
 };
 
 const TopNavItemsTemplate = () => ({
