@@ -103,7 +103,7 @@ const CustomIconItemsTemplate = () => ({
         <mkr-nav-item-group top-nav>
           <mkr-nav-item href="#">
             <template #icon>
-              <mkr-notification-badge>
+              <mkr-notification-badge show>
                 <mkr-icon name="book-open"/>
               </mkr-notification-badge>
             </template>
