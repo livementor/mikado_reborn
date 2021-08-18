@@ -1,6 +1,8 @@
 @import '../../assets/styles/styles.scss';
 
 .mkr__notification-badge {
+  display: inline-flex;
+
   & > *:first-child {
     position: relative;
 
