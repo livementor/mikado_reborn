@@ -1,8 +1,9 @@
 <template>
   <li :class="classes">
     <a :href="href" @click="emitClick">
-      <slot name="icon" />
-      <mkr-icon v-if="icon && !$scopedSlots.icon" :name="icon"/>
+      <slot name="icon">
+            <mkr-icon v-if="icon" :name="icon" />
+      </slot>
       <slot />
     </a>
   </li>
