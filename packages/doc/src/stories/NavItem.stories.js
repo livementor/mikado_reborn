@@ -95,3 +95,24 @@ const TopNavItemsTemplate = () => ({
 });
 
 export const TopNavItems = TopNavItemsTemplate.bind({});
+
+const CustomIconItemsTemplate = () => ({
+  template: `
+    <div style="padding:2rem;">
+      <nav style="height:72px;">
+        <mkr-nav-item-group top-nav>
+          <mkr-nav-item href="#">
+            <template #icon>
+              <mkr-notification-badge show>
+                <mkr-icon name="book-open"/>
+              </mkr-notification-badge>
+            </template>
+            Label
+          </mkr-nav-item>
+        </mkr-nav-item-group>
+      </nav>
+    </div>
+  `,
+});
+
+export const CustomNavItemsIcon = CustomIconItemsTemplate.bind({});
