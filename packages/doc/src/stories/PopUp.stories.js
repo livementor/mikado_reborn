@@ -5,13 +5,14 @@ export default {
   component: MkrPopUp,
 };
 
-const Template = () => ({
+const Template = (args) => ({
+  props: Object.keys(args),
   data: () => ({
     showPopup: true,
   }),
   template: `
     <div style="height:200px;display:flex;align-items:center;justify-content: center;">
-      <mkr-pop-up v-bind="$props" v-model="showPopup">
+      <mkr-pop-up v-bind="$props" v-model="showPopup" :dismissable="this.dismissable">
         <template v-slot:anchor>
           <mkr-contained-button>button</mkr-contained-button>
         </template>
@@ -25,3 +26,6 @@ const Template = () => ({
 });
 
 export const PopUp = Template.bind({});
+PopUp.args = {
+  dismissable: false,
+};
