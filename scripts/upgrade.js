@@ -40,7 +40,7 @@ commandExists('gh', function (_err, isGithubCLIInstalled) {
 
       if (`v${currentVersion}` === lastTag) {
         commits.forEach((commit) => {
-          const czCommit = commit.match(/(feat|fix|style|refactor|perf|test|chore)\(([\w-]*)\)(!?):\s*(.*)/i);
+          const czCommit = commit.match(/^(feat|fix|style|refactor|perf|test|chore)\(([\w-]*)\)(!?):\s*(.*)/i);
           if (czCommit) {
             let [, changeType, subject, breaking, change] = czCommit;
 
