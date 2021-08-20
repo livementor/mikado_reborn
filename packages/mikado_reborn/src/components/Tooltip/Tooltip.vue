@@ -7,9 +7,9 @@
       :id="`tooltip-${uuid}`"
       class="mkr__tooltip__label"
       ref="tooltip"
-      :class="{ 'mkr__tooltip__label--hidden': !opened }"
+      :class="{ 'mkr__tooltip__label--hidden': !isOpened }"
       role="tooltip"
-      :aria-hidden="!opened"
+      :aria-hidden="!isOpened"
     >
       {{ label }}
     </div>
@@ -35,6 +35,10 @@ export default class PopUp extends Mixins(Uuid) {
   opened = false;
 
   popperInstance: PopperInstance | null = null;
+
+  get isOpened(): boolean {
+    return this.opened && !this.disabled;
+  }
 
   @Watch('opened')
   async handleOpening(isOpened: boolean): Promise<void> {
