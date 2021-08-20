@@ -44,6 +44,13 @@ export default class PopUp extends Mixins(Uuid) {
     }
   }
 
+  @Watch('disabled')
+  async handleDisabled(isDisabled: boolean): Promise<void> {
+    if (isDisabled && this.opened) {
+      this.opened = false;
+    }
+  }
+
   mounted(): void {
     const anchor = this.$refs.anchor as HTMLElement;
     const tooltip = this.$refs.tooltip as HTMLElement;
