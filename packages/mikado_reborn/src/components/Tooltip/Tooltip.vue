@@ -29,6 +29,9 @@ export default class PopUp extends Mixins(Uuid) {
   @Prop({ type: String, default: '' })
   readonly label!: string;
 
+  @Prop({ type: Boolean, default: false })
+  readonly disabled!: boolean;
+
   opened = false;
 
   popperInstance: PopperInstance | null = null;
@@ -61,7 +64,9 @@ export default class PopUp extends Mixins(Uuid) {
     }
 
     ['focus', 'mouseenter'].forEach((event) => anchor.children[0].addEventListener(event, () => {
-      this.opened = true;
+      if (!this.disabled) {
+        this.opened = true;
+      }
     }));
     ['blur', 'mouseleave'].forEach((event) => anchor.children[0].addEventListener(event, () => {
       this.opened = false;
