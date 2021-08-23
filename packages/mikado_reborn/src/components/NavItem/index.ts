@@ -1,4 +1,4 @@
-import MkrNavItem from './NavItem.vue';
+import MkrNavItem from './NavItem';
 import MkrNavItemGroup from './NavItemGroup.vue';
 
 export { MkrNavItem, MkrNavItemGroup };

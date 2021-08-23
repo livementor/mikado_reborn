@@ -15,6 +15,7 @@
     border-radius: 12px;
     background: map-get($colors, 'neutral');
     color: map-get($colors, 'white');
+    z-index: 300;
 
     &--hidden {
       display: none;
