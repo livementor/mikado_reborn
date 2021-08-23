@@ -116,3 +116,26 @@ const CustomIconItemsTemplate = () => ({
 });
 
 export const CustomNavItemsIcon = CustomIconItemsTemplate.bind({});
+
+const NavItemsWithTitleTemplate = () => ({
+  template: `
+    <div style="padding:2rem;">
+      <nav style="height:72px;">
+        <mkr-nav-item-group top-nav>
+          <mkr-nav-item
+            v-for="index in 3"
+            :key="index"
+            :active="index === 3"
+            href="#"
+            icon="book-open"
+            title="Tooltip"
+          >
+            Label
+          </mkr-nav-item>
+        </mkr-nav-item-group>
+      </nav>
+    </div>
+  `,
+});
+
+export const NavItemsWithTitle = NavItemsWithTitleTemplate.bind({});
