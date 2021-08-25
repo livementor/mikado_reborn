@@ -1,15 +1,15 @@
 <template>
   <div>
     <span
-      class="mkr__toggle"
-      :class="{ 'mkr__toggle--active': value }"
+      class="mkr__switch"
+      :class="{ 'mkr__switch--active': value }"
       role="checkbox"
-      :aria-checked="value.toString()"
+      :aria-checked="!!value ? true : false"
       tabindex="0"
       @click="toggle"
       @keydown.space.prevent="toggle"
     >
-      <span class="mkr__toggle-indicator" />
+      <span class="mkr__switch-indicator" />
     </span>
   </div>
 </template>
@@ -18,7 +18,7 @@
 import { Component, Model, Vue } from 'vue-property-decorator';
 
 @Component({})
-export default class Toggle extends Vue {
+export default class Switch extends Vue {
   @Model('change', { type: Boolean }) readonly value!: boolean;
 
   toggle(): void {
@@ -27,4 +27,4 @@ export default class Toggle extends Vue {
 }
 </script>
 
-<style src="./Toggle.scss" lang="scss"></style>
+<style src="./Switch.scss" lang="scss"></style>
