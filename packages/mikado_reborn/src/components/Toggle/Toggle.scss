@@ -1,0 +1,38 @@
+@import '../../assets/styles/styles.scss';
+
+.mkr__toggle {
+  $toggle: &;
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+  width: 40px;
+  height: 24px;
+  border-radius: 9999px;
+  transition: background-color 0.4s ease;
+  background-color: map-get($colors, 'neutral-40');
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 5px rgba(map-get($colors, 'success'), 0.2);
+  }
+
+  &--active {
+    background-color: map-get($colors, 'success');
+
+    #{$toggle}-indicator {
+      transform: translateX(15px);
+    }
+  }
+
+  &-indicator {
+    position: absolute;
+    height: 2rem;
+    width: 2rem;
+    left: 0.5rem;
+    bottom: 0.5rem;
+    background-color: #ffffff;
+    border-radius: 9999px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.4s ease;
+  }
+}
