@@ -9,7 +9,7 @@
       @click="toggle"
       @keydown.space.prevent="toggle"
     >
-      <span class="mkr__switch-indicator" />
+      <span class="mkr__switch__indicator" />
     </span>
   </div>
 </template>
