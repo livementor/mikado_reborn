@@ -4,7 +4,7 @@
       class="mkr__switch"
       :class="{ 'mkr__switch--active': value }"
       role="checkbox"
-      :aria-checked="!!value ? true : false"
+      :aria-checked="value"
       tabindex="0"
       @click="toggle"
       @keydown.space.prevent="toggle"
