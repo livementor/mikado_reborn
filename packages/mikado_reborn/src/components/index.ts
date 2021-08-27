@@ -18,6 +18,7 @@ export * from './NavItem';
 export * from './NotificationBadge';
 export * from './Radio';
 export * from './Snackbar';
+export * from './Switch';
 export * from './Textarea';
 export * from './Textfield';
 export * from './Tooltip';
