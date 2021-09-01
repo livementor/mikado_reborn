@@ -23,6 +23,7 @@ const icons = [
   'flag',
   'grid',
   'mail',
+  'menu',
   'paper-airplane',
   'pencil',
   'pin-map',
