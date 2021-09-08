@@ -15,7 +15,9 @@
 <script lang="ts">
 import { Component, Model, Vue } from 'vue-property-decorator';
 
-@Component({})
+@Component({
+  name: 'MkrSwitch',
+})
 export default class Switch extends Vue {
   @Model('change', { type: Boolean }) readonly value!: boolean;
 
