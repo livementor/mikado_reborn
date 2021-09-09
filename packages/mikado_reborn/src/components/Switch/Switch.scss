@@ -26,10 +26,10 @@
 
   &__indicator {
     position: absolute;
-    height: 2rem;
-    width: 2rem;
-    left: 0.5rem;
-    bottom: 0.5rem;
+    height: 16px;
+    width: 16px;
+    left: 4px;
+    bottom: 4px;
     background-color: #ffffff;
     border-radius: 9999px;
     transition: transform 0.4s ease;
