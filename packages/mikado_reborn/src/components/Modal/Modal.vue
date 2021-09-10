@@ -20,7 +20,7 @@
       color="neutral"
       @click="onClickClose"
     />
-    <div class="mkr__modal__content">
+    <div ref="modalContent" class="mkr__modal__content">
       <slot />
     </div>
   </mkr-card>
@@ -60,6 +60,9 @@ export default class Modal extends Vue {
   @Prop({ type: Boolean, default: true })
   readonly closeable!: boolean;
 
+  @Prop({ type: Boolean, default: false })
+  readonly focusOnOpen!: boolean;
+
   @Watch('closeable')
   onCloseableChanged(isCloseable: boolean): void {
     if (isCloseable) {
@@ -70,7 +73,17 @@ export default class Modal extends Vue {
   }
 
   @Watch('opened')
-  onOpenedChanged(isOpened: boolean): void {
+  async onOpenedChanged(isOpened: boolean): Promise<void> {
+    if (isOpened && this.focusOnOpen) {
+      const modalContentElement = this.$refs.modalContent as Element;
+      const firstInput = modalContentElement.querySelector('input');
+
+      if (firstInput) {
+        await this.$nextTick();
+        firstInput.focus();
+      }
+    }
+
     if (!this.closeable) return;
 
     if (isOpened) {
