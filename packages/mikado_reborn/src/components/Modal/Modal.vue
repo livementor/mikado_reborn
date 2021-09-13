@@ -27,9 +27,7 @@
 </template>
 
 <script lang="ts">
-import {
-  Vue, Component, Model, Prop, Watch,
-} from 'vue-property-decorator';
+import { Vue, Component, Model, Prop, Watch } from 'vue-property-decorator';
 import { MkrCard } from '../Card';
 import { MkrInteractiveIcon } from '../InteractiveIcon';
 
@@ -60,8 +58,12 @@ export default class Modal extends Vue {
   @Prop({ type: Boolean, default: true })
   readonly closeable!: boolean;
 
-  @Prop({ type: Boolean, default: false })
-  readonly focusOnOpen!: boolean;
+  @Prop({ type: String, default: null })
+  readonly focusFirstSelector!: string;
+
+  $refs!: {
+    modalContent: Element;
+  };
 
   @Watch('closeable')
   onCloseableChanged(isCloseable: boolean): void {
@@ -74,13 +76,12 @@ export default class Modal extends Vue {
 
   @Watch('opened')
   async onOpenedChanged(isOpened: boolean): Promise<void> {
-    if (isOpened && this.focusOnOpen) {
-      const modalContentElement = this.$refs.modalContent as Element;
-      const firstInput = modalContentElement.querySelector('input');
+    if (isOpened && this.focusFirstSelector) {
+      await this.$nextTick();
 
-      if (firstInput) {
-        await this.$nextTick();
-        firstInput.focus();
+      const ref = this.$refs.modalContent.querySelector(this.focusFirstSelector) as HTMLElement;
+      if (ref) {
+        ref.focus();
       }
     }
 
