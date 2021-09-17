@@ -27,7 +27,9 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Model, Prop, Watch } from 'vue-property-decorator';
+import {
+  Vue, Component, Model, Prop, Watch,
+} from 'vue-property-decorator';
 import { MkrCard } from '../Card';
 import { MkrInteractiveIcon } from '../InteractiveIcon';
 
