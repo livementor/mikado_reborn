@@ -20,16 +20,14 @@
       color="neutral"
       @click="onClickClose"
     />
-    <div class="mkr__modal__content">
+    <div ref="modalContent" class="mkr__modal__content">
       <slot />
     </div>
   </mkr-card>
 </template>
 
 <script lang="ts">
-import {
-  Vue, Component, Model, Prop, Watch,
-} from 'vue-property-decorator';
+import { Vue, Component, Model, Prop, Watch } from 'vue-property-decorator';
 import { MkrCard } from '../Card';
 import { MkrInteractiveIcon } from '../InteractiveIcon';
 
@@ -60,6 +58,13 @@ export default class Modal extends Vue {
   @Prop({ type: Boolean, default: true })
   readonly closeable!: boolean;
 
+  @Prop({ type: String, default: null })
+  readonly focusFirstSelector!: string;
+
+  $refs!: {
+    modalContent: Element;
+  };
+
   @Watch('closeable')
   onCloseableChanged(isCloseable: boolean): void {
     if (isCloseable) {
@@ -70,7 +75,16 @@ export default class Modal extends Vue {
   }
 
   @Watch('opened')
-  onOpenedChanged(isOpened: boolean): void {
+  async onOpenedChanged(isOpened: boolean): Promise<void> {
+    if (isOpened && this.focusFirstSelector) {
+      await this.$nextTick();
+
+      const ref = this.$refs.modalContent.querySelector(this.focusFirstSelector) as HTMLElement;
+      if (ref) {
+        ref.focus();
+      }
+    }
+
     if (!this.closeable) return;
 
     if (isOpened) {
