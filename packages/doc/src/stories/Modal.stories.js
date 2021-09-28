@@ -1,5 +1,5 @@
-import { MkrModal } from "../../../mikado_reborn/src/components";
-import { sizes } from "../../../mikado_reborn/src/components/Modal/Modal.vue";
+import { MkrModal } from '../../../mikado_reborn/src/components';
+import { sizes } from '../../../mikado_reborn/src/components/Modal/Modal.vue';
 
 export default {
   title: 'Components/Modal',
@@ -9,8 +9,8 @@ export default {
       options: Object.values(sizes),
       control: {
         type: 'select',
-      }
-    }
+      },
+    },
   },
 };
 
@@ -20,9 +20,9 @@ const ModalTemplate = (args, { argTypes }) => ({
     showModal: false,
   }),
   methods: {
-    open () {
-      this.showModal = true
-    }
+    open() {
+      this.showModal = true;
+    },
   },
   template: `
     <div>
@@ -43,15 +43,24 @@ const ModalWithOverlayTemplate = (args, { argTypes }) => ({
     showModal: false,
   }),
   methods: {
-    open () {
-      this.showModal = true
-    }
+    open() {
+      this.showModal = true;
+    },
   },
   template: `
     <div>
       <mkr-overlay :opened="showModal" />
       <mkr-modal v-bind="$props" v-model="showModal">
-        <span>Hello World</span>
+      <div style="display: flex; flex-direction: column; align-items: start;">
+          <h1>Hello world</h1>
+          <input type="text" />
+          <button>Button</button>
+          <textarea></textarea>
+          <select>
+            <option>1</option>
+            <option>2</option>
+          </select>
+        </div>
       </mkr-modal>
       <mkr-contained-button @click="open">Open Modal</mkr-contained-button>
     </div>
@@ -63,5 +72,5 @@ ModalWithOverlay.args = {};
 
 export const UnclosableModal = ModalWithOverlayTemplate.bind({});
 UnclosableModal.args = {
-  closeable: false
+  closeable: false,
 };
