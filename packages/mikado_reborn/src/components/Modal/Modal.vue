@@ -28,10 +28,15 @@
 
 <script lang="ts">
 import {
-  Vue, Component, Model, Prop, Watch,
+  Vue,
+  Component,
+  Model,
+  Prop,
+  Watch,
 } from 'vue-property-decorator';
 import { MkrCard } from '../Card';
 import { MkrInteractiveIcon } from '../InteractiveIcon';
+import focusTrap from './focusTrap';
 
 export const sizes = {
   medium: 'medium',
@@ -63,8 +68,10 @@ export default class Modal extends Vue {
   @Prop({ type: String, default: null })
   readonly focusFirstSelector!: string;
 
+  focusTrapListenerCleanup: ReturnType<typeof focusTrap> = null;
+
   $refs!: {
-    modalContent: Element;
+    modalContent: HTMLDivElement;
   };
 
   @Watch('closeable')
@@ -78,13 +85,16 @@ export default class Modal extends Vue {
 
   @Watch('opened')
   async onOpenedChanged(isOpened: boolean): Promise<void> {
-    if (isOpened && this.focusFirstSelector) {
+    if (isOpened) {
       await this.$nextTick();
+      const modalRef = this.$refs.modalContent;
 
-      const ref = this.$refs.modalContent.querySelector(this.focusFirstSelector) as HTMLElement;
-      if (ref) {
-        ref.focus();
-      }
+      this.focusTrapListenerCleanup = focusTrap({
+        el: modalRef,
+        focusElement: modalRef.querySelector<HTMLElement>(this.focusFirstSelector),
+      });
+    } else if (this.focusTrapListenerCleanup) {
+      this.focusTrapListenerCleanup();
     }
 
     if (!this.closeable) return;
