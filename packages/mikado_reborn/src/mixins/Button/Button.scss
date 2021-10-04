@@ -63,7 +63,7 @@
 
   &--icon-only {
     padding: 2rem;
-    &.small {
+    &#{$button}--small {
       padding: 1.5rem;
     }
   }
