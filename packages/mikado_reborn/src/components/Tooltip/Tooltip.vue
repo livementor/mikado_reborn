@@ -25,12 +25,15 @@ import { createPopper, Instance as PopperInstance } from '@popperjs/core';
 import Uuid from '../../mixins/uuid';
 
 @Component
-export default class PopUp extends Mixins(Uuid) {
+export default class Tooltip extends Mixins(Uuid) {
   @Prop({ type: String, default: '' })
   readonly label!: string;
 
   @Prop({ type: Boolean, default: false })
   readonly disabled!: boolean;
+
+  @Prop({ type: Boolean, default: false })
+  readonly topLevel!: boolean;
 
   opened = false;
 
@@ -51,6 +54,10 @@ export default class PopUp extends Mixins(Uuid) {
   mounted(): void {
     const anchor = this.$refs.anchor as HTMLElement;
     const tooltip = this.$refs.tooltip as HTMLElement;
+
+    if (this.topLevel) {
+      this.$app.$el.insertBefore(tooltip, this.$app.$el.children[0]);
+    }
 
     this.popperInstance = createPopper(anchor, tooltip, {
       modifiers: [

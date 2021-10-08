@@ -21,3 +21,21 @@ Tooltip.args = {
   label: 'Access chat',
   disabled: false,
 };
+
+const TopLevelTemplate = (args) => ({
+  props: Object.keys(args),
+  template: `
+    <div style="width:auto;height:auto;overflow:hidden;position:relative;">
+      <mkr-tooltip v-bind="$props">
+        <mkr-contained-button size="medium" icon="chat" theme="primary" />
+      </mkr-tooltip>
+    </div>
+  `,
+});
+
+export const TooltipTopLevel = TopLevelTemplate.bind({});
+TooltipTopLevel.args = {
+  label: 'Access chat',
+  disabled: false,
+  topLevel: true,
+};
