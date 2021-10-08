@@ -84,6 +84,12 @@ export default class Tooltip extends Mixins(Uuid) {
     }));
     anchor.children[0].setAttribute('aria-describedby', `tooltip-${this.uuid}`);
   }
+
+  destroyed(): void {
+    if (this.topLevel) {
+      (this.$refs.tooltip as Element).remove();
+    }
+  }
 }
 </script>
 
