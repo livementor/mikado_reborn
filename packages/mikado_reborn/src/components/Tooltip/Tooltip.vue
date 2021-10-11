@@ -35,6 +35,9 @@ export default class Tooltip extends Mixins(Uuid) {
   @Prop({ type: Boolean, default: false })
   readonly topLevel!: boolean;
 
+  @Prop({ type: Boolean, default: false })
+  readonly removeScrollListener!: boolean;
+
   opened = false;
 
   popperInstance: PopperInstance | null = null;
@@ -56,7 +59,7 @@ export default class Tooltip extends Mixins(Uuid) {
     const tooltip = this.$refs.tooltip as HTMLElement;
 
     if (this.topLevel) {
-      this.$app.$el.insertBefore(tooltip, this.$app.$el.children[0]);
+      (this.$app.$refs.tooltipContainer as HTMLElement).appendChild(tooltip);
     }
 
     this.popperInstance = createPopper(anchor, tooltip, {
@@ -65,6 +68,12 @@ export default class Tooltip extends Mixins(Uuid) {
           name: 'offset',
           options: {
             offset: [0, 4],
+          },
+        },
+        {
+          name: 'eventListeners',
+          options: {
+            scroll: this.removeScrollListener,
           },
         },
       ],

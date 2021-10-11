@@ -1,5 +1,6 @@
 <template>
   <div class="mkr__app">
+    <div ref="tooltipContainer" />
     <slot />
   </div>
 </template>
