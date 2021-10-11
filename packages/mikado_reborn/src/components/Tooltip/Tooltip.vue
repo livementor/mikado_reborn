@@ -73,7 +73,7 @@ export default class Tooltip extends Mixins(Uuid) {
         {
           name: 'eventListeners',
           options: {
-            scroll: this.removeScrollListener,
+            scroll: !this.removeScrollListener,
           },
         },
       ],
