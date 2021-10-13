@@ -1,3 +1,27 @@
+.icon-bell:before {
+  content: "\e948";
+}
+.icon-bookmark-empty:before {
+  content: "\e949";
+}
+.icon-bookmark:before {
+  content: "\e94a";
+}
+.icon-chat-alt:before {
+  content: "\e94b";
+}
+.icon-check-circle:before {
+  content: "\e94c";
+}
+.icon-clock:before {
+  content: "\e94d";
+}
+.icon-download:before {
+  content: "\e94e";
+}
+.icon-reply:before {
+  content: "\e94f";
+}
 .icon-menu:before {
   content: "\e947";
 }
