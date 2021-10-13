@@ -36,7 +36,7 @@ export default class Tooltip extends Mixins(Uuid) {
   readonly topLevel!: boolean;
 
   @Prop({ type: Boolean, default: false })
-  readonly removeScrollListener!: boolean;
+  readonly addScrollListener!: boolean;
 
   opened = false;
 
@@ -73,7 +73,7 @@ export default class Tooltip extends Mixins(Uuid) {
         {
           name: 'eventListeners',
           options: {
-            scroll: !this.removeScrollListener,
+            scroll: this.addScrollListener,
           },
         },
       ],
