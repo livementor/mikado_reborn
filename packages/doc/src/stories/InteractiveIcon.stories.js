@@ -19,6 +19,7 @@ const Template = (args, { argTypes }) => ({
 export const InteractiveIcon = Template.bind({})
 InteractiveIcon.args = {
   name: icons[0],
+  activated: false,
 }
 
 const LinkTemplate = (args, { argTypes }) => ({

@@ -37,7 +37,7 @@ $themes: (
         color: map-get($themeValues, 'color');
       }
 
-      &:hover:not(&--activated):not(:disabled), &:focus:not(:disabled) {
+      &:hover:not(&--activated):not(:disabled), &:focus:not(&--activated):not(:disabled) {
         background-color: map-get($themeValues, 'hover-background');
         .mkr__icon {
           color: map-get($themeValues, 'hover-color');
