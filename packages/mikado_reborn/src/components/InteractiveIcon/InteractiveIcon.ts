@@ -6,6 +6,7 @@ import './InteractiveIcon.scss';
 export const interactiveIconThemes = {
   light: 'light',
   dark: 'dark',
+  customColor: 'customColor',
 };
 
 @Component({
