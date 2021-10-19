@@ -17,6 +17,14 @@ $themes: (
     'activated-background': map-get($colors, 'secondary-dark'),
     'activated-color': map-get($colors, 'white'),
   ),
+  'customColor': (
+    'background': map-get($colors, 'white'),
+    'color': currentColor,
+    'hover-background': map-get($colors, 'neutral-light'),
+    'hover-color': currentColor,
+    'activated-background': map-get($colors, 'secondary-dark'),
+    'activated-color': map-get($colors, 'white'),
+  )
 );
 
 .mkr__interactive-icon {
