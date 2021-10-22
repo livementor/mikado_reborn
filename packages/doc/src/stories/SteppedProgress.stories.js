@@ -20,5 +20,4 @@ SteppedProgress.args = {
   steps: 4,
   progress: 0,
   color: 'primary',
-
 };
