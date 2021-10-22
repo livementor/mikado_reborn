@@ -1,9 +1,9 @@
 <template>
-  <div class="mkr_stepped-progress">
+  <div class="mkr__stepped-progress">
     <div
       v-for="step in steps"
       :key="step"
-      class="mkr_stepped-progress__step"
+      class="mkr__stepped-progress__step"
       :class="`${progress >= step ? color : backgroundColor}-bg`"/>
   </div>
 </template>
