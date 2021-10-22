@@ -5,7 +5,7 @@
         v-for="step in steps"
         :key="step"
         class="mkr_steppedprogress_step"
-        :class="progress >= step ? `${passedColor}`: `${defaultBackgroundColor}`"/>
+        :class="progress >= step ? passedColor: defaultBackgroundColor"/>
     </div>
   </div>
 </template>
