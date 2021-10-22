@@ -1,12 +1,10 @@
 <template>
-  <div>
-    <div class="mkr_steppedprogress">
-      <div
-        v-for="step in steps"
-        :key="step"
-        class="mkr_steppedprogress_step"
-        :class="progress >= step ? passedColor: defaultBackgroundColor"/>
-    </div>
+  <div class="mkr_stepped-progress">
+    <div
+      v-for="step in steps"
+      :key="step"
+      class="mkr_stepped-progress__step"
+      :class="`${progress >= step ? color : backgroundColor}-bg`"/>
   </div>
 </template>
 
@@ -22,20 +20,10 @@ steps!: number
 progress!: number
 
 @Prop({ type: String, default: 'primary' })
-private color!: string
+color!: string
 
 @Prop({ type: String, default: 'neutral-20' })
-private backgroundColor!: string
-
-get defaultBackgroundColor() : string {
-  return `${this.backgroundColor}-bg`;
-}
-
-get passedColor() : string {
-  if (this.color) { return `${this.color}-bg`; }
-
-  return '';
-}
+backgroundColor!: string
 }
 </script>
 
