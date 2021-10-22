@@ -22,3 +22,4 @@ export * from './Switch';
 export * from './Textarea';
 export * from './Textfield';
 export * from './Tooltip';
+export * from './SteppedProgress';
