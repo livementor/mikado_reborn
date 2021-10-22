@@ -4,6 +4,8 @@ const { execSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 
+execSync(`git checkout main && git pull`)
+
 commandExists('gh', function (_err, isGithubCLIInstalled) {
   if (isGithubCLIInstalled) {
     try {
