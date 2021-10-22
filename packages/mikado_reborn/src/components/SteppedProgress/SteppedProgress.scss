@@ -1,0 +1,25 @@
+@import '../../assets/styles/styles.scss';
+
+.mkr__stepped-progress {
+  display: flex;
+  height: 1rem;
+
+  &__step {
+    flex: 1;
+  }
+
+  &__step:first-child {
+    border-top-left-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+  }
+
+  &__step+&__step {
+    margin-left: 0.25rem;
+  }
+
+  &__step:last-child {
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+  }
+}
+
