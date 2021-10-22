@@ -2,10 +2,10 @@
   <div>
     <div class="mkr_steppedprogress">
       <div
-        v-for="step in Array.from({length: steps}, (_, i) => 1 + i)"
+        v-for="step in steps"
         :key="step"
         class="mkr_steppedprogress_step"
-        :class="[progress >= step ? `${passedColor}`: `${defaultBackgroundColor}`]"/>
+        :class="progress >= step ? `${passedColor}`: `${defaultBackgroundColor}`"/>
     </div>
   </div>
 </template>
