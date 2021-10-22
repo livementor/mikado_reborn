@@ -2957,6 +2957,21 @@
   resolved "https://registry.yarnpkg.com/@xtuc/long/-/long-4.2.2.tgz#d291c6a4e97989b5c61d9acf396ae4fe133a718d"
   integrity sha512-NuHqBY1PB/D8xU6s/thBgOAiAP7HOYDQ32+BFZILJ8ivkUkAHQnWfn6WhL79Owj1qmUnoN/YPhktdIoucipkAQ==
 
+"@zxcvbn-ts/core@^1.0.0-beta.0":
+  version "1.0.0-beta.0"
+  resolved "https://registry.yarnpkg.com/@zxcvbn-ts/core/-/core-1.0.0-beta.0.tgz#a616beacb83dbfe9174408ebabee746f3468b0ec"
+  integrity sha512-E2rHy2jrCDzJ62xqY5KteOHR+y7uPqL6FLUPVCDZmeYrAZRgB+CpO0QIQKLVrxwssx0YhApmE23eHmouce+OUA==
+
+"@zxcvbn-ts/language-common@^1.0.0-beta.0":
+  version "1.0.0-beta.0"
+  resolved "https://registry.yarnpkg.com/@zxcvbn-ts/language-common/-/language-common-1.0.0-beta.0.tgz#ba0a78c79592d8a398e87943a06f857e146b932e"
+  integrity sha512-o77ywgJIhZBQZBzqES4xUTwklQtxZn5naOl/M4m7vuS8hRbduMEoKM0bt4F/zU8Qi4hQBanN91Ln6PswmSyuMw==
+
+"@zxcvbn-ts/language-fr@^1.0.0-beta.0":
+  version "1.0.0-beta.0"
+  resolved "https://registry.yarnpkg.com/@zxcvbn-ts/language-fr/-/language-fr-1.0.0-beta.0.tgz#329204d2cad03d3570ae87b232973c5220b381a8"
+  integrity sha512-A6lE32USBLVfYGe2CeKMnNQnqOfxz2PDv+3YT3n+cvenSg0CEAapNZbSbcOLUC+YWyMomGrpmSsJ7NqvpaESzg==
+
 accepts@~1.3.4, accepts@~1.3.5, accepts@~1.3.7:
   version "1.3.7"
   resolved "https://registry.yarnpkg.com/accepts/-/accepts-1.3.7.tgz#531bc726517a3b2b41f850021c6cc15eaab507cd"

@@ -1,6 +1,6 @@
 import { VueConstructor } from 'vue';
-import { MikadoRebornOptions } from './index.d';
 import './assets/styles/framework.scss';
+import { MikadoRebornOptions } from './index.d';
 
 export default class MikadoReborn {
   static install(Vue: VueConstructor, args: MikadoRebornOptions = {}): void {

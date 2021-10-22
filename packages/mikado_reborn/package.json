@@ -1,6 +1,6 @@
 {
   "name": "@livementor/mikado_reborn",
-  "version": "0.20.0",
+  "version": "0.21.0",
   "scripts": {
     "build": "vue-cli-service build --target lib --name mikado_reborn ./src/index.ts",
     "build:tokens": "style-dictionary build",
@@ -28,6 +28,9 @@
   },
   "dependencies": {
     "@popperjs/core": "^2.9.2",
+    "@zxcvbn-ts/core": "^1.0.0-beta.0",
+    "@zxcvbn-ts/language-common": "^1.0.0-beta.0",
+    "@zxcvbn-ts/language-fr": "^1.0.0-beta.0",
     "core-js": "^3.6.5",
     "vue-class-component": "^7.2.3",
     "vue-functional-data-merge": "^3.1.0",
