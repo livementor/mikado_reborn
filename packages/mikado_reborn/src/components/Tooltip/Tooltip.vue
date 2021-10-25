@@ -11,7 +11,10 @@
       role="tooltip"
       :aria-hidden="!isOpened"
     >
-      {{ label }}
+      <template v-if="label">
+        {{label}}
+      </template>
+      <slot name="content" v-else/>
     </div>
   </div>
 </template>
