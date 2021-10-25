@@ -8,6 +8,7 @@ export const containedButtonThemes = {
   secondary: 'secondary',
   'secondary-light': 'secondary-light',
   'danger-light': 'danger-light',
+  neutral: 'neutral',
 };
 
 @Component

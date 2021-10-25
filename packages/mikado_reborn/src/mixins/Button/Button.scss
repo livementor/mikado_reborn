@@ -23,7 +23,7 @@
   cursor: pointer;
 
   &:disabled {
-    opacity: 0.4;
+    color: map-get($colors, 'neutral-60');
     cursor: not-allowed;
   };
 

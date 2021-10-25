@@ -17,5 +17,10 @@
       background: map-get($colors, 'primary-light');
       border-color: map-get($colors, 'primary');
     };
+
+    &:disabled {
+      background-color: map-get($colors, 'white');
+      border: 1px solid map-get($colors, 'neutral-20');
+    };
   }
 }
