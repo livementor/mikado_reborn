@@ -29,7 +29,6 @@ $themes: (
   border-radius: 4px;
 
   &:disabled {
-    background-color: map-get($colors, 'white');
     color: map-get($colors, 'neutral-60');
   };
 
