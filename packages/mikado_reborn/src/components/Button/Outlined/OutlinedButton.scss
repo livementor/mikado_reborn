@@ -20,7 +20,6 @@
 
     &:disabled {
       background-color: map-get($colors, 'white');
-      color: map-get($colors, 'neutral-60');
       border: 1px solid map-get($colors, 'neutral-20');
     };
   }

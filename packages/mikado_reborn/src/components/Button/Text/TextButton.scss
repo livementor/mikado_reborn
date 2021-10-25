@@ -28,10 +28,6 @@ $themes: (
   box-sizing: border-box;
   border-radius: 4px;
 
-  &:disabled {
-    color: map-get($colors, 'neutral-60');
-  };
-
   @each $themeName, $themeValues in $themes {
     &--#{$themeName} {
       color: map-get($themeValues, 'color');
