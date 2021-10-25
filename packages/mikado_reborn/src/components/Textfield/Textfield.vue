@@ -1,19 +1,22 @@
 <template>
   <div :class="['mkr__textfield', {'error' : error}]">
-    <mkr-icon v-if="iconName" :color="iconColor" :name="iconName"/>
-    <input
-      :type="getType"
-      @focus="focused = true"
-      @blur="focused = false"
-      :placeholder="placeholder"
-      :value="value"
-      @input="emitInput"
-      @change="emitChange"
-    >
-    <mkr-icon v-if="error" name="exclamation-circle" color="danger" />
+    <div class="mkr__textfield__inner">
+      <mkr-icon v-if="iconName" :color="iconColor" :name="iconName"/>
+      <input
+        :type="getType"
+        @focus="focused = true"
+        @blur="focused = false"
+        :placeholder="placeholder"
+        :value="value"
+        @input="emitInput"
+        @change="emitChange"
+      >
+      <mkr-icon v-if="error" name="exclamation-circle" color="danger" />
+    </div>
     <mkr-contained-button
       v-if="type === 'password' || showPassword"
       theme="neutral"
+      size="small"
       :icon="showPassword ? 'eye-off' : 'eye'"
       :color="iconColor"
       @click="showPasswordClick"

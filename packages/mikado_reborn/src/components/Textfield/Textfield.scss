@@ -2,7 +2,13 @@
 
 .mkr__textfield  {
   @include mkr__input;
-  padding: 1.5rem 2rem;
+
+  padding: 0.5rem;
+
+  &__inner {
+    flex: 1;
+    padding: 1rem 1.5rem;
+  }
 
   input {
     line-height: 24px;
