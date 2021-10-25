@@ -23,7 +23,8 @@
   cursor: pointer;
 
   &:disabled {
-    opacity: 0.4;
+    background-color: map-get($colors, 'neutral-light');
+    color: map-get($colors, 'neutral-60');
     cursor: not-allowed;
   };
 
