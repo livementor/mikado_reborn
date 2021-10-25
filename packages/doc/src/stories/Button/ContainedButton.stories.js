@@ -12,7 +12,8 @@ export default {
           'primary-light',
           'secondary',
           'secondary-light',
-          'danger-light'
+          'danger-light',
+          'neutral'
         ],
       }
     },

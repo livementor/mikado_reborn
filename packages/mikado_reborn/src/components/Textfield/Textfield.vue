@@ -11,9 +11,9 @@
       @change="emitChange"
     >
     <mkr-icon v-if="error" name="exclamation-circle" color="danger" />
-    <mkr-icon
+    <mkr-contained-button
       v-if="type === 'password' || showPassword"
-      :name="showPassword ? 'eye-off' : 'eye'"
+      :icon="showPassword ? 'eye-off' : 'eye'"
       :color="iconColor"
       @click="showPasswordClick"
     />
@@ -23,11 +23,11 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 
-import { MkrIcon } from '../Icon';
+import MkrContainedButton from '../Button/Contained/ContainedButton';
 
 @Component({
   components: {
-    MkrIcon,
+    MkrContainedButton,
   },
 })
 export default class TextField extends Vue {

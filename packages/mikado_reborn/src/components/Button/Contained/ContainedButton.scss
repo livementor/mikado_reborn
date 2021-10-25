@@ -20,6 +20,11 @@ $themes: (
   'danger-light': (
     'background': map-get($colors, 'danger-light'),
     'color': map-get($colors, 'danger'),
+  ),
+  'neutral':(
+    'background': map-get($colors, 'neutral-light'),
+    'color': map-get($colors, 'secondary-dark'),
+    'hover': map-get($colors, 'primary'),
   )
 );
 
@@ -36,6 +41,9 @@ $themes: (
     &--#{$themeName} {
       background-color: map-get($themeValues, 'background');
       color: map-get($themeValues, 'color');
+      &:hover {
+        background-color: map-get($themeValues, 'hover')
+      }
     }
   }
 }
