@@ -17,6 +17,7 @@
       v-if="type === 'password' || showPassword"
       theme="neutral"
       size="small"
+      type="button"
       :icon="showPassword ? 'eye-off' : 'eye'"
       :color="iconColor"
       @click="showPasswordClick"
