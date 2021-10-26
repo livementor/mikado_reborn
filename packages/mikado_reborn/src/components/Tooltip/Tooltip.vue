@@ -23,7 +23,9 @@
 import {
   Component, Prop, Mixins, Watch,
 } from 'vue-property-decorator';
-import { createPopper, Instance as PopperInstance, Placement } from '@popperjs/core';
+import {
+  createPopper, Instance as PopperInstance, Modifier, OptionsGeneric, Placement,
+} from '@popperjs/core';
 
 import Uuid from '../../mixins/uuid';
 
@@ -36,7 +38,7 @@ export default class Tooltip extends Mixins(Uuid) {
   readonly disabled!: boolean;
 
   @Prop({ type: String, default: '' })
-  readonly placement!: string
+  readonly placement!: Placement
 
   @Prop({ type: Boolean, default: false })
   readonly topLevel!: boolean;
@@ -67,7 +69,7 @@ export default class Tooltip extends Mixins(Uuid) {
     if (this.topLevel) {
       (this.$app.$refs.tooltipContainer as HTMLElement).appendChild(tooltip);
     }
-    const config: unknown = {
+    const config: Partial<OptionsGeneric<Partial<Modifier<any, any>>>> = {
       modifiers: [
         {
           name: 'offset',
@@ -85,9 +87,9 @@ export default class Tooltip extends Mixins(Uuid) {
     };
 
     if (this.placement) {
-      config.placement = this.placement as Placement;
+      config.placement = this.placement;
     }
-    
+
     this.popperInstance = createPopper(anchor, tooltip, config);
 
     if (!anchor.children[0]) {

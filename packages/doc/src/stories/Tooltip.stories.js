@@ -38,5 +38,4 @@ TooltipTopLevel.args = {
   label: 'Access chat',
   disabled: false,
   topLevel: true,
-  placement: ''
 };
