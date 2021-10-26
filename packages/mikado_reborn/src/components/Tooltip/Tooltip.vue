@@ -87,6 +87,7 @@ export default class Tooltip extends Mixins(Uuid) {
     if (this.placement) {
       config.placement = this.placement as Placement;
     }
+    
     this.popperInstance = createPopper(anchor, tooltip, config);
 
     if (!anchor.children[0]) {
