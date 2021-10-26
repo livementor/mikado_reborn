@@ -67,7 +67,7 @@ export default class Tooltip extends Mixins(Uuid) {
     if (this.topLevel) {
       (this.$app.$refs.tooltipContainer as HTMLElement).appendChild(tooltip);
     }
-    const config: any = {
+    const config: unknown = {
       modifiers: [
         {
           name: 'offset',
