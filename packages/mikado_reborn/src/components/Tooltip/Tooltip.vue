@@ -23,7 +23,7 @@
 import {
   Component, Prop, Mixins, Watch,
 } from 'vue-property-decorator';
-import { createPopper, Instance as PopperInstance } from '@popperjs/core';
+import { createPopper, Instance as PopperInstance, Placement } from '@popperjs/core';
 
 import Uuid from '../../mixins/uuid';
 
@@ -34,6 +34,9 @@ export default class Tooltip extends Mixins(Uuid) {
 
   @Prop({ type: Boolean, default: false })
   readonly disabled!: boolean;
+
+  @Prop({ type: String, default: '' })
+  readonly placement!: string
 
   @Prop({ type: Boolean, default: false })
   readonly topLevel!: boolean;
@@ -64,8 +67,7 @@ export default class Tooltip extends Mixins(Uuid) {
     if (this.topLevel) {
       (this.$app.$refs.tooltipContainer as HTMLElement).appendChild(tooltip);
     }
-
-    this.popperInstance = createPopper(anchor, tooltip, {
+    const config: unknown = {
       modifiers: [
         {
           name: 'offset',
@@ -80,7 +82,13 @@ export default class Tooltip extends Mixins(Uuid) {
           },
         },
       ],
-    });
+    };
+
+    if (this.placement) {
+      config.placement = this.placement as Placement;
+    }
+    
+    this.popperInstance = createPopper(anchor, tooltip, config);
 
     if (!anchor.children[0]) {
       return;
