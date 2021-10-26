@@ -83,6 +83,7 @@ export default class Tooltip extends Mixins(Uuid) {
         },
       ],
     };
+
     if (this.placement) {
       config.placement = this.placement as Placement;
     }
