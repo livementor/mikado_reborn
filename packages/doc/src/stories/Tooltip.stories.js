@@ -20,7 +20,6 @@ export const Tooltip = Template.bind({});
 Tooltip.args = {
   label: 'Access chat',
   disabled: false,
-
 };
 
 const TopLevelTemplate = (args) => ({
