@@ -1,5 +1,48 @@
 @import '../../assets/styles/styles.scss';
 
+$themes: (
+  'danger': (
+    'background': 'danger',
+    'color': 'white',
+  ),
+  'danger-light': (
+    'background': 'danger-light',
+    'color': 'danger',
+  ),
+  'info': (
+    'background': 'info',
+    'color': 'white',
+  ),
+  'info-light': (
+    'background': 'info-light',
+    'color': 'info',
+  ),
+  'primary': (
+    'background': 'primary',
+    'color': 'secondary-dark',
+  ),
+  'primary-light': (
+    'background': 'primary-light',
+    'color': 'primary-dark',
+  ),
+  'secondary': (
+    'background': 'secondary-dark',
+    'color': 'white',
+  ),
+  'success': (
+    'background': 'success',
+    'color': 'white',
+  ),
+  'success-light': (
+    'background': 'success-light',
+    'color': 'success',
+  ),
+  'warning-light': (
+    'background': 'warning-light',
+    'color': 'warning',
+  )
+);
+
 .mkr__badge {
   @include caption-small-font;
   display: flex;
@@ -10,17 +53,10 @@
   width: fit-content;
   border-radius: 22px;
 
-  /* alert/danger */
-  &.danger {
-    background: map-get($colors, 'danger-light');
-    color: map-get($colors, 'danger');
-  }
-  &.success {
-    background: map-get($colors, 'success-light');
-    color: map-get($colors, 'success');
-  }
-  &.warning {
-    background: map-get($colors, 'warning-light');
-    color: map-get($colors, 'warning');
+  @each $themeName, $themeValues in $themes {
+    &--#{$themeName} {
+      background-color: map-get($colors, map-get($themeValues, 'background'));
+      color: map-get($colors, map-get($themeValues, 'color'));
+    }
   }
 }
