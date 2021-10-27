@@ -4,7 +4,9 @@ import './TextButton.scss';
 
 export const textButtonThemes = {
   neutral: 'neutral',
-  primary: 'primary',
+  'neutral-80': 'neutral-80',
+  'neutral-60': 'neutral-60',
+  'secondary-dark': 'secondary-dark',
   danger: 'danger',
 };
 
