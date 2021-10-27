@@ -27,12 +27,13 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
-
+import MkrIcon from '../Icon/Icon.vue';
 import MkrContainedButton from '../Button/Contained/ContainedButton';
 
 @Component({
   components: {
     MkrContainedButton,
+    MkrIcon,
   },
 })
 export default class TextField extends Vue {
