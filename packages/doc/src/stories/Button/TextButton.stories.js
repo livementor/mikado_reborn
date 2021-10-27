@@ -47,12 +47,6 @@ TextButtonNeutral.args = {
   size: 'medium',
 };
 
-export const TextButtonPrimary = TextButtonShowcaseTemplate.bind({});
-TextButtonPrimary.args = {
-  theme: 'primary',
-  size: 'medium',
-};
-
 export const TextButtonSmall = TextButtonShowcaseTemplate.bind({});
 TextButtonSmall.args = {
   size: 'small',
