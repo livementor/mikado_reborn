@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/multi-word-component-names -->
 <script lang="ts">
 import { CreateElement, RenderContext, VNode } from 'vue';
 import { mergeData } from 'vue-functional-data-merge';
