@@ -1,5 +1,5 @@
 import { MkrList, MkrListItem } from "../../../mikado_reborn/src/components";
-import { BgItemVariant } from '../../../mikado_reborn/src/components/List/List.vue'
+import { BgItemVariant, ListSize } from '../../../mikado_reborn/src/components/List/List.vue'
 
 export default {
   title: 'Components/List',
@@ -9,14 +9,15 @@ export default {
   },
   argTypes: {
     bgItemVariant: { control: { type: 'inline-radio', options: [...Object.values(BgItemVariant), undefined] } },
-    clickable: false,
+    size: { control: { type: 'inline-radio', options: [...Object.values(ListSize)] } },
+    clickable:  { control: { type: 'boolean' } },
   },
 };
 
 const Template = (args) => ({
   props: Object.keys(args),
   template: `
-    <MkrList :bgItemVariant="$props.bgItemVariant">
+    <MkrList :bgItemVariant="$props.bgItemVariant" :size="$props.size">
       <MkrListItem>
         First
         <MkrTextButton icon="chat" size="small" style="margin-left: 3rem;" />
@@ -34,7 +35,9 @@ const Template = (args) => ({
 });
 export const List = Template.bind({});
 List.args = {
-  clickable: false
+  bgItemVariant: undefined,
+  clickable: false,
+  size: 'medium'
 };
 
 const ListOddTemplate = (args) => ({
@@ -116,3 +119,54 @@ const ListItemsClickableTemplate = (args) => ({
   `,
 });
 export const ListItemsClickable = ListItemsClickableTemplate.bind({});
+
+const ListSizeSmallTemplate = (args) => ({
+  props: Object.keys(args),
+  template: `
+    <MkrList size="small">
+      <MkrListItem>
+        First
+      </MkrListItem>
+      <MkrListItem>
+        Second
+      </MkrListItem>
+      <MkrListItem> Third </MkrListItem>
+      <MkrListItem> Fourth </MkrListItem>
+    </MkrList>
+  `,
+});
+export const ListSizeSmall = ListSizeSmallTemplate.bind({});
+
+const ListSizeMediumTemplate = (args) => ({
+  props: Object.keys(args),
+  template: `
+    <MkrList size="medium">
+      <MkrListItem>
+        First
+      </MkrListItem>
+      <MkrListItem>
+        Second
+      </MkrListItem>
+      <MkrListItem> Third </MkrListItem>
+      <MkrListItem> Fourth </MkrListItem>
+    </MkrList>
+  `,
+});
+export const ListSizeMedium = ListSizeMediumTemplate.bind({});
+
+const ListSizeLargeTemplate = (args) => ({
+  props: Object.keys(args),
+  template: `
+    <MkrList size="large">
+      <MkrListItem>
+        First
+      </MkrListItem>
+      <MkrListItem>
+        Second
+      </MkrListItem>
+      <MkrListItem> Third </MkrListItem>
+      <MkrListItem> Fourth </MkrListItem>
+    </MkrList>
+  `,
+});
+export const ListSizeLarge = ListSizeLargeTemplate.bind({});

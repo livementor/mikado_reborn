@@ -1,5 +1,5 @@
 <template>
-  <div class="mkr__list" :class="[bgItemVariantClass]">
+  <div class="mkr__list" :class="[bgItemVariantClass, listSizeClass]">
     <slot />
   </div>
 </template>
@@ -13,6 +13,12 @@ export const BgItemVariant = {
   hover: 'hover',
 };
 
+export const ListSize = {
+  small: 'small',
+  medium: 'medium',
+  large: 'large',
+};
+
 @Component
 export default class List extends Vue {
   @Prop({
@@ -22,8 +28,19 @@ export default class List extends Vue {
   })
   bgItemVariant?: keyof typeof BgItemVariant
 
+  @Prop({
+    type: String,
+    default: ListSize.medium,
+    validator: (variant) => Object.values(ListSize).includes(variant),
+  })
+  size!: keyof typeof ListSize
+
   get bgItemVariantClass() {
     return this.bgItemVariant ? `--${this.bgItemVariant}` : undefined;
+  }
+
+  get listSizeClass() {
+    return `--${this.size}`;
   }
 }
 

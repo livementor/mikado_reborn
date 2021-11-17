@@ -13,16 +13,28 @@
     border-bottom: 1px solid map-get($colors, 'neutral-20');
   }
 
-  &.--even .mkr__list__item:nth-child(even),
-  &.--odd .mkr__list__item:nth-child(odd) {
+  &.--even > .mkr__list__item:nth-child(even),
+  &.--odd > .mkr__list__item:nth-child(odd) {
     background-color: map-get($colors, 'neutral-light');
   }
 
-  &.--hover .mkr__list__item {
+  &.--hover > .mkr__list__item {
     cursor: pointer;
 
     &:hover {
       background-color: map-get($colors, 'neutral-light');
     }
+  }
+
+  &.--small > .mkr__list__item {
+    padding: 8px;
+  }
+
+  &.--medium > .mkr__list__item {
+    padding: 16px;
+  }
+
+  &.--large > .mkr__list__item {
+    padding: 24px;
   }
 }
