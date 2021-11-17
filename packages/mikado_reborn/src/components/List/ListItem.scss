@@ -1,0 +1,24 @@
+@import '../../assets/styles/styles.scss';
+
+.mkr__list__item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  flex: 1;
+  padding: 16px;
+
+  border: none;
+  background-color: inherit;
+  font-size: inherit;
+  font-family: inherit;
+  letter-spacing: inherit;
+  line-height: inherit;
+
+  &.--clickable {
+    cursor: pointer;
+
+    &:hover {
+      background-color: map-get($colors, 'neutral-light');
+    }
+  }
+}
