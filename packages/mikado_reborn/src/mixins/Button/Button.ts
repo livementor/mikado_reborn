@@ -20,7 +20,7 @@ export default class Button extends Vue {
   })
   size!: 'small' | 'medium' | 'large';
 
-  @Prop()
+  @Prop({ default: undefined, type: String })
   icon?: string;
 
   @Prop({

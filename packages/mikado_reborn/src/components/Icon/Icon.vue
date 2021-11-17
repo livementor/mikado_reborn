@@ -7,9 +7,11 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 
 @Component
 export default class Icon extends Vue {
-  @Prop() private name!: string;
+  @Prop({ required: true, type: String })
+  private name!: string;
 
-  @Prop() private color!: string;
+  @Prop({ default: undefined, type: String })
+  private color?: string;
 
   get classNames() : string[] {
     const classes = [];
