@@ -11,7 +11,7 @@
   padding: 0;
   list-style: none;
 
-  &:not(.--large) {
+  &:not(.mkr__list--large) {
     border: 1px solid map-get($colors, 'neutral-20');
   }
 
