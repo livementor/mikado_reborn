@@ -32,17 +32,17 @@
   }
 
   &:focus-visible::before {
-    --button-padding: 4px;
+    --focus-border-offset: -4px;
     content: close-quote;
-    width: calc(100% + 2 * var(--button-padding));
-    height: calc(100% + 2 * var(--button-padding));
     position: absolute;
     background: transparent;
-    left: calc(-var(--button-padding));
-    top: calc(-var(--button-padding));
     z-index: -1;
     border-radius: 6px;
     border: 2px solid map-get($colors, 'info');
+    left: var(--focus-border-offset);
+    top: var(--focus-border-offset);
+    right: var(--focus-border-offset);
+    bottom: var(--focus-border-offset);
   }
 
   &--small {
