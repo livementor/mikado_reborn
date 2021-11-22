@@ -1,5 +1,5 @@
 import { MkrList, MkrListItem } from "../../../mikado_reborn/src/components";
-import { BgItemVariant, ListSize } from '../../../mikado_reborn/src/components/List/List.vue'
+import { ListSize } from '../../../mikado_reborn/src/components/List/List.vue'
 
 export default {
   title: 'Components/List',
@@ -8,16 +8,16 @@ export default {
     MkrListItem,
   },
   argTypes: {
-    bgItemVariant: { control: { type: 'inline-radio', options: [...Object.values(BgItemVariant), undefined] } },
-    size: { control: { type: 'inline-radio', options: [...Object.values(ListSize)] } },
-    clickable:  { control: { type: 'boolean' } },
+    itemHoverable: { control: { type: 'boolean' }, defaultValue: { summary: 'false' }, description: 'Apply CSS style on `<ListItem />` on hover' },
+    size: { control: { type: 'inline-radio', options: [...Object.values(ListSize)] }, defaultValue: { summary: 'medium' }, description: 'Size of list - Apply CSS style according with the chosen size' },
+    clickable: { control: { type: 'boolean' }, defaultValue: { summary: 'false' }, description: 'Option of `<ListItem />` to make the component a `<button />` clickable' },
   },
 };
 
 const Template = (args) => ({
   props: Object.keys(args),
   template: `
-    <MkrList :bgItemVariant="$props.bgItemVariant" :size="$props.size">
+    <MkrList :item-hoverable="$props.itemHoverable" :size="$props.size">
       <MkrListItem>
         First
         <MkrTextButton icon="chat" size="small" style="margin-left: 3rem;" />
@@ -35,57 +35,15 @@ const Template = (args) => ({
 });
 export const List = Template.bind({});
 List.args = {
-  bgItemVariant: undefined,
+  itemHoverable: false,
   clickable: false,
   size: 'medium'
 };
 
-const ListOddTemplate = (args) => ({
-  props: Object.keys(args),
-  template: `
-    <MkrList bgItemVariant="odd">
-      <MkrListItem>
-        First
-        <MkrTextButton icon="chat" size="small" style="margin-left: 3rem;" />
-      </MkrListItem>
-      <MkrListItem>
-        Second
-        <MkrContainedButton icon="download" size="small" style="margin-left: 3rem;">
-          Télécharger
-        </MkrContainedButton>
-      </MkrListItem>
-      <MkrListItem :clickable="$props.clickable"> Third </MkrListItem>
-      <MkrListItem :clickable="$props.clickable"> Fourth </MkrListItem>
-    </MkrList>
-  `,
-});
-export const ListOdd = ListOddTemplate.bind({});
-
-const ListEvenTemplate = (args) => ({
-  props: Object.keys(args),
-  template: `
-    <MkrList bgItemVariant="even">
-      <MkrListItem>
-        First
-        <MkrTextButton icon="chat" size="small" style="margin-left: 3rem;" />
-      </MkrListItem>
-      <MkrListItem>
-        Second
-        <MkrContainedButton icon="download" size="small" style="margin-left: 3rem;">
-          Télécharger
-        </MkrContainedButton>
-      </MkrListItem>
-      <MkrListItem :clickable="$props.clickable"> Third </MkrListItem>
-      <MkrListItem :clickable="$props.clickable"> Fourth </MkrListItem>
-    </MkrList>
-  `,
-});
-export const ListEven = ListEvenTemplate.bind({});
-
 const ListHoverTemplate = (args) => ({
   props: Object.keys(args),
   template: `
-    <MkrList bgItemVariant="hover">
+    <MkrList item-hoverable>
       <MkrListItem>
         First
         <MkrTextButton icon="chat" size="small" style="margin-left: 3rem;" />

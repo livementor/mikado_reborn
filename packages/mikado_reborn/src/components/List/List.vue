@@ -1,17 +1,11 @@
 <template>
-  <div class="mkr__list" :class="[bgItemVariantClass, listSizeClass]">
+  <div class="mkr__list" :class="[listSizeClass, { '--item-hoverable': itemHoverable }]">
     <slot />
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-
-export const BgItemVariant = {
-  odd: 'odd',
-  even: 'even',
-  hover: 'hover',
-};
 
 export const ListSize = {
   small: 'small',
@@ -22,11 +16,10 @@ export const ListSize = {
 @Component
 export default class List extends Vue {
   @Prop({
-    type: String,
-    default: undefined,
-    validator: (variant) => Object.values(BgItemVariant).includes(variant) || variant === undefined,
+    type: Boolean,
+    default: false,
   })
-  bgItemVariant?: keyof typeof BgItemVariant
+  itemHoverable?: boolean
 
   @Prop({
     type: String,
@@ -34,10 +27,6 @@ export default class List extends Vue {
     validator: (variant) => Object.values(ListSize).includes(variant),
   })
   size!: keyof typeof ListSize
-
-  get bgItemVariantClass() {
-    return this.bgItemVariant ? `--${this.bgItemVariant}` : undefined;
-  }
 
   get listSizeClass() {
     return `--${this.size}`;

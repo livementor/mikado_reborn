@@ -18,6 +18,7 @@
 
     &:hover {
       background-color: map-get($colors, 'neutral-light');
+      color: map-get($colors, 'secondary-dark');
     }
   }
 }

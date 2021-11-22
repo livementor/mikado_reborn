@@ -5,36 +5,41 @@
   flex-direction: column;
   justify-content: space-between;
   background-color: map-get($colors, 'white');
-  border: 1px solid map-get($colors, 'neutral-20');
   border-radius: 4px;
   overflow: hidden;
+
+  &:not(.--large) {
+    border: 1px solid map-get($colors, 'neutral-20');
+  }
 
   & > .mkr__list__item:not(:last-child) {
     border-bottom: 1px solid map-get($colors, 'neutral-20');
   }
 
-  &.--even > .mkr__list__item:nth-child(even),
-  &.--odd > .mkr__list__item:nth-child(odd) {
-    background-color: map-get($colors, 'neutral-light');
-  }
-
-  &.--hover > .mkr__list__item {
+  &.--item-hoverable > .mkr__list__item {
     cursor: pointer;
 
     &:hover {
       background-color: map-get($colors, 'neutral-light');
+      color: map-get($colors, 'secondary-dark');
     }
   }
 
   &.--small > .mkr__list__item {
-    padding: 8px;
+    padding: 8px 16px;
   }
 
   &.--medium > .mkr__list__item {
     padding: 16px;
   }
 
-  &.--large > .mkr__list__item {
-    padding: 24px;
+  &.--large {
+    padding: 0 16px 16px 16px;
+    border: 1px dashed map-get($colors, 'neutral-20');
+
+    & > .mkr__list__item {
+      padding: 32px 16px 16px 16px;
+      border-bottom: 1px solid map-get($colors, 'neutral-20');
+    }
   }
 }
