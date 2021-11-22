@@ -2,9 +2,9 @@
   <ul
     class="mkr__list"
     :class="[
+      `mkr__list--${size}`,
       { 'mkr__list--item-hoverable': itemHoverable },
-      `mkr__list--${size}`]
-    "
+    ]"
   >
     <slot />
   </ul>
