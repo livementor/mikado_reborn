@@ -46,7 +46,7 @@ const ListHoverTemplate = (args) => ({
     <mkr-list item-hoverable>
       <mkr-list-item>
         First
-        <MkrTextButton icon="chat" size="small" style="margin-left: 3rem;" />
+        <mkr-text-button icon="chat" size="small" style="margin-left: 3rem;" />
       </mkr-list-item>
       <mkr-list-item>
         Second
