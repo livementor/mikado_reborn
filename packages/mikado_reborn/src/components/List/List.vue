@@ -1,14 +1,19 @@
 <template>
-  <div class="mkr__list" :class="[listSizeClass, { '--item-hoverable': itemHoverable }]">
+  <ul
+    class="mkr__list"
+    :class="[
+      { 'mkr__list--item-hoverable': itemHoverable },
+      `mkr__list--${size}`]
+    "
+  >
     <slot />
-  </div>
+  </ul>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 
 export const ListSize = {
-  small: 'small',
   medium: 'medium',
   large: 'large',
 };
@@ -27,10 +32,6 @@ export default class List extends Vue {
     validator: (variant) => Object.values(ListSize).includes(variant),
   })
   size!: keyof typeof ListSize
-
-  get listSizeClass() {
-    return `--${this.size}`;
-  }
 }
 
 </script>

@@ -8,29 +8,29 @@ export default {
     MkrListItem,
   },
   argTypes: {
-    itemHoverable: { control: { type: 'boolean' }, defaultValue: { summary: 'false' }, description: 'Apply CSS style on `<ListItem />` on hover' },
-    size: { control: { type: 'inline-radio', options: [...Object.values(ListSize)] }, defaultValue: { summary: 'medium' }, description: 'Size of list - Apply CSS style according with the chosen size' },
-    clickable: { control: { type: 'boolean' }, defaultValue: { summary: 'false' }, description: 'Option of `<ListItem />` to make the component a `<button />` clickable' },
+    itemHoverable: { control: { type: 'boolean' }, defaultValue: { summary: 'false' }, description: 'Apply CSS style on `<mkr-list-item />` on hover' },
+    size: { options: [...Object.values(ListSize)], control: { type: 'inline-radio' }, defaultValue: { summary: 'medium' }, description: 'Size of list - Apply CSS style according with the chosen size' },
+    clickable: { control: { type: 'boolean' }, defaultValue: { summary: 'false' }, description: 'Option of `<mkr-list-item />` to make the component a `<button />` clickable' },
   },
 };
 
 const Template = (args) => ({
   props: Object.keys(args),
   template: `
-    <MkrList :item-hoverable="$props.itemHoverable" :size="$props.size">
-      <MkrListItem>
+    <mkr-list :item-hoverable="$props.itemHoverable" :size="$props.size">
+      <mkr-list-item>
         First
-        <MkrTextButton icon="chat" size="small" style="margin-left: 3rem;" />
-      </MkrListItem>
-      <MkrListItem>
+        <mkr-text-button icon="chat" size="small" style="margin-left: 3rem;" />
+      </mkr-list-item>
+      <mkr-list-item>
         Second
-        <MkrContainedButton icon="download" size="small" style="margin-left: 3rem;">
+        <mkr-contained-button icon="download" size="small" style="margin-left: 3rem;">
           Télécharger
-        </MkrContainedButton>
-      </MkrListItem>
-      <MkrListItem :clickable="$props.clickable"> Third </MkrListItem>
-      <MkrListItem :clickable="$props.clickable"> Fourth </MkrListItem>
-    </MkrList>
+        </mkr-contained-button>
+      </mkr-list-item>
+      <mkr-list-item :clickable="$props.clickable"> Third </mkr-list-item>
+      <mkr-list-item :clickable="$props.clickable"> Fourth </mkr-list-item>
+    </mkr-list>
   `,
 });
 export const List = Template.bind({});
@@ -43,20 +43,20 @@ List.args = {
 const ListHoverTemplate = (args) => ({
   props: Object.keys(args),
   template: `
-    <MkrList item-hoverable>
-      <MkrListItem>
+    <mkr-list item-hoverable>
+      <mkr-list-item>
         First
         <MkrTextButton icon="chat" size="small" style="margin-left: 3rem;" />
-      </MkrListItem>
-      <MkrListItem>
+      </mkr-list-item>
+      <mkr-list-item>
         Second
-        <MkrContainedButton icon="download" size="small" style="margin-left: 3rem;">
+        <mkr-contained-button icon="download" size="small" style="margin-left: 3rem;">
           Télécharger
-        </MkrContainedButton>
-      </MkrListItem>
-      <MkrListItem :clickable="$props.clickable"> Third </MkrListItem>
-      <MkrListItem :clickable="$props.clickable"> Fourth </MkrListItem>
-    </MkrList>
+        </mkr-contained-button>
+      </mkr-list-item>
+      <mkr-list-item> Third </mkr-list-item>
+      <mkr-list-item> Fourth </mkr-list-item>
+    </mkr-list>
   `,
 });
 export const ListHover = ListHoverTemplate.bind({});
@@ -64,67 +64,41 @@ export const ListHover = ListHoverTemplate.bind({});
 const ListItemsClickableTemplate = (args) => ({
   props: Object.keys(args),
   template: `
-    <MkrList>
-      <MkrListItem :clickable="true">
+    <mkr-list>
+      <mkr-list-item :clickable="true">
         First
-      </MkrListItem>
-      <MkrListItem :clickable="true">
+      </mkr-list-item>
+      <mkr-list-item :clickable="true">
         Second
-      </MkrListItem>
-      <MkrListItem :clickable="true"> Third </MkrListItem>
-      <MkrListItem :clickable="true"> Fourth </MkrListItem>
-    </MkrList>
+      </mkr-list-item>
+      <mkr-list-item :clickable="true"> Third </mkr-list-item>
+      <mkr-list-item :clickable="true"> Fourth </mkr-list-item>
+    </mkr-list>
   `,
 });
 export const ListItemsClickable = ListItemsClickableTemplate.bind({});
 
-const ListSizeSmallTemplate = (args) => ({
+const ListSizeTemplate = (args) => ({
   props: Object.keys(args),
   template: `
-    <MkrList size="small">
-      <MkrListItem>
+    <mkr-list :size="$props.size">
+      <mkr-list-item>
         First
-      </MkrListItem>
-      <MkrListItem>
+      </mkr-list-item>
+      <mkr-list-item>
         Second
-      </MkrListItem>
-      <MkrListItem> Third </MkrListItem>
-      <MkrListItem> Fourth </MkrListItem>
-    </MkrList>
+      </mkr-list-item>
+      <mkr-list-item> Third </mkr-list-item>
+      <mkr-list-item> Fourth </mkr-list-item>
+    </mkr-list>
   `,
 });
-export const ListSizeSmall = ListSizeSmallTemplate.bind({});
+export const ListSizeMedium = ListSizeTemplate.bind({});
+ListSizeMedium.args = {
+  size: 'medium'
+}
 
-const ListSizeMediumTemplate = (args) => ({
-  props: Object.keys(args),
-  template: `
-    <MkrList size="medium">
-      <MkrListItem>
-        First
-      </MkrListItem>
-      <MkrListItem>
-        Second
-      </MkrListItem>
-      <MkrListItem> Third </MkrListItem>
-      <MkrListItem> Fourth </MkrListItem>
-    </MkrList>
-  `,
-});
-export const ListSizeMedium = ListSizeMediumTemplate.bind({});
-
-const ListSizeLargeTemplate = (args) => ({
-  props: Object.keys(args),
-  template: `
-    <MkrList size="large">
-      <MkrListItem>
-        First
-      </MkrListItem>
-      <MkrListItem>
-        Second
-      </MkrListItem>
-      <MkrListItem> Third </MkrListItem>
-      <MkrListItem> Fourth </MkrListItem>
-    </MkrList>
-  `,
-});
-export const ListSizeLarge = ListSizeLargeTemplate.bind({});
+export const ListSizeLarge = ListSizeTemplate.bind({});
+ListSizeLarge.args = {
+  size: 'large'
+}

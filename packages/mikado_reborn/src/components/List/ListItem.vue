@@ -2,7 +2,7 @@
   <Component
     :is="component"
     class="mkr__list__item"
-    :class="{ '--clickable': clickable }"
+    :class="{ 'mkr__list__item--clickable': clickable }"
     v-on="{
       ...$listeners,
       click: (event) => clickable ? $emit('click', event) : undefined
@@ -24,7 +24,7 @@ export default class ListItem extends Vue {
   clickable!: boolean
 
   get component() {
-    return this.clickable ? 'button' : 'div';
+    return this.clickable ? 'button' : 'li';
   }
 }
 </script>

@@ -5,8 +5,11 @@
   flex-direction: column;
   justify-content: space-between;
   background-color: map-get($colors, 'white');
-  border-radius: 4px;
+  border-radius: 0.5rem;
   overflow: hidden;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 
   &:not(.--large) {
     border: 1px solid map-get($colors, 'neutral-20');
@@ -16,7 +19,7 @@
     border-bottom: 1px solid map-get($colors, 'neutral-20');
   }
 
-  &.--item-hoverable > .mkr__list__item {
+  &--item-hoverable > .mkr__list__item {
     cursor: pointer;
 
     &:hover {
@@ -25,20 +28,16 @@
     }
   }
 
-  &.--small > .mkr__list__item {
-    padding: 8px 16px;
+  &--medium > .mkr__list__item {
+    padding: 2rem;
   }
 
-  &.--medium > .mkr__list__item {
-    padding: 16px;
-  }
-
-  &.--large {
-    padding: 0 16px 16px 16px;
+  &--large {
+    padding: 0 2rem 2rem 2rem;
     border: 1px dashed map-get($colors, 'neutral-20');
 
     & > .mkr__list__item {
-      padding: 32px 16px 16px 16px;
+      padding: 4rem 2rem 2rem 2rem;
       border-bottom: 1px solid map-get($colors, 'neutral-20');
     }
   }
