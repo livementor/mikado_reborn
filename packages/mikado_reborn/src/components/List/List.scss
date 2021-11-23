@@ -10,13 +10,19 @@
   margin: 0;
   padding: 0;
   list-style: none;
-
-  &:not(.mkr__list--large) {
-    border: 1px solid map-get($colors, 'neutral-20');
-  }
+  border: 1px solid map-get($colors, 'neutral-20');
 
   & > .mkr__list__item:not(:last-child) {
     border-bottom: 1px solid map-get($colors, 'neutral-20');
+  }
+
+  &--padded {
+    padding: 0 2rem 2rem 2rem;
+    border: 1px dashed map-get($colors, 'neutral-20');
+
+    & > .mkr__list__item {
+      border-bottom: 1px solid map-get($colors, 'neutral-20');
+    }
   }
 
   &--item-hoverable > .mkr__list__item {
@@ -29,16 +35,10 @@
   }
 
   &--medium > .mkr__list__item {
-    padding: 2rem;
+    padding: 2rem 2rem;
   }
 
-  &--large {
-    padding: 0 2rem 2rem 2rem;
-    border: 1px dashed map-get($colors, 'neutral-20');
-
-    & > .mkr__list__item {
-      padding: 4rem 2rem 2rem 2rem;
-      border-bottom: 1px solid map-get($colors, 'neutral-20');
-    }
+  &--large > .mkr__list__item {
+    padding: 4rem 2rem 2rem 2rem;
   }
 }

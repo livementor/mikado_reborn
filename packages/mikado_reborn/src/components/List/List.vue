@@ -3,6 +3,7 @@
     class="mkr__list"
     :class="[
       `mkr__list--${size}`,
+      { 'mkr__list--padded': padded },
       { 'mkr__list--item-hoverable': itemHoverable },
     ]"
   >
@@ -25,6 +26,12 @@ export default class List extends Vue {
     default: false,
   })
   itemHoverable?: boolean
+
+  @Prop({
+    type: Boolean,
+    default: false,
+  })
+  padded?: boolean
 
   @Prop({
     type: String,
