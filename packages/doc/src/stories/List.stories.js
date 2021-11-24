@@ -83,7 +83,7 @@ export const ListItemsClickable = ListItemsClickableTemplate.bind({});
 const ListSimpleTemplate = (args) => ({
   props: Object.keys(args),
   template: `
-    <mkr-list v-bind="$props">
+    <mkr-list :size="$props.size" :item-hoverable="$props.itemHoverable" :padded="$props.padded">
       <mkr-list-item>
         First
       </mkr-list-item>
