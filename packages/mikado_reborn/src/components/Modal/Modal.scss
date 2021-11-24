@@ -2,21 +2,21 @@
 
 .mkr__modal {
   $modal: &;
+
   display: none;
   position: fixed;
   left: 50vw;
   top: 50vh;
   z-index: 1500;
   transform: translateX(-50%) translateY(-50%);
+  max-width: 95vw;
 
   &--medium {
-    width: 50vw;
-    max-width: 800px;
+    width: 800px;
   }
 
   &--large {
-    width: 80vw;
-    max-width: 1100px;
+    width: 1100px;
   }
 
   &--opened {

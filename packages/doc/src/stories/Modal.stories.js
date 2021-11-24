@@ -1,9 +1,5 @@
 import { MkrModal } from '../../../mikado_reborn/src/components';
 import { sizes } from '../../../mikado_reborn/src/components/Modal/Modal.vue';
-import { MkrContainedButton } from '../../../mikado_reborn/src/components';
-import { MkrTextarea } from '../../../mikado_reborn/src/components';
-import { MkrTextfield } from '../../../mikado_reborn/src/components';
-import { MkrDropdown } from '../../../mikado_reborn/src/components';
 
 export default {
   title: 'Components/Modal',
@@ -54,9 +50,8 @@ const ModalWithOverlayTemplate = (args, { argTypes }) => ({
   },
   template: `
     <div>
-      <mkr-overlay :opened="showModal" />
       <mkr-modal v-bind="$props" v-model="showModal">
-      <div style="display: flex; flex-direction: column">
+        <div style="display: flex; flex-direction: column">
           <h1>Form</h1>
 
           <div style="margin: 15px 0;">
@@ -83,7 +78,9 @@ const ModalWithOverlayTemplate = (args, { argTypes }) => ({
 });
 
 export const ModalWithOverlay = ModalWithOverlayTemplate.bind({});
-ModalWithOverlay.args = {};
+ModalWithOverlay.args = {
+  overlay: true
+};
 
 export const UnclosableModal = ModalWithOverlayTemplate.bind({});
 UnclosableModal.args = {
