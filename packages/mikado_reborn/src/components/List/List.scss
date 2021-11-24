@@ -26,8 +26,6 @@
   }
 
   &--item-hoverable > .mkr__list__item {
-    cursor: pointer;
-
     &:hover {
       background-color: map-get($colors, 'neutral-light');
       color: map-get($colors, 'secondary-dark');

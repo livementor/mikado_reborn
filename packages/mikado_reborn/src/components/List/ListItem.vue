@@ -1,15 +1,15 @@
 <template>
-  <Component
-    :is="component"
+  <li
     class="mkr__list__item"
     :class="{ 'mkr__list__item--clickable': clickable }"
+    tabindex="-1"
     v-on="{
       ...$listeners,
       click: (event) => clickable ? $emit('click', event) : undefined
     }"
   >
     <slot />
-  </Component>
+  </li>
 </template>
 
 <script lang="ts">
@@ -22,10 +22,6 @@ export default class ListItem extends Vue {
     default: false,
   })
   clickable!: boolean
-
-  get component() {
-    return this.clickable ? 'button' : 'li';
-  }
 }
 </script>
 

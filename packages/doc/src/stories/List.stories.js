@@ -80,10 +80,10 @@ const ListItemsClickableTemplate = (args) => ({
 });
 export const ListItemsClickable = ListItemsClickableTemplate.bind({});
 
-const ListSizeTemplate = (args) => ({
+const ListSimpleTemplate = (args) => ({
   props: Object.keys(args),
   template: `
-    <mkr-list :size="$props.size">
+    <mkr-list v-bind="$props">
       <mkr-list-item>
         First
       </mkr-list-item>
@@ -95,12 +95,24 @@ const ListSizeTemplate = (args) => ({
     </mkr-list>
   `,
 });
-export const ListSizeMedium = ListSizeTemplate.bind({});
-ListSizeMedium.args = {
-  size: 'medium'
+
+export const ListPadded = ListSimpleTemplate.bind({});
+ListPadded.args = {
+  size: 'medium',
+  padded: true,
+  itemHoverable: false,
 }
 
-export const ListSizeLarge = ListSizeTemplate.bind({});
+export const ListSizeMedium = ListSimpleTemplate.bind({});
+ListSizeMedium.args = {
+  size: 'medium',
+  padded: false,
+  itemHoverable: false,
+}
+
+export const ListSizeLarge = ListSimpleTemplate.bind({});
 ListSizeLarge.args = {
-  size: 'large'
+  size: 'large',
+  padded: false,
+  itemHoverable: false,
 }
