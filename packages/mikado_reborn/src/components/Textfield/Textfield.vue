@@ -3,11 +3,12 @@
     <div class="mkr__textfield__inner">
       <mkr-icon v-if="iconName" :color="iconColor" :name="iconName"/>
       <input
+        v-bind="$attrs"
+        :value="value"
         :type="getType"
+        :placeholder="placeholder"
         @focus="focused = true"
         @blur="focused = false"
-        :placeholder="placeholder"
-        :value="value"
         @input="emitInput"
         @change="emitChange"
       >
@@ -52,7 +53,7 @@ export default class TextField extends Vue {
     @Prop({
       default: 'text',
       type: String,
-      validator: (type) => ['text', 'email', 'password', 'date'].includes(type),
+      validator: (type) => ['text', 'email', 'password', 'date', 'number'].includes(type),
     })
     type!: string
 
