@@ -36,6 +36,7 @@ import MkrContainedButton from '../Button/Contained/ContainedButton';
     MkrContainedButton,
     MkrIcon,
   },
+  inheritAttrs: false,
 })
 export default class TextField extends Vue {
     @Prop({ type: String })
@@ -53,7 +54,7 @@ export default class TextField extends Vue {
     @Prop({
       default: 'text',
       type: String,
-      validator: (type) => ['text', 'email', 'password', 'date', 'number'].includes(type),
+      validator: (type) => ['text', 'email', 'password', 'date'].includes(type),
     })
     type!: string
 
