@@ -7,8 +7,8 @@
         :value="value"
         :type="getType"
         :placeholder="placeholder"
-        @focus="focused = true"
-        @blur="focused = false"
+        @focus="onFocus"
+        @blur="onBlur"
         @input="emitInput"
         @change="emitChange"
       >
@@ -92,6 +92,16 @@ export default class TextField extends Vue {
       if (input) {
         this.$emit('change', input.value);
       }
+    }
+
+    onFocus(event: Event) {
+      this.focused = true;
+      this.$emit('focus', event);
+    }
+
+    onBlur(event: Event) {
+      this.focused = false;
+      this.$emit('blur', event);
     }
 }
 </script>
