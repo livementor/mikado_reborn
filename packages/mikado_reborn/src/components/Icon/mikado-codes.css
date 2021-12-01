@@ -1,3 +1,15 @@
+.icon-arrow-narrow-bottom:before {
+  content: "\e950";
+}
+.icon-arrow-narrow-top:before {
+  content: "\e951";
+}
+.icon-phone:before {
+  content: "\e952";
+}
+.icon-video-camera:before {
+  content: "\e953";
+}
 .icon-bell:before {
   content: "\e948";
 }

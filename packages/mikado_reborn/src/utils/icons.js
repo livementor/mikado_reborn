@@ -1,4 +1,6 @@
 const icons = [
+  'arrow-narrow-bottom',
+  'arrow-narrow-top',
   'arrow-full-bottom',
   'arrow-full-top',
   'arrows-expand',
@@ -33,6 +35,8 @@ const icons = [
   'menu',
   'paper-airplane',
   'pencil',
+  'phone',
+  'video-camera',
   'pin-map',
   'question-mark-circle',
   'reply',
