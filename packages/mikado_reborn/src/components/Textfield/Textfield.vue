@@ -11,6 +11,9 @@
         @blur="onBlur"
         @input="emitInput"
         @change="emitChange"
+        @keyup="onKeyup"
+        @keydown="onKeydown"
+        @click="onClick"
       >
       <mkr-icon v-if="error" name="exclamation-circle" color="danger" />
     </div>
@@ -102,6 +105,18 @@ export default class TextField extends Vue {
     onBlur(event: Event) {
       this.focused = false;
       this.$emit('blur', event);
+    }
+
+    onKeydown(event: KeyboardEvent) {
+      this.$emit('keydown', event);
+    }
+
+    onKeyup(event: KeyboardEvent) {
+      this.$emit('keydown', event);
+    }
+
+    onClick(event: Event) {
+      this.$emit('click', event);
     }
 }
 </script>
