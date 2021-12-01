@@ -36,7 +36,6 @@ const icons = [
   'paper-airplane',
   'pencil',
   'phone',
-  'video-camera',
   'pin-map',
   'question-mark-circle',
   'reply',
@@ -51,6 +50,7 @@ const icons = [
   'tribe',
   'user-group',
   'user',
+  'video-camera',
 ];
 
 export default icons;
