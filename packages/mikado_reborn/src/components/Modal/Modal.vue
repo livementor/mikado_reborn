@@ -1,29 +1,32 @@
 <template>
-  <mkr-card
-    role="dialog"
-    :aria-modal="opened"
-    class="mkr__modal"
-    :class="[
-      `mkr__modal--${size}`,
-      {
-        'mkr__modal--opened': opened,
-        'mkr__modal--slim': slim,
-      },
-    ]"
-    elevated
-    radius="large"
-  >
-    <mkr-interactive-icon
-      v-if="closeable"
-      class="mkr__modal__close"
-      name="cross"
-      color="neutral"
-      @click="onClickClose"
-    />
-    <div ref="modalContent" class="mkr__modal__content">
-      <slot />
-    </div>
-  </mkr-card>
+  <div>
+    <mkr-overlay v-if="overlay" :opened="opened" />
+    <mkr-card
+      role="dialog"
+      :aria-modal="opened"
+      class="mkr__modal"
+      :class="[
+        `mkr__modal--${size}`,
+        {
+          'mkr__modal--opened': opened,
+          'mkr__modal--slim': slim,
+        },
+      ]"
+      elevated
+      radius="large"
+    >
+      <mkr-interactive-icon
+        v-if="closeable"
+        class="mkr__modal__close"
+        name="cross"
+        color="neutral"
+        @click="onClickClose"
+      />
+      <div ref="modalContent" class="mkr__modal__content">
+        <slot />
+      </div>
+    </mkr-card>
+  </div>
 </template>
 
 <script lang="ts">
@@ -36,6 +39,7 @@ import {
 } from 'vue-property-decorator';
 import { MkrCard } from '../Card';
 import { MkrInteractiveIcon } from '../InteractiveIcon';
+import { MkrOverlay } from '../Overlay';
 import focusTrap from './focusTrap';
 
 export const sizes = {
@@ -47,6 +51,7 @@ export const sizes = {
   components: {
     MkrCard,
     MkrInteractiveIcon,
+    MkrOverlay,
   },
 })
 export default class Modal extends Vue {
@@ -64,6 +69,9 @@ export default class Modal extends Vue {
 
   @Prop({ type: Boolean, default: true })
   readonly closeable!: boolean;
+
+  @Prop({ type: Boolean, default: false })
+  readonly overlay!: boolean;
 
   @Prop({ type: String, default: null })
   readonly focusFirstSelector!: string;
