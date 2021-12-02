@@ -3,13 +3,17 @@
     <div class="mkr__textfield__inner">
       <mkr-icon v-if="iconName" :color="iconColor" :name="iconName"/>
       <input
-        :type="getType"
-        @focus="focused = true"
-        @blur="focused = false"
-        :placeholder="placeholder"
+        v-bind="$attrs"
         :value="value"
+        :type="getType"
+        :placeholder="placeholder"
+        @focus="onFocus"
+        @blur="onBlur"
         @input="emitInput"
         @change="emitChange"
+        @keyup="onKeyup"
+        @keydown="onKeydown"
+        @click="onClick"
       >
       <mkr-icon v-if="error" name="exclamation-circle" color="danger" />
     </div>
@@ -35,6 +39,7 @@ import MkrContainedButton from '../Button/Contained/ContainedButton';
     MkrContainedButton,
     MkrIcon,
   },
+  inheritAttrs: false,
 })
 export default class TextField extends Vue {
     @Prop({ type: String })
@@ -90,6 +95,28 @@ export default class TextField extends Vue {
       if (input) {
         this.$emit('change', input.value);
       }
+    }
+
+    onFocus(event: Event) {
+      this.focused = true;
+      this.$emit('focus', event);
+    }
+
+    onBlur(event: Event) {
+      this.focused = false;
+      this.$emit('blur', event);
+    }
+
+    onKeydown(event: KeyboardEvent) {
+      this.$emit('keydown', event);
+    }
+
+    onKeyup(event: KeyboardEvent) {
+      this.$emit('keydown', event);
+    }
+
+    onClick(event: Event) {
+      this.$emit('click', event);
     }
 }
 </script>
