@@ -1,4 +1,6 @@
 const icons = [
+  'arrow-narrow-bottom',
+  'arrow-narrow-top',
   'arrow-full-bottom',
   'arrow-full-top',
   'arrows-expand',
@@ -33,6 +35,7 @@ const icons = [
   'menu',
   'paper-airplane',
   'pencil',
+  'phone',
   'pin-map',
   'question-mark-circle',
   'reply',
@@ -47,6 +50,7 @@ const icons = [
   'tribe',
   'user-group',
   'user',
+  'video-camera',
 ];
 
 export default icons;
