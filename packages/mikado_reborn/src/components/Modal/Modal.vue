@@ -12,11 +12,12 @@
           'mkr__modal--slim': slim,
           'mkr__modal--scrollable': scrollable,
           'mkr__modal--scrolled': isScrolled,
+          'mkr__modal--has-scroll': hasScroll,
+          'mkr__modal--fully-scrolled': isFullyScrolled,
         },
       ]"
       elevated
       radius="large"
-      @scroll="setScrollState"
     >
       <header class="mkr__modal__header">
         <mkr-text-button
@@ -28,10 +29,10 @@
         />
         <slot name="title" />
       </header>
-      <main ref="modalContent" class="mkr__modal__content">
+      <main ref="modalContent" class="mkr__modal__content" @scroll="setScrollState">
         <slot />
       </main>
-      <footer v-if="$slots['footer']">
+      <footer class="mkr__modal__footer" v-if="$slots['footer']">
         <slot name="footer" />
       </footer>
     </mkr-card>
@@ -94,6 +95,10 @@ export default class Modal extends Vue {
 
   isScrolled = false
 
+  isFullyScrolled = false
+
+  hasScroll = false
+
   $refs!: {
     modalContent: HTMLDivElement;
   };
@@ -133,6 +138,7 @@ export default class Modal extends Vue {
   mounted(): void {
     const app = this.$app;
     app.$el.insertBefore(this.$el, app.$el.children[0]);
+    this.setScrollState();
   }
 
   destroyed(): void {
@@ -171,16 +177,21 @@ export default class Modal extends Vue {
     }
   }
 
-  setScrollState(event: UIEvent) {
-    const target = event.target as Element | undefined;
+  async setScrollState(event?: UIEvent) {
+    await this.$nextTick();
+    setTimeout(() => {
+      const target = event?.target as Element ?? this.$refs.modalContent;
 
-    if (!target) return;
+      if (!target) return;
 
-    if (target.scrollTop >= 20) {
-      this.isScrolled = true;
-    } else {
-      this.isScrolled = false;
-    }
+      const isScrolled = target.scrollTop >= 20;
+      const hasScroll = target.clientHeight < target.scrollHeight;
+      const isFullyScrolled = target.scrollHeight - target.scrollTop - target.clientHeight < 20;
+
+      this.isScrolled = isScrolled;
+      this.isFullyScrolled = isFullyScrolled;
+      this.hasScroll = hasScroll;
+    }, 200);
   }
 }
 </script>
