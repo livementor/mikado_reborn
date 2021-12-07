@@ -79,10 +79,16 @@ const ModalWithOverlayTemplate = (args, { argTypes }) => ({
 
 export const ModalWithOverlay = ModalWithOverlayTemplate.bind({});
 ModalWithOverlay.args = {
-  overlay: true
+  overlay: true,
 };
 
 export const UnclosableModal = ModalWithOverlayTemplate.bind({});
 UnclosableModal.args = {
   closeable: false,
+};
+
+export const ScrollableModal = ModalWithOverlayTemplate.bind({});
+ScrollableModal.args = {
+  overlay: true,
+  scrollable: true,
 };

@@ -10,21 +10,32 @@
         {
           'mkr__modal--opened': opened,
           'mkr__modal--slim': slim,
+          'mkr__modal--scrollable': scrollable,
+          'mkr__modal--scrolled': isScrolled,
         },
       ]"
       elevated
       radius="large"
+      @scroll="setScrollState"
     >
-      <mkr-interactive-icon
-        v-if="closeable"
-        class="mkr__modal__close"
-        name="cross"
-        color="neutral"
-        @click="onClickClose"
-      />
-      <div ref="modalContent" class="mkr__modal__content">
+      <header class="mkr__modal__header">
+        <mkr-text-button
+          class="mkr__modal__header__close"
+          type="button"
+          icon="cross"
+          size="small"
+          @click="onClickClose"
+        />
+        <slot name="title">
+          <h2>COOUCOU</h2>
+        </slot>
+      </header>
+      <main ref="modalContent" class="mkr__modal__content">
         <slot />
-      </div>
+      </main>
+      <footer v-if="$slots['footer']">
+        <slot name="footer" />
+      </footer>
     </mkr-card>
   </div>
 </template>
@@ -40,6 +51,7 @@ import {
 import { MkrCard } from '../Card';
 import { MkrInteractiveIcon } from '../InteractiveIcon';
 import { MkrOverlay } from '../Overlay';
+import { MkrTextButton } from '../Button';
 import focusTrap from './focusTrap';
 
 export const sizes = {
@@ -52,6 +64,7 @@ export const sizes = {
     MkrCard,
     MkrInteractiveIcon,
     MkrOverlay,
+    MkrTextButton,
   },
 })
 export default class Modal extends Vue {
@@ -73,10 +86,15 @@ export default class Modal extends Vue {
   @Prop({ type: Boolean, default: false })
   readonly overlay!: boolean;
 
+  @Prop({ type: Boolean, default: false })
+  readonly scrollable!: boolean;
+
   @Prop({ type: String, default: null })
   readonly focusFirstSelector!: string;
 
   focusTrapListenerCleanup: ReturnType<typeof focusTrap> = null;
+
+  isScrolled = false
 
   $refs!: {
     modalContent: HTMLDivElement;
@@ -152,6 +170,18 @@ export default class Modal extends Vue {
   keydownHandler(event: KeyboardEvent): void {
     if (event.key === 'Escape') {
       this.$emit('close', false);
+    }
+  }
+
+  setScrollState(event: UIEvent) {
+    const target = event.target as Element | undefined;
+
+    if (!target) return;
+
+    if (target.scrollTop >= 20) {
+      this.isScrolled = true;
+    } else {
+      this.isScrolled = false;
     }
   }
 }
