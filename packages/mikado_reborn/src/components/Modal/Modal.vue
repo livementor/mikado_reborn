@@ -11,9 +11,9 @@
           'mkr__modal--opened': opened,
           'mkr__modal--slim': slim,
           'mkr__modal--scrollable': scrollable,
-          'mkr__modal--scrolled': isScrolled,
-          'mkr__modal--has-scroll': hasScroll,
-          'mkr__modal--fully-scrolled': isFullyScrolled,
+          'mkr__modal--scrolled': isScrolled && scrollable,
+          'mkr__modal--has-scroll': hasScroll && scrollable,
+          'mkr__modal--fully-scrolled': isFullyScrolled && scrollable,
         },
       ]"
       elevated
@@ -138,7 +138,10 @@ export default class Modal extends Vue {
   mounted(): void {
     const app = this.$app;
     app.$el.insertBefore(this.$el, app.$el.children[0]);
-    this.setScrollState();
+
+    if (this.scrollable) {
+      this.setScrollState();
+    }
   }
 
   destroyed(): void {
@@ -177,8 +180,9 @@ export default class Modal extends Vue {
     }
   }
 
-  async setScrollState(event?: UIEvent) {
-    await this.$nextTick();
+  setScrollState(event?: UIEvent) {
+    if (!this.scrollable) return;
+
     setTimeout(() => {
       const target = event?.target as Element ?? this.$refs.modalContent;
 
