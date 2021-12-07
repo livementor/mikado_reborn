@@ -1,0 +1,5 @@
+@function token($token-name) {
+  @if map-has-key($tokens, $token-name) {
+    @return (map-get($tokens, $token-name));
+  }
+}

@@ -2,7 +2,7 @@
 
 .mkr__snackbar {
   @include shadow-medium;
-  @include body-medium-font;
+  @include font('body-medium');
 
   display: flex;
   cursor: default;

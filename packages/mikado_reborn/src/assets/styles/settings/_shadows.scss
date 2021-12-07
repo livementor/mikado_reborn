@@ -2,20 +2,20 @@
 
 @mixin shadow-medium {
   box-shadow:
-    #{$shadow-medium-offset-x}px
-    #{$shadow-medium-offset-y}px
-    #{$shadow-medium-radius}px
-    #{$shadow-medium-spread}px
-    $shadow-medium-color
+    #{token('shadow-medium-offset-x')}px
+    #{token('shadow-medium-offset-y')}px
+    #{token('shadow-medium-radius')}px
+    #{token('shadow-medium-spread')}px
+    token('shadow-medium-color')
   ;
 }
 
 @mixin shadow-small {
   box-shadow:
-    #{$shadow-small-offset-x}px
-    #{$shadow-small-offset-y}px
-    #{$shadow-small-radius}px
-    #{$shadow-small-spread}px
-    $shadow-small-color
+    #{token('shadow-small-offset-x')}px
+    #{token('shadow-small-offset-y')}px
+    #{token('shadow-small-radius')}px
+    #{token('shadow-small-spread')}px
+    token('shadow-small-color')
   ;
 }

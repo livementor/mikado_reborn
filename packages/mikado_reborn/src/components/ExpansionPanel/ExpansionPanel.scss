@@ -11,7 +11,7 @@
     }
 
     &-title {
-      @include body-large-font;
+      @include font('body-large');
       color: map-get($colors, 'neutral');
       border-bottom: 1px solid map-get($colors, 'neutral-20');
       padding-bottom: 2rem;

@@ -2,7 +2,7 @@
 
 .mkr__radio {
   label {
-    @include body-medium-font;
+    @include font('body-medium');
     display: flex;
     align-items: center;
     margin: 1rem 0;

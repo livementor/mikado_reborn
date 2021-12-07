@@ -10,18 +10,18 @@
   text-align: left;
 
   caption {
-    @include body-large-font;
+    @include font('body-large');
     padding-bottom: 2rem;
     text-align: left;
   }
 
   th {
-    @include caption-small-font;
+    @include font('caption-small');
     color: map-get($colors, "neutral-80");
   }
 
   td {
-    @include body-medium-alt-font;
+    @include font('body-medium-alt');
   }
 
   th, td {

@@ -18,7 +18,7 @@
   background: none;
 
   /* button/medium */
-  @include button-medium-font;
+  @include font('button-medium');
   border: none;
   cursor: pointer;
 
@@ -46,7 +46,7 @@
   }
 
   &--small {
-    @include button-small-font;
+    @include font('button-small');
     padding: 1.5rem 2rem;
   }
 

@@ -21,7 +21,7 @@
   }
 
   &__text {
-    @include body-small-font;
+    @include font('body-small');
     flex-shrink: 0;
     color: map-get($colors, 'success');
     font-variant-numeric: tabular-nums;

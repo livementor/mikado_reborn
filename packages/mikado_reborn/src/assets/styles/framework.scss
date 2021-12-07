@@ -3,42 +3,8 @@
 
 /* FONTS */
 
-.caption-small-font {
-  @include caption-small-font
-}
-
-.body-small-font {
-  @include body-small-font
-}
-
-.body-medium-font {
-  @include body-medium-font
-}
-
-.body-medium-bold-font {
-  @include body-medium-bold-font
-}
-
-.body-medium-alt-font {
-  @include body-medium-alt-font
-}
-
-.body-large-font {
-  @include body-large-font
-}
-
-.body-xlarge-font {
-  @include body-xlarge-font
-}
-
-.heading-small-font {
-  @include heading-small-font
-}
-
-.heading-medium-font {
-  @include heading-medium-font
-}
-
-.heading-large-font {
-  @include heading-large-font
+@each $font in $font-names {
+  .#{$font}-font {
+    @include font($font)
+  }
 }
