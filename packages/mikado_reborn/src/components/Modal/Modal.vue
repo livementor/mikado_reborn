@@ -26,9 +26,7 @@
           size="small"
           @click="onClickClose"
         />
-        <slot name="title">
-          <h2>COOUCOU</h2>
-        </slot>
+        <slot name="title" />
       </header>
       <main ref="modalContent" class="mkr__modal__content">
         <slot />
