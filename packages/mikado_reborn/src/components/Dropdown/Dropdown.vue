@@ -14,6 +14,8 @@
       @click="handleButtonClick"
       @mousedown="buttonClick = true"
       @keydown="handleKeyDown"
+      @focus="$emit('focus', $event)"
+      @blur="$emit('blur', $event)"
     >
       <!-- @focus="handleButtonFocus" -->
       <span
@@ -94,7 +96,7 @@ export default class Dropdown extends Mixins(Uuid) {
   readonly placeholder!: string
 
   @Prop({ type: Array, required: true })
-  readonly items!: (string | Item)[]
+  readonly items!: (string | Record<string, string>)[]
 
   @Prop({ type: String, default: 'value' })
   readonly itemValue!: string
@@ -105,8 +107,8 @@ export default class Dropdown extends Mixins(Uuid) {
   @Prop({ type: String, default: 'inputLabel' })
   readonly itemInputLabel!: string
 
-  @Prop({ type: Boolean, default: false })
-  readonly error!: boolean
+  @Prop({ type: Boolean, default: true })
+  error!: boolean
 
   isTooltipVisible = false
 
