@@ -17,7 +17,6 @@
       @focus="$emit('focus', $event)"
       @blur="$emit('blur', $event)"
     >
-      <!-- @focus="handleButtonFocus" -->
       <span
         class="mkr__dropdown__input__value"
         :class="{
