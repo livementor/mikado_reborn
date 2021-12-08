@@ -19,7 +19,7 @@
       elevated
       radius="large"
     >
-      <header class="mkr__modal__header">
+      <div class="mkr__modal__header">
         <mkr-text-button
           class="mkr__modal__header__close"
           type="button"
@@ -28,13 +28,13 @@
           @click="onClickClose"
         />
         <slot name="title" />
-      </header>
-      <main ref="modalContent" class="mkr__modal__content" @scroll="setScrollState">
+      </div>
+      <div ref="modalContent" class="mkr__modal__content" @scroll="setScrollState">
         <slot />
-      </main>
-      <footer class="mkr__modal__footer" v-if="$slots['footer']">
+      </div>
+      <div class="mkr__modal__footer" v-if="$slots['footer']">
         <slot name="footer" />
-      </footer>
+      </div>
     </mkr-card>
   </div>
 </template>
