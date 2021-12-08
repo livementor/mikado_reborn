@@ -63,15 +63,21 @@
       }
 
       li {
+        &:not([aria-selected]) {
+          cursor: pointer;
+
+          &:hover {
+            background-color: map-get($colors, 'neutral-light');
+          }
+        }
+
         padding: 1rem 2rem;
+
         &:not([aria-selected]) {
           padding-left: 5rem;
         }
         .mkr__icon {
           margin-right: 1rem;
-        }
-        &:hover {
-          background-color: map-get($colors, 'neutral-light');
         }
       }
     }
