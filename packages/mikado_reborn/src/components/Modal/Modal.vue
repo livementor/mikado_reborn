@@ -91,7 +91,7 @@ export default class Modal extends Vue {
     this.removeCloseEventListeners();
   }
 
-  @Watch('opened')
+  @Watch('opened', { immediate: true })
   async onOpenedChanged(isOpened: boolean): Promise<void> {
     if (isOpened) {
       await this.$nextTick();
