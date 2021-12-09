@@ -117,6 +117,7 @@ export default class Modal extends Vue {
   mounted(): void {
     const app = this.$app;
     app.$el.insertBefore(this.$el, app.$el.children[0]);
+    // document.body.appendChild(this.$el);
   }
 
   destroyed(): void {

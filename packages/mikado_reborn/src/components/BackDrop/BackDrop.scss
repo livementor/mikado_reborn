@@ -1,0 +1,103 @@
+@import '../../assets/styles/styles.scss';
+
+/* stylelint-disable no-descending-specificity */
+html.-backdrop-present {
+  overflow-y: hidden;
+  height: 100vh;
+}
+
+.mkr__backdrop {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+
+  z-index: 1050;
+
+  & > .mkr__backdrop__overlay {
+    touch-action: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    right: 0;
+    background-color: map-get($colors, 'black');
+    backdrop-filter: blur(16px);
+    opacity: 40;
+
+    &:not(.--disabled) {
+      cursor: pointer;
+    }
+  }
+
+  & > .mkr__backdrop__content {
+    z-index: 1;
+    position: relative;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &--fullscreen {
+    align-items: flex-start;
+
+    @media (min-width: 576px) {
+      align-items: center;
+    }
+
+
+    &.mkr__backdrop--center-top {
+      @media (min-width: 576px) {
+        padding-top: 112px;
+      }
+    }
+
+    & .mkr__backdrop-content {
+      position: relative;
+      width: 100%;
+
+      @media (min-width: 576px) {
+        width: auto;
+      }
+    }
+  }
+}
+
+/**
+* ANIMATIONS
+**/
+
+.mkr__backdrop.modal-anim-enter-active,
+.mkr__backdrop.modal-anim-leave-active {
+  transition: opacity ease-in-out 250ms;
+
+  & .mkr__backdrop-content {
+    transition: transform ease-in-out 250ms;
+    transform: translateY(0);
+  }
+}
+
+.mkr__backdrop.modal-anim-enter-from,
+.mkr__backdrop.modal-anim-leave-to {
+  opacity: 0%;
+
+  & .mkr__backdrop-content {
+    transform: translateY(-25px);
+  }
+}
+
+.mkr__backdrop.backdrop-anim-enter-active,
+.mkr__backdrop.backdrop-anim-leave-active {
+  transition: opacity ease-in-out 250ms;
+}
+
+.mkr__backdrop.backdrop-anim-enter-from,
+.mkr__backdrop.backdrop-anim-leave-to {
+  opacity: 0%;
+}
