@@ -1,12 +1,12 @@
 {
-  "source": ["./design-tokens.json"],
+  "source": ["tokens/design-tokens.json"],
   "platforms": {
     "scss": {
       "transformGroup": "scss",
-      "buildPath": "../src/assets/styles/settings/",
+      "buildPath": "src/assets/styles/settings/",
       "files": [{
         "destination": "_tokens.scss",
-        "format": "scss/variables"
+        "format": "scss/map-flat"
       }]
     }
   }

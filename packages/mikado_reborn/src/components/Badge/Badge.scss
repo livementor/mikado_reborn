@@ -44,7 +44,7 @@ $themes: (
 );
 
 .mkr__badge {
-  @include caption-small-font;
+  @include font('caption-small');
   display: flex;
   flex-direction: row;
   justify-content: center;

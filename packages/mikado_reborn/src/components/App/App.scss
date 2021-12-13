@@ -2,7 +2,7 @@
 
 .mkr__app {
   font-size: 2rem;
-  @include body-medium-font;
+  @include font('body-medium');
 
   /* COLORS */
 
