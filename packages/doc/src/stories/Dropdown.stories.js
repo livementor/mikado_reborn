@@ -10,7 +10,7 @@ const Template = (args, { argTypes }) => ({
   data: () => ({
     value: '',
   }),
-  template: '<mkr-dropdown v-bind="$props" v-model="value"/>',
+  template: '<mkr-dropdown v-bind="$props" v-model="value" />',
 });
 
 export const Dropdown = Template.bind({});

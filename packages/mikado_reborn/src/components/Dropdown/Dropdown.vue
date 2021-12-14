@@ -1,5 +1,5 @@
 <template>
-  <div class="mkr__dropdown">
+  <div ref="dropdown" class="mkr__dropdown">
     <button
       ref="dropdown-input"
       aria-haspopup="listbox"
@@ -14,13 +14,18 @@
       @click="handleButtonClick"
       @mousedown="buttonClick = true"
       @keydown="handleKeyDown"
+      @focus="$emit('focus', $event)"
+      @blur="$emit('blur', $event)"
     >
       <span
         class="mkr__dropdown__input__value"
         :class="{
           'mkr__dropdown__input__value--placeholder': !value && placeholder
         }"
-        v-text="(selectedItem && selectedItem.label) || placeholder"
+        v-text="
+          (selectedItem && (selectedItem[itemInputLabel] || selectedItem[itemLabel])) ||
+          placeholder
+        "
       />
       <mkr-icon :name="isTooltipVisible ? 'arrow-full-top' : 'arrow-full-bottom'" />
     </button>
@@ -47,9 +52,13 @@
           :id="item.id"
           :aria-selected="item.selected"
           role="option"
-          @click.prevent="handleItemListClick(item)"
+          class="mkr__dropdown__list__item"
+          @click.stop.prevent="handleItemListClick(item)"
         >
-          <mkr-icon v-if="item.selected" name="check" />{{ item.label }}
+          <slot name="item" :item="item" :is-selected="item.selected">
+            <mkr-icon v-if="item.selected" name="check" />
+            {{ item[itemLabel] }}
+          </slot>
         </li>
       </ul>
     </mkr-card>
@@ -58,7 +67,7 @@
 
 <script lang="ts">
 import {
-  Component, Mixins, Model, Prop,
+  Component, Mixins, Prop,
 } from 'vue-property-decorator';
 import { createPopper, Instance as PopperInstance } from '@popperjs/core';
 import Uuid from '../../mixins/uuid';
@@ -66,9 +75,8 @@ import Uuid from '../../mixins/uuid';
 import { MkrCard } from '../Card';
 import { MkrIcon } from '../Icon';
 
-type Item = {
-  label: string
-  value: string
+export type Item = {
+  [key: string]: string | number | boolean
   selected: boolean
   id: string
 }
@@ -80,27 +88,31 @@ type Item = {
   },
 })
 export default class Dropdown extends Mixins(Uuid) {
-  @Model('change', { type: String })
+  @Prop({ type: String })
   readonly value!: string
 
   @Prop({ type: String })
   readonly placeholder!: string
 
-  @Prop({ type: Array })
+  @Prop({ type: Array, required: true })
   readonly items!: (string | Record<string, string>)[]
 
-  @Prop({ type: String })
-  readonly itemValue?: string
+  @Prop({ type: String, default: 'value' })
+  readonly itemValue!: string
 
-  @Prop({ type: String })
-  readonly itemLabel?: string
+  @Prop({ type: String, default: 'label' })
+  readonly itemLabel!: string
 
-  @Prop({ type: Boolean, default: false })
-  error!: boolean;
+  @Prop({ type: String, default: 'inputLabel' })
+  readonly itemInputLabel!: string
+
+  @Prop({ type: Boolean, default: true })
+  error!: boolean
 
   isTooltipVisible = false
 
   // Flag button click on mousedown before blur event is trigger
+
   buttonClick = false
 
   popperInstance: PopperInstance | null = null
@@ -115,20 +127,21 @@ export default class Dropdown extends Mixins(Uuid) {
 
   get itemList(): Item[] {
     return this.items.map((item, index) => {
-      let label = '';
-      let value = '';
+      const id = `${this.componentId}-option-${index}`;
+
       if (typeof item === 'string') {
-        label = item;
-        value = item;
-      } else {
-        label = item[this.itemLabel || 'label'];
-        value = item[this.itemValue || 'value'];
+        return {
+          [this.itemValue]: item,
+          [this.itemLabel]: item,
+          [this.itemInputLabel]: item,
+          selected: item === this.value,
+          id,
+        };
       }
       return {
-        label,
-        value,
-        id: `${this.componentId}-option-${index}`,
-        selected: value === this.value,
+        ...item,
+        selected: item[this.itemValue] === this.value,
+        id,
       };
     });
   }
@@ -143,8 +156,8 @@ export default class Dropdown extends Mixins(Uuid) {
 
   mounted(): void {
     const input = this.$refs['dropdown-input'] as HTMLElement;
-    const dropdown = this.$refs['dropdown-list'] as HTMLElement;
-    this.popperInstance = createPopper(input, dropdown, {
+    const dropdownList = this.$refs['dropdown-list'] as HTMLElement;
+    this.popperInstance = createPopper(input, dropdownList, {
       placement: 'bottom-start',
       modifiers: [
         {
@@ -157,22 +170,43 @@ export default class Dropdown extends Mixins(Uuid) {
     });
   }
 
-  handleButtonClick(): void {
+  async showTooltip(): Promise<void> {
+    this.isTooltipVisible = true;
+    if (this.popperInstance) await this.popperInstance.update();
+    await this.$nextTick();
+    const dropdownElement = (this.$refs['dropdown-list'] as HTMLElement).querySelector('ul');
+    if (dropdownElement) {
+      dropdownElement.focus();
+    }
+  }
+
+  hideTooltip(): void {
+    this.isTooltipVisible = false;
+  }
+
+  toggleTooltip() {
     if (this.isTooltipVisible) {
       this.hideTooltip();
     } else {
       this.showTooltip();
     }
+  }
+
+  handleButtonClick(event: Event): void {
+    this.toggleTooltip();
     this.buttonClick = false;
+    this.$emit('click', event);
   }
 
   handleItemListClick(item: Item): void {
     this.selectItem(item);
     (this.$refs['dropdown-input'] as HTMLElement).focus();
+    this.hideTooltip();
   }
 
   selectItem(item: Item): void {
-    this.$emit('change', item.value);
+    this.$emit('input', item[this.itemValue]);
+    this.$emit('change', item[this.itemValue]);
     // Scroll selected item into view if needed
     const dropdownElement = (this.$refs['dropdown-list'] as HTMLElement).querySelector('ul');
     if (dropdownElement) {
@@ -241,23 +275,16 @@ export default class Dropdown extends Mixins(Uuid) {
     if (!this.buttonClick) this.hideTooltip();
   }
 
-  hideTooltip(): void {
-    this.isTooltipVisible = false;
-  }
-
-  async showTooltip(): Promise<void> {
-    this.isTooltipVisible = true;
-    if (this.popperInstance) await this.popperInstance.update();
-    await this.$nextTick();
-    const dropdownElement = (this.$refs['dropdown-list'] as HTMLElement).querySelector('ul');
-    if (dropdownElement) {
-      dropdownElement.focus();
-    }
-  }
-
   searchItem(key: KeyboardEvent['key']): void {
     this.currentSearch += key;
-    const matchedItem = this.itemList.find((item) => item.label.startsWith(this.currentSearch));
+
+    const matchedItem = this.itemList
+      .find((item) => {
+        if (typeof item[this.itemLabel] !== 'string') return false;
+        const itemLabel = item[this.itemLabel] as string;
+        return itemLabel.toLowerCase().startsWith(this.currentSearch?.toLowerCase());
+      });
+
     if (matchedItem) {
       this.selectItem(matchedItem);
     }
