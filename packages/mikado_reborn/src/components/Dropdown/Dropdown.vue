@@ -106,7 +106,7 @@ export default class Dropdown extends Mixins(Uuid) {
   @Prop({ type: String, default: 'inputLabel' })
   readonly itemInputLabel!: string
 
-  @Prop({ type: Boolean, default: true })
+  @Prop({ type: Boolean, default: false })
   error!: boolean
 
   isTooltipVisible = false
