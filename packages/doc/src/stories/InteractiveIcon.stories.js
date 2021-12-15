@@ -30,5 +30,4 @@ const LinkTemplate = (args, { argTypes }) => ({
 export const InteractiveIconLink = LinkTemplate.bind({})
 InteractiveIconLink.args = {
   name: icons[0],
-  linkify: true,
 }

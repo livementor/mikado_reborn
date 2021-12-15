@@ -77,6 +77,3 @@ const ContainedButtonLinkTemplate = (_args, { argTypes }) => ({
 });
 
 export const ContainedButtonLink = ContainedButtonLinkTemplate.bind({});
-ContainedButtonLink.args = {
-  linkify: true,
-};

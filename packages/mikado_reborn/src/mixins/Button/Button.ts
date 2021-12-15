@@ -29,14 +29,28 @@ export default class Button extends Vue {
   })
   iconSide!: 'left' | 'right';
 
-  @Prop({ type: Boolean, default: false })
-  linkify!: boolean;
-
   class = 'mkr__button';
 
   // eslint-disable-next-line class-methods-use-this
   get classes(): VNodeData['class'] {
     return {};
+  }
+
+  get isRouterLink(): boolean {
+    return !!this.$attrs.to;
+  }
+
+  get isLink(): boolean {
+    return !!this.$attrs.href;
+  }
+
+  get component(): string {
+    if (this.isRouterLink) {
+      return 'RouterLink';
+    } if (this.isLink) {
+      return 'a';
+    }
+    return 'button';
   }
 
   private get hasContent(): boolean {
@@ -63,7 +77,7 @@ export default class Button extends Vue {
       content = this.iconSide === 'left' ? [icon, ...content] : [...content, icon];
     }
 
-    return createElement(this.linkify ? 'a' : 'button', {
+    return createElement(this.component, {
       staticClass: staticClasses.join(' '),
       class: this.classes,
       attrs: {

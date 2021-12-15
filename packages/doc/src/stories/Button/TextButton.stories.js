@@ -58,6 +58,3 @@ const TextButtonLinkTemplate = (_args, { argTypes }) => ({
 });
 
 export const TextButtonLink = TextButtonLinkTemplate.bind({});
-TextButtonLink.args = {
-  linkify: true,
-};
