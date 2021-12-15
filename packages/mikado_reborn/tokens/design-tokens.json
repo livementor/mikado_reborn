@@ -21,7 +21,7 @@
     "secondary": {
       "category": "fill",
       "exportKey": "color",
-      "value": "rgba(7, 146, 121, 1)",
+      "value": "rgba(0, 119, 98, 1)",
       "type": "color"
     },
     "secondary-l": {
@@ -39,7 +39,21 @@
     "secondary-20": {
       "category": "fill",
       "exportKey": "color",
-      "value": "rgba(7, 146, 121, 0.2)",
+      "value": "rgba(0, 119, 98, 0.2)",
+      "type": "color"
+    }
+  },
+  "other": {
+    "other-1": {
+      "category": "fill",
+      "exportKey": "color",
+      "value": "rgba(133, 10, 103, 1)",
+      "type": "color"
+    },
+    "other-1-l": {
+      "category": "fill",
+      "exportKey": "color",
+      "value": "rgba(252, 239, 227, 1)",
       "type": "color"
     }
   },
@@ -129,7 +143,7 @@
     "success": {
       "category": "fill",
       "exportKey": "color",
-      "value": "rgba(9, 124, 95, 1)",
+      "value": "rgba(0, 119, 98, 1)",
       "type": "color"
     },
     "success-l": {
