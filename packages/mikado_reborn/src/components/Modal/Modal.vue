@@ -10,20 +10,30 @@
         {
           'mkr__modal--opened': opened,
           'mkr__modal--slim': slim,
+          'mkr__modal--scrollable': scrollable,
+          'mkr__modal--scrolled': isScrolled && scrollable,
+          'mkr__modal--has-scroll': hasScroll && scrollable,
+          'mkr__modal--fully-scrolled': isFullyScrolled && scrollable,
         },
       ]"
       elevated
       radius="large"
     >
-      <mkr-interactive-icon
-        v-if="closeable"
-        class="mkr__modal__close"
-        name="cross"
-        color="neutral"
-        @click="onClickClose"
-      />
-      <div ref="modalContent" class="mkr__modal__content">
+      <div class="mkr__modal__header">
+        <mkr-text-button
+          class="mkr__modal__header__close"
+          type="button"
+          icon="cross"
+          size="small"
+          @click="onClickClose"
+        />
+        <slot name="title" />
+      </div>
+      <div ref="modalContent" class="mkr__modal__content" @scroll="setScrollState">
         <slot />
+      </div>
+      <div class="mkr__modal__footer" v-if="$slots['footer']">
+        <slot name="footer" />
       </div>
     </mkr-card>
   </div>
@@ -40,6 +50,7 @@ import {
 import { MkrCard } from '../Card';
 import { MkrInteractiveIcon } from '../InteractiveIcon';
 import { MkrOverlay } from '../Overlay';
+import { MkrTextButton } from '../Button';
 import focusTrap from './focusTrap';
 
 export const sizes = {
@@ -52,6 +63,7 @@ export const sizes = {
     MkrCard,
     MkrInteractiveIcon,
     MkrOverlay,
+    MkrTextButton,
   },
 })
 export default class Modal extends Vue {
@@ -73,10 +85,19 @@ export default class Modal extends Vue {
   @Prop({ type: Boolean, default: false })
   readonly overlay!: boolean;
 
+  @Prop({ type: Boolean, default: false })
+  readonly scrollable!: boolean;
+
   @Prop({ type: String, default: null })
   readonly focusFirstSelector!: string;
 
   focusTrapListenerCleanup: ReturnType<typeof focusTrap> = null;
+
+  isScrolled = false
+
+  isFullyScrolled = false
+
+  hasScroll = false
 
   $refs!: {
     modalContent: HTMLDivElement;
@@ -117,6 +138,10 @@ export default class Modal extends Vue {
   mounted(): void {
     const app = this.$app;
     app.$el.insertBefore(this.$el, app.$el.children[0]);
+
+    if (this.scrollable) {
+      this.setScrollState();
+    }
   }
 
   destroyed(): void {
@@ -153,6 +178,24 @@ export default class Modal extends Vue {
     if (event.key === 'Escape') {
       this.$emit('close', false);
     }
+  }
+
+  setScrollState(event?: UIEvent) {
+    if (!this.scrollable) return;
+
+    setTimeout(() => {
+      const target = event?.target as Element ?? this.$refs.modalContent;
+
+      if (!target) return;
+
+      const isScrolled = target.scrollTop >= 20;
+      const hasScroll = target.clientHeight < target.scrollHeight;
+      const isFullyScrolled = target.scrollHeight - target.scrollTop - target.clientHeight < 20;
+
+      this.isScrolled = isScrolled;
+      this.isFullyScrolled = isFullyScrolled;
+      this.hasScroll = hasScroll;
+    }, 200);
   }
 }
 </script>
