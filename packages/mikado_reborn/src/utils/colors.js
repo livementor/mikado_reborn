@@ -54,7 +54,7 @@ export const colorMap = {
   info: ['info', 'rgba(0, 41, 163, 1)'],
   'info-light': ['info-light', 'rgba(229, 242, 255, 1)'],
   'other-1': ['other-other-1', 'rgba(133, 10, 103, 1)'],
-  'other-1-light': ['other-other-l', 'rgba(252, 239, 227, 1)'],
+  'other-1-light': ['other-other-l', 'rgba(247, 235, 244, 1)'],
 };
 
 export default colors;
