@@ -24,13 +24,15 @@ const colors = [
   'warning-light',
   'info',
   'info-light',
+  'other-1',
+  'other-1-light',
 ];
 
 export const colorMap = {
   primary: ['primary-primary', 'rgba(255, 215, 122, 1)'],
   'primary-light': ['primary-primary-l', 'rgba(255, 247, 228, 1)'],
   'primary-dark': ['primary-primary-d', 'rgba(136, 71, 7, 1)'],
-  secondary: ['primary-secondary', 'rgba(7, 146, 121, 1)'],
+  secondary: ['primary-secondary', 'rgba(0, 119, 98, 1)'],
   'secondary-light': ['primary-secondary-l', 'rgba(231, 254, 250, 1)'],
   'secondary-dark': ['primary-secondary-d', 'rgba(4, 78, 64, 1)'],
   accent: ['accent-accent', 'rgba(243, 189, 163, 1)'],
@@ -43,7 +45,7 @@ export const colorMap = {
   'neutral-60': ['neutral-neutral-60', 'rgba(40, 56, 72, 0.6)'],
   'neutral-40': ['neutral-neutral-40', 'rgba(40, 56, 72, 0.4)'],
   'neutral-20': ['neutral-neutral-20', 'rgba(40, 56, 72, 0.2)'],
-  success: ['alert-success', 'rgba(9, 124, 95, 1)'],
+  success: ['alert-success', 'rgba(0, 119, 98, 1)'],
   'success-light': ['alert-success-l', 'rgba(225, 245, 238, 1)'],
   danger: ['alert-danger', 'rgba(191, 43, 13, 1)'],
   'danger-light': ['alert-danger-l', 'rgba(245, 225, 225, 1)'],
@@ -51,6 +53,8 @@ export const colorMap = {
   'warning-light': ['alert-warning-l', 'rgba(254, 241, 215, 1)'],
   info: ['info', 'rgba(0, 41, 163, 1)'],
   'info-light': ['info-light', 'rgba(229, 242, 255, 1)'],
+  'other-1': ['other-other-1', 'rgba(133, 10, 103, 1)'],
+  'other-1-light': ['other-other-l', 'rgba(252, 239, 227, 1)'],
 };
 
 export default colors;
