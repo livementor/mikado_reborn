@@ -1,3 +1,6 @@
+.icon-video-camera-circle:before {
+  content: "\e954";
+}
 .icon-arrow-narrow-bottom:before {
   content: "\e950";
 }

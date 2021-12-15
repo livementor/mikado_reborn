@@ -51,6 +51,7 @@ const icons = [
   'user-group',
   'user',
   'video-camera',
+  'video-camera-circle',
 ];
 
 export default icons;
