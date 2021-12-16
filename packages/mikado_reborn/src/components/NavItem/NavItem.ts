@@ -13,13 +13,13 @@ import './NavItem.scss';
   inheritAttrs: false,
 })
 export default class NavItem extends Vue {
-  @Prop({ type: Boolean })
+  @Prop({ type: Boolean, default: false })
   active!: boolean;
 
-  @Prop({ type: String })
+  @Prop({ type: String, default: undefined })
   title?: string;
 
-  @Prop({ type: String })
+  @Prop({ type: String, default: undefined })
   icon?: string;
 
   get classes(): (string | { [className: string]: boolean; })[] {
