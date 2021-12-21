@@ -26,7 +26,7 @@ const ModalTemplate = (args, { argTypes }) => ({
   },
   template: `
     <div>
-      <mkr-modal v-bind="$props" v-model="showModal" >
+      <mkr-modal v-bind="$props" v-model="showModal">
         <span>Hello World</span>
       </mkr-modal>
       <mkr-contained-button @click="open">Open Modal</mkr-contained-button>

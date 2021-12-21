@@ -26,4 +26,4 @@ export default class Badge extends Vue {
 }
 </script>
 
-<style src="./Badge.scss" lang=scss></style>
+<style src="./Badge.scss" lang="scss"></style>

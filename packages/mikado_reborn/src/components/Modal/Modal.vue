@@ -1,14 +1,14 @@
 <template>
-  <div>
-    <mkr-overlay v-if="overlay" :opened="opened" />
+  <div v-if="isOpened">
+    <mkr-overlay v-if="overlay" :opened="isOpened" />
     <mkr-card
       role="dialog"
-      :aria-modal="opened"
+      :aria-modal="isOpened"
       class="mkr__modal"
       :class="[
         `mkr__modal--${size}`,
         {
-          'mkr__modal--opened': opened,
+          'mkr__modal--opened': isOpened,
           'mkr__modal--slim': slim,
           'mkr__modal--scrollable': scrollable,
           'mkr__modal--scrolled': isScrolled && scrollable,
@@ -43,7 +43,6 @@
 import {
   Vue,
   Component,
-  Model,
   Prop,
   Watch,
 } from 'vue-property-decorator';
@@ -67,7 +66,11 @@ export const sizes = {
   },
 })
 export default class Modal extends Vue {
-  @Model('close', { type: Boolean }) readonly opened!: boolean;
+  @Prop({ type: Boolean, default: false })
+  readonly value!: boolean;
+
+  @Prop({ type: Boolean, default: false })
+  readonly opened!: boolean;
 
   @Prop({
     type: String,
@@ -75,6 +78,7 @@ export default class Modal extends Vue {
     default: 'medium',
   })
   readonly size!: keyof typeof sizes;
+
 
   @Prop({ type: Boolean, default: false })
   readonly slim!: boolean;
@@ -103,6 +107,10 @@ export default class Modal extends Vue {
     modalContent: HTMLDivElement;
   };
 
+  get isOpened () {
+    return this.value || this.opened
+  }
+
   @Watch('closeable')
   onCloseableChanged(isCloseable: boolean): void {
     if (isCloseable) {
@@ -112,8 +120,8 @@ export default class Modal extends Vue {
     this.removeCloseEventListeners();
   }
 
-  @Watch('opened', { immediate: true })
-  async onOpenedChanged(isOpened: boolean): Promise<void> {
+  @Watch('isOpened', { immediate: true })
+  async onIsOpenedChanged(isOpened: boolean): Promise<void> {
     if (isOpened) {
       await this.$nextTick();
       const modalRef = this.$refs.modalContent;
@@ -160,7 +168,7 @@ export default class Modal extends Vue {
   }
 
   onClickClose(): void {
-    this.$emit('close', false);
+    this.$emit('input', false);
   }
 
   onClickOutside(event: MouseEvent): void {
@@ -170,13 +178,13 @@ export default class Modal extends Vue {
     }
     const isClickInModal = this.$el.contains(event.target as Node);
     if (!isClickInModal) {
-      this.$emit('close', false);
+      this.$emit('input', false);
     }
   }
 
   keydownHandler(event: KeyboardEvent): void {
     if (event.key === 'Escape') {
-      this.$emit('close', false);
+      this.$emit('input', false);
     }
   }
 
