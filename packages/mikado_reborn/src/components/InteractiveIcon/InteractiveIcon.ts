@@ -27,9 +27,6 @@ export default class Icon extends Vue {
   @Prop({ default: false, type: Boolean })
   activated!: boolean;
 
-  @Prop({ type: Boolean, default: false })
-  linkify!: boolean;
-
   class = 'mkr__interactive-icon'
 
   get classes(): VNodeData['class'] {
@@ -42,6 +39,23 @@ export default class Icon extends Vue {
     ];
   }
 
+  get isRouterLink(): boolean {
+    return !!this.$attrs.to;
+  }
+
+  get isLink(): boolean {
+    return !!this.$attrs.href;
+  }
+
+  get component(): string {
+    if (this.isRouterLink) {
+      return 'RouterLink';
+    } if (this.isLink) {
+      return 'a';
+    }
+    return 'button';
+  }
+
   click(event: Event): void {
     this.$emit('click', event);
   }
@@ -51,7 +65,7 @@ export default class Icon extends Vue {
       props: { name: this.name },
     });
 
-    return createElement(this.linkify ? 'a' : 'button', {
+    return createElement(this.component, {
       class: this.classes,
       on: {
         click: this.click,

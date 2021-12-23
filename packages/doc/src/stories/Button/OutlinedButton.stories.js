@@ -50,6 +50,3 @@ const OutlinedButtonLinkTemplate = (_args, { argTypes }) => ({
 });
 
 export const OutlinedButtonLink = OutlinedButtonLinkTemplate.bind({});
-OutlinedButtonLink.args = {
-  linkify: true,
-};
