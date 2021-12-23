@@ -36,6 +36,18 @@ export default class NavItem extends Vue {
     return Boolean(this.$slots.default?.length);
   }
 
+  get isRouterLink(): boolean {
+    return !!this.$attrs.to;
+  }
+
+  get component(): string {
+    if (this.isRouterLink) {
+      return 'RouterLink';
+    }
+
+    return 'a';
+  }
+
   /**
    * Passthrough click event
    */
@@ -53,7 +65,7 @@ export default class NavItem extends Vue {
     }
 
     const link = createElement(
-      'a',
+      this.component,
       {
         attrs: this.$attrs,
         on: {
