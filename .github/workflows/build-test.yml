@@ -11,6 +11,6 @@ jobs:
       - name: Install Dependencies
         run: yarn install
       - name: Build Package
-        run: yarn workspace mikado_reborn build
+        run: yarn workspace @livementor/mikado_reborn build
       - name: Build Doc
         run: yarn workspace doc build-storybook
