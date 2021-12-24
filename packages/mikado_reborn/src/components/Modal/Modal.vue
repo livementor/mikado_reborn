@@ -19,6 +19,7 @@
       elevated
       radius="large"
     >
+      opened: {{ opened }}
       <div class="mkr__modal__header">
         <mkr-text-button
           class="mkr__modal__header__close"
@@ -117,20 +118,17 @@ export default class Modal extends Vue {
   async onOpenedChanged(isOpened: boolean): Promise<void> {
     if (isOpened) {
       await this.$nextTick();
-      const app = this.$app;
-      app.$el.insertBefore(this.$el, app.$el.children[0]);
+      this.teleportModalToAppElement();
+      this.focusSelector();
 
       if (this.scrollable) {
         this.setScrollState();
       }
+    } else {
+      this.removeModalFromDom();
+    }
 
-      const modalRef = this.$refs.modalContent;
-
-      this.focusTrapListenerCleanup = focusTrap({
-        el: modalRef,
-        focusElement: modalRef.querySelector<HTMLElement>(this.focusFirstSelector),
-      });
-    } else if (this.focusTrapListenerCleanup) {
+    if (!isOpened && this.focusTrapListenerCleanup) {
       this.focusTrapListenerCleanup();
     }
 
@@ -143,14 +141,27 @@ export default class Modal extends Vue {
     }
   }
 
-  destroyed(): void {
+  teleportModalToAppElement(): void {
+    const app = this.$app;
+    app.$el.insertBefore(this.$el, app.$el.children[0]);
+  }
+
+  removeModalFromDom(): void {
     this.$el.remove();
-    if (this.closeable) this.removeCloseEventListeners();
   }
 
   initCloseEventListeners(): void {
     document.addEventListener('mousedown', this.onClickOutside);
     document.addEventListener('keydown', this.keydownHandler);
+  }
+
+  focusSelector(): void {
+    const modalRef = this.$refs.modalContent;
+
+    this.focusTrapListenerCleanup = focusTrap({
+      el: modalRef,
+      focusElement: modalRef.querySelector<HTMLElement>(this.focusFirstSelector),
+    });
   }
 
   removeCloseEventListeners(): void {
