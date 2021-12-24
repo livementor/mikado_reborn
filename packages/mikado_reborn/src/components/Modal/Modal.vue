@@ -19,7 +19,6 @@
       elevated
       radius="large"
     >
-      opened: {{ opened }}
       <div class="mkr__modal__header">
         <mkr-text-button
           class="mkr__modal__header__close"
