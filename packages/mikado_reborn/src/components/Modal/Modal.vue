@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="opened">
     <mkr-overlay v-if="overlay" :opened="opened" />
     <mkr-card
       role="dialog"
@@ -43,9 +43,9 @@
 import {
   Vue,
   Component,
-  Model,
   Prop,
   Watch,
+  Model,
 } from 'vue-property-decorator';
 import { MkrCard } from '../Card';
 import { MkrInteractiveIcon } from '../InteractiveIcon';
@@ -67,7 +67,8 @@ export const sizes = {
   },
 })
 export default class Modal extends Vue {
-  @Model('close', { type: Boolean }) readonly opened!: boolean;
+  @Model('close', { type: Boolean, default: false })
+  readonly opened!: boolean;
 
   @Prop({
     type: String,
@@ -107,23 +108,24 @@ export default class Modal extends Vue {
   onCloseableChanged(isCloseable: boolean): void {
     if (isCloseable) {
       this.initCloseEventListeners();
-      return;
+    } else {
+      this.removeCloseEventListeners();
     }
-    this.removeCloseEventListeners();
   }
 
   @Watch('opened', { immediate: true })
   async onOpenedChanged(isOpened: boolean): Promise<void> {
     if (isOpened) {
       await this.$nextTick();
-      const modalRef = this.$refs.modalContent;
+      this.teleportModalToAppElement();
+      this.focusSelector();
 
-      this.focusTrapListenerCleanup = focusTrap({
-        el: modalRef,
-        focusElement: modalRef.querySelector<HTMLElement>(this.focusFirstSelector),
-      });
-    } else if (this.focusTrapListenerCleanup) {
-      this.focusTrapListenerCleanup();
+      if (this.scrollable) {
+        this.setScrollState();
+      }
+    } else {
+      this.focusTrapListenerCleanup?.();
+      this.removeModalFromDom();
     }
 
     if (!this.closeable) return;
@@ -135,18 +137,19 @@ export default class Modal extends Vue {
     }
   }
 
-  mounted(): void {
-    const app = this.$app;
-    app.$el.insertBefore(this.$el, app.$el.children[0]);
-
-    if (this.scrollable) {
-      this.setScrollState();
-    }
+  destroyed(): void {
+    this.removeModalFromDom();
+    this.focusTrapListenerCleanup?.();
+    if (this.closeable) this.removeCloseEventListeners();
   }
 
-  destroyed(): void {
+  teleportModalToAppElement(): void {
+    const app = this.$app;
+    app.$el.insertBefore(this.$el, app.$el.children[0]);
+  }
+
+  removeModalFromDom(): void {
     this.$el.remove();
-    if (this.closeable) this.removeCloseEventListeners();
   }
 
   initCloseEventListeners(): void {
@@ -157,6 +160,15 @@ export default class Modal extends Vue {
   removeCloseEventListeners(): void {
     document.removeEventListener('mousedown', this.onClickOutside);
     document.removeEventListener('keydown', this.keydownHandler);
+  }
+
+  focusSelector(): void {
+    const modalRef = this.$refs.modalContent;
+
+    this.focusTrapListenerCleanup = focusTrap({
+      el: modalRef,
+      focusElement: modalRef.querySelector<HTMLElement>(this.focusFirstSelector),
+    });
   }
 
   onClickClose(): void {
