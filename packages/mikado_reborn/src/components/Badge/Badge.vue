@@ -16,6 +16,7 @@ export const badgeType = [
   'success',
   'success-light',
   'warning-light',
+  'other-1',
 ];
 
 @Component
