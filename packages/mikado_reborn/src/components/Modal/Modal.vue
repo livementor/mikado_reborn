@@ -108,9 +108,9 @@ export default class Modal extends Vue {
   onCloseableChanged(isCloseable: boolean): void {
     if (isCloseable) {
       this.initCloseEventListeners();
-      return;
+    } else {
+      this.removeCloseEventListeners();
     }
-    this.removeCloseEventListeners();
   }
 
   @Watch('opened', { immediate: true })
@@ -124,11 +124,8 @@ export default class Modal extends Vue {
         this.setScrollState();
       }
     } else {
+      this.focusTrapListenerCleanup?.();
       this.removeModalFromDom();
-    }
-
-    if (!isOpened && this.focusTrapListenerCleanup) {
-      this.focusTrapListenerCleanup();
     }
 
     if (!this.closeable) return;
@@ -138,6 +135,12 @@ export default class Modal extends Vue {
     } else {
       this.removeCloseEventListeners();
     }
+  }
+
+  destroyed(): void {
+    this.removeModalFromDom();
+    this.focusTrapListenerCleanup?.();
+    if (this.closeable) this.removeCloseEventListeners();
   }
 
   teleportModalToAppElement(): void {
@@ -154,6 +157,11 @@ export default class Modal extends Vue {
     document.addEventListener('keydown', this.keydownHandler);
   }
 
+  removeCloseEventListeners(): void {
+    document.removeEventListener('mousedown', this.onClickOutside);
+    document.removeEventListener('keydown', this.keydownHandler);
+  }
+
   focusSelector(): void {
     const modalRef = this.$refs.modalContent;
 
@@ -161,11 +169,6 @@ export default class Modal extends Vue {
       el: modalRef,
       focusElement: modalRef.querySelector<HTMLElement>(this.focusFirstSelector),
     });
-  }
-
-  removeCloseEventListeners(): void {
-    document.removeEventListener('mousedown', this.onClickOutside);
-    document.removeEventListener('keydown', this.keydownHandler);
   }
 
   onClickClose(): void {
