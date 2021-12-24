@@ -81,6 +81,7 @@ export default class Button extends Vue {
       staticClass: staticClasses.join(' '),
       class: this.classes,
       attrs: {
+        ...this.$attrs,
         disabled: this.disabled,
       },
       on: {
