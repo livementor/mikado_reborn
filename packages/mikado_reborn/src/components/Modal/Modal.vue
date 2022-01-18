@@ -90,7 +90,7 @@ export default class Modal extends Vue {
   @Prop({ type: String, default: null })
   readonly focusFirstSelector!: string;
 
-  @Prop({ type: String, default: false })
+  @Prop({ type: Boolean, default: false })
   readonly noHeader!: boolean;
 
   focusTrapListenerCleanup: ReturnType<typeof focusTrap> = null;
