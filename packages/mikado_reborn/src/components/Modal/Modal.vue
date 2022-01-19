@@ -19,15 +19,18 @@
       elevated
       radius="large"
     >
-      <div class="mkr__modal__header">
-        <mkr-text-button
-          class="mkr__modal__header__close"
-          type="button"
-          icon="cross"
-          size="small"
-          @click="onClickClose"
-        />
-        <slot name="title" />
+      <div class="mkr__modal__header" v-if="!noHeader">
+        <slot name="header">
+          <mkr-text-button
+            v-if="closeable"
+            class="mkr__modal__header__close"
+            type="button"
+            icon="cross"
+            size="small"
+            @click="onClickClose"
+          />
+          <slot name="title" />
+        </slot>
       </div>
       <div ref="modalContent" class="mkr__modal__content" @scroll="setScrollState">
         <slot />
@@ -41,11 +44,7 @@
 
 <script lang="ts">
 import {
-  Vue,
-  Component,
-  Prop,
-  Watch,
-  Model,
+  Vue, Component, Prop, Watch, Model,
 } from 'vue-property-decorator';
 import { MkrCard } from '../Card';
 import { MkrInteractiveIcon } from '../InteractiveIcon';
@@ -92,13 +91,16 @@ export default class Modal extends Vue {
   @Prop({ type: String, default: null })
   readonly focusFirstSelector!: string;
 
+  @Prop({ type: Boolean, default: false })
+  readonly noHeader!: boolean;
+
   focusTrapListenerCleanup: ReturnType<typeof focusTrap> = null;
 
-  isScrolled = false
+  isScrolled = false;
 
-  isFullyScrolled = false
+  isFullyScrolled = false;
 
-  hasScroll = false
+  hasScroll = false;
 
   $refs!: {
     modalContent: HTMLDivElement;
@@ -196,7 +198,7 @@ export default class Modal extends Vue {
     if (!this.scrollable) return;
 
     setTimeout(() => {
-      const target = event?.target as Element ?? this.$refs.modalContent;
+      const target = (event?.target as Element) ?? this.$refs.modalContent;
 
       if (!target) return;
 
