@@ -22,6 +22,7 @@
       <div class="mkr__modal__header" v-if="!noHeader">
         <slot name="header">
           <mkr-text-button
+            v-if="closeable"
             class="mkr__modal__header__close"
             type="button"
             icon="cross"
