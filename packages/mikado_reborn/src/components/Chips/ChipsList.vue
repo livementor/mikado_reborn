@@ -22,6 +22,7 @@ import Chips from './Chips.vue';
 export type ChipsListProvide = {
   value?: string | null;
   size: 'medium' | 'small';
+  orientation: 'row' | 'column';
   emitChange: (value: string) => void;
   registerChips: (chips: Chips) => void;
   unregisterChips: (uuid: string) => void;
@@ -56,6 +57,7 @@ export default class ChipsList extends Vue {
   @ProvideReactive() list: ChipsListProvide = {
     value: this.value,
     size: this.size,
+    orientation: this.orientation,
     emitChange: this.emitChange,
     registerChips: this.registerChips,
     unregisterChips: this.unregisterChips,
