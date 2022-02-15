@@ -5,6 +5,7 @@
     aria-multiselectable="false"
     aria-orientation="horizontal"
     class="mkr__chips-list"
+    :class="`mkr__chips-list--${orientation}`"
     @focus="focusHandler"
     @keydown="handleKeyDown"
   >
@@ -12,19 +13,19 @@
   </ul>
 </template>
 
-<script lang=ts>
+<script lang="ts">
 import {
   Component, Vue, Prop, ProvideReactive, Watch,
 } from 'vue-property-decorator';
 import Chips from './Chips.vue';
 
 export type ChipsListProvide = {
-  value: string,
-  size: 'medium' | 'small',
-  emitChange: (value: string) => void,
-  registerChips: (chips: Chips) => void,
-  unregisterChips: (uuid: string) => void,
-}
+  value?: string | null;
+  size: 'medium' | 'small';
+  emitChange: (value: string) => void;
+  registerChips: (chips: Chips) => void;
+  unregisterChips: (uuid: string) => void;
+};
 
 @Component({
   model: {
@@ -32,15 +33,25 @@ export type ChipsListProvide = {
   },
 })
 export default class ChipsList extends Vue {
-  @Prop({ type: String, required: true })
-  readonly value!: string
+  @Prop({
+    required: true,
+    validator: (value) => ['string', 'undefined'].includes(typeof value) || value === null,
+  })
+  readonly value?: string | null;
 
   @Prop({
     type: String,
     default: 'medium',
     validator: (size) => ['medium', 'small'].includes(size),
   })
-  readonly size!: 'medium' | 'small'
+  readonly size!: 'medium' | 'small';
+
+  @Prop({
+    type: String,
+    default: 'row',
+    validator: (size) => ['row', 'column'].includes(size),
+  })
+  readonly orientation!: 'row' | 'column';
 
   @ProvideReactive() list: ChipsListProvide = {
     value: this.value,
@@ -48,11 +59,11 @@ export default class ChipsList extends Vue {
     emitChange: this.emitChange,
     registerChips: this.registerChips,
     unregisterChips: this.unregisterChips,
-  }
+  };
 
-  chips: Chips[] = []
+  chips: Chips[] = [];
 
-  focusedIndex = 0
+  focusedIndex = 0;
 
   updated(): void {
     this.chips.sort((leftChild, rightChild) => {
@@ -126,4 +137,4 @@ export default class ChipsList extends Vue {
 }
 </script>
 
-<style src="./ChipsList.scss" lang=scss></style>
+<style src="./ChipsList.scss" lang="scss"></style>

@@ -6,11 +6,23 @@
   padding: 0;
   display: flex;
 
-  &:focus {
-    outline: none;
+  &--column {
+    flex-direction: column;
+
+    .mkr__chips:not(:last-child) {
+      margin-bottom: 1rem;
+    }
   }
 
-  .mkr__chips:not(:first-child) {
-    margin-left: 2rem;
+  &--row {
+    flex-direction: row;
+
+    .mkr__chips:not(:first-child) {
+      margin-left: 2rem;
+    }
+  }
+
+  &:focus {
+    outline: none;
   }
 }
