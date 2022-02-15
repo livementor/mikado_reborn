@@ -5,7 +5,7 @@
     aria-multiselectable="false"
     aria-orientation="horizontal"
     class="mkr__chips-list"
-    :class="`mkr__chips-list--${orientation}`"
+    :class="[`mkr__chips-list--${orientation}`, { 'mkr__chips-list--wrap': wrap }]"
     @focus="focusHandler"
     @keydown="handleKeyDown"
   >
@@ -23,6 +23,7 @@ export type ChipsListProvide = {
   value?: string | null;
   size: 'medium' | 'small';
   orientation: 'row' | 'column';
+  wrap: boolean;
   emitChange: (value: string) => void;
   registerChips: (chips: Chips) => void;
   unregisterChips: (uuid: string) => void;
@@ -54,10 +55,17 @@ export default class ChipsList extends Vue {
   })
   readonly orientation!: 'row' | 'column';
 
+  @Prop({
+    type: Boolean,
+    default: false,
+  })
+  readonly wrap!: boolean;
+
   @ProvideReactive() list: ChipsListProvide = {
     value: this.value,
     size: this.size,
     orientation: this.orientation,
+    wrap: this.wrap,
     emitChange: this.emitChange,
     registerChips: this.registerChips,
     unregisterChips: this.unregisterChips,
