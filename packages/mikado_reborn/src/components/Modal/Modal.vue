@@ -151,7 +151,7 @@ export default class Modal extends Vue {
   }
 
   removeModalFromDom(): void {
-    this.$el.remove();
+    this.$el?.remove();
   }
 
   initCloseEventListeners(): void {
