@@ -5,32 +5,22 @@
   margin: 0;
   padding: 0;
   display: flex;
+  gap: 1rem;
+
+  &--medium {
+    gap: 2rem;
+  }
 
   &--wrap {
     flex-wrap: wrap;
-    gap: 2rem;
   }
 
   &--column {
     flex-direction: column;
-
-    &:not(.mkr__chips-list--wrap) {
-      .mkr__chips:not(:last-child) {
-        margin-bottom: 2rem;
-      }
-    }
-
   }
 
   &--row {
     flex-direction: row;
-
-    &:not(.mkr__chips-list--wrap) {
-      .mkr__chips:not(:first-child) {
-        margin-left: 2rem;
-      }
-    }
-
   }
 
   &:focus {

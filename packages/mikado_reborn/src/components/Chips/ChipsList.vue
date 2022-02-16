@@ -3,9 +3,13 @@
     role="listbox"
     tabindex="0"
     aria-multiselectable="false"
-    aria-orientation="horizontal"
+    :aria-orientation="orientation === 'row' ? 'horizontal' : 'vertical'"
     class="mkr__chips-list"
-    :class="[`mkr__chips-list--${orientation}`, { 'mkr__chips-list--wrap': wrap }]"
+    :class="[
+      `mkr__chips-list--${orientation}`,
+      `mkr__chips-list--${size}`,
+      { 'mkr__chips-list--wrap': wrap },
+    ]"
     @focus="focusHandler"
     @keydown="handleKeyDown"
   >
@@ -37,9 +41,9 @@ export type ChipsListProvide = {
 export default class ChipsList extends Vue {
   @Prop({
     required: true,
-    validator: (value) => ['string', 'undefined'].includes(typeof value) || value === null,
+    validator: (value) => ['string'].includes(typeof value) || value === null,
   })
-  readonly value?: string | null;
+  readonly value!: string | null;
 
   @Prop({
     type: String,
