@@ -15,11 +15,7 @@
 
 <script lang="ts">
 import {
-  Component,
-  Prop,
-  Vue,
-  Model,
-  Watch,
+  Component, Prop, Vue, Model, Watch,
 } from 'vue-property-decorator';
 
 export const colors = {
@@ -29,14 +25,14 @@ export const colors = {
 
 @Component
 export default class Modal extends Vue {
-  @Model('close', { type: Boolean }) readonly opened!: boolean
+  @Model('close', { type: Boolean }) readonly opened!: boolean;
 
   @Prop({
     type: String,
     validator: (value: string): boolean => Object.values(colors).includes(value),
     default: 'dark',
   })
-  readonly color!: (keyof typeof colors);
+  readonly color!: keyof typeof colors;
 
   @Prop({ type: Boolean, default: false })
   readonly keepOnClick!: boolean;
@@ -52,7 +48,7 @@ export default class Modal extends Vue {
   }
 
   destroyed(): void {
-    this.$el.remove();
+    this.$el?.remove();
     document.body.style.overflow = 'visible';
   }
 

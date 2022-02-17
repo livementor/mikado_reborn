@@ -12,9 +12,9 @@
       :aria-hidden="!isOpened"
     >
       <template v-if="label">
-        {{label}}
+        {{ label }}
       </template>
-      <slot name="content" v-else/>
+      <slot name="content" v-else />
     </div>
   </div>
 </template>
@@ -24,7 +24,11 @@ import {
   Component, Prop, Mixins, Watch,
 } from 'vue-property-decorator';
 import {
-  createPopper, Instance as PopperInstance, Modifier, OptionsGeneric, Placement,
+  createPopper,
+  Instance as PopperInstance,
+  Modifier,
+  OptionsGeneric,
+  Placement,
 } from '@popperjs/core';
 
 import Uuid from '../../mixins/uuid';
@@ -38,7 +42,7 @@ export default class Tooltip extends Mixins(Uuid) {
   readonly disabled!: boolean;
 
   @Prop({ type: String, default: '' })
-  readonly placement!: Placement
+  readonly placement!: Placement;
 
   @Prop({ type: Boolean, default: false })
   readonly topLevel!: boolean;
@@ -109,7 +113,7 @@ export default class Tooltip extends Mixins(Uuid) {
 
   beforeDestroy(): void {
     if (this.topLevel) {
-      (this.$refs.tooltip as Element).remove();
+      (this.$refs.tooltip as Element)?.remove();
     }
   }
 }
