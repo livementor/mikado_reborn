@@ -8,6 +8,8 @@ export default {
   },
   argTypes: {
     size: { control: 'select', options: ['medium', 'small'] },
+    orientation: { control: 'select', options: ['row', 'column'] },
+    wrap: { control: { type: 'boolean' }, defaultValue: { summary: 'false' } },
     value: {
       control: false,
     }
@@ -39,4 +41,6 @@ const Template = (args, { argTypes }) => ({
 export const ChipsList = Template.bind({});
 ChipsList.args = {
   size: 'medium',
+  orientation: 'row',
+  wrap: true,
 };

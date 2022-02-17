@@ -5,12 +5,25 @@
   margin: 0;
   padding: 0;
   display: flex;
+  gap: 1rem;
+
+  &--medium {
+    gap: 2rem;
+  }
+
+  &--wrap {
+    flex-wrap: wrap;
+  }
+
+  &--column {
+    flex-direction: column;
+  }
+
+  &--row {
+    flex-direction: row;
+  }
 
   &:focus {
     outline: none;
-  }
-
-  .mkr__chips:not(:first-child) {
-    margin-left: 2rem;
   }
 }
