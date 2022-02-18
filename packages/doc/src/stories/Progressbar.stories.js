@@ -15,6 +15,7 @@ export const Progressbar = Template.bind({});
 Progressbar.args = {
   total: 4,
   current: 1,
+  shrinkEmoji: false,
 };
 
 const WithSlotTemplate = (args) => ({
@@ -27,4 +28,5 @@ export const ProgressbarWithSlot = WithSlotTemplate.bind({});
 ProgressbarWithSlot.args = {
   total: 4,
   current: 1,
+  shrinkEmoji: false,
 };

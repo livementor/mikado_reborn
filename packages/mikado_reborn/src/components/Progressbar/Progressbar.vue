@@ -6,7 +6,15 @@
     :aria-valuemax="total"
     :aria-valuenow="current"
   >
-    <div :class="['mkr__progressbar__emoji', { 'mkr__progressbar__emoji--visible': isCompleted }]">
+    <div
+      :class="[
+        'mkr__progressbar__emoji',
+        {
+          'mkr__progressbar__emoji--visible': isCompleted,
+          'mkr__progressbar__emoji--shrink': shrinkEmoji,
+        },
+      ]"
+    >
       <slot> 👍 </slot>
     </div>
     <div class="mkr__progressbar__text">{{ current }}/{{ total }}</div>
@@ -27,6 +35,9 @@ export default class Progressbar extends Vue {
 
   @Prop({ type: Number, required: true })
   total!: number;
+
+  @Prop({ type: Boolean, required: true, default: false })
+  shrinkEmoji!: boolean;
 
   get isCompleted(): boolean {
     return this.total > 0 && this.current >= this.total;
