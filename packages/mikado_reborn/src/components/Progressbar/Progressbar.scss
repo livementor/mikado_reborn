@@ -9,11 +9,17 @@
   }
 
   &__emoji {
+    $emoji: &;
+
     flex-shrink: 0;
     height: 1.5rem;
     display: flex;
     align-items: center;
     opacity: 0;
+
+    &--shrink:not(#{$emoji}--visible) {
+      display: none;
+    }
 
     &--visible {
       opacity: 1;
