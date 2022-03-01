@@ -7,11 +7,11 @@
     :aria-valuenow="current"
   >
     <div
+      v-if="showEmoji"
       :class="[
         'mkr__progressbar__emoji',
         {
           'mkr__progressbar__emoji--visible': isCompleted,
-          'mkr__progressbar__emoji--shrink': shrinkEmoji,
         },
       ]"
     >
@@ -36,11 +36,15 @@ export default class Progressbar extends Vue {
   @Prop({ type: Number, required: true })
   total!: number;
 
-  @Prop({ type: Boolean, required: true, default: false })
+  @Prop({ type: Boolean, required: false, default: false })
   shrinkEmoji!: boolean;
 
   get isCompleted(): boolean {
     return this.total > 0 && this.current >= this.total;
+  }
+
+  get showEmoji(): boolean {
+    return this.isCompleted || !this.shrinkEmoji;
   }
 
   get spanStyle(): Partial<CSSStyleDeclaration> {

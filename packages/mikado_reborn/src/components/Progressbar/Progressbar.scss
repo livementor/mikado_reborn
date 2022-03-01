@@ -17,10 +17,6 @@
     align-items: center;
     opacity: 0;
 
-    &--shrink:not(#{$emoji}--visible) {
-      display: none;
-    }
-
     &--visible {
       opacity: 1;
     }
