@@ -36,7 +36,7 @@ export default class Progressbar extends Vue {
   @Prop({ type: Number, required: true })
   total!: number;
 
-  @Prop({ type: Boolean, required: true, default: false })
+  @Prop({ type: Boolean, required: false, default: false })
   shrinkEmoji!: boolean;
 
   get isCompleted(): boolean {
