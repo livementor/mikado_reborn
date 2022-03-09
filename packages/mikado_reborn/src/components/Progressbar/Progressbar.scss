@@ -3,6 +3,11 @@
 .mkr__progressbar {
   display: flex;
   align-items: center;
+  --height:  1.5rem;
+
+  &--small {
+    --height:  1rem;
+  }
 
   > * + * {
     margin-left: 1.5rem;
@@ -12,7 +17,7 @@
     $emoji: &;
 
     flex-shrink: 0;
-    height: 1.5rem;
+    height: var(--height);
     display: flex;
     align-items: center;
     opacity: 0;
@@ -31,7 +36,7 @@
 
   &__bar {
     flex-grow: 1;
-    height: 1.5rem;
+    height: var(--height);
     position: relative;
     overflow: hidden;
 

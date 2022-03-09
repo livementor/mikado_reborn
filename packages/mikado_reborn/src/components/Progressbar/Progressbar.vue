@@ -1,6 +1,7 @@
 <template>
   <div
     class="mkr__progressbar"
+    :class="`mkr__progressbar--${size}`"
     role="progressbar"
     aria-valuemin="0"
     :aria-valuemax="total"
@@ -38,6 +39,13 @@ export default class Progressbar extends Vue {
 
   @Prop({ type: Boolean, required: false, default: false })
   shrinkEmoji!: boolean;
+
+  @Prop({
+    required: false,
+    default: 'medium',
+    validator: (size) => ['small', 'medium'].includes(size),
+  })
+  size!: 'small' | 'medium'
 
   get isCompleted(): boolean {
     return this.total > 0 && this.current >= this.total;
