@@ -17,8 +17,7 @@
     >
       <slot> 👍 </slot>
     </div>
-    <div class="mkr__progressbar__text">{{ current }}/{{ total }}</div>
-
+    <div v-if="!hideState" class="mkr__progressbar__text">{{ current }}/{{ total }}</div>
     <div class="mkr__progressbar__bar">
       <span :style="spanStyle" />
     </div>
@@ -38,6 +37,9 @@ export default class Progressbar extends Vue {
 
   @Prop({ type: Boolean, required: false, default: false })
   shrinkEmoji!: boolean;
+
+  @Prop({ type: Boolean, required: false, default: false })
+  hideState!: boolean;
 
   get isCompleted(): boolean {
     return this.total > 0 && this.current >= this.total;
