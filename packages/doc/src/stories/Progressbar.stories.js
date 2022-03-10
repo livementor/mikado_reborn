@@ -30,3 +30,17 @@ ProgressbarWithSlot.args = {
   current: 1,
   shrinkEmoji: false,
 };
+
+const simpleProgress = (args) => ({
+  props: Object.keys(args),
+  template:
+    '<div style="width: 200px;"><mkr-progressbar v-bind="$props"></mkr-progressbar></div>',
+});
+
+export const SimpleProgress = simpleProgress.bind({});
+SimpleProgress.args = {
+  total: 4,
+  current: 1,
+  shrinkEmoji: true,
+  hideState: true
+};
