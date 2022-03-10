@@ -17,7 +17,7 @@ export default {
         ],
       }
     },
-    size: { control: { type: 'select', options: ['medium', 'small'] } },
+    size: { control: { type: 'select', options: ['large', 'medium'] } },
     icon: { control: { type: 'select', options: icons } },
     iconSide: { control: { type: 'select', options: ['left', 'right'] } },
   },
@@ -31,7 +31,7 @@ const ContainedButtonTemplate = (_args, { argTypes }) => ({
 export const ContainedButton = ContainedButtonTemplate.bind({});
 ContainedButton.args = {
   theme: 'primary',
-  size: 'medium',
+  size: 'large',
   icon: 'chat',
   iconSide: 'left',
   disabled: false,
@@ -50,25 +50,25 @@ const ContainedButtonShowcaseTemplate = (args, { argTypes }) => ({
 export const ContainedButtonPrimary = ContainedButtonShowcaseTemplate.bind({});
 ContainedButtonPrimary.args = {
   theme: 'primary',
-  size: 'medium',
+  size: 'large',
 };
 
 export const ContainedButtonSecondary = ContainedButtonShowcaseTemplate.bind({});
 ContainedButtonSecondary.args = {
   theme: 'secondary',
-  size: 'medium',
+  size: 'large',
 };
 
 export const ContainedButtonPrimaryLight = ContainedButtonShowcaseTemplate.bind({});
 ContainedButtonPrimaryLight.args = {
   theme: 'primary-light',
-  size: 'medium',
+  size: 'large',
 };
 
-export const ContainedButtonSmall = ContainedButtonShowcaseTemplate.bind({});
-ContainedButtonSmall.args = {
+export const ContainedButtonMedium = ContainedButtonShowcaseTemplate.bind({});
+ContainedButtonMedium.args = {
   theme: 'primary',
-  size: 'small',
+  size: 'medium',
 };
 
 const ContainedButtonLinkTemplate = (_args, { argTypes }) => ({
