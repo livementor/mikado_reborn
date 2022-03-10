@@ -8,10 +8,10 @@
     box-sizing: border-box;
     border-radius: 4px;
 
-    &#{$button}--small {
-      padding: calc(1.5rem - 1px) calc(2rem - 1px);
+    &#{$button}--large {
+      padding: calc(2rem - 1px) calc(3rem - 1px);
     }
-    padding: calc(2rem - 1px) calc(3rem - 1px);
+    padding: calc(1.5rem - 1px) calc(2rem - 1px);
 
     &:hover:not(:disabled) {
       background: map-get($colors, 'primary-light');

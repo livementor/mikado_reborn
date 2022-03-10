@@ -5,7 +5,7 @@ export default {
   title: 'Components/Button/OutlinedButton',
   component: MkrOutlinedButton,
   argTypes: {
-    size: { control: { type: 'select', options: ['medium', 'small'] } },
+    size: { control: { type: 'select', options: ['large', 'medium'] } },
     icon: { control: { type: 'select', options: icons } },
     iconSide: { control: { type: 'select', options: ['left', 'right'] } },
   },
@@ -18,7 +18,7 @@ const OutlinedButtonTemplate = (_args, { argTypes }) => ({
 
 export const OutlinedButton = OutlinedButtonTemplate.bind({});
 OutlinedButton.args = {
-  size: 'medium',
+  size: 'large',
   icon: 'chat',
   iconSide: 'left',
   disabled: false,
@@ -34,14 +34,14 @@ const OutlinedButtonShowcaseTemplate = (args, { argTypes }) => ({
   </div>`,
 });
 
+export const OutlinedButtonLarge = OutlinedButtonShowcaseTemplate.bind({});
+OutlinedButtonLarge.args = {
+  size: 'large',
+};
+
 export const OutlinedButtonMedium = OutlinedButtonShowcaseTemplate.bind({});
 OutlinedButtonMedium.args = {
   size: 'medium',
-};
-
-export const OutlinedButtonSmall = OutlinedButtonShowcaseTemplate.bind({});
-OutlinedButtonSmall.args = {
-  size: 'small',
 };
 
 const OutlinedButtonLinkTemplate = (_args, { argTypes }) => ({

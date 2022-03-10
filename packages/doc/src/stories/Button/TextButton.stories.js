@@ -12,7 +12,7 @@ export default {
         options: Object.keys(textButtonThemes),
       },
     },
-    size: { control: { type: 'select', options: ['medium', 'small'] } },
+    size: { control: { type: 'select', options: ['large', 'medium', 'small'] } },
     icon: { control: { type: 'select', options: icons } },
     iconSide: { control: { type: 'select', options: ['left', 'right'] } },
   },
@@ -34,7 +34,7 @@ TextButton.args = {
 
 const TextButtonShowcaseTemplate = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
-  template: `<div style="display: flex; justify-content: space-around;">
+  template: `<div style="display: flex; justify-content: space-around; align-items: center;">
     <mkr-text-button v-bind="$props">Label</mkr-text-button>
     <mkr-text-button v-bind="$props" icon="chat">Label</mkr-text-button>
     <mkr-text-button v-bind="$props" icon="chat" />
@@ -42,8 +42,13 @@ const TextButtonShowcaseTemplate = (args, { argTypes }) => ({
   </div>`,
 });
 
-export const TextButtonNeutral = TextButtonShowcaseTemplate.bind({});
-TextButtonNeutral.args = {
+export const TextButtonLarge = TextButtonShowcaseTemplate.bind({});
+TextButtonLarge.args = {
+  size: 'large',
+};
+
+export const TextButtonMedium = TextButtonShowcaseTemplate.bind({});
+TextButtonMedium.args = {
   size: 'medium',
 };
 
