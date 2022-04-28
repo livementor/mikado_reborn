@@ -23,14 +23,14 @@ You will find two packages:
 
 ### How to deploy
 
-As the design system is used as a package inside our front-end application, we need to manage the versions. This is also important to keep an up-to-date changelog for each new release. By doing so, we allow multiple developpers know about changes even if they did not review the PR.
+Since the design system is used as a package in our front-end application, we need to manage the versions. It is also important to keep an up-to-date changelog for each new version. By doing this, we allow multiple developers to know about changes even if they haven't reviewed the PR.
 
-Lucky you, we got this covered with a upgrade script located at: `scripts/upgrade.js`.
+Lucky you, we've covered this with an upgrade script located at : `scripts/upgrade.js`.
 
-The versioning system we use is based on [semver](https://semver.org/). By using [AngularJS's commit message convention](https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#-git-commit-guidelines), also known as conventional-changelog, it is thus easy for a script to create a changelog.
+The version control system we use is based on [semver](https://semver.org/). Using [AngularJS's commit message convention](https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#-git-commit-guidelines), also known as conventional-changelog, it is therefore easy for a script to create a changelog.
 
-To run the script, you need to have GitHub cli installed and be authenticated.
-If you are missing these pre-requisite, the script will print you the related error and guide you through the steps.
+To run the script, you must have GitHub cli installed and be authenticated.
+If you don't have these prerequisites, the script will show you the corresponding error and guide you through the steps.
 
 ```sh
 # GitHub cli install
