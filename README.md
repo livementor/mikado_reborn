@@ -21,6 +21,32 @@ You will find two packages:
     - doc (the documentation, built using storybook)
     - mikado_reborn (the vue.js ui library)
 
+### How to deploy
+
+As the design system is used as a package inside our front-end application, we need to manage the versions. This is also important to keep an up-to-date changelog for each new release. By doing so, we allow multiple developpers know about changes even if they did not review the PR.
+
+Lucky you, we got this covered with a upgrade script located at: `scripts/upgrade.js`.
+
+The versioning system we use is based on [semver](https://semver.org/). By using [AngularJS's commit message convention](https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#-git-commit-guidelines), also known as conventional-changelog, it is thus easy for a script to create a changelog.
+
+To run the script, you need to have GitHub cli installed and be authenticated.
+If you are missing these pre-requisite, the script will print you the related error and guide you through the steps.
+
+```sh
+# GitHub cli install
+brew install gh
+# GitHub cli auth
+gh auth login
+```
+
+To publish a new version of mikado, run:
+
+```sh
+make upgrade-mikado
+```
+
+> ⚠️ If there is any breaking changes, it is important to sync with others to make sure a PR with the needed changes will be merged alongside with the dependency upgrade.
+
 ### Design tokens
 
 We are using design tokens to sync the values used in the code for any color or font.
