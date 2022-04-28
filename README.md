@@ -18,8 +18,9 @@ yarn --cwd packages/doc storybook
 This project is a mono repo, using yarn workspaces.
 
 You will find two packages:
-    - doc (the documentation, built using storybook)
-    - mikado_reborn (the vue.js ui library)
+
+- doc (the documentation, built using storybook)
+- mikado_reborn (the vue.js ui library)
 
 ### How to deploy
 
