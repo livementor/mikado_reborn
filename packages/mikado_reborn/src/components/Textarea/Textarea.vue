@@ -1,53 +1,75 @@
 <template>
-  <div :class="['mkr__textarea', {'error' : error}]">
+  <div :class="['mkr__textarea', { error: error }]">
     <textarea
+      v-model="inputValue"
       :placeholder="placeholder"
       :maxlength="maxlength"
       :minlength="minlength"
-      :value="value"
       :rows="rows"
-      @input="emitInput"
-      @keydown="emitChange"
+      @focus="onFocus"
+      @blur="onBlur"
+      @change="onChange"
+      @keyup="onKeyup"
+      @keydown="onKeydown"
+      @click="onClick"
     />
   </div>
 </template>
 
-<script lang=ts>
+<script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 
-  @Component
+@Component
 export default class Textarea extends Vue {
-    @Prop({ type: String })
-    value?: string;
+  @Prop({ type: String })
+  value?: string;
 
-    @Prop({ type: Number })
-    minlength?: number
+  @Prop({ type: Number })
+  minlength?: number;
 
-    @Prop({ type: Number })
-    maxlength?: number
+  @Prop({ type: Number })
+  maxlength?: number;
 
-    @Prop({ type: String })
-    placeholder?: string
+  @Prop({ type: String })
+  placeholder?: string;
 
-    @Prop({ type: Boolean })
-    error!: boolean;
+  @Prop({ type: Boolean })
+  error!: boolean;
 
-    @Prop({ type: Number })
-    rows!: number;
+  @Prop({ type: Number })
+  rows!: number;
 
-    emitInput(event: Event): void {
-      const input = event.target as HTMLInputElement | null;
-      if (input) {
-        this.$emit('input', input.value);
-      }
-    }
+  get inputValue() {
+    return this.value;
+  }
 
-    emitChange(event: Event): void {
-      const input = event.target as HTMLInputElement | null;
-      if (input) {
-        this.$emit('change', input.value);
-      }
-    }
+  set inputValue(value: string | undefined) {
+    this.$emit('input', value);
+  }
+
+  onChange(event: Event): void {
+    this.$emit('change', event);
+  }
+
+  onFocus(event: Event) {
+    this.$emit('focus', event);
+  }
+
+  onBlur(event: Event) {
+    this.$emit('blur', event);
+  }
+
+  onKeydown(event: KeyboardEvent) {
+    this.$emit('keydown', event);
+  }
+
+  onKeyup(event: KeyboardEvent) {
+    this.$emit('keydown', event);
+  }
+
+  onClick(event: Event) {
+    this.$emit('click', event);
+  }
 }
 </script>
 
