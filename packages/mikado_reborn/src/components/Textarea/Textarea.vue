@@ -1,17 +1,15 @@
 <template>
   <div :class="['mkr__textarea', { error: error }]">
     <textarea
-      v-model="inputValue"
+      :value="value"
       :placeholder="placeholder"
       :maxlength="maxlength"
       :minlength="minlength"
       :rows="rows"
-      @focus="onFocus"
-      @blur="onBlur"
-      @change="onChange"
-      @keyup="onKeyup"
-      @keydown="onKeydown"
-      @click="onClick"
+      v-on="{
+        ...$listeners,
+        input: emitInputValue,
+      }"
     />
   </div>
 </template>
@@ -39,37 +37,12 @@ export default class Textarea extends Vue {
   @Prop({ type: Number })
   rows!: number;
 
-  get inputValue() {
-    return this.value;
-  }
-
-  set inputValue(value: string | undefined) {
-    this.$emit('input', value);
-    this.$emit('change');
-  }
-
-  onChange(event: Event): void {
+  emitInputValue(event: InputEvent) {
+    const input = event.target as HTMLInputElement | null;
+    if (input) {
+      this.$emit('input', input.value);
+    }
     this.$emit('change', event);
-  }
-
-  onFocus(event: Event) {
-    this.$emit('focus', event);
-  }
-
-  onBlur(event: Event) {
-    this.$emit('blur', event);
-  }
-
-  onKeydown(event: KeyboardEvent) {
-    this.$emit('keydown', event);
-  }
-
-  onKeyup(event: KeyboardEvent) {
-    this.$emit('keydown', event);
-  }
-
-  onClick(event: Event) {
-    this.$emit('click', event);
   }
 }
 </script>

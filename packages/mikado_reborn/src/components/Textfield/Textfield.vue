@@ -4,15 +4,13 @@
       <mkr-icon v-if="iconName" :color="iconColor" :name="iconName" />
       <input
         v-bind="$attrs"
-        v-model="inputValue"
+        :value="value"
         :type="getType"
         :placeholder="placeholder"
-        @focus="onFocus"
-        @blur="onBlur"
-        @change="onChange"
-        @keyup="onKeyup"
-        @keydown="onKeydown"
-        @click="onClick"
+        v-on="{
+          ...$listeners,
+          input: emitInputValue,
+        }"
       />
       <mkr-icon v-if="error" name="exclamation-circle" color="danger" />
     </div>
@@ -64,15 +62,6 @@ export default class TextField extends Vue {
 
   showPassword = false;
 
-  get inputValue() {
-    return this.value;
-  }
-
-  set inputValue(value: string | undefined) {
-    this.$emit('input', value);
-    this.$emit('change');
-  }
-
   get iconColor(): string {
     if (this.focused) {
       return this.error ? 'danger' : 'secondary';
@@ -91,30 +80,14 @@ export default class TextField extends Vue {
     this.showPassword = !this.showPassword;
   }
 
-  onChange(event: Event): void {
+  emitInputValue(event: InputEvent) {
+    const input = event.target as HTMLInputElement | null;
+
+    if (input) {
+      this.$emit('input', input.value);
+    }
+
     this.$emit('change', event);
-  }
-
-  onFocus(event: Event) {
-    this.focused = true;
-    this.$emit('focus', event);
-  }
-
-  onBlur(event: Event) {
-    this.focused = false;
-    this.$emit('blur', event);
-  }
-
-  onKeydown(event: KeyboardEvent) {
-    this.$emit('keydown', event);
-  }
-
-  onKeyup(event: KeyboardEvent) {
-    this.$emit('keydown', event);
-  }
-
-  onClick(event: Event) {
-    this.$emit('click', event);
   }
 }
 </script>
