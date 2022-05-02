@@ -12,7 +12,7 @@
   </li>
 </template>
 
-<script lang=ts>
+<script lang="ts">
 import {
   Component, Prop, Mixins, InjectReactive,
 } from 'vue-property-decorator';
@@ -27,19 +27,19 @@ import { MkrIcon } from '../Icon';
   },
 })
 export default class Chips extends Mixins(Uuid) {
-  @InjectReactive('list') readonly list?: ChipsListProvide
+  @InjectReactive('list') readonly list?: ChipsListProvide;
 
   @Prop({ type: String, default: '' })
-  readonly label!: string
+  readonly label!: string;
 
   @Prop({ type: String, default: '' })
-  readonly value!: string
+  readonly value!: string;
 
   get componentId(): string {
     return `chips-${this.uuid}`;
   }
 
-  get classes(): (string | {[className: string]: boolean;})[] {
+  get classes(): (string | { [className: string]: boolean })[] {
     return [
       'mkr__chips',
       {
@@ -74,4 +74,4 @@ export default class Chips extends Mixins(Uuid) {
 }
 </script>
 
-<style src="./Chips.scss" lang=scss></style>
+<style src="./Chips.scss" lang="scss"></style>

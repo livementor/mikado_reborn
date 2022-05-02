@@ -1,8 +1,8 @@
 <template>
-  <span :class="`mkr__badge mkr__badge--${type}`"><slot/></span>
+  <span :class="`mkr__badge mkr__badge--${type}`"><slot /></span>
 </template>
 
-<script lang=ts>
+<script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 
 export const badgeType = [
@@ -21,8 +21,8 @@ export const badgeType = [
 
 @Component
 export default class Badge extends Vue {
-    @Prop({ default: 'primary', validator: (type) => badgeType.includes(type) })
-    type!: string
+  @Prop({ default: 'primary', validator: (type) => badgeType.includes(type) })
+  type!: string;
 }
 </script>
 
