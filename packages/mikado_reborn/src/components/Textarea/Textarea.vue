@@ -1,5 +1,5 @@
 <template>
-  <div :class="['mkr__textarea', {'error' : error}]">
+  <div :class="['mkr__textarea', { error: error }]">
     <textarea
       :placeholder="placeholder"
       :maxlength="maxlength"
@@ -12,42 +12,42 @@
   </div>
 </template>
 
-<script lang=ts>
+<script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 
-  @Component
+@Component
 export default class Textarea extends Vue {
-    @Prop({ type: String })
-    value?: string;
+  @Prop({ type: String })
+  value?: string;
 
-    @Prop({ type: Number })
-    minlength?: number
+  @Prop({ type: Number })
+  minlength?: number;
 
-    @Prop({ type: Number })
-    maxlength?: number
+  @Prop({ type: Number })
+  maxlength?: number;
 
-    @Prop({ type: String })
-    placeholder?: string
+  @Prop({ type: String })
+  placeholder?: string;
 
-    @Prop({ type: Boolean })
-    error!: boolean;
+  @Prop({ type: Boolean })
+  error!: boolean;
 
-    @Prop({ type: Number })
-    rows!: number;
+  @Prop({ type: Number })
+  rows!: number;
 
-    emitInput(event: Event): void {
-      const input = event.target as HTMLInputElement | null;
-      if (input) {
-        this.$emit('input', input.value);
-      }
+  emitInput(event: Event): void {
+    const input = event.target as HTMLInputElement | null;
+    if (input) {
+      this.$emit('input', input.value);
     }
+  }
 
-    emitChange(event: Event): void {
-      const input = event.target as HTMLInputElement | null;
-      if (input) {
-        this.$emit('change', input.value);
-      }
+  emitChange(event: Event): void {
+    const input = event.target as HTMLInputElement | null;
+    if (input) {
+      this.$emit('change', input.value);
     }
+  }
 }
 </script>
 
