@@ -5,7 +5,7 @@
       `mkr__nav-item-group--${type}`,
       {
         'mkr__nav-item-group--top-nav': topNav,
-        'mkr__nav-item-group--horizontal': horizontal
+        'mkr__nav-item-group--horizontal': horizontal,
       },
     ]"
   >
@@ -28,7 +28,7 @@ export default class NavItemGroup extends Vue {
     default: NavItemTypes.main,
     validator: (type) => Object.values(NavItemTypes).includes(type),
   })
-  type!: string
+  type!: string;
 
   @Prop({ type: Boolean, default: false })
   topNav!: boolean;

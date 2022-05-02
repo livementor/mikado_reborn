@@ -115,7 +115,11 @@ export default class Modal extends Vue {
     }
   }
 
-  @Watch('opened', { immediate: true })
+  mounted() {
+    this.toggleEventListeners(this.opened);
+  }
+
+  @Watch('opened')
   async onOpenedChanged(isOpened: boolean): Promise<void> {
     if (isOpened) {
       await this.$nextTick();
@@ -132,6 +136,10 @@ export default class Modal extends Vue {
 
     if (!this.closeable) return;
 
+    this.toggleEventListeners(isOpened);
+  }
+
+  toggleEventListeners(isOpened: boolean) {
     if (isOpened) {
       this.initCloseEventListeners();
     } else {
