@@ -1,20 +1,17 @@
 <template>
-  <div :class="['mkr__textfield', {'error' : error}]">
+  <div :class="['mkr__textfield', { error: error }]">
     <div class="mkr__textfield__inner">
-      <mkr-icon v-if="iconName" :color="iconColor" :name="iconName"/>
+      <mkr-icon v-if="iconName" :color="iconColor" :name="iconName" />
       <input
         v-bind="$attrs"
         :value="value"
         :type="getType"
         :placeholder="placeholder"
-        @focus="onFocus"
-        @blur="onBlur"
-        @input="emitInput"
-        @change="emitChange"
-        @keyup="onKeyup"
-        @keydown="onKeydown"
-        @click="onClick"
-      >
+        v-on="{
+          ...$listeners,
+          input: emitInputValue,
+        }"
+      />
       <mkr-icon v-if="error" name="exclamation-circle" color="danger" />
     </div>
     <mkr-contained-button
@@ -42,82 +39,56 @@ import MkrContainedButton from '../Button/Contained/ContainedButton';
   inheritAttrs: false,
 })
 export default class TextField extends Vue {
-    @Prop({ type: String })
-    value?: string;
+  @Prop({ type: String })
+  value?: string;
 
-    @Prop({ type: String })
-    iconName?: string;
+  @Prop({ type: String })
+  iconName?: string;
 
-    @Prop({ type: String })
-    placeholder?: string;
+  @Prop({ type: String })
+  placeholder?: string;
 
-    @Prop({ type: Boolean })
-    error!: boolean;
+  @Prop({ type: Boolean })
+  error!: boolean;
 
-    @Prop({
-      default: 'text',
-      type: String,
-      validator: (type) => ['text', 'email', 'password', 'date'].includes(type),
-    })
-    type!: string
+  @Prop({
+    default: 'text',
+    type: String,
+    validator: (type) => ['text', 'email', 'password', 'date'].includes(type),
+  })
+  type!: string;
 
-    focused = false
+  focused = false;
 
-    showPassword = false
+  showPassword = false;
 
-    get iconColor(): string {
-      if (this.focused) {
-        return this.error ? 'danger' : 'secondary';
-      }
-      return 'neutral-60';
+  get iconColor(): string {
+    if (this.focused) {
+      return this.error ? 'danger' : 'secondary';
+    }
+    return 'neutral-60';
+  }
+
+  get getType(): string {
+    if (this.showPassword) {
+      return 'text';
+    }
+    return this.type;
+  }
+
+  showPasswordClick(): void {
+    this.showPassword = !this.showPassword;
+  }
+
+  emitInputValue(event: InputEvent) {
+    const input = event.target as HTMLInputElement | null;
+
+    if (input) {
+      this.$emit('input', input.value);
     }
 
-    get getType(): string {
-      if (this.showPassword) {
-        return 'text';
-      }
-      return this.type;
-    }
-
-    showPasswordClick(): void {
-      this.showPassword = !this.showPassword;
-    }
-
-    emitInput(event: Event): void {
-      const input = event.target as HTMLInputElement | null;
-      if (input) {
-        this.$emit('input', input.value);
-      }
-    }
-
-    emitChange(event: Event): void {
-      const input = event.target as HTMLInputElement | null;
-      if (input) {
-        this.$emit('change', input.value);
-      }
-    }
-
-    onFocus(event: Event) {
-      this.focused = true;
-      this.$emit('focus', event);
-    }
-
-    onBlur(event: Event) {
-      this.focused = false;
-      this.$emit('blur', event);
-    }
-
-    onKeydown(event: KeyboardEvent) {
-      this.$emit('keydown', event);
-    }
-
-    onKeyup(event: KeyboardEvent) {
-      this.$emit('keydown', event);
-    }
-
-    onClick(event: Event) {
-      this.$emit('click', event);
-    }
+    this.$emit('change', event);
+  }
 }
 </script>
 
