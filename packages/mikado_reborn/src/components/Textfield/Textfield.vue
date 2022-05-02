@@ -70,6 +70,7 @@ export default class TextField extends Vue {
 
   set inputValue(value: string | undefined) {
     this.$emit('input', value);
+    this.$emit('change');
   }
 
   get iconColor(): string {

@@ -45,6 +45,7 @@ export default class Textarea extends Vue {
 
   set inputValue(value: string | undefined) {
     this.$emit('input', value);
+    this.$emit('change');
   }
 
   onChange(event: Event): void {
