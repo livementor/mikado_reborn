@@ -7,7 +7,7 @@
       :value="value"
       :rows="rows"
       @input="emitInput"
-      @change="emitChange"
+      @keydown="emitChange"
     />
   </div>
 </template>
