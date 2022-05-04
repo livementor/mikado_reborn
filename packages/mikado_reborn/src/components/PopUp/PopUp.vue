@@ -1,9 +1,9 @@
 <template>
   <div class="mkr__popup">
     <div ref="anchor" @click="handleButtonClick">
-      <slot name="anchor" />
+      <slot name="anchor"/>
     </div>
-    <div ref="content" :class="{ 'mkr__popup--hidden': !opened }">
+    <div ref="content" :class="{'mkr__popup--hidden': !opened}">
       <slot />
     </div>
   </div>
@@ -13,39 +13,29 @@
 import {
   Component, Vue, Prop, Model, Watch,
 } from 'vue-property-decorator';
-import { createPopper, Instance as PopperInstance, Placement } from '@popperjs/core';
+import {
+  createPopper, Instance as PopperInstance, Placement,
+} from '@popperjs/core';
 
 @Component
 export default class PopUp extends Vue {
-  @Model('close', { type: Boolean }) readonly opened!: boolean;
+  @Model('close', { type: Boolean }) readonly opened!: boolean
 
   @Prop({ type: String, default: 'auto' })
-  placement!: Placement;
+  placement!: Placement
 
   @Prop({ type: Boolean, default: false })
   readonly dismissable!: boolean;
 
-  popperInstance: PopperInstance | null = null;
+  popperInstance: PopperInstance | null = null
 
-  async mouted() {
-    await this.updatePopperInstance(this.opened);
-    this.handleEventListeners(this.opened);
-  }
-
-  @Watch('opened')
+  @Watch('opened', { immediate: true })
   async handleOpening(isOpened: boolean): Promise<void> {
-    await this.updatePopperInstance(isOpened);
-    this.handleEventListeners(isOpened);
-  }
-
-  async updatePopperInstance(isOpened: boolean) {
     if (isOpened) {
       await this.$nextTick();
       await this.popperInstance?.update();
     }
-  }
 
-  handleEventListeners(isOpened: boolean) {
     if (this.dismissable) {
       if (isOpened) {
         this.initCloseEventListeners();
@@ -85,7 +75,7 @@ export default class PopUp extends Vue {
     if (!target) {
       return;
     }
-    const isClickOutside = !this.$el.contains(event.target as Node);
+    const isClickOutside = !(this.$el.contains(event.target as Node));
     if (isClickOutside) {
       this.$emit('close', false);
     }
