@@ -23,6 +23,10 @@ export const colors = {
   light: 'light',
 };
 
+function setDocumentOverflow(isOpen: boolean): void {
+  document.body.style.overflow = isOpen ? 'hidden' : 'visible';
+}
+
 @Component
 export default class Modal extends Vue {
   @Model('close', { type: Boolean }) readonly opened!: boolean;
@@ -37,12 +41,16 @@ export default class Modal extends Vue {
   @Prop({ type: Boolean, default: false })
   readonly keepOnClick!: boolean;
 
-  @Watch('opened', { immediate: true })
-  onOpenedChanged(): void {
-    document.body.style.overflow = this.opened ? 'hidden' : 'visible';
+  /* eslint-disable */
+  @Watch('opened')
+  onOpenedChanged(isOpen: boolean): void {
+    setDocumentOverflow(isOpen);
   }
+  /* eslint-enable */
 
   mounted(): void {
+    setDocumentOverflow(this.opened);
+
     const app = this.$app;
     app.$el.insertBefore(this.$el, app.$el.children[0]);
   }
