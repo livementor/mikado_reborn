@@ -1,3 +1,15 @@
+.icon-circle-empty:before {
+  content: "\e955";
+}
+.icon-quote:before {
+  content: "\e956";
+}
+.icon-thumb-down:before {
+  content: "\e957";
+}
+.icon-thumb-up:before {
+  content: "\e958";
+}
 .icon-video-camera-circle:before {
   content: "\e954";
 }
