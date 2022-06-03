@@ -17,7 +17,7 @@
     <mkr-contained-button
       v-if="type === 'password' || showPassword"
       theme="neutral"
-      size="small"
+      size="medium"
       type="button"
       :icon="showPassword ? 'eye-off' : 'eye'"
       :color="iconColor"
