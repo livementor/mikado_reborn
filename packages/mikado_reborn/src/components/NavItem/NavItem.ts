@@ -67,7 +67,7 @@ export default class NavItem extends Vue {
     const link = createElement(
       this.component,
       {
-        attrs: this.$attrs,
+        attrs: { ...this.$attrs },
         on: {
           click: this.emitClick,
         },
@@ -81,7 +81,7 @@ export default class NavItem extends Vue {
     const item = createElement(
       'li',
       {
-        class: this.classes,
+        class: { ...this.classes },
       },
       [
         (this.title)
