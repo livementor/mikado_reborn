@@ -66,7 +66,7 @@ export default class Icon extends Vue {
     });
 
     return createElement(this.component, {
-      class: { ...this.classes },
+      class: this.classes,
       attrs: { ...this.$attrs },
       on: {
         click: this.click,
