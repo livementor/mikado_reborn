@@ -81,7 +81,7 @@ export default class NavItem extends Vue {
     const item = createElement(
       'li',
       {
-        class: { ...this.classes },
+        class: this.classes,
       },
       [
         (this.title)
