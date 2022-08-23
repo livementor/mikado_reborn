@@ -12,6 +12,7 @@
     background: map-get($colors, 'neutral');
     color: map-get($colors, 'white');
     z-index: 300;
+    max-width: 260px;
 
     &--hidden {
       display: none;
@@ -37,10 +38,14 @@
   }
 
   &__container {
-  	top: -5px !important;
-  	padding-top: 5px !important;
+    top: -5px !important;
+    padding-top: 5px !important;
     flex-direction: row;
     justify-content: center;
     align-items: center;
+  }
+
+  p {
+    padding: 5px 0;
   }
 }
