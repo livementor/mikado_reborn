@@ -1,6 +1,6 @@
 {
   "name": "@livementor/mikado_reborn",
-  "version": "0.33.2",
+  "version": "0.33.3",
   "scripts": {
     "build": "vue-cli-service build --target lib --name mikado_reborn ./src/index.ts",
     "build:tokens": "style-dictionary build",
@@ -24,7 +24,7 @@
     "*.scss"
   ],
   "peerDependencies": {
-    "vue": "^2.6.11",
+    "vue": "^2.7.14",
     "vue-router": "^3.0.0"
   },
   "peerDependenciesMeta": {
@@ -58,6 +58,6 @@
     "style-dictionary": "^3.0.3",
     "typescript": "^4.4.4",
     "vue-loader": "^15.9.6",
-    "vue-template-compiler": "^2.6.11"
+    "vue-template-compiler": "^2.7.14"
   }
 }
