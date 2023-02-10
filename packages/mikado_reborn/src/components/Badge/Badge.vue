@@ -21,7 +21,7 @@ export const badgeType = [
 
 @Component
 export default class Badge extends Vue {
-  @Prop({ default: 'primary', validator: (type) => badgeType.includes(type) })
+  @Prop({ default: 'primary', validator: (type: string) => badgeType.includes(type) })
   type!: string;
 }
 </script>

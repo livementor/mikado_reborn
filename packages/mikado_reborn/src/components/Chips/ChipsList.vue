@@ -48,14 +48,14 @@ export default class ChipsList extends Vue {
   @Prop({
     type: String,
     default: 'medium',
-    validator: (size) => ['medium', 'small'].includes(size),
+    validator: (size: 'small' | 'medium') => ['medium', 'small'].includes(size),
   })
   readonly size!: 'medium' | 'small';
 
   @Prop({
     type: String,
     default: 'row',
-    validator: (size) => ['row', 'column'].includes(size),
+    validator: (size: string) => ['row', 'column'].includes(size),
   })
   readonly orientation!: 'row' | 'column';
 
