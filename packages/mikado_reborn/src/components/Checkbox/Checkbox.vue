@@ -27,7 +27,7 @@ import { MkrIcon } from '../Icon';
 export default class Checkbox extends Vue {
   @Model('change', { type: [Boolean, Array] }) readonly modelValue!: boolean | (string|number)[]
 
-  @Prop({ default: 'medium', validator: (size: 'small' | 'medium') => ['small', 'medium'].includes(size) })
+  @Prop({ default: 'medium', validator: (size) => ['small', 'medium'].includes(size) })
   size!: string;
 
   @Prop({ type: [String, Number] })

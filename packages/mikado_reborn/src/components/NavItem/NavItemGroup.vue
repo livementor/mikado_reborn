@@ -26,7 +26,7 @@ export const NavItemTypes = {
 export default class NavItemGroup extends Vue {
   @Prop({
     default: NavItemTypes.main,
-    validator: (type: string) => Object.values(NavItemTypes).includes(type),
+    validator: (type) => Object.values(NavItemTypes).includes(type),
   })
   type!: string;
 

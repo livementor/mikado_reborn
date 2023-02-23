@@ -16,7 +16,7 @@ export default class Button extends Vue {
 
   @Prop({
     default: 'medium',
-    validator: (size: string) => ['small', 'medium', 'large'].includes(size),
+    validator: (size) => ['small', 'medium', 'large'].includes(size),
   })
   size!: 'small' | 'medium' | 'large';
 
@@ -25,7 +25,7 @@ export default class Button extends Vue {
 
   @Prop({
     default: 'left',
-    validator: (side: string) => ['left', 'right'].includes(side),
+    validator: (side) => ['left', 'right'].includes(side),
   })
   iconSide!: 'left' | 'right';
 
