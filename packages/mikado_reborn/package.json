@@ -1,6 +1,6 @@
 {
   "name": "@livementor/mikado_reborn",
-  "version": "0.33.9",
+  "version": "0.34.0",
   "scripts": {
     "build": "vue-cli-service build --target lib --name mikado_reborn ./src/index.ts",
     "build:tokens": "style-dictionary build",
