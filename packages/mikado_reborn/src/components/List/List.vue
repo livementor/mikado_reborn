@@ -36,7 +36,7 @@ export default class List extends Vue {
   @Prop({
     type: String,
     default: ListSize.medium,
-    validator: (variant) => Object.values(ListSize).includes(variant),
+    validator: (variant: string) => Object.values(ListSize).includes(variant),
   })
   size!: keyof typeof ListSize
 }

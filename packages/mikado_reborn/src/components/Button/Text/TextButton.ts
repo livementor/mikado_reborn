@@ -14,7 +14,7 @@ export const textButtonThemes = {
 export default class TextButton extends Button {
   @Prop({
     default: 'neutral',
-    validator: (theme) => Object.keys(textButtonThemes).includes(theme),
+    validator: (theme: string) => Object.keys(textButtonThemes).includes(theme),
   })
   theme!: keyof typeof textButtonThemes;
 
