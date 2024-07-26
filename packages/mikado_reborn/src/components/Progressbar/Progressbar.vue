@@ -42,7 +42,7 @@ export default class Progressbar extends Vue {
   @Prop({
     required: false,
     default: 'medium',
-    validator: (size) => ['small', 'medium'].includes(size),
+    validator: (size: string) => ['small', 'medium'].includes(size),
   })
   size!: 'small' | 'medium'
 

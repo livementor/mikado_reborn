@@ -20,7 +20,7 @@ export default class Icon extends Vue {
   @Prop({
     default: 'light',
     type: String,
-    validator: (theme) => Object.values(interactiveIconThemes).includes(theme),
+    validator: (theme: string) => Object.values(interactiveIconThemes).includes(theme),
   })
   theme!: string;
 

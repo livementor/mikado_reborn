@@ -15,7 +15,7 @@ export const containedButtonThemes = {
 export default class ContainedButton extends Button {
   @Prop({
     default: 'primary',
-    validator: (theme) => Object.keys(containedButtonThemes).includes(theme),
+    validator: (theme: string) => Object.keys(containedButtonThemes).includes(theme),
   })
   theme!: keyof typeof containedButtonThemes;
 
