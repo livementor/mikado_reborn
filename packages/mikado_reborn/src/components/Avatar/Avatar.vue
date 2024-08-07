@@ -5,19 +5,21 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import { defineComponent } from 'vue';
 
-@Component({
+export default defineComponent({
   inheritAttrs: false,
-})
-export default class Avatar extends Vue {
-  @Prop({ default: 5, type: Number }) readonly size!: number;
+  computed: {
+    avatarStyle(): Partial<CSSStyleDeclaration> {
+      const width = `${this.size}rem`;
 
-  get avatarStyle(): Partial<CSSStyleDeclaration> {
-    const width = `${this.size}rem`;
+      return { height: width, width };
+    },
+  },
+  props: {
+    size: { default: 5, type: Number },
+  },
+});
 
-    return { height: width, width };
-  }
-}
 </script>
 <style src="./Avatar.scss" lang="scss"></style>

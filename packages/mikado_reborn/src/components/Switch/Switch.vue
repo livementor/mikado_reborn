@@ -13,18 +13,24 @@
 </template>
 
 <script lang="ts">
-import { Component, Model, Vue } from 'vue-property-decorator';
+import { defineComponent } from "vue";
 
-@Component({
+export default defineComponent({
   name: 'MkrSwitch',
+    methods: {
+        toggle(): void {
+            this.$emit('change', !this.value);
+        }
+    },
+    model: {
+        prop: "value",
+        event: "change"
+    },
+    props: {
+        value: { type: Boolean }
+    }
 })
-export default class Switch extends Vue {
-  @Model('change', { type: Boolean }) readonly value!: boolean;
 
-  toggle(): void {
-    this.$emit('change', !this.value);
-  }
-}
 </script>
 
 <style src="./Switch.scss" lang="scss"></style>

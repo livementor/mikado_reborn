@@ -16,58 +16,48 @@
 </template>
 
 <script lang="ts">
-import {
-  Component, Prop, Vue,
-} from 'vue-property-decorator';
 import { MkrIcon } from '../Icon';
+import { defineComponent } from "vue";
 
-@Component({
+export default defineComponent({
   components: {
     MkrIcon,
   },
-})
-export default class Snackbar extends Vue {
-  @Prop({ type: String, required: true })
-  message!: string
-
-  @Prop({ type: Boolean })
-  error?: boolean
-
-  @Prop({ type: Boolean })
-  success?: boolean
-
-  @Prop({ type: Boolean })
-  neutral?: boolean
-
-  @Prop({ type: Boolean, default: false })
-  closable!: boolean
-
-  @Prop({ type: Number, default: 5000 })
-  timeout!: number
-
-  show = true
-
-  click(event: Event): void {
-    if (this.closable) {
-      this.close(event);
-    }
-  }
-
-  close(event?: Event): void {
-    this.show = false;
-    this.$emit('close', event);
-  }
-
-  mounted(): void {
-    if (this.timeout > 0) {
-      setTimeout(() => {
-        if (this.show) {
-          this.close();
+    data() {
+        return {
+            show: true
+        };
+    },
+    mounted(): void {
+        if (this.timeout > 0) {
+          setTimeout(() => {
+            if (this.show) {
+              this.close();
+            }
+          }, this.timeout);
         }
-      }, this.timeout);
+    },
+    methods: {
+        click(event: Event): void {
+            if (this.closable) {
+              this.close(event);
+            }
+        },
+        close(event?: Event): void {
+            this.show = false;
+            this.$emit('close', event);
+        }
+    },
+    props: {
+        message: { type: String, required: true },
+        error: { type: Boolean },
+        success: { type: Boolean },
+        neutral: { type: Boolean },
+        closable: { type: Boolean, default: false },
+        timeout: { type: Number, default: 5000 }
     }
-  }
-}
+})
+
 </script>
 
 <style src="./Snackbar.scss" lang="scss"></style>

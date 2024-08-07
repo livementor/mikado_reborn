@@ -21,9 +21,6 @@
 
 <script lang="ts">
 import {
-  Component, Prop, Mixins, Watch,
-} from 'vue-property-decorator';
-import {
   createPopper,
   Instance as PopperInstance,
   Modifier,
@@ -31,41 +28,24 @@ import {
   Placement,
 } from '@popperjs/core';
 
-import Uuid from '../../mixins/uuid';
+import { defineComponent } from 'vue';
+import useUuid from '../../composables/useUuid';
 
-@Component
-export default class Tooltip extends Mixins(Uuid) {
-  @Prop({ type: String, default: '' })
-  readonly label!: string;
+export default defineComponent({
+  data() {
+    const popperInstance: PopperInstance | null = null;
 
-  @Prop({ type: Boolean, default: false })
-  readonly disabled!: boolean;
-
-  @Prop({ type: String, default: '' })
-  readonly placement!: Placement;
-
-  @Prop({ type: Boolean, default: false })
-  readonly topLevel!: boolean;
-
-  @Prop({ type: Boolean, default: false })
-  readonly addScrollListener!: boolean;
-
-  opened = false;
-
-  popperInstance: PopperInstance | null = null;
-
-  get isOpened(): boolean {
-    return this.opened && !this.disabled;
-  }
-
-  @Watch('opened')
-  async handleOpening(isOpened: boolean): Promise<void> {
-    if (isOpened) {
-      await this.$nextTick();
-      await this.popperInstance?.update();
-    }
-  }
-
+    return {
+      opened: false,
+      popperInstance,
+      uuid: useUuid().generateUUID(),
+    };
+  },
+  computed: {
+    isOpened(): boolean {
+      return this.opened && !this.disabled;
+    },
+  },
   mounted(): void {
     const anchor = this.$refs.anchor as HTMLElement;
     const tooltip = this.$refs.tooltip as HTMLElement;
@@ -109,14 +89,34 @@ export default class Tooltip extends Mixins(Uuid) {
       this.opened = false;
     }));
     anchor.children[0].setAttribute('aria-describedby', `tooltip-${this.uuid}`);
-  }
+  },
+  methods: {
+    beforeDestroy(): void {
+      if (this.topLevel) {
+        (this.$refs.tooltip as Element)?.remove();
+      }
+    },
+    async handleOpening(isOpened: boolean): Promise<void> {
+      if (isOpened) {
+        await this.$nextTick();
+        await this.popperInstance?.update();
+      }
+    },
+  },
+  props: {
+    label: { type: String, default: '' },
+    disabled: { type: Boolean, default: false },
+    placement: { type: String, default: '' },
+    topLevel: { type: Boolean, default: false },
+    addScrollListener: { type: Boolean, default: false },
+  },
+  watch: {
+    opened: [{
+      handler: 'handleOpening',
+    }],
+  },
+});
 
-  beforeDestroy(): void {
-    if (this.topLevel) {
-      (this.$refs.tooltip as Element)?.remove();
-    }
-  }
-}
 </script>
 
 <style src="./Tooltip.scss" lang="scss"></style>

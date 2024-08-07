@@ -14,64 +14,71 @@
 
 <script lang="ts">
 import {
-  Component, Prop, Mixins, InjectReactive,
-} from 'vue-property-decorator';
+  defineComponent, computed, inject, onBeforeUnmount, onMounted, ref,
+} from 'vue';
 import { ChipsListProvide } from './ChipsList.vue';
-import Uuid from '../../mixins/uuid';
-
 import { MkrIcon } from '../Icon';
+import useUuid from '../../composables/useUuid';
 
-@Component({
+export default defineComponent({
   components: {
     MkrIcon,
   },
-})
-export default class Chips extends Mixins(Uuid) {
-  @InjectReactive('list') readonly list?: ChipsListProvide;
+  props: {
+    label: {
+      type: String,
+      default: '',
+    },
+    value: {
+      type: String,
+      default: '',
+    },
+  },
+  setup(props: { label: string; value: string }) {
+    const { generateUUID } = useUuid();
+    const list = inject<ChipsListProvide>('list', undefined);
+    const uuid = generateUUID(); // Assurez-vous que Uuid a une méthode pour générer l'UUID
+    const componentId = computed(() => `chips-${uuid}`);
+    const selected = computed(() => (list ? list.value === props.value : false));
 
-  @Prop({ type: String, default: '' })
-  readonly label!: string;
-
-  @Prop({ type: String, default: '' })
-  readonly value!: string;
-
-  get componentId(): string {
-    return `chips-${this.uuid}`;
-  }
-
-  get classes(): (string | { [className: string]: boolean })[] {
-    return [
+    const classes = computed(() => [
       'mkr__chips',
       {
-        'mkr__chips--selected': this.selected,
-        'mkr__chips--small': this.list ? this.list.size === 'small' : false,
+        'mkr__chips--selected': selected.value,
+        'mkr__chips--small': list ? list.size === 'small' : false,
       },
-    ];
-  }
+    ]);
 
-  get selected(): boolean {
-    if (this.list) return this.list.value === this.value;
-    return false;
-  }
-
-  created(): void {
-    if (this.list) this.list.registerChips(this);
-  }
-
-  beforeDestroy(): void {
-    if (this.list) this.list.unregisterChips(this.uuid);
-  }
-
-  selectValue(): void {
-    if (this.list) {
-      if (this.selected) {
-        this.list.emitChange('');
-      } else {
-        this.list.emitChange(this.value);
+    const selectValue = () => {
+      if (list) {
+        if (selected.value) {
+          list.emitChange('');
+        } else {
+          list.emitChange(props.value);
+        }
       }
-    }
-  }
-}
+    };
+
+    onMounted(() => {
+      if (list) {
+        list.registerChips({ uuid, props });
+      }
+    });
+
+    onBeforeUnmount(() => {
+      if (list) {
+        list.unregisterChips(uuid);
+      }
+    });
+
+    return {
+      componentId,
+      classes,
+      selected,
+      selectValue,
+    };
+  },
+});
 </script>
 
 <style src="./Chips.scss" lang="scss"></style>

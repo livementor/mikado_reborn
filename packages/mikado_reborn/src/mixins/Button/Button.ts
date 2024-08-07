@@ -1,92 +1,81 @@
-import {
-  CreateElement, VNode, VNodeChildren, VNodeData,
-} from 'vue';
-import { Component, Vue, Prop } from 'vue-property-decorator';
+import { defineComponent, computed, h } from 'vue';
 import { MkrIcon } from '../../components/Icon';
 import './Button.scss';
 
-@Component({
+export default defineComponent({
   components: {
     MkrIcon,
   },
-})
-export default class Button extends Vue {
-  @Prop({ default: false })
-  disabled!: boolean;
+  props: {
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
+    size: {
+      type: String,
+      default: 'medium',
+      validator: (size: string) => ['small', 'medium', 'large'].includes(size),
+    },
+    icon: {
+      type: String,
+      default: undefined,
+    },
+    iconSide: {
+      type: String,
+      default: 'left',
+      validator: (side: string) => ['left', 'right'].includes(side),
+    },
+  },
+  setup(props, { slots, emit, attrs }) {
+    const classBase = 'mkr__button';
+    const hasContent = computed(() => Boolean(slots.default?.().length));
 
-  @Prop({
-    default: 'medium',
-    validator: (size: string) => ['small', 'medium', 'large'].includes(size),
-  })
-  size!: 'small' | 'medium' | 'large';
+    const classes = computed(() => {
+      const staticClasses = [classBase, `${classBase}--${props.size}`];
+      if (!hasContent.value) staticClasses.push(`${classBase}--icon-only`);
+      return staticClasses;
+    });
 
-  @Prop({ default: undefined, type: String })
-  icon?: string;
+    const isRouterLink = computed(() => !!attrs.to);
+    const isLink = computed(() => !!attrs.href);
 
-  @Prop({
-    default: 'left',
-    validator: (side: string) => ['left', 'right'].includes(side),
-  })
-  iconSide!: 'left' | 'right';
+    const component = computed(() => {
+      if (isRouterLink.value) {
+        return 'RouterLink';
+      }
+      if (isLink.value) {
+        return 'a';
+      }
+      return 'button';
+    });
 
-  class = 'mkr__button';
+    const click = (event: Event) => {
+      emit('click', event);
+    };
 
-  // eslint-disable-next-line class-methods-use-this
-  get classes(): VNodeData['class'] {
-    return {};
-  }
-
-  get isRouterLink(): boolean {
-    return !!this.$attrs.to;
-  }
-
-  get isLink(): boolean {
-    return !!this.$attrs.href;
-  }
-
-  get component(): string {
-    if (this.isRouterLink) {
-      return 'RouterLink';
-    } if (this.isLink) {
-      return 'a';
-    }
-    return 'button';
-  }
-
-  private get hasContent(): boolean {
-    return Boolean(this.$slots.default?.length);
-  }
-
-  click(event: Event): void {
-    this.$emit('click', event);
-  }
-
-  render(createElement: CreateElement): VNode {
-    const staticClasses = [this.class];
-    let content: VNodeChildren = [this.$slots.default];
-
-    staticClasses.push(`${this.class}--${this.size}`);
-
-    if (!this.hasContent) staticClasses.push(`${this.class}--icon-only`);
-
-    if (this.icon) {
-      const icon = createElement(MkrIcon, {
-        props: { name: this.icon },
-        staticClass: `${this.class}__icon--${this.iconSide}`,
-      });
-      content = this.iconSide === 'left' ? [icon, ...content] : [...content, icon];
-    }
-
-    return createElement(this.component, {
-      staticClass: staticClasses.join(' '),
-      class: this.classes,
-      attrs: {
-        ...this.$attrs,
-        disabled: this.disabled,
-      },
-      on: {
-        click: this.click,
-      },
-    }, content);
-  }
-}
+    return () => {
+      const content = slots.default ? slots.default() : [];
+      if (props.icon) {
+        const icon = h(MkrIcon, {
+          props: { name: props.icon },
+          class: `${classBase}__icon--${props.iconSide}`,
+        });
+        if (props.iconSide === 'left') {
+          content.unshift(icon);
+        } else {
+          content.push(icon);
+        }
+      }
+      return h(component.value, {
+        class: classes.value,
+        attrs: {
+          ...attrs,
+          disabled: props.disabled,
+        },
+        on: {
+          click,
+        },
+      }, content);
+    };
+  },
+});

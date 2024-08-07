@@ -14,40 +14,42 @@
 </template>
 
 <script lang="ts">
-import {
-  Component, Model, Prop, Vue,
-} from 'vue-property-decorator';
 import { MkrIcon } from '../Icon';
+import { defineComponent } from "vue";
 
-@Component({
+export default defineComponent({
   components: {
     MkrIcon,
   },
-})
-export default class Checkbox extends Vue {
-  @Model('change', { type: [Boolean, Array] }) readonly modelValue!: boolean | (string|number)[]
-
-  @Prop({ default: 'medium', validator: (size: string) => ['small', 'medium'].includes(size) })
-  size!: string;
-
-  @Prop({ type: [String, Number] })
-  value?: string | number;
-
-  get internalValue(): boolean | (string|number)[] {
-    return this.modelValue;
-  }
-
-  set internalValue(value: boolean | (string|number)[]) {
-    this.$emit('change', value);
-  }
-
-  get isChecked(): boolean {
-    if (Array.isArray(this.modelValue) && this.value) {
-      return this.modelValue.includes(this.value);
+    computed: {
+        internalValue: {
+            get(): boolean | (string|number)[] {
+                return this.modelValue;
+            },
+            set(value: boolean | (string|number)[]) {
+                this.$emit('change', value);
+            }
+        },
+        isChecked(): boolean {
+            if (Array.isArray(this.modelValue) && this.value) {
+              return this.modelValue.includes(this.value);
+            }
+            return this.modelValue === true;
+        }
+    },
+    props: {
+        size: { default: 'medium', validator: (size: string) => ['small', 'medium'].includes(size),
+            type: String
+        },
+        value: { type: [String, Number] },
+        modelValue: { type: [Boolean, Array] }
+    },
+    model: {
+        prop: "modelValue",
+        event: "change"
     }
-    return this.modelValue === true;
-  }
-}
+})
+
 </script>
 
 <style src="./Checkbox.scss" lang="scss" />

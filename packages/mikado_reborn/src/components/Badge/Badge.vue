@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
+import { defineComponent } from 'vue';
 
 export const badgeType = [
   'danger',
@@ -19,11 +19,16 @@ export const badgeType = [
   'other-1',
 ];
 
-@Component
-export default class Badge extends Vue {
-  @Prop({ default: 'primary', validator: (type: string) => badgeType.includes(type) })
-  type!: string;
-}
+export default defineComponent({
+  props: {
+    type: {
+      default: 'primary',
+      validator: (type: string) => badgeType.includes(type),
+      type: String,
+    },
+  },
+});
+
 </script>
 
 <style src="./Badge.scss" lang="scss"></style>

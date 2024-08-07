@@ -14,9 +14,7 @@
 </template>
 
 <script lang="ts">
-import {
-  Component, Prop, Vue, Model, Watch,
-} from 'vue-property-decorator';
+import { defineComponent } from "vue";
 
 export const colors = {
   dark: 'dark',
@@ -27,46 +25,48 @@ function setDocumentOverflow(isOpen: boolean): void {
   document.body.style.overflow = isOpen ? 'hidden' : 'visible';
 }
 
-@Component
-export default class Modal extends Vue {
-  @Model('close', { type: Boolean }) readonly opened!: boolean;
+export default defineComponent({
+    mounted(): void {
+        setDocumentOverflow(this.opened);
 
-  @Prop({
-    type: String,
-    validator: (value: string): boolean => Object.values(colors).includes(value),
-    default: 'dark',
-  })
-  readonly color!: keyof typeof colors;
-
-  @Prop({ type: Boolean, default: false })
-  readonly keepOnClick!: boolean;
-
-  /* eslint-disable */
-  @Watch('opened')
-  onOpenedChanged(isOpen: boolean): void {
-    setDocumentOverflow(isOpen);
-  }
-  /* eslint-enable */
-
-  mounted(): void {
-    setDocumentOverflow(this.opened);
-
-    const app = this.$app;
-    app.$el.insertBefore(this.$el, app.$el.children[0]);
-  }
-
-  destroyed(): void {
-    this.$el?.remove();
-    document.body.style.overflow = 'visible';
-  }
-
-  click(): void {
-    if (!this.keepOnClick) {
-      this.$emit('close', false);
+            const app = this.$app;
+            app.$el.insertBefore(this.$el, app.$el.children[0]);
+    },
+    destroyed(): void {
+        this.$el?.remove();
+        document.body.style.overflow = 'visible';
+    },
+    methods: {
+        click(): void {
+            if (!this.keepOnClick) {
+              this.$emit('close', false);
+            }
+            this.$emit('click');
+        },
+        onOpenedChanged(isOpen: boolean): void {
+            setDocumentOverflow(isOpen);
+        }
+    },
+    props: {
+        color: {
+                type: String,
+                validator: (value: string): boolean => Object.values(colors).includes(value),
+                default: 'dark',
+              },
+        keepOnClick: { type: Boolean, default: false },
+        opened: { type: Boolean }
+    },
+    model: {
+        prop: "opened",
+        event: "close"
+    },
+    watch: {
+        "opened": [{
+            handler: "onOpenedChanged"
+        }]
     }
-    this.$emit('click');
-  }
-}
+})
+
 </script>
 
 <style src="./Overlay.scss" lang="scss"></style>

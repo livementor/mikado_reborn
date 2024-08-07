@@ -1,5 +1,4 @@
-import { VNodeData, VNode, CreateElement } from 'vue';
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import { VNodeData, VNode, CreateElement, defineComponent } from 'vue';
 import MkrIcon from '../Icon/Icon.vue';
 import './InteractiveIcon.scss';
 
@@ -9,68 +8,65 @@ export const interactiveIconThemes = {
   customColor: 'customColor',
 };
 
-@Component({
+export default defineComponent({
   components: {
     MkrIcon,
   },
-})
-export default class Icon extends Vue {
-  @Prop({ type: String, required: true }) private name!: string;
+    data() {
+        return {
+            class: 'mkr__interactive-icon'
+        };
+    },
+    computed: {
+        classes(): VNodeData['class'] {
+            return [
+              this.class,
+              `${this.class}--${this.theme}`,
+              {
+                [`${this.class}--${this.theme}--activated`]: this.activated,
+              },
+            ];
+        },
+        isRouterLink(): boolean {
+            return !!this.$attrs.to;
+        },
+        isLink(): boolean {
+            return !!this.$attrs.href;
+        },
+        component(): string {
+            if (this.isRouterLink) {
+              return 'RouterLink';
+            } if (this.isLink) {
+              return 'a';
+            }
+            return 'button';
+        }
+    },
+    methods: {
+        click(event: Event): void {
+            this.$emit('click', event);
+        },
+        render(createElement: CreateElement): VNode {
+            const icon = createElement(MkrIcon, {
+                  props: { name: this.name },
+                });
 
-  @Prop({
-    default: 'light',
-    type: String,
-    validator: (theme: string) => Object.values(interactiveIconThemes).includes(theme),
-  })
-  theme!: string;
-
-  @Prop({ default: false, type: Boolean })
-  activated!: boolean;
-
-  class = 'mkr__interactive-icon'
-
-  get classes(): VNodeData['class'] {
-    return [
-      this.class,
-      `${this.class}--${this.theme}`,
-      {
-        [`${this.class}--${this.theme}--activated`]: this.activated,
-      },
-    ];
-  }
-
-  get isRouterLink(): boolean {
-    return !!this.$attrs.to;
-  }
-
-  get isLink(): boolean {
-    return !!this.$attrs.href;
-  }
-
-  get component(): string {
-    if (this.isRouterLink) {
-      return 'RouterLink';
-    } if (this.isLink) {
-      return 'a';
+                return createElement(this.component, {
+                  class: this.classes,
+                  attrs: { ...this.$attrs },
+                  on: {
+                    click: this.click,
+                  },
+                }, [icon, this.$slots.default]);
+        }
+    },
+    props: {
+        name: { type: String, required: true },
+        theme: {
+                default: 'light',
+                type: String,
+                validator: (theme: string) => Object.values(interactiveIconThemes).includes(theme),
+              },
+        activated: { default: false, type: Boolean }
     }
-    return 'button';
-  }
-
-  click(event: Event): void {
-    this.$emit('click', event);
-  }
-
-  render(createElement: CreateElement): VNode {
-    const icon = createElement(MkrIcon, {
-      props: { name: this.name },
-    });
-
-    return createElement(this.component, {
-      class: this.classes,
-      attrs: { ...this.$attrs },
-      on: {
-        click: this.click,
-      },
-    }, [icon, this.$slots.default]);
-  }
-}
+})

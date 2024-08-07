@@ -19,8 +19,8 @@
 
 <script lang="ts">
 import {
-  Component, Vue, Prop, ProvideReactive, Watch,
-} from 'vue-property-decorator';
+  defineComponent, reactive, watch, provide, onMounted, onUpdated, toRefs,
+} from 'vue';
 import Chips from './Chips.vue';
 
 export type ChipsListProvide = {
@@ -29,126 +29,133 @@ export type ChipsListProvide = {
   orientation: 'row' | 'column';
   wrap: boolean;
   emitChange: (value: string) => void;
-  registerChips: (chips: Chips) => void;
+  registerChips: (chips: typeof Chips) => void;
   unregisterChips: (uuid: string) => void;
 };
 
-@Component({
-  model: {
-    event: 'change',
+export default defineComponent({
+  name: 'ChipsList',
+  props: {
+    value: {
+      type: String,
+      required: true,
+      validator: (value: string | null) => typeof value === 'string' || value === null,
+    },
+    size: {
+      type: String,
+      default: 'medium',
+      validator: (size: string) => ['medium', 'small'].includes(size),
+    },
+    orientation: {
+      type: String as () => 'row' | 'column',
+      default: 'row',
+      validator: (orientation: string) => ['row', 'column'].includes(orientation),
+    },
+    wrap: {
+      type: Boolean,
+      default: false,
+    },
   },
-})
-export default class ChipsList extends Vue {
-  @Prop({
-    required: true,
-    validator: (value: string | null) => ['string'].includes(typeof value) || value === null,
-  })
-  readonly value!: string | null;
-
-  @Prop({
-    type: String,
-    default: 'medium',
-    validator: (size: string) => ['medium', 'small'].includes(size),
-  })
-  readonly size!: 'medium' | 'small';
-
-  @Prop({
-    type: String,
-    default: 'row',
-    validator: (size: string) => ['row', 'column'].includes(size),
-  })
-  readonly orientation!: 'row' | 'column';
-
-  @Prop({
-    type: Boolean,
-    default: false,
-  })
-  readonly wrap!: boolean;
-
-  @ProvideReactive() list: ChipsListProvide = {
-    value: this.value,
-    size: this.size,
-    orientation: this.orientation,
-    wrap: this.wrap,
-    emitChange: this.emitChange,
-    registerChips: this.registerChips,
-    unregisterChips: this.unregisterChips,
-  };
-
-  chips: Chips[] = [];
-
-  focusedIndex = 0;
-
-  updated(): void {
-    this.chips.sort((leftChild, rightChild) => {
-      const x = Array.from(this.$el.children);
-      return x.indexOf(leftChild.$el) - x.indexOf(rightChild.$el);
+  setup(props, { emit }) {
+    const state = reactive({
+      chips: [] as typeof Chips[],
+      focusedIndex: 0,
     });
-  }
 
-  @Watch('value')
-  onValueChanged(): void {
-    this.list = { ...this.list, value: this.value };
-  }
+    const list = reactive<ChipsListProvide>({
+      value: props.value,
+      size: props.size,
+      orientation: props.orientation,
+      wrap: props.wrap,
+      emitChange: (value: string) => {
+        emit('change', value);
+      },
+      registerChips: (chips: typeof Chips) => {
+        state.chips.push(chips);
+      },
+      unregisterChips: (uuid: string) => {
+        state.chips = state.chips.filter((chip) => chip.uuid !== uuid);
+      },
+    });
 
-  @Watch('size')
-  onSizeChanged(): void {
-    this.list = { ...this.list, size: this.size };
-  }
+    provide('list', list);
 
-  emitChange(value: string): void {
-    this.$emit('change', value);
-  }
+    watch(
+      () => props.value,
+      (newValue) => {
+        list.value = newValue;
+      },
+    );
 
-  focusHandler(): void {
-    this.focusedIndex = 0;
-    const firstChip = this.chips[0].$el as HTMLElement;
-    firstChip.focus();
-  }
+    watch(
+      () => props.size,
+      (newSize) => {
+        list.size = newSize;
+      },
+    );
 
-  handleKeyDown(event: KeyboardEvent): void {
-    switch (event.key) {
-      case 'ArrowRight':
-      case 'ArrowDown': {
-        event.preventDefault();
-        if (this.focusedIndex < this.chips.length - 1) {
-          this.focusedIndex += 1;
-          const chipToFocus = this.chips[this.focusedIndex].$el as HTMLElement;
-          chipToFocus.focus();
-        }
-        break;
+    const focusHandler = () => {
+      state.focusedIndex = 0;
+      const firstChip = state.chips[0].$el as HTMLElement;
+      firstChip.focus();
+    };
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      switch (event.key) {
+        case 'ArrowRight':
+        case 'ArrowDown':
+          event.preventDefault();
+          if (state.focusedIndex < state.chips.length - 1) {
+            state.focusedIndex += 1;
+            const chipToFocus = state.chips[state.focusedIndex].$el as HTMLElement;
+            chipToFocus.focus();
+          }
+          break;
+        case 'ArrowLeft':
+        case 'ArrowUp':
+          event.preventDefault();
+          if (state.focusedIndex > 0) {
+            state.focusedIndex -= 1;
+            const chipToFocus = state.chips[state.focusedIndex].$el as HTMLElement;
+            chipToFocus.focus();
+          }
+          break;
+        case 'Enter':
+        case ' ':
+          event.preventDefault();
+          if (state.chips[state.focusedIndex].value === props.value) {
+            list.emitChange('');
+          } else {
+            list.emitChange(state.chips[state.focusedIndex].value);
+          }
+          break;
+        default:
+          break;
       }
-      case 'ArrowLeft':
-      case 'ArrowUp':
-        event.preventDefault();
-        if (this.focusedIndex > 0) {
-          this.focusedIndex -= 1;
-          const chipToFocus = this.chips[this.focusedIndex].$el as HTMLElement;
-          chipToFocus.focus();
-        }
-        break;
-      case 'Enter':
-      case ' ':
-        event.preventDefault();
-        if (this.chips[this.focusedIndex].value === this.value) {
-          this.emitChange('');
-        } else {
-          this.emitChange(this.chips[this.focusedIndex].value);
-        }
-        break;
-      default:
-        break;
-    }
-  }
+    };
 
-  registerChips(chips: Chips): void {
-    this.chips.push(chips);
-  }
+    onMounted(() => {
+      state.chips.sort((leftChild, rightChild) => {
+        const x = Array.from((this.$el as HTMLElement).children);
+        return x.indexOf(leftChild.$el) - x.indexOf(rightChild.$el);
+      });
+    });
 
-  unregisterChips(uuid: string): void {
-    this.chips = this.chips.filter((chips) => chips.uuid !== uuid);
-  }
-}
+    onUpdated(() => {
+      state.chips.sort((leftChild, rightChild) => {
+        const x = Array.from((this.$el as HTMLElement).children);
+        return x.indexOf(leftChild.$el) - x.indexOf(rightChild.$el);
+      });
+    });
+
+    return {
+      ...toRefs(state),
+      list,
+      focusHandler,
+      handleKeyDown,
+    };
+  },
+});
 </script>
 
 <style src="./ChipsList.scss" lang="scss"></style>

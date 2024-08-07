@@ -6,43 +6,54 @@
 
 <script lang="ts">
 import {
-  Component, Vue, Model, ProvideReactive, Prop, Watch,
-} from 'vue-property-decorator';
+  defineComponent, reactive, watch, provide,
+} from 'vue';
 
 export type RadioGroupProvide = {
-  value: string,
-  name: string,
-  required: boolean,
-  emitChange: (value: string) => void,
-}
+  value: string;
+  name: string;
+  required: boolean;
+  emitChange: (value: string) => void;
+};
 
-@Component
-export default class RadioGroup extends Vue {
-  @Model('change', { type: String }) readonly value!: string
+export default defineComponent({
+  name: 'RadioGroup',
+  props: {
+    value: {
+      type: String,
+      required: true,
+    },
+    name: {
+      type: String,
+      required: true,
+    },
+    required: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  setup(props, { emit }) {
+    const group = reactive<RadioGroupProvide>({
+      value: props.value,
+      name: props.name,
+      required: props.required,
+      emitChange: (value: string) => {
+        emit('change', value);
+      },
+    });
 
-  @Prop({ required: true, type: String }) name!: string
+    provide('group', group);
 
-  @Prop({ default: false, type: Boolean }) required!: boolean
+    watch(
+      () => props.value,
+      (newValue) => {
+        group.value = newValue;
+      },
+    );
 
-  @ProvideReactive() group: RadioGroupProvide = {
-    value: this.value,
-    name: this.name,
-    required: this.required,
-    emitChange: this.emitChange,
-  }
-
-  @Watch('value')
-  onValueChanged(): void {
-    const {
-      value, name, required, emitChange,
-    } = this;
-    this.group = {
-      value, name, required, emitChange,
+    return {
+      group,
     };
-  }
-
-  emitChange(value: string): void {
-    this.$emit('change', value);
-  }
-}
+  },
+});
 </script>

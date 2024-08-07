@@ -10,91 +10,93 @@
 </template>
 
 <script lang="ts">
-import {
-  Component, Vue, Prop, Model, Watch,
-} from 'vue-property-decorator';
 import { createPopper, Instance as PopperInstance, Placement } from '@popperjs/core';
+import { defineComponent } from "vue";
 
-@Component
-export default class PopUp extends Vue {
-  @Model('close', { type: Boolean }) readonly opened!: boolean;
+export default defineComponent({
+    data() {
+        const popperInstance: PopperInstance | null = null;
 
-  @Prop({ type: String, default: 'auto' })
-  placement!: Placement;
+        return {
+            popperInstance
+        };
+    },
+    mounted(): void {
+        const anchor = this.$refs.anchor as HTMLElement;
+            const content = this.$refs.content as HTMLElement;
 
-  @Prop({ type: Boolean, default: false })
-  readonly dismissable!: boolean;
-
-  popperInstance: PopperInstance | null = null;
-
-  async mouted() {
-    await this.updatePopperInstance(this.opened);
-    this.handleEventListeners(this.opened);
-  }
-
-  @Watch('opened')
-  async handleOpening(isOpened: boolean): Promise<void> {
-    await this.updatePopperInstance(isOpened);
-    this.handleEventListeners(isOpened);
-  }
-
-  async updatePopperInstance(isOpened: boolean) {
-    if (isOpened) {
-      await this.$nextTick();
-      await this.popperInstance?.update();
-    }
-  }
-
-  handleEventListeners(isOpened: boolean) {
-    if (this.dismissable) {
-      if (isOpened) {
-        this.initCloseEventListeners();
-      } else {
-        this.removeCloseEventListeners();
-      }
-    }
-  }
-
-  mounted(): void {
-    const anchor = this.$refs.anchor as HTMLElement;
-    const content = this.$refs.content as HTMLElement;
-
-    this.popperInstance = createPopper(anchor.children[0], content.children[0] as HTMLElement, {
-      placement: this.placement,
-      modifiers: [
-        {
-          name: 'offset',
-          options: {
-            offset: [0, 8],
-          },
+            this.popperInstance = createPopper(anchor.children[0], content.children[0] as HTMLElement, {
+              placement: this.placement,
+              modifiers: [
+                {
+                  name: 'offset',
+                  options: {
+                    offset: [0, 8],
+                  },
+                },
+              ],
+            });
+    },
+    methods: {
+        async mouted() {
+            await this.updatePopperInstance(this.opened);
+            this.handleEventListeners(this.opened);
         },
-      ],
-    });
-  }
-
-  initCloseEventListeners(): void {
-    document.addEventListener('mousedown', this.onClickOutside);
-  }
-
-  removeCloseEventListeners(): void {
-    document.removeEventListener('mousedown', this.onClickOutside);
-  }
-
-  onClickOutside(event: MouseEvent): void {
-    const target = event.target as Node | null;
-    if (!target) {
-      return;
+        async updatePopperInstance(isOpened: boolean) {
+            if (isOpened) {
+              await this.$nextTick();
+              await this.popperInstance?.update();
+            }
+        },
+        handleEventListeners(isOpened: boolean) {
+            if (this.dismissable) {
+              if (isOpened) {
+                this.initCloseEventListeners();
+              } else {
+                this.removeCloseEventListeners();
+              }
+            }
+        },
+        initCloseEventListeners(): void {
+            document.addEventListener('mousedown', this.onClickOutside);
+        },
+        removeCloseEventListeners(): void {
+            document.removeEventListener('mousedown', this.onClickOutside);
+        },
+        onClickOutside(event: MouseEvent): void {
+            const target = event.target as Node | null;
+            if (!target) {
+              return;
+            }
+            const isClickOutside = !this.$el.contains(event.target as Node);
+            if (isClickOutside) {
+              this.$emit('close', false);
+            }
+        },
+        async handleButtonClick(): Promise<void> {
+            this.$emit('close', !this.opened);
+        },
+        async handleOpening(isOpened: boolean): Promise<void> {
+            await this.updatePopperInstance(isOpened);
+            this.handleEventListeners(isOpened);
+        }
+    },
+    props: {
+        placement: { type: String, default: 'auto' },
+        dismissable: { type: Boolean, default: false },
+        opened: { type: Boolean }
+    },
+    model: {
+        prop: "opened",
+        event: "close"
+    },
+    watch: {
+        "opened": [{
+            handler: "handleOpening"
+        }]
     }
-    const isClickOutside = !this.$el.contains(event.target as Node);
-    if (isClickOutside) {
-      this.$emit('close', false);
-    }
-  }
+})
 
-  async handleButtonClick(): Promise<void> {
-    this.$emit('close', !this.opened);
-  }
-}
 </script>
 
 <style src="./PopUp.scss" lang="scss"></style>

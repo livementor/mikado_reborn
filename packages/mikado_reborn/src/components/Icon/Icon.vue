@@ -3,26 +3,27 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import { defineComponent } from "vue";
 
-@Component
-export default class Icon extends Vue {
-  @Prop({ required: true, type: String })
-  private name!: string;
+export default defineComponent({
+    computed: {
+        classNames(): string[] {
+            const classes = [];
+            if (this.color) classes.push(this.color);
+            if (this.name) classes.push(`icon-${this.name}`);
+            return classes;
+        }
+    },
+    methods: {
+        click(event: Event): void {
+            this.$emit('click', event);
+        }
+    },
+    props: {
+        name: { required: true, type: String },
+        color: { default: undefined, type: String }
+    }
+})
 
-  @Prop({ default: undefined, type: String })
-  private color?: string;
-
-  get classNames() : string[] {
-    const classes = [];
-    if (this.color) classes.push(this.color);
-    if (this.name) classes.push(`icon-${this.name}`);
-    return classes;
-  }
-
-  click(event: Event): void {
-    this.$emit('click', event);
-  }
-}
 </script>
 <style src="./Icon.scss" lang="scss"></style>

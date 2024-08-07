@@ -15,36 +15,28 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
+import { defineComponent } from "vue";
 
-@Component
-export default class Textarea extends Vue {
-  @Prop({ type: String })
-  value?: string;
-
-  @Prop({ type: Number })
-  minlength?: number;
-
-  @Prop({ type: Number })
-  maxlength?: number;
-
-  @Prop({ type: String })
-  placeholder?: string;
-
-  @Prop({ type: Boolean })
-  error!: boolean;
-
-  @Prop({ type: Number })
-  rows!: number;
-
-  emitInputValue(event: InputEvent) {
-    const input = event.target as HTMLInputElement | null;
-    if (input) {
-      this.$emit('input', input.value);
+export default defineComponent({
+    methods: {
+        emitInputValue(event: InputEvent) {
+            const input = event.target as HTMLInputElement | null;
+            if (input) {
+              this.$emit('input', input.value);
+            }
+            this.$emit('change', event);
+        }
+    },
+    props: {
+        value: { type: String },
+        minlength: { type: Number },
+        maxlength: { type: Number },
+        placeholder: { type: String },
+        error: { type: Boolean },
+        rows: { type: Number }
     }
-    this.$emit('change', event);
-  }
-}
+})
+
 </script>
 
 <style src="./Textarea.scss" lang="scss"></style>

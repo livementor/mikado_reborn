@@ -6,14 +6,13 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import Vue from 'vue';
 
-@Component
-export default class App extends Vue {
+export default {
   created(): void {
     Vue.prototype.$app = this;
-  }
-}
+  },
+};
 </script>
 
 <style src="./App.scss" lang="scss"></style>

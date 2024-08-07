@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
+import { defineComponent } from "vue";
 
 export const NavItemTypes = {
   main: 'main',
@@ -22,19 +22,17 @@ export const NavItemTypes = {
   'sub-light': 'sub-light',
 };
 
-@Component
-export default class NavItemGroup extends Vue {
-  @Prop({
-    default: NavItemTypes.main,
-    validator: (type: string) => Object.values(NavItemTypes).includes(type),
-  })
-  type!: string;
+export default defineComponent({
+    props: {
+        type: {
+                default: NavItemTypes.main,
+                validator: (type: string) => Object.values(NavItemTypes).includes(type),
+            type: String
+        },
+        topNav: { type: Boolean, default: false },
+        horizontal: { type: Boolean, default: false }
+    }
+})
 
-  @Prop({ type: Boolean, default: false })
-  topNav!: boolean;
-
-  @Prop({ type: Boolean, default: false })
-  horizontal!: boolean;
-}
 </script>
 <style src="./NavItemGroup.scss" lang="scss"></style>

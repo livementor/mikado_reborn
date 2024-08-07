@@ -22,20 +22,25 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
 import MkrInteractiveIcon from '../InteractiveIcon/InteractiveIcon';
+import { defineComponent } from "vue";
 
-@Component({ components: { MkrInteractiveIcon } })
-export default class ExpansionPanel extends Vue {
-  @Prop({ default: false, type: Boolean })
-  defaultExpanded!: boolean;
+export default defineComponent({ components: { MkrInteractiveIcon },
+    data() {
+        return {
+            expanded: this.defaultExpanded
+        };
+    },
+    methods: {
+        togglePanel(): void {
+            this.expanded = !this.expanded;
+        }
+    },
+    props: {
+        defaultExpanded: { default: false, type: Boolean }
+    }
+})
 
-  expanded = this.defaultExpanded;
-
-  togglePanel(): void {
-    this.expanded = !this.expanded;
-  }
-}
 </script>
 
 <style src="./ExpansionPanel.scss" lang="scss"></style>

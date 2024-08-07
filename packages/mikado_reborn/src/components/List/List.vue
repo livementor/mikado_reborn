@@ -12,34 +12,31 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import { defineComponent } from "vue";
 
 export const ListSize = {
   medium: 'medium',
   large: 'large',
 };
 
-@Component
-export default class List extends Vue {
-  @Prop({
-    type: Boolean,
-    default: false,
-  })
-  itemHoverable?: boolean
+export default defineComponent({
+    props: {
+        itemHoverable: {
+                type: Boolean,
+                default: false,
+              },
+        padded: {
+                type: Boolean,
+                default: false,
+              },
+        size: {
+                type: String,
+                default: ListSize.medium,
+                validator: (variant: string) => Object.values(ListSize).includes(variant),
+              }
+    }
+})
 
-  @Prop({
-    type: Boolean,
-    default: false,
-  })
-  padded?: boolean
-
-  @Prop({
-    type: String,
-    default: ListSize.medium,
-    validator: (variant: string) => Object.values(ListSize).includes(variant),
-  })
-  size!: keyof typeof ListSize
-}
 
 </script>
 

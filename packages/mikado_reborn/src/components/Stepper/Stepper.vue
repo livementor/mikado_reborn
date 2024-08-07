@@ -34,32 +34,31 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import { defineComponent } from "vue";
 
-@Component({
+export default defineComponent({
   components: {
     StepperIcon: () => import('./StepperIcon.vue'),
   },
+    computed: {
+        itemsAsObject() {
+            return this.items.map((item) => {
+              if (typeof item === 'string') {
+                return {
+                  type: 'default',
+                  label: item,
+                };
+              }
+              return item;
+            });
+        }
+    },
+    props: {
+        items: { type: Array, required: true },
+        step: { type: Number, default: 1 }
+    }
 })
-export default class Stepper extends Vue {
-  @Prop({ type: Array, required: true })
-  public items!: string[] | { type: string, label: string }[];
 
-  @Prop({ type: Number, default: 1 })
-  public step!: number;
-
-  get itemsAsObject() {
-    return this.items.map((item) => {
-      if (typeof item === 'string') {
-        return {
-          type: 'default',
-          label: item,
-        };
-      }
-      return item;
-    });
-  }
-}
 </script>
 
 <style src="./Stepper.scss" lang="scss"></style>
