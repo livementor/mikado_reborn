@@ -27,62 +27,61 @@
 </template>
 
 <script lang="ts">
+import { defineComponent } from 'vue';
 import MkrIcon from '../Icon/Icon.vue';
-import MkrContainedButton from '../Button/Contained/ContainedButton';
-import { defineComponent } from "vue";
+import MkrContainedButton from '../Button/Contained/ContainedButton.vue';
 
 export default defineComponent({
   components: {
     MkrContainedButton,
     MkrIcon,
   },
-  inheritAttrs: false,
-    data() {
-        return {
-            focused: false,
-            showPassword: false
-        };
+  data() {
+    return {
+      focused: false,
+      showPassword: false,
+    };
+  },
+  computed: {
+    iconColor(): string {
+      if (this.focused) {
+        return this.error ? 'danger' : 'secondary';
+      }
+      return 'neutral-60';
     },
-    computed: {
-        iconColor(): string {
-            if (this.focused) {
-              return this.error ? 'danger' : 'secondary';
-            }
-            return 'neutral-60';
-        },
-        getType(): string {
-            if (this.showPassword) {
-              return 'text';
-            }
-            return this.type;
-        }
+    getType(): string {
+      if (this.showPassword) {
+        return 'text';
+      }
+      return this.type;
     },
-    methods: {
-        showPasswordClick(): void {
-            this.showPassword = !this.showPassword;
-        },
-        emitInputValue(event: InputEvent) {
-            const input = event.target as HTMLInputElement | null;
+  },
+  methods: {
+    showPasswordClick(): void {
+      this.showPassword = !this.showPassword;
+    },
+    emitInputValue(event: InputEvent) {
+      const input = event.target as HTMLInputElement | null;
 
-                if (input) {
-                  this.$emit('input', input.value);
-                }
+      if (input) {
+        this.$emit('input', input.value);
+      }
 
-                this.$emit('change', event);
-        }
+      this.$emit('change', event);
     },
-    props: {
-        value: { type: String },
-        iconName: { type: String },
-        placeholder: { type: String },
-        error: { type: Boolean },
-        type: {
-                default: 'text',
-                type: String,
-                validator: (type: string) => ['text', 'email', 'password', 'date'].includes(type),
-              }
-    }
-})
+  },
+  props: {
+    value: { type: String },
+    iconName: { type: String },
+    placeholder: { type: String },
+    error: { type: Boolean },
+    type: {
+      default: 'text',
+      type: String,
+      validator: (type: string) => ['text', 'email', 'password', 'date'].includes(type),
+    },
+  },
+});
 
 </script>
 

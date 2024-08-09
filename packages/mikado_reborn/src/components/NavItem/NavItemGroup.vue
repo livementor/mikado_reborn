@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue';
 
 export const NavItemTypes = {
   main: 'main',
@@ -23,16 +23,16 @@ export const NavItemTypes = {
 };
 
 export default defineComponent({
-    props: {
-        type: {
-                default: NavItemTypes.main,
-                validator: (type: string) => Object.values(NavItemTypes).includes(type),
-            type: String
-        },
-        topNav: { type: Boolean, default: false },
-        horizontal: { type: Boolean, default: false }
-    }
-})
+  props: {
+    type: {
+      default: NavItemTypes.main,
+      validator: (type: string) => Object.values(NavItemTypes).includes(type),
+      type: String,
+    },
+    topNav: { type: Boolean, default: false },
+    horizontal: { type: Boolean, default: false },
+  },
+});
 
 </script>
 <style src="./NavItemGroup.scss" lang="scss"></style>

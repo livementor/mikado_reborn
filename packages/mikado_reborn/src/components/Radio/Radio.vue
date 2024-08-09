@@ -30,7 +30,12 @@ export default defineComponent({
     },
   },
   setup(props, { emit }) {
-    const group = inject<RadioGroupProvide>('group', undefined);
+    const group = inject<RadioGroupProvide>('group', {
+      value: '',
+      name: '',
+      required: false,
+      emitChange: () => {},
+    });
 
     const name = computed(() => (group ? group.name : ''));
     const required = computed(() => (group ? group.required : false));

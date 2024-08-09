@@ -14,7 +14,7 @@
       <div
         class="mkr__large-tooltip__label"
         :class="{ 'mkr__large-tooltip__long_text': longTextMode }"
-        >
+      >
         <div v-if="htmlContent" v-html="htmlContent" />
         <template v-else-if="label">
           {{ label }}
@@ -27,124 +27,99 @@
 
 <script lang="ts">
 import {
-  createPopper,
-  Instance as PopperInstance,
-  Modifier,
-  OptionsGeneric,
-  Placement,
-} from '@popperjs/core';
-
-import { defineComponent } from 'vue';
+  defineComponent, ref, onMounted, onBeforeUnmount, watch, nextTick, computed,
+} from 'vue';
+import { createPopper, Instance as PopperInstance, Placement } from '@popperjs/core';
 import useUuid from '../../composables/useUuid';
 
 export default defineComponent({
-  data() {
-    const popperInstance: PopperInstance | null = null;
+  setup(props, { expose }) {
+    const uuid = useUuid().generateUUID();
+    const anchor = ref<HTMLElement | null>(null);
+    const tooltip = ref<HTMLElement | null>(null);
+    const opened = ref(false);
+    const hoverTooltip = ref(false);
+    const popperInstance = ref<PopperInstance | null>(null);
+
+    const isOpened = computed(() => (opened.value || hoverTooltip.value) && !props.disabled);
+
+    const handleOpening = async (value: boolean) => {
+      if (value) {
+        await nextTick();
+        await popperInstance.value?.update();
+      }
+    };
+
+    onMounted(() => {
+      if (!anchor.value || !tooltip.value) return;
+
+      if (props.topLevel) {
+        const tooltipContainer = (window as any).$app.$refs.tooltipContainer as HTMLElement;
+        if (tooltipContainer) {
+          tooltipContainer.appendChild(tooltip.value);
+        }
+      }
+
+      popperInstance.value = createPopper(anchor.value, tooltip.value, {
+        placement: props.placement,
+        modifiers: [
+          { name: 'offset', options: { offset: [0, 4] } },
+          { name: 'eventListeners', options: { scroll: props.addScrollListener } },
+        ],
+      });
+
+      if (anchor.value.children[0]) {
+        ['focus', 'mouseenter'].forEach((event) => anchor.value?.children[0].addEventListener(event, () => {
+          if (!props.disabled) opened.value = true;
+        }));
+
+        ['focus', 'mouseenter'].forEach((event) => tooltip.value?.addEventListener(event, () => {
+          hoverTooltip.value = true;
+        }));
+
+        ['blur', 'mouseleave'].forEach((event) => tooltip.value?.addEventListener(event, () => {
+          setTimeout(() => {
+            if (!opened.value) opened.value = false;
+          }, 200);
+          hoverTooltip.value = false;
+        }));
+
+        ['blur', 'mouseleave'].forEach((event) => anchor.value?.children[0].addEventListener(event, () => {
+          setTimeout(() => {
+            if (!hoverTooltip.value) hoverTooltip.value = false;
+          }, 200);
+          opened.value = false;
+        }));
+
+        anchor.value.children[0].setAttribute('aria-describedby', `tooltip-${uuid}`);
+      }
+    });
+
+    onBeforeUnmount(() => {
+      if (props.topLevel && tooltip.value) {
+        tooltip.value.remove();
+      }
+    });
+
+    watch(() => opened.value, handleOpening);
 
     return {
-      opened: false,
-      hoverTooltip: false,
-      popperInstance,
-      uuid: useUuid().generateUUID(),
+      uuid,
+      anchor,
+      tooltip,
+      isOpened,
     };
-  },
-  computed: {
-    isOpened(): boolean {
-      return (this.opened || this.hoverTooltip) && !this.disabled;
-    },
-  },
-  mounted(): void {
-    const anchor = this.$refs.anchor as HTMLElement;
-    const tooltip = this.$refs.tooltip as HTMLElement;
-
-    if (this.topLevel) {
-      (this.$app.$refs.tooltipContainer as HTMLElement).appendChild(tooltip);
-    }
-    const config: Partial<OptionsGeneric<Partial<Modifier<unknown, unknown>>>> = {
-      modifiers: [
-        {
-          name: 'offset',
-          options: {
-            offset: [0, 4],
-          },
-        },
-        {
-          name: 'eventListeners',
-          options: {
-            scroll: this.addScrollListener,
-          },
-        },
-      ],
-    };
-
-    if (this.placement) {
-      config.placement = this.placement;
-    }
-
-    this.popperInstance = createPopper(anchor, tooltip, config);
-
-    if (!anchor.children[0]) {
-      return;
-    }
-
-    ['focus', 'mouseenter'].forEach((event) => anchor.children[0].addEventListener(event, () => {
-      if (!this.disabled) {
-        this.opened = true;
-      }
-    }));
-
-    ['focus', 'mouseenter'].forEach((event) => tooltip.addEventListener(event, () => {
-      this.hoverTooltip = true;
-    }));
-
-    ['blur', 'mouseleave'].forEach((event) => tooltip.addEventListener(event, () => {
-      setTimeout(() => {
-        if (!this.opened) {
-          this.opened = false;
-        }
-      }, 200);
-      this.hoverTooltip = false;
-    }));
-
-    ['blur', 'mouseleave'].forEach((event) => anchor.children[0].addEventListener(event, () => {
-      setTimeout(() => {
-        if (!this.hoverTooltip) {
-          this.hoverTooltip = false;
-        }
-      }, 200);
-      this.opened = false;
-    }));
-    anchor.children[0].setAttribute('aria-describedby', `tooltip-${this.uuid}`);
-  },
-  methods: {
-    beforeDestroy(): void {
-      if (this.topLevel) {
-        (this.$refs.tooltip as Element)?.remove();
-      }
-    },
-    async handleOpening(isOpened: boolean): Promise<void> {
-      if (isOpened) {
-        await this.$nextTick();
-        await this.popperInstance?.update();
-      }
-    },
   },
   props: {
     label: { type: String, default: '' },
     htmlContent: { type: String, default: '' },
     longTextMode: { type: Boolean, default: false },
     disabled: { type: Boolean, default: false },
-    placement: { type: String, default: '' },
+    placement: { type: String as () => Placement, default: '' },
     topLevel: { type: Boolean, default: false },
     addScrollListener: { type: Boolean, default: false },
   },
-  watch: {
-    opened: [{
-      handler: 'handleOpening',
-    }],
-  },
 });
-
 </script>
 
 <style src="./LargeTooltip.scss" lang="scss"></style>

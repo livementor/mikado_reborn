@@ -6,36 +6,42 @@
 </template>
 
 <script lang="ts">
+import { defineComponent } from 'vue';
 import Icon from '../Icon/Icon.vue';
-import { defineComponent } from "vue";
 
 export default defineComponent({
   components: {
     Icon,
   },
-    computed: {
-        iconProperties() {
-            const types = {
-                  default: {
-                    name: 'check-circle',
-                    color: 'secondary',
-                  },
-                  warning: {
-                    name: 'exclamation-circle',
-                    color: 'warning',
-                  },
-                  error: {
-                    name: 'cross-circle',
-                    color: 'danger',
-                  },
-                };
+  computed: {
+    iconProperties() {
+      const types = {
+        default: {
+          name: 'check-circle',
+          color: 'secondary',
+        },
+        warning: {
+          name: 'exclamation-circle',
+          color: 'warning',
+        },
+        error: {
+          name: 'cross-circle',
+          color: 'danger',
+        },
+      };
 
-                return types[this.type] || types.default;
-        }
+      return types[this.type] || types.default;
     },
-    props: {
-        type: { type: String, required: true }
-    }
-})
+  },
+  props: {
+    type: {
+      type: String as () => 'default' | 'warning' | 'error',
+      validator(value: string) {
+        return ['default', 'warning', 'error'].includes(value);
+      },
+      required: true,
+    },
+  },
+});
 
 </script>

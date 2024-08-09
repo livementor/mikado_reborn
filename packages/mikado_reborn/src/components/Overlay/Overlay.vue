@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue';
 
 export const colors = {
   dark: 'dark',
@@ -26,46 +26,46 @@ function setDocumentOverflow(isOpen: boolean): void {
 }
 
 export default defineComponent({
-    mounted(): void {
-        setDocumentOverflow(this.opened);
+  mounted(): void {
+    setDocumentOverflow(this.opened);
 
-            const app = this.$app;
-            app.$el.insertBefore(this.$el, app.$el.children[0]);
+    const app = window.document.querySelector('.mkr__app') as HTMLElement;
+    app.insertBefore(this.$el, app.children[0]);
+  },
+  destroyed(): void {
+    this.$el?.remove();
+    document.body.style.overflow = 'visible';
+  },
+  methods: {
+    click(): void {
+      if (!this.keepOnClick) {
+        this.$emit('close', false);
+      }
+      this.$emit('click');
     },
-    destroyed(): void {
-        this.$el?.remove();
-        document.body.style.overflow = 'visible';
+    onOpenedChanged(isOpen: boolean): void {
+      setDocumentOverflow(isOpen);
     },
-    methods: {
-        click(): void {
-            if (!this.keepOnClick) {
-              this.$emit('close', false);
-            }
-            this.$emit('click');
-        },
-        onOpenedChanged(isOpen: boolean): void {
-            setDocumentOverflow(isOpen);
-        }
+  },
+  props: {
+    color: {
+      type: String,
+      validator: (value: string): boolean => Object.values(colors).includes(value),
+      default: 'dark',
     },
-    props: {
-        color: {
-                type: String,
-                validator: (value: string): boolean => Object.values(colors).includes(value),
-                default: 'dark',
-              },
-        keepOnClick: { type: Boolean, default: false },
-        opened: { type: Boolean }
-    },
-    model: {
-        prop: "opened",
-        event: "close"
-    },
-    watch: {
-        "opened": [{
-            handler: "onOpenedChanged"
-        }]
-    }
-})
+    keepOnClick: { type: Boolean, default: false },
+    opened: { type: Boolean },
+  },
+  model: {
+    prop: 'opened',
+    event: 'close',
+  },
+  watch: {
+    opened: [{
+      handler: 'onOpenedChanged',
+    }],
+  },
+});
 
 </script>
 
