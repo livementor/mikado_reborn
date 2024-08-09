@@ -14,6 +14,9 @@ module.exports = {
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    '@typescript-eslint/no-empty-function': 'off',
+    'vue/multi-word-component-names': 'off',
+    'max-len': ['error', { code: 120 }],
   },
   settings: {
     'import/resolver': {
