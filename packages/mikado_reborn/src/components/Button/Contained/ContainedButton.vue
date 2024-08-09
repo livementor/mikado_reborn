@@ -1,5 +1,17 @@
+<template>
+  <MkrButton
+    :variant="'contained'"
+    :theme="theme"
+    v-bind="$attrs"
+    v-on="$listeners"
+  >
+    <slot></slot>
+  </MkrButton>
+</template>
+
+<script lang="ts">
 import { defineComponent, PropType } from 'vue';
-import Button from '../../../mixins/Button/Button';
+import MkrButton from '../../../mixins/Button/Button.vue';
 import './ContainedButton.scss';
 
 export const containedButtonThemes = {
@@ -12,16 +24,7 @@ export const containedButtonThemes = {
 };
 
 export default defineComponent({
-  extends: Button,
-  computed: {
-    classes(): typeof Button['classes'] {
-      const componentClass = `${this.class}--contained`;
-      return [
-        componentClass,
-        `${componentClass}--${this.theme}`,
-      ];
-    },
-  },
+  components: { MkrButton },
   props: {
     theme: {
       default: 'primary',
@@ -30,3 +33,4 @@ export default defineComponent({
     },
   },
 });
+</script>
