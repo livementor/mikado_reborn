@@ -6,15 +6,24 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, computed } from 'vue';
 import Icon from '../Icon/Icon.vue';
 
 export default defineComponent({
   components: {
     Icon,
   },
-  computed: {
-    iconProperties() {
+  props: {
+    type: {
+      type: String as () => 'default' | 'warning' | 'error',
+      validator(value: string) {
+        return ['default', 'warning', 'error'].includes(value);
+      },
+      required: true,
+    },
+  },
+  setup(props: { type: 'default' | 'warning' | 'error' }) {
+    const iconProperties = computed(() => {
       const types = {
         default: {
           name: 'check-circle',
@@ -30,18 +39,12 @@ export default defineComponent({
         },
       };
 
-      return types[this.type] || types.default;
-    },
-  },
-  props: {
-    type: {
-      type: String as () => 'default' | 'warning' | 'error',
-      validator(value: string) {
-        return ['default', 'warning', 'error'].includes(value);
-      },
-      required: true,
-    },
+      return types[props.type] || types.default;
+    });
+
+    return {
+      iconProperties,
+    };
   },
 });
-
 </script>
