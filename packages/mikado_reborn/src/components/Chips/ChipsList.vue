@@ -10,8 +10,7 @@
       `mkr__chips-list--${size}`,
       { 'mkr__chips-list--wrap': wrap },
     ]"
-    @focus="focusHandler"
-    @keydown="handleKeyDown"
+    ref="listRef"
   >
     <slot />
   </ul>
@@ -19,7 +18,7 @@
 
 <script lang="ts">
 import {
-  defineComponent, reactive, watch, provide, onMounted, onUpdated, toRefs,
+  defineComponent, provide, reactive, ref, watch,
 } from 'vue';
 import Chips from './Chips.vue';
 
@@ -57,102 +56,28 @@ export default defineComponent({
     },
   },
   setup(props, { emit }) {
-    const state = reactive({
-      chips: [] as typeof Chips[],
-      focusedIndex: 0,
-    });
+    const chips = ref<typeof Chips[]>([]);
+    const listRef = ref<HTMLElement | null>(null);
 
-    const list = reactive<ChipsListProvide>({
+    const list = reactive({
       value: props.value,
       size: props.size,
       orientation: props.orientation,
       wrap: props.wrap,
       emitChange: (value: string) => {
-        emit('change', value);
-      },
-      registerChips: (chips: typeof Chips) => {
-        state.chips.push(chips);
-      },
-      unregisterChips: (uuid: string) => {
-        state.chips = state.chips.filter((chip) => chip.uuid !== uuid);
+        emit('input', value);
       },
     });
 
     provide('list', list);
 
-    watch(
-      () => props.value,
-      (newValue) => {
-        list.value = newValue;
-      },
-    );
-
-    watch(
-      () => props.size,
-      (newSize) => {
-        list.size = newSize;
-      },
-    );
-
-    const focusHandler = () => {
-      state.focusedIndex = 0;
-      const firstChip = state.chips[0].$el as HTMLElement;
-      firstChip.focus();
-    };
-
-    const handleKeyDown = (event: KeyboardEvent) => {
-      switch (event.key) {
-        case 'ArrowRight':
-        case 'ArrowDown':
-          event.preventDefault();
-          if (state.focusedIndex < state.chips.length - 1) {
-            state.focusedIndex += 1;
-            const chipToFocus = state.chips[state.focusedIndex].$el as HTMLElement;
-            chipToFocus.focus();
-          }
-          break;
-        case 'ArrowLeft':
-        case 'ArrowUp':
-          event.preventDefault();
-          if (state.focusedIndex > 0) {
-            state.focusedIndex -= 1;
-            const chipToFocus = state.chips[state.focusedIndex].$el as HTMLElement;
-            chipToFocus.focus();
-          }
-          break;
-        case 'Enter':
-        case ' ':
-          event.preventDefault();
-          if (state.chips[state.focusedIndex].value === props.value) {
-            list.emitChange('');
-          } else {
-            list.emitChange(state.chips[state.focusedIndex].value);
-          }
-          break;
-        default:
-          break;
-      }
-    };
-
-    onMounted(() => {
-      state.chips.sort((leftChild, rightChild) => {
-        const x = Array.from((this.$el as HTMLElement).children);
-        return x.indexOf(leftChild.$el) - x.indexOf(rightChild.$el);
-      });
-    });
-
-    onUpdated(() => {
-      state.chips.sort((leftChild, rightChild) => {
-        const x = Array.from((this.$el as HTMLElement).children);
-        return x.indexOf(leftChild.$el) - x.indexOf(rightChild.$el);
-      });
+    watch(() => props.value, (value: string) => {
+      list.value = value;
     });
 
     return {
-      ...toRefs(state),
-      list,
-      focusHandler,
-      handleKeyDown,
+      chips,
+      listRef,
     };
   },
 });

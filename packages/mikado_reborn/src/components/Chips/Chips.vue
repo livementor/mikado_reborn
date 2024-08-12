@@ -6,6 +6,7 @@
     tabindex="-1"
     :aria-selected="selected"
     @click="selectValue"
+    ref="chipRef"
   >
     <mkr-icon v-if="selected" name="check" />
     {{ label }}
@@ -14,7 +15,7 @@
 
 <script lang="ts">
 import {
-  defineComponent, computed, inject, onBeforeUnmount, onMounted, ref,
+  defineComponent, computed, inject, ref,
 } from 'vue';
 import { ChipsListProvide } from './ChipsList.vue';
 import { MkrIcon } from '../Icon';
@@ -36,10 +37,12 @@ export default defineComponent({
   },
   setup(props: { label: string; value: string }) {
     const { generateUUID } = useUuid();
-    const list = inject<ChipsListProvide>('list', undefined);
-    const uuid = generateUUID(); // Assurez-vous que Uuid a une méthode pour générer l'UUID
+    const list = inject<ChipsListProvide>('list');
+    const uuid = generateUUID();
+
     const componentId = computed(() => `chips-${uuid}`);
     const selected = computed(() => (list ? list.value === props.value : false));
+    const chipRef = ref<HTMLElement | null>(null);
 
     const classes = computed(() => [
       'mkr__chips',
@@ -59,23 +62,13 @@ export default defineComponent({
       }
     };
 
-    onMounted(() => {
-      if (list) {
-        list.registerChips({ uuid, props });
-      }
-    });
-
-    onBeforeUnmount(() => {
-      if (list) {
-        list.unregisterChips(uuid);
-      }
-    });
-
     return {
+      uuid,
       componentId,
       classes,
       selected,
       selectValue,
+      chipRef,
     };
   },
 });
