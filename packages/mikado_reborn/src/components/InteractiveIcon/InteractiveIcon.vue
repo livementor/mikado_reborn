@@ -1,14 +1,14 @@
 <template>
   <component
-:is="component"
-:class="classes"
-v-bind="$attrs"
-@click="click"
+    :is="component"
+    :class="classes"
+    v-bind="$attrs"
+    @click="click"
   >
-  <MkrIcon :name="name" />
-  <slot></slot>
+    <MkrIcon :name="name" />
+    <slot></slot>
   </component>
-  </template>
+</template>
 
 <script lang="ts">
 import { defineComponent, computed } from 'vue';
@@ -56,7 +56,7 @@ export default defineComponent({
       return 'button';
     });
 
-    const click = (event) => {
+    const click = (event: Event) => {
       emit('click', event);
     };
 

@@ -1,7 +1,7 @@
 <template>
   <div ref="dropdown" class="mkr__dropdown">
     <button
-      ref="dropdown-input"
+      ref="dropdownInput"
       aria-haspopup="listbox"
       :aria-placeholder="placeholder"
       :aria-expanded="isTooltipVisible"
@@ -30,7 +30,7 @@
       <mkr-icon :name="isTooltipVisible ? 'arrow-full-top' : 'arrow-full-bottom'" />
     </button>
     <mkr-card
-      ref="dropdown-list"
+      ref="dropdownList"
       class='mkr__dropdown__list'
       :class="{
         'mkr__dropdown__list--hidden': !isTooltipVisible,
@@ -42,7 +42,6 @@
         class="mkr__dropdown__list__container"
         tabindex="-1"
         role="listbox"
-        :aria-activedescendant="selectedItem ? selectedItem.id : null"
         @blur="handleListBlur"
         @keydown="handleListKeyDown"
       >
@@ -66,118 +65,115 @@
 </template>
 
 <script lang="ts">
+import {
+  ref, computed, onMounted, nextTick, defineComponent,
+} from 'vue';
 import { createPopper, Instance as PopperInstance } from '@popperjs/core';
-import { defineComponent } from 'vue';
 import useUuid from '../../composables/useUuid';
-
 import { MkrCard } from '../Card';
 import { MkrIcon } from '../Icon';
 
 export type Item = {
-  [key: string]: string | number | boolean
-  selected: boolean
-  id: string
-}
+  [key: string]: string | number | boolean;
+  selected: boolean;
+  id: string;
+};
 
 export default defineComponent({
   components: {
     MkrCard,
     MkrIcon,
   },
-  data() {
-    const clearCurrentSearchTimeout: ReturnType<typeof setTimeout> | null = null;
-    const popperInstance: PopperInstance | null = null;
-
-    return {
-      isTooltipVisible: false,
-      buttonClick: false,
-      popperInstance,
-      currentSearch: '',
-      clearCurrentSearchTimeout,
-      uuid: useUuid().generateUUID(),
-    };
+  props: {
+    value: { type: String },
+    placeholder: { type: String },
+    items: { type: Array as () => Item[] | string[], required: true },
+    itemValue: { type: String, default: 'value' },
+    itemLabel: { type: String, default: 'label' },
+    itemInputLabel: { type: String, default: 'inputLabel' },
+    error: { type: Boolean, default: false },
   },
-  computed: {
-    componentId(): string {
-      return `dropdown-${this.uuid}`;
-    },
-    itemList(): Item[] {
-      return this.items.map((item, index) => {
-        const id = `${this.componentId}-option-${index}`;
+  setup(props, { emit }) {
+    // Refs
+    const dropdownInput = ref<HTMLElement | null>(null);
+    const dropdownList = ref<HTMLElement | null>(null);
+    const buttonClick = ref(false);
+    const isTooltipVisible = ref(false);
+    const popperInstance = ref<PopperInstance | null>(null);
+    const currentSearch = ref('');
+    const clearCurrentSearchTimeout = ref<number | null>(null);
+    const uuid = useUuid().generateUUID();
 
-        if (typeof item === 'string') {
-          return {
-            [this.itemValue]: item,
-            [this.itemLabel]: item,
-            [this.itemInputLabel]: item,
-            selected: item === this.value,
-            id,
-          };
-        }
+    // Computed properties
+    const componentId = computed(() => `dropdown-${uuid}`);
+
+    const itemList = computed(() => props.items.map((item, index) => {
+      const id = `${componentId.value}-option-${index}`;
+
+      if (typeof item === 'string') {
         return {
-          ...item,
-          selected: item[this.itemValue] === this.value,
+          [props.itemValue]: item,
+          [props.itemLabel]: item,
+          [props.itemInputLabel]: item,
+          selected: item === props.value,
           id,
         };
-      });
-    },
-    selectedItem(): Item | undefined {
-      return this.itemList.find((item) => item.selected);
-    },
-    selectedItemIndex(): number {
-      return this.itemList.findIndex((item) => item.selected);
-    },
-  },
-  mounted(): void {
-    const input = this.$refs['dropdown-input'] as HTMLElement;
-    const dropdownList = this.$refs['dropdown-list'] as HTMLElement;
-    this.popperInstance = createPopper(input, dropdownList, {
-      placement: 'bottom-start',
-      modifiers: [
-        {
-          name: 'offset',
-          options: {
-            offset: [0, 4],
-          },
-        },
-      ],
-    });
-  },
-  methods: {
-    async showTooltip(): Promise<void> {
-      this.isTooltipVisible = true;
-      if (this.popperInstance) await this.popperInstance.update();
-      await this.$nextTick();
-      const dropdownElement = (this.$refs['dropdown-list'] as HTMLElement).querySelector('ul');
-      if (dropdownElement) {
-        dropdownElement.focus();
       }
-    },
-    hideTooltip(): void {
-      this.isTooltipVisible = false;
-    },
-    toggleTooltip() {
-      if (this.isTooltipVisible) {
-        this.hideTooltip();
+
+      return {
+        ...item,
+        selected: item[props.itemValue] === props.value,
+        id,
+      };
+    }));
+
+    const selectedItem = computed(() => itemList.value.find((item) => item.selected));
+
+    const selectedItemIndex = computed(() => itemList.value.findIndex((item) => item.selected));
+
+    // Functions
+    const showTooltip = async () => {
+      isTooltipVisible.value = true;
+      if (popperInstance.value) await popperInstance.value.update();
+      await nextTick();
+      const dropdownElement = dropdownList.value?.querySelector('ul');
+      dropdownElement?.focus();
+    };
+
+    const hideTooltip = () => {
+      isTooltipVisible.value = false;
+    };
+
+    const toggleTooltip = () => {
+      if (isTooltipVisible.value) {
+        hideTooltip();
       } else {
-        this.showTooltip();
+        showTooltip();
       }
-    },
-    handleButtonClick(event: Event): void {
-      this.toggleTooltip();
-      this.buttonClick = false;
-      this.$emit('click', event);
-    },
-    handleItemListClick(item: Item): void {
-      this.selectItem(item);
-      (this.$refs['dropdown-input'] as HTMLElement).focus();
-      this.hideTooltip();
-    },
-    selectItem(item: Item): void {
-      this.$emit('input', item[this.itemValue]);
-      this.$emit('change', item[this.itemValue]);
+    };
+
+    const handleButtonClick = (event: Event) => {
+      toggleTooltip();
+      buttonClick.value = false;
+      emit('click', event);
+    };
+
+    const clearCurrentSearch = () => {
+      if (clearCurrentSearchTimeout.value) {
+        clearTimeout(clearCurrentSearchTimeout.value);
+        clearCurrentSearchTimeout.value = null;
+      }
+      clearCurrentSearchTimeout.value = window.setTimeout(() => {
+        currentSearch.value = '';
+        clearCurrentSearchTimeout.value = null;
+      }, 500);
+    };
+
+    const selectItem = (item: Item) => {
+      emit('input', item[props.itemValue]);
+      emit('change', item[props.itemValue]);
       // Scroll selected item into view if needed
-      const dropdownElement = (this.$refs['dropdown-list'] as HTMLElement).querySelector('ul');
+      const dropdownElement = dropdownList.value?.querySelector('ul');
       if (dropdownElement) {
         const selectedElement = dropdownElement.querySelector(`#${item.id}`);
         if (selectedElement) {
@@ -196,87 +192,106 @@ export default defineComponent({
           }
         }
       }
-    },
-    handleKeyDown(event: KeyboardEvent): void {
-      switch (event.key) {
-        case 'ArrowUp':
-        case 'ArrowDown':
-          event.preventDefault();
-          this.showTooltip();
-          this.handleListKeyDown(event);
-          break;
-        default:
+    };
+
+    const searchItem = (key: KeyboardEvent['key']) => {
+      currentSearch.value += key;
+
+      const matchedItem = itemList.value.find((item) => {
+        if (typeof item[props.itemLabel] !== 'string') return false;
+        const itemLabel = item[props.itemLabel] as string;
+        return itemLabel.toLowerCase().startsWith(currentSearch.value.toLowerCase());
+      });
+
+      if (matchedItem) {
+        selectItem(matchedItem);
       }
-    },
-    handleListKeyDown(event: KeyboardEvent): void {
+      clearCurrentSearch();
+    };
+
+    const handleItemListClick = (item: Item) => {
+      selectItem(item);
+      dropdownInput.value?.focus();
+      hideTooltip();
+    };
+
+    const handleListKeyDown = (event: KeyboardEvent) => {
       switch (event.key) {
         case 'ArrowUp':
           event.preventDefault();
-          if (this.selectedItemIndex - 1 >= 0) {
-            this.selectItem(this.itemList[this.selectedItemIndex - 1]);
+          if (selectedItemIndex.value - 1 >= 0) {
+            selectItem(itemList.value[selectedItemIndex.value - 1]);
           }
           break;
         case 'ArrowDown':
           event.preventDefault();
-          if (this.selectedItemIndex + 1 < this.itemList.length) {
-            this.selectItem(this.itemList[this.selectedItemIndex + 1]);
+          if (selectedItemIndex.value + 1 < itemList.value.length) {
+            selectItem(itemList.value[selectedItemIndex.value + 1]);
           }
           break;
         case 'Enter':
         case 'Escape':
           event.preventDefault();
-          this.hideTooltip();
-          (this.$refs['dropdown-input'] as HTMLElement).focus();
+          hideTooltip();
+          dropdownInput.value?.focus();
           break;
         default:
           if (!['Shift', 'Control', 'Meta', 'Alt'].includes(event.key)) {
-            this.searchItem(event.key);
+            searchItem(event.key);
           }
           break;
       }
-    },
-    handleListBlur(): void {
-      /* If blur comes from a click on the button, let the handleButtonClick hide the tooltip
-            otherwise handleButtonClick will re-open the tooltip */
-      if (!this.buttonClick) this.hideTooltip();
-    },
-    searchItem(key: KeyboardEvent['key']): void {
-      this.currentSearch += key;
+    };
 
-      const matchedItem = this.itemList
-        .find((item) => {
-          if (typeof item[this.itemLabel] !== 'string') return false;
-          const itemLabel = item[this.itemLabel] as string;
-          return itemLabel.toLowerCase().startsWith(this.currentSearch?.toLowerCase());
+    const handleKeyDown = (event: KeyboardEvent) => {
+      switch (event.key) {
+        case 'ArrowUp':
+        case 'ArrowDown':
+          event.preventDefault();
+          showTooltip();
+          handleListKeyDown(event);
+          break;
+        default:
+      }
+    };
+
+    const handleListBlur = () => {
+      if (!buttonClick.value) hideTooltip();
+    };
+
+    onMounted(() => {
+      if (dropdownInput.value && dropdownList.value) {
+        popperInstance.value = createPopper(dropdownInput.value, dropdownList.value, {
+          placement: 'bottom-start',
+          modifiers: [
+            {
+              name: 'offset',
+              options: {
+                offset: [0, 4],
+              },
+            },
+          ],
         });
+      }
+    });
 
-      if (matchedItem) {
-        this.selectItem(matchedItem);
-      }
-      this.clearCurrentSearch();
-    },
-    clearCurrentSearch(): void {
-      if (this.clearCurrentSearchTimeout) {
-        clearTimeout(this.clearCurrentSearchTimeout);
-        this.clearCurrentSearchTimeout = null;
-      }
-      this.clearCurrentSearchTimeout = setTimeout(() => {
-        this.currentSearch = '';
-        this.clearCurrentSearchTimeout = null;
-      }, 500);
-    },
-  },
-  props: {
-    value: { type: String },
-    placeholder: { type: String },
-    items: { type: Array, required: true },
-    itemValue: { type: String, default: 'value' },
-    itemLabel: { type: String, default: 'label' },
-    itemInputLabel: { type: String, default: 'inputLabel' },
-    error: { type: Boolean, default: false },
+    return {
+      dropdownInput,
+      dropdownList,
+      buttonClick,
+      isTooltipVisible,
+      itemList,
+      selectedItem,
+      selectedItemIndex,
+      handleButtonClick,
+      handleItemListClick,
+      handleKeyDown,
+      handleListKeyDown,
+      handleListBlur,
+      searchItem,
+    };
   },
 });
-
 </script>
 
 <style src="./Dropdown.scss" lang="scss"></style>

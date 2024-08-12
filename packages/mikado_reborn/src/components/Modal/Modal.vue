@@ -58,14 +58,10 @@ export const sizes = {
 export default defineComponent({
   components: {
     MkrCard,
-    MkrInteractiveIcon,
     MkrOverlay,
     MkrTextButton,
   },
   data() {
-    const $refs: {
-                modalContent: HTMLDivElement;
-              } = undefined;
     const focusTrapListenerCleanup: ReturnType<typeof focusTrap> = null;
 
     return {
@@ -73,7 +69,6 @@ export default defineComponent({
       isScrolled: false,
       isFullyScrolled: false,
       hasScroll: false,
-      $refs,
     };
   },
   mounted() {
@@ -81,7 +76,7 @@ export default defineComponent({
   },
   destroyed(): void {
     this.removeModalFromDom();
-    this.focusTrapListenerCleanup?.();
+    (this.focusTrapListenerCleanup as ReturnType<typeof focusTrap>)?.();
     if (this.closeable) this.removeCloseEventListeners();
   },
   methods: {
@@ -109,12 +104,17 @@ export default defineComponent({
       document.removeEventListener('keydown', this.keydownHandler);
     },
     focusSelector(): void {
-      const modalRef = this.$refs.modalContent;
+      const modalRef = this.$refs.modalContent as HTMLElement | null;
 
-      this.focusTrapListenerCleanup = focusTrap({
-        el: modalRef,
-        focusElement: modalRef.querySelector<HTMLElement>(this.focusFirstSelector),
-      });
+      if (modalRef) {
+        // TODO: Fix types
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        this.focusTrapListenerCleanup = focusTrap({
+          el: modalRef,
+          focusElement: modalRef.querySelector(this.focusFirstSelector),
+        });
+      }
     },
     onClickClose(): void {
       this.$emit('close', false);
@@ -168,7 +168,7 @@ export default defineComponent({
           this.setScrollState();
         }
       } else {
-        this.focusTrapListenerCleanup?.();
+        (this.focusTrapListenerCleanup as ReturnType<typeof focusTrap>)?.();
         this.removeModalFromDom();
       }
 

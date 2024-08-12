@@ -80,7 +80,6 @@ export default defineComponent({
 
     const handleClick = (event) => emit('click', event);
 
-    console.log(attrs);
     const attributes = computed(() => ({
       ...attrs,
       disabled: props.disabled,

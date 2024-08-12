@@ -22,24 +22,25 @@
 </template>
 
 <script lang="ts">
-import MkrInteractiveIcon from '../InteractiveIcon/InteractiveIcon';
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue';
+import MkrInteractiveIcon from '../InteractiveIcon/InteractiveIcon.vue';
 
-export default defineComponent({ components: { MkrInteractiveIcon },
-    data() {
-        return {
-            expanded: this.defaultExpanded
-        };
+export default defineComponent({
+  components: { MkrInteractiveIcon },
+  data() {
+    return {
+      expanded: this.defaultExpanded,
+    };
+  },
+  methods: {
+    togglePanel(): void {
+      this.expanded = !this.expanded;
     },
-    methods: {
-        togglePanel(): void {
-            this.expanded = !this.expanded;
-        }
-    },
-    props: {
-        defaultExpanded: { default: false, type: Boolean }
-    }
-})
+  },
+  props: {
+    defaultExpanded: { default: false, type: Boolean },
+  },
+});
 
 </script>
 
