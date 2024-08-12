@@ -9,16 +9,16 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue';
 
 export default defineComponent({
-    props: {
-        steps: { type: Number },
-        progress: { type: Number, default: 0 },
-        color: { type: String, default: 'primary' },
-        backgroundColor: { type: String, default: 'neutral-20' }
-    }
-})
+  props: {
+    steps: { type: Number },
+    progress: { type: Number, default: 0 },
+    color: { type: String, default: 'primary' },
+    backgroundColor: { type: String, default: 'neutral-20' },
+  },
+});
 
 </script>
 

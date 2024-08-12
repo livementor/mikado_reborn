@@ -13,23 +13,23 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'MkrSwitch',
-    methods: {
-        toggle(): void {
-            this.$emit('change', !this.value);
-        }
+  methods: {
+    toggle(): void {
+      this.$emit('change', !this.value);
     },
-    model: {
-        prop: "value",
-        event: "change"
-    },
-    props: {
-        value: { type: Boolean }
-    }
-})
+  },
+  model: {
+    prop: 'value',
+    event: 'change',
+  },
+  props: {
+    value: { type: Boolean },
+  },
+});
 
 </script>
 

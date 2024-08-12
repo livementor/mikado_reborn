@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue';
 
 export const ListSize = {
   medium: 'medium',
@@ -20,23 +20,22 @@ export const ListSize = {
 };
 
 export default defineComponent({
-    props: {
-        itemHoverable: {
-                type: Boolean,
-                default: false,
-              },
-        padded: {
-                type: Boolean,
-                default: false,
-              },
-        size: {
-                type: String,
-                default: ListSize.medium,
-                validator: (variant: string) => Object.values(ListSize).includes(variant),
-              }
-    }
-})
-
+  props: {
+    itemHoverable: {
+      type: Boolean,
+      default: false,
+    },
+    padded: {
+      type: Boolean,
+      default: false,
+    },
+    size: {
+      type: String,
+      default: ListSize.medium,
+      validator: (variant: string) => Object.values(ListSize).includes(variant),
+    },
+  },
+});
 
 </script>
 

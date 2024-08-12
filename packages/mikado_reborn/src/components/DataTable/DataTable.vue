@@ -23,7 +23,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue';
 
 interface Column {
   label: string,
@@ -31,12 +31,12 @@ interface Column {
 }
 
 export default defineComponent({
-    props: {
-        title: { type: String },
-        columns: { type: Array, required: true },
-        items: { type: Array }
-    }
-})
+  props: {
+    title: { type: String },
+    columns: { type: Array as () => Column[], required: true },
+    items: { type: Array },
+  },
+});
 
 </script>
 

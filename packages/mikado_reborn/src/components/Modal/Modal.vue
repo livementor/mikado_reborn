@@ -45,7 +45,6 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { MkrCard } from '../Card';
-import { MkrInteractiveIcon } from '../InteractiveIcon';
 import { MkrOverlay } from '../Overlay';
 import { MkrTextButton } from '../Button';
 import focusTrap from './focusTrap';

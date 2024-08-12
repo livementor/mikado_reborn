@@ -33,7 +33,7 @@ import { createPopper, Instance as PopperInstance, Placement } from '@popperjs/c
 import useUuid from '../../composables/useUuid';
 
 export default defineComponent({
-  setup(props, { expose }) {
+  setup(props) {
     const uuid = useUuid().generateUUID();
     const anchor = ref<HTMLElement | null>(null);
     const tooltip = ref<HTMLElement | null>(null);

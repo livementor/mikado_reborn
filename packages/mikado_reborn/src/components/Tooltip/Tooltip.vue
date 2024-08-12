@@ -75,7 +75,9 @@ export default defineComponent({
         }
       }
 
-      popperInstance.value = createPopper(anchor.value!, tooltip.value!, {
+      if (!anchor.value || !tooltip.value) return;
+
+      popperInstance.value = createPopper(anchor.value, tooltip.value, {
         placement: props.placement || 'bottom',
         modifiers: [
           { name: 'offset', options: { offset: [0, 4] } },
