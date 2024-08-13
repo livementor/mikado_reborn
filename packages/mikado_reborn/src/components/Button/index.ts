@@ -1,5 +1,3 @@
-import MkrContainedButton from './Contained/ContainedButton.vue';
-import MkrOutlinedButton from './Outlined/OutlinedButton.vue';
-import MkrTextButton from './Text/TextButton.vue';
-
-export { MkrContainedButton, MkrOutlinedButton, MkrTextButton };
+export { default as MkrContainedButton } from './Contained/ContainedButton.vue';
+export { default as MkrOutlinedButton } from './Outlined/OutlinedButton.vue';
+export { default as MkrTextButton } from './Text/TextButton.vue';
