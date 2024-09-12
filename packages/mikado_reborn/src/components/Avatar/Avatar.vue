@@ -4,22 +4,16 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script lang="ts" setup>
 
-export default defineComponent({
-  inheritAttrs: false,
-  computed: {
-    avatarStyle(): Partial<CSSStyleDeclaration> {
-      const width = `${this.size}rem`;
+import { computed } from 'vue';
 
-      return { height: width, width };
-    },
-  },
-  props: {
-    size: { default: 5, type: Number },
-  },
-});
+const avatarStyle: Partial<CSSStyleDeclaration> = computed(() => {
+  const width = `${props.size}rem`;
+  return { height: width, width };
+})
+
+const props = withDefaults(defineProps<{size: number}>(), {  size: 5 });
 
 </script>
 <style src="./Avatar.scss" lang="scss"></style>
