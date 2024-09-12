@@ -9,12 +9,12 @@
   </MkrButton>
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType } from 'vue';
+<script lang="ts" setup>
+import { PropType } from 'vue';
 import MkrButton from '../../../mixins/Button/Button.vue';
 import './ContainedButton.scss';
 
-export const containedButtonThemes = {
+type containedButtonThemes = {
   primary: 'primary',
   'primary-light': 'primary-light',
   secondary: 'secondary',
@@ -23,14 +23,9 @@ export const containedButtonThemes = {
   neutral: 'neutral',
 };
 
-export default defineComponent({
-  components: { MkrButton },
-  props: {
-    theme: {
-      default: 'primary',
-      validator: (theme: string) => Object.keys(containedButtonThemes).includes(theme),
-      type: String as PropType<keyof typeof containedButtonThemes>,
-    },
-  },
-});
+const props = withDefaults(
+  defineProps<{ type: PropType<keyof typeof containedButtonThemes> }>(),
+  { type: 'primary' }
+);
+
 </script>

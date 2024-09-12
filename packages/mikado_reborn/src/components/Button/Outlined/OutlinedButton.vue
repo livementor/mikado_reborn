@@ -8,12 +8,8 @@
   </MkrButton>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script lang="ts" setup >
 import MkrButton from '../../../mixins/Button/Button.vue';
 import './OutlinedButton.scss';
 
-export default defineComponent({
-  components: { MkrButton },
-});
 </script>
