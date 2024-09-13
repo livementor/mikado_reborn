@@ -5,52 +5,51 @@
   >
     <input
       type="checkbox"
-      :value="value"
-      v-model="internalValue"
-    >
+      :value="name"
+      :checked="value"
+      @change="setValue"/>
+
     <mkr-icon v-if="isChecked" name="check" />
   </div>
 
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script lang="ts" setup>
 import { MkrIcon } from '../Icon';
+import { computed } from 'vue';
 
-export default defineComponent({
-  components: {
-    MkrIcon,
+const props = withDefaults(
+  defineProps<{
+    size?: 'small' | 'medium',
+    name?: string | number,
+    value?: boolean | Array<string | number>
+  }>(),
+  {
+    size: 'medium'
   },
-  computed: {
-    internalValue: {
-      get() {
-        return this.modelValue;
-      },
-      set(value: boolean | Array<string | number>) {
-        this.$emit('change', value);
-      },
-    },
-    isChecked(): boolean {
-      if (Array.isArray(this.modelValue) && this.value) {
-        return this.modelValue.includes(this.value);
-      }
-      return this.modelValue === true;
-    },
-  },
-  props: {
-    size: {
-      default: 'medium',
-      validator: (size: string) => ['small', 'medium'].includes(size),
-      type: String,
-    },
-    value: { type: [String, Number] },
-    modelValue: { type: [Boolean, Array] },
-  },
-  model: {
-    prop: 'modelValue',
-    event: 'change',
-  },
-});
+);
+
+const emit = defineEmits(['input'])
+
+const isChecked = computed(() =>
+  Array.isArray(props.value) && props.name ?
+    props.value.includes(props.name) :
+    props.value === true
+);
+
+const setValue = (e) => { // prepare value according to context
+  let newValue: boolean | Array<string | number>;
+  // if value is array && name is set => emit updated array
+  // else => emit boolean
+  if ( Array.isArray(props.value) && props.name ){
+    newValue = props.value.includes(props.name) ?
+      props.value.filter(v => v != props.name) :
+      props.value.concat(props.name);
+  }
+  else newValue = e.target.checked;
+
+  emit('input', newValue)
+}
 
 </script>
 
