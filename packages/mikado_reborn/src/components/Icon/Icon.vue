@@ -2,28 +2,24 @@
   <span class="mkr__icon" :class="classNames" @click="click"/>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script lang="ts" setup>
 
-export default defineComponent({
-  computed: {
-    classNames(): string[] {
-      const classes = [];
-      if (this.color) classes.push(this.color);
-      if (this.name) classes.push(`icon-${this.name}`);
-      return classes;
-    },
-  },
-  methods: {
-    click(event: Event): void {
-      this.$emit('click', event);
-    },
-  },
-  props: {
-    name: { required: true, type: String },
-    color: { default: undefined, type: String },
-  },
-});
+import { computed } from 'vue';
+
+const props = defineProps<{ name: string, color?: string }>();
+
+const classNames = computed(() => {
+  const classes = [];
+  if (props.color) classes.push(props.color);
+  if (props.name) classes.push(`icon-${props.name}`);
+  return classes;
+})
+
+const emit = defineEmits(['click'])
+
+const click = (e) => {
+  emit('click', e);
+}
 
 </script>
 <style src="./Icon.scss" lang="scss"></style>
