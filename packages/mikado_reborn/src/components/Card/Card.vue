@@ -1,6 +1,25 @@
-<!-- eslint-disable vue/multi-word-component-names -->
-<script lang="ts">
-import { CreateElement, RenderContext, VNode } from 'vue';
+<template>
+  <div
+    class="mkr__card"
+    :class="[`mkr__card--radius-${radius}`, { 'mkr__card--elevated': elevated, 'mkr__card--border': bordered }]">
+    <slot/>
+  </div>
+</template>
+
+<script lang="ts" setup>
+
+export type radiusType = 'small' | 'medium' | 'large';
+
+const props = withDefaults(
+  defineProps<{
+    elevated: boolean,
+    bordered: boolean,
+    radius: radiusType
+  }>(),
+  { elevated: false, bordered: false, radius: 'small' }
+);
+
+/*import { CreateElement, RenderContext, VNode } from 'vue';
 import { mergeData } from 'vue-functional-data-merge';
 
 export const radius = {
@@ -10,7 +29,7 @@ export const radius = {
 };
 
 export default {
-  functional: true,
+  /!*functional: true,*!/
   props: {
     elevated: {
       type: Boolean,
@@ -26,21 +45,7 @@ export default {
       validator: (value: string): boolean => Object.values(radius).includes(value),
     },
   },
-  render(h: CreateElement, { props, data, children }: RenderContext) : VNode {
-    const cardData = {
-      staticClass: 'mkr__card',
-      class: [
-        `mkr__card--radius-${props.radius}`,
-        {
-          'mkr__card--elevated': props.elevated,
-          'mkr__card--border': props.border,
-        },
-      ],
-    };
-
-    return h('div', mergeData(data, cardData), children);
-  },
-};
+};*/
 </script>
 
 <style src="./Card.scss" lang="scss"></style>
