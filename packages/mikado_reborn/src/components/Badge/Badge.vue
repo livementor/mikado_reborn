@@ -1,5 +1,7 @@
 <template>
-  <span :class="`mkr__badge mkr__badge--${type}`"><slot /></span>
+  <span :class="`mkr__badge mkr__badge--${type}`">
+    <slot />
+  </span>
 </template>
 
 <script lang="ts" setup>
