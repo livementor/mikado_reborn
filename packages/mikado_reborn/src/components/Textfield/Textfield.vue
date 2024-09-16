@@ -3,6 +3,8 @@
     <div class="mkr__textfield__inner">
       <mkr-icon v-if="iconName" :color="iconColor" :name="iconName" />
       <input
+        @focus="focused=true"
+        @blur="focused=false"
         v-bind="$attrs"
         :value="value"
         :type="getType"
@@ -26,62 +28,38 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script lang="ts" setup>
 import MkrIcon from '../Icon/Icon.vue';
 import MkrContainedButton from '../Button/Contained/ContainedButton.vue';
+import { computed, ref } from 'vue';
 
-export default defineComponent({
-  components: {
-    MkrContainedButton,
-    MkrIcon,
-  },
-  data() {
-    return {
-      focused: false,
-      showPassword: false,
-    };
-  },
-  computed: {
-    iconColor(): string {
-      if (this.focused) {
-        return this.error ? 'danger' : 'secondary';
-      }
-      return 'neutral-60';
-    },
-    getType(): string {
-      if (this.showPassword) {
-        return 'text';
-      }
-      return this.type;
-    },
-  },
-  methods: {
-    showPasswordClick(): void {
-      this.showPassword = !this.showPassword;
-    },
-    emitInputValue(event: InputEvent) {
-      const input = event.target as HTMLInputElement | null;
+const focused = ref<boolean>(false)
+const showPassword = ref<boolean>(false)
 
-      if (input) {
-        this.$emit('input', input.value);
-      }
+const props = withDefaults(
+  defineProps<{
+    value: string,
+    iconName: string,
+    placeholder: string,
+    error: boolean,
+    type: 'text' | 'email' | 'password' | 'date',
+  }>(),
+  { type: 'text' } );
 
-      this.$emit('change', event);
-    },
-  },
-  props: {
-    value: { type: String },
-    iconName: { type: String },
-    placeholder: { type: String },
-    error: { type: Boolean },
-    type: {
-      default: 'text',
-      type: String,
-      validator: (type: string) => ['text', 'email', 'password', 'date'].includes(type),
-    },
-  },
-});
+const emit = defineEmits(['input', 'change']);
+
+const iconColor = computed<string>(() => focused.value ? (props.error ? 'danger' : 'secondary') : 'neutral-60');
+const getType = computed<string>(() => showPassword.value ? 'text' : props.type);
+
+const showPasswordClick = () => {
+    showPassword.value = !showPassword.value;
+  };
+
+const emitInputValue = (event: InputEvent) => {
+  const input = event.target as HTMLInputElement | null;
+  if (input) emit('input', input.value);
+  else emit('change', event);
+};
 
 </script>
 

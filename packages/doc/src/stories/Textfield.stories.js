@@ -5,7 +5,7 @@ export default {
   title: 'Components/Textfield',
   component: MkrTextfield,
   argTypes: {
-    type: { control: { type: 'select', options: ['text', 'email', 'password'] } },
+    type: { control: { type: 'select', options: ['text', 'email', 'password', 'date'] } },
     iconName: { control: { type: 'select', options: icons } },
   },
 };
