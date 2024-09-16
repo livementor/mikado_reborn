@@ -8,17 +8,21 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script lang="ts" setup>
 
-export default defineComponent({
-  props: {
-    steps: { type: Number },
-    progress: { type: Number, default: 0 },
-    color: { type: String, default: 'primary' },
-    backgroundColor: { type: String, default: 'neutral-20' },
-  },
-});
+const props = withDefaults(
+  defineProps<{
+    steps?: number,
+    progress?: number,
+    color?: string,
+    backgroundColor?: string,
+  }>(),
+  {
+    progress: 0,
+    color: 'primary',
+    backgroundColor: 'neutral-20',
+  }
+);
 
 </script>
 
