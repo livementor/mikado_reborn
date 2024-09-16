@@ -15,48 +15,40 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
-import { MkrIcon } from '../Icon';
+<script lang="ts" setup>
+import { onMounted, ref } from 'vue';
+const show = ref(true);
+const props = withDefaults(
+  defineProps<{
+    message: string,
+    error?: boolean,
+    success?: boolean,
+    neutral?: boolean,
+    closable?: boolean,
+    timeout: number,
+  }>(),
+  { closable: false, timeout: 5000 }
+);
 
-export default defineComponent({
-  components: {
-    MkrIcon,
-  },
-  data() {
-    return {
-      show: true,
-    };
-  },
-  mounted(): void {
-    if (this.timeout > 0) {
-      setTimeout(() => {
-        if (this.show) {
-          this.close();
-        }
-      }, this.timeout);
-    }
-  },
-  methods: {
-    click(event: Event): void {
-      if (this.closable) {
-        this.close(event);
-      }
-    },
-    close(event?: Event): void {
-      this.show = false;
-      this.$emit('close', event);
-    },
-  },
-  props: {
-    message: { type: String, required: true },
-    error: { type: Boolean },
-    success: { type: Boolean },
-    neutral: { type: Boolean },
-    closable: { type: Boolean, default: false },
-    timeout: { type: Number, default: 5000 },
-  },
-});
+const emit = defineEmits(['close']);
+
+const close = (event?: Event) => {
+  show.value = false;
+  emit('close', event);
+}
+
+const click = (event: Event) => {
+  if (props.closable) close(event);
+}
+
+onMounted(() => {
+  if (props.timeout > 0) {
+    setTimeout(
+      () => { if (show.value) { close() } },
+      props.timeout
+    );
+  }
+})
 
 </script>
 
