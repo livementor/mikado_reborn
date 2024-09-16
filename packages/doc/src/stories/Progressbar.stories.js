@@ -3,6 +3,9 @@ import { MkrProgressbar } from '../../../mikado_reborn/src/components';
 export default {
   title: 'Components/Progressbar',
   component: MkrProgressbar,
+  argTypes: {
+    size: { control: { type: 'select', options: ['medium', 'small'] } },
+  }
 };
 
 const Template = (args) => ({

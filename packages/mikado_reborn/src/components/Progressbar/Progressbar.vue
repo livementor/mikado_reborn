@@ -25,10 +25,37 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType } from 'vue';
+<script lang="ts" setup>
 
-export default defineComponent({
+import { computed } from 'vue';
+
+const props = withDefaults(
+  defineProps<{
+    current?: number,
+    total: number,
+    shrinkEmoji: boolean,
+    size: 'small' | 'medium',
+    hideState?: boolean,
+  }>(),
+  {
+    current: 0,
+    shrinkEmoji: false,
+    size: 'medium',
+    hideState: false
+  }
+);
+
+const isCompleted = computed<boolean>(() => props.total > 0 && props.current >= props.total);
+const showEmoji = computed<boolean>(() => props.isCompleted || !props.shrinkEmoji);
+const spanStyle = computed(() => {
+  const percentage = Math.max(Math.min((props.current / props.total) * 100, 100), 0);
+  return {
+    transform: props.current <= 0 ? 'translateX(-4px)' : '', // hide border-width
+    width: `${percentage}%`,
+  };
+})
+
+/*export default defineComponent({
   computed: {
     isCompleted(): boolean {
       return this.total > 0 && this.current >= this.total;
@@ -56,8 +83,7 @@ export default defineComponent({
     },
     hideState: { type: Boolean, required: false, default: false },
   },
-});
-
+});*/
 </script>
 
 <style src="./Progressbar.scss" lang="scss"></style>
