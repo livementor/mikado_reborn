@@ -33,33 +33,31 @@
 </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script lang="ts" setup>
+import StepperIcon from './StepperIcon.vue';
+import { computed } from 'vue';
 
 export type StepperItem = { type: string; label: string };
 
-export default defineComponent({
-  components: {
-    StepperIcon: () => import('./StepperIcon.vue'),
-  },
-  computed: {
-    itemsAsObject(): StepperItem[] {
-      return this.items.map((item: string | StepperItem) => {
-        if (typeof item === 'string') {
-          return {
-            type: 'default',
-            label: item,
-          };
-        }
-        return item;
-      });
-    },
-  },
-  props: {
-    items: { type: Array as () => Array<string | StepperItem>, required: true },
-    step: { type: Number, default: 1 },
-  },
-});
+const props = withDefaults(
+  defineProps<{
+    items: Array<string | StepperItem>,
+    step: number
+  }>(),
+  { step: 1 }
+)
+
+const itemsAsObject: StepperItem[] = computed(() => {
+  return props.items.map((item: string | StepperItem) => {
+    if (typeof item === 'string') {
+      return {
+        type: 'default',
+        label: item,
+      };
+    }
+    return item;
+  });
+})
 
 </script>
 
