@@ -1,4 +1,3 @@
-import { interactiveIconThemes } from '@livementor/mikado_reborn/src/components/InteractiveIcon/InteractiveIcon'
 import { MkrInteractiveIcon } from '../../../mikado_reborn/src/components'
 import icons from '../../../mikado_reborn/src/utils/icons'
 
@@ -7,7 +6,7 @@ export default {
   component: MkrInteractiveIcon,
   argTypes: {
     name: { control: { type: 'select', options: icons } },
-    theme: { control: { type: 'select', options: Object.values(interactiveIconThemes) } },
+    theme: { control: { type: 'select', options: ['light', 'dark'] } },
   },
 }
 
