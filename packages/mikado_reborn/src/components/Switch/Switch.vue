@@ -12,24 +12,12 @@
   </span>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script lang="ts" setup>
 
-export default defineComponent({
-  name: 'MkrSwitch',
-  methods: {
-    toggle(): void {
-      this.$emit('change', !this.value);
-    },
-  },
-  model: {
-    prop: 'value',
-    event: 'change',
-  },
-  props: {
-    value: { type: Boolean },
-  },
-});
+const props = defineProps<{value: boolean}>();
+const emits = defineEmits(['input']);
+
+const toggle = () => emits('input', !props.value);
 
 </script>
 
