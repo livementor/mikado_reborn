@@ -11,31 +11,21 @@
   </ul>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script lang="ts" setup>
+import { withDefaults, defineProps } from 'vue';
 
-export const ListSize = {
-  medium: 'medium',
-  large: 'large',
-};
-
-export default defineComponent({
-  props: {
-    itemHoverable: {
-      type: Boolean,
-      default: false,
-    },
-    padded: {
-      type: Boolean,
-      default: false,
-    },
-    size: {
-      type: String,
-      default: ListSize.medium,
-      validator: (variant: string) => Object.values(ListSize).includes(variant),
-    },
-  },
-});
+withDefaults(
+  defineProps<{
+    itemHoverable?: boolean,
+    padded?: boolean,
+    size?: 'small' | 'medium' | 'large'
+  }>(),
+  {
+    itemHoverable: false,
+    padded: false,
+    size: 'medium',
+  }
+);
 
 </script>
 

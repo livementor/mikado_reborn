@@ -1,5 +1,4 @@
 import { MkrList, MkrListItem } from "../../../mikado_reborn/src/components";
-import { ListSize } from '../../../mikado_reborn/src/components/List/List.vue'
 
 export default {
   title: 'Components/List',
@@ -8,7 +7,7 @@ export default {
     MkrListItem,
   },
   argTypes: {
-    size: { options: [...Object.values(ListSize)], control: { type: 'inline-radio' }, defaultValue: { summary: 'medium' }, description: 'Size of list - Apply CSS style according with the chosen size' },
+    size: { control: { type: 'inline-radio', options: ['small', 'medium', 'large'] }, defaultValue: { summary: 'medium' }, description: 'Size of list - Apply CSS style according with the chosen size' },
     padded: { control: { type: 'boolean' }, defaultValue: { summary: 'false' }, description: 'Apply padding and a dashed border on `<mkr-list />`' },
     itemHoverable: { control: { type: 'boolean' }, defaultValue: { summary: 'false' }, description: 'Apply CSS style on `<mkr-list-item />` on hover' },
     clickable: { control: { type: 'boolean' }, defaultValue: { summary: 'false' }, description: 'Option of `<mkr-list-item />` to make the component a `<button />` clickable' },
