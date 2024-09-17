@@ -22,21 +22,19 @@
   </table>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script lang="ts" setup>
+import { defineProps } from 'vue';
 
 interface Column {
   label: string,
   value: string,
-}
+};
 
-export default defineComponent({
-  props: {
-    title: { type: String },
-    columns: { type: Array as () => Column[], required: true },
-    items: { type: Array },
-  },
-});
+defineProps<{
+  title?: string,
+  columns: Column[],
+  items: Array<any>,
+}>();
 
 </script>
 
