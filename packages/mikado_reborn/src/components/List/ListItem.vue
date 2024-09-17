@@ -12,17 +12,10 @@
   </li>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script lang="ts" setup>
+import { withDefaults, defineProps } from 'vue';
 
-export default defineComponent({
-  props: {
-    clickable: {
-      type: Boolean,
-      default: false,
-    },
-  },
-});
+withDefaults( defineProps<{ clickable?: boolean }>(), { clickable: false } );
 
 </script>
 
