@@ -18,7 +18,7 @@ import { withDefaults, defineProps } from 'vue';
 type textButtonThemes = 'neutral' | 'neutral-80' | 'neutral-60' | 'secondary-dark' | 'danger';
 
 withDefaults(
-  defineProps<{ theme: textButtonThemes }>(),
+  defineProps<{ theme?: textButtonThemes }>(),
   { theme: 'neutral' },
 );
 

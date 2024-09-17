@@ -17,7 +17,7 @@ import './ContainedButton.scss';
 type containedButtonThemes = 'primary' | 'primary-light' | 'secondary' | 'secondary-light' | 'danger-light' | 'neutral';
 
 withDefaults(
-  defineProps<{ theme: containedButtonThemes }>(),
+  defineProps<{ theme?: containedButtonThemes }>(),
   { theme: 'primary' },
 );
 
