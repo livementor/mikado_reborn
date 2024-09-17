@@ -13,8 +13,9 @@
 </template>
 
 <script lang="ts" setup>
+import { defineProps, defineEmits } from 'vue';
 
-const props = defineProps<{value: boolean}>();
+const props = defineProps<{ value: boolean }>();
 const emits = defineEmits(['input']);
 
 const toggle = () => emits('input', !props.value);

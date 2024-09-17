@@ -16,7 +16,7 @@
 
 <script lang="ts" setup>
 import { MkrIcon } from '../Icon';
-import { computed } from 'vue';
+import { computed, withDefaults, defineProps, defineEmits } from 'vue';
 
 const props = withDefaults(
   defineProps<{
@@ -24,12 +24,10 @@ const props = withDefaults(
     name?: string | number,
     value?: boolean | Array<string | number>
   }>(),
-  {
-    size: 'medium'
-  },
+  { size: 'small' },
 );
 
-const emit = defineEmits(['input'])
+const emit = defineEmits(['input']);
 
 const isChecked = computed(() =>
   Array.isArray(props.value) && props.name ?
@@ -48,8 +46,8 @@ const setValue = (e) => { // prepare value according to context
   }
   else newValue = e.target.checked;
 
-  emit('input', newValue)
-}
+  emit('input', newValue);
+};
 
 </script>
 

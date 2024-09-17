@@ -13,11 +13,13 @@
 import MkrButton from '../../../mixins/Button/Button.vue';
 import './TextButton.scss';
 
+import { withDefaults, defineProps } from 'vue';
+
 type textButtonThemes = 'neutral' | 'neutral-80' | 'neutral-60' | 'secondary-dark' | 'danger';
 
-const props = withDefaults(
-  defineProps<{ type: textButtonThemes }>(),
-  { type: 'neutral' }
+withDefaults(
+  defineProps<{ theme: textButtonThemes }>(),
+  { theme: 'neutral' },
 );
 
 </script>

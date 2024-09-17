@@ -10,22 +10,15 @@
 </template>
 
 <script lang="ts" setup>
-import { PropType } from 'vue';
+import { withDefaults, defineProps } from 'vue';
 import MkrButton from '../../../mixins/Button/Button.vue';
 import './ContainedButton.scss';
 
-type containedButtonThemes = {
-  primary: 'primary',
-  'primary-light': 'primary-light',
-  secondary: 'secondary',
-  'secondary-light': 'secondary-light',
-  'danger-light': 'danger-light',
-  neutral: 'neutral',
-};
+type containedButtonThemes = 'primary' | 'primary-light' | 'secondary' | 'secondary-light' | 'danger-light' | 'neutral';
 
-const props = withDefaults(
-  defineProps<{ type: PropType<keyof typeof containedButtonThemes> }>(),
-  { type: 'primary' }
+withDefaults(
+  defineProps<{ theme: containedButtonThemes }>(),
+  { theme: 'primary' },
 );
 
 </script>

@@ -7,12 +7,12 @@
 
 
 <script lang="ts" setup>
-import { computed } from 'vue';
+import { computed, withDefaults, defineProps } from 'vue';
 import Icon from '../Icon/Icon.vue';
 
 const props = withDefaults(
   defineProps<{ type: 'default' | 'warning' | 'error' }>(),
-  { type: 'default' }
+  { type: 'default' },
 );
 
 const iconProperties = computed(() => {

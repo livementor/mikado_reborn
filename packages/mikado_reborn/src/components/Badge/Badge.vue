@@ -6,6 +6,8 @@
 
 <script lang="ts" setup>
 
+import { withDefaults, defineProps } from 'vue';
+
 type badgeType =
   'danger' |
   'danger-light' |
@@ -19,9 +21,9 @@ type badgeType =
   'warning-light' |
   'other-1';
 
-const props = withDefaults(
+withDefaults(
   defineProps<{type: badgeType}>(),
-  {type: 'primary'}
+  { type: 'primary' },
 );
 
 </script>

@@ -16,7 +16,7 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, defineProps, defineEmits, withDefaults } from 'vue';
 const show = ref(true);
 const props = withDefaults(
   defineProps<{
@@ -27,7 +27,7 @@ const props = withDefaults(
     closable?: boolean,
     timeout: number,
   }>(),
-  { closable: false, timeout: 5000 }
+  { closable: false, timeout: 5000 },
 );
 
 const emit = defineEmits(['close']);
@@ -35,17 +35,17 @@ const emit = defineEmits(['close']);
 const close = (event?: Event) => {
   show.value = false;
   emit('close', event);
-}
+};
 
 const click = (event: Event) => {
   if (props.closable) close(event);
-}
+};
 
 onMounted(() => {
   if (props.timeout > 0) {
     setTimeout(
       () => { if (show.value) { close() } },
-      props.timeout
+      props.timeout,
     );
   }
 })

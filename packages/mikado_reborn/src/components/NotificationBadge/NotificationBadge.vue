@@ -4,10 +4,13 @@
   </span>
 </template>
 <script lang="ts" setup>
-const props = withDefaults(
+import { withDefaults, defineProps } from 'vue';
+
+withDefaults(
   defineProps<{ show: boolean }>(),
-  { show: false }
+  { show: false },
 );
+
 </script>
 
 <style src="./NotificationBadge.scss" lang="scss"></style>

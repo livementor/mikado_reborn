@@ -14,9 +14,7 @@
 </template>
 
 <script lang="ts">
-import {
-  defineComponent, computed, inject, ref,
-} from 'vue';
+import { defineComponent, computed, inject, ref } from 'vue';
 import { ChipsListProvide } from './ChipsList.vue';
 import { MkrIcon } from '../Icon';
 import useUuid from '../../composables/useUuid';

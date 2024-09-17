@@ -29,9 +29,9 @@
 </template>
 
 <script lang="ts" setup>
+import { computed, ref, withDefaults, defineProps, defineEmits } from 'vue';
 import MkrIcon from '../Icon/Icon.vue';
 import MkrContainedButton from '../Button/Contained/ContainedButton.vue';
-import { computed, ref } from 'vue';
 
 const focused = ref<boolean>(false)
 const showPassword = ref<boolean>(false)
@@ -44,7 +44,8 @@ const props = withDefaults(
     error: boolean,
     type: 'text' | 'email' | 'password' | 'date',
   }>(),
-  { type: 'text' } );
+  { type: 'text' }
+);
 
 const emit = defineEmits(['input', 'change']);
 
@@ -52,8 +53,8 @@ const iconColor = computed<string>(() => focused.value ? (props.error ? 'danger'
 const getType = computed<string>(() => showPassword.value ? 'text' : props.type);
 
 const showPasswordClick = () => {
-    showPassword.value = !showPassword.value;
-  };
+  showPassword.value = !showPassword.value;
+};
 
 const emitInputValue = (event: InputEvent) => {
   const input = event.target as HTMLInputElement | null;

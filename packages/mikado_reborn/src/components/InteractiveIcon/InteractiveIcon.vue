@@ -11,7 +11,8 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue';
+import { computed, withDefaults, defineProps, defineEmits } from 'vue';
+import { MkrIcon } from '../Icon';
 
 const props = withDefaults(
   defineProps<{
@@ -19,7 +20,7 @@ const props = withDefaults(
     theme?: 'light' | 'dark' | string, // string for customColor ?
     activated?: boolean,
   }>(),
-  { theme: 'light', activated: false }
+  { theme: 'light', activated: false },
 );
 
 // classes
@@ -29,7 +30,6 @@ const classes = computed(() => [
   `${classBase}--${props.theme}`,
   { [`${classBase}--${props.theme}--activated`]: props.activated },
 ]);
-console.log(classes);
 
 const component = computed((context) => {
   const isRouterLink = !!context.$attrs.to;

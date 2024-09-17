@@ -9,8 +9,9 @@
 </template>
 
 <script lang="ts" setup>
+import { withDefaults, defineProps } from 'vue';
 
-const props = withDefaults(
+withDefaults(
   defineProps<{
     steps?: number,
     progress?: number,
@@ -21,7 +22,7 @@ const props = withDefaults(
     progress: 0,
     color: 'primary',
     backgroundColor: 'neutral-20',
-  }
+  },
 );
 
 </script>

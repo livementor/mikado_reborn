@@ -15,8 +15,9 @@
 </template>
 
 <script lang="ts" setup>
+import { defineProps, defineEmits } from 'vue';
 
-const props = defineProps<{
+defineProps<{
   value: string,
   minlength: number,
   maxlength: number,
@@ -25,7 +26,7 @@ const props = defineProps<{
   rows: number,
 }>();
 
-const emit = defineEmits(['input', 'change'])
+const emit = defineEmits(['input', 'change']);
 
 const emitInputValue = (event: InputEvent) => {
   const input = event.target as HTMLInputElement | null;
@@ -33,7 +34,7 @@ const emitInputValue = (event: InputEvent) => {
     emit('input', input.value);
   }
   emit('change', event);
-}
+};
 
 </script>
 

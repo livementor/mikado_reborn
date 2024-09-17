@@ -26,8 +26,7 @@
 </template>
 
 <script lang="ts" setup>
-
-import { computed } from 'vue';
+import { computed, withDefaults, defineProps } from 'vue';
 
 const props = withDefaults(
   defineProps<{
@@ -41,8 +40,8 @@ const props = withDefaults(
     current: 0,
     shrinkEmoji: false,
     size: 'medium',
-    hideState: false
-  }
+    hideState: false,
+  },
 );
 
 const isCompleted = computed<boolean>(() => props.total > 0 && props.current >= props.total);
@@ -53,37 +52,8 @@ const spanStyle = computed(() => {
     transform: props.current <= 0 ? 'translateX(-4px)' : '', // hide border-width
     width: `${percentage}%`,
   };
-})
+});
 
-/*export default defineComponent({
-  computed: {
-    isCompleted(): boolean {
-      return this.total > 0 && this.current >= this.total;
-    },
-    showEmoji(): boolean {
-      return this.isCompleted || !this.shrinkEmoji;
-    },
-    spanStyle(): Partial<CSSStyleDeclaration> {
-      const percentage = Math.max(Math.min((this.current / this.total) * 100, 100), 0);
-      return {
-        transform: this.current <= 0 ? 'translateX(-4px)' : '', // hide border-width
-        width: `${percentage}%`,
-      };
-    },
-  },
-  props: {
-    current: { type: Number, default: 0 },
-    total: { type: Number, required: true },
-    shrinkEmoji: { type: Boolean, required: false, default: false },
-    size: {
-      required: false,
-      default: 'medium',
-      validator: (size: string) => ['small', 'medium'].includes(size),
-      type: String as PropType<'small' | 'medium'>,
-    },
-    hideState: { type: Boolean, required: false, default: false },
-  },
-});*/
 </script>
 
 <style src="./Progressbar.scss" lang="scss"></style>

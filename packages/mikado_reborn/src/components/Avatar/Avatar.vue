@@ -6,14 +6,15 @@
 
 <script lang="ts" setup>
 
-import { computed } from 'vue';
+import { computed, withDefaults, defineProps } from 'vue';
+
+const props = withDefaults(defineProps<{size: number}>(), {  size: 5 });
 
 const avatarStyle: Partial<CSSStyleDeclaration> = computed(() => {
   const width = `${props.size}rem`;
   return { height: width, width };
-})
-
-const props = withDefaults(defineProps<{size: number}>(), {  size: 5 });
+});
 
 </script>
+
 <style src="./Avatar.scss" lang="scss"></style>

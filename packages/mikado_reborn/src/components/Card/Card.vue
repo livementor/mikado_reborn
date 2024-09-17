@@ -7,45 +7,19 @@
 </template>
 
 <script lang="ts" setup>
+import { withDefaults, defineProps } from 'vue';
 
 export type radiusType = 'small' | 'medium' | 'large';
 
-const props = withDefaults(
+withDefaults(
   defineProps<{
     elevated: boolean,
     bordered: boolean,
     radius: radiusType
   }>(),
-  { elevated: false, bordered: false, radius: 'small' }
+  { elevated: false, bordered: false, radius: 'small' },
 );
 
-/*import { CreateElement, RenderContext, VNode } from 'vue';
-import { mergeData } from 'vue-functional-data-merge';
-
-export const radius = {
-  small: 'small',
-  medium: 'medium',
-  large: 'large',
-};
-
-export default {
-  /!*functional: true,*!/
-  props: {
-    elevated: {
-      type: Boolean,
-      default: false,
-    },
-    border: {
-      type: Boolean,
-      default: false,
-    },
-    radius: {
-      type: String,
-      default: 'small',
-      validator: (value: string): boolean => Object.values(radius).includes(value),
-    },
-  },
-};*/
 </script>
 
 <style src="./Card.scss" lang="scss"></style>

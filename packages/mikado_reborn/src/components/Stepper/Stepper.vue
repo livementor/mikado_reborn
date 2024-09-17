@@ -35,7 +35,7 @@
 
 <script lang="ts" setup>
 import StepperIcon from './StepperIcon.vue';
-import { computed } from 'vue';
+import { computed, withDefaults, defineProps } from 'vue';
 
 export type StepperItem = { type: string; label: string };
 
@@ -44,8 +44,8 @@ const props = withDefaults(
     items: Array<string | StepperItem>,
     step: number
   }>(),
-  { step: 1 }
-)
+  { step: 1 },
+);
 
 const itemsAsObject: StepperItem[] = computed(() => {
   return props.items.map((item: string | StepperItem) => {
@@ -57,7 +57,7 @@ const itemsAsObject: StepperItem[] = computed(() => {
     }
     return item;
   });
-})
+});
 
 </script>
 
