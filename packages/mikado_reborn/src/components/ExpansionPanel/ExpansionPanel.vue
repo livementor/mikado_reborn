@@ -21,26 +21,14 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script lang="ts" setup>
+import { defineProps, ref, withDefaults } from 'vue';
 import MkrInteractiveIcon from '../InteractiveIcon/InteractiveIcon.vue';
 
-export default defineComponent({
-  components: { MkrInteractiveIcon },
-  data() {
-    return {
-      expanded: this.defaultExpanded,
-    };
-  },
-  methods: {
-    togglePanel(): void {
-      this.expanded = !this.expanded;
-    },
-  },
-  props: {
-    defaultExpanded: { default: false, type: Boolean },
-  },
-});
+const props = withDefaults( defineProps<{ defaultExpanded: boolean }>(), { defaultExpanded: false } );
+
+const expanded = ref(props.defaultExpanded);
+const togglePanel = () => { expanded.value = !expanded.value };
 
 </script>
 
