@@ -13,26 +13,22 @@
   </ul>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script lang="ts" setup>
+import { withDefaults, defineProps } from 'vue';
 
-export const NavItemTypes = {
-  main: 'main',
-  sub: 'sub',
-  'sub-light': 'sub-light',
-};
-
-export default defineComponent({
-  props: {
-    type: {
-      default: NavItemTypes.main,
-      validator: (type: string) => Object.values(NavItemTypes).includes(type),
-      type: String,
-    },
-    topNav: { type: Boolean, default: false },
-    horizontal: { type: Boolean, default: false },
-  },
-});
+withDefaults(
+  defineProps<{
+    type?: 'main' | 'sub' | 'sub-light',
+    topNav?: boolean,
+    horizontal?: boolean
+  }>(),
+  {
+    type: 'main',
+    topNav: false,
+    horizontal: false,
+  }
+);
 
 </script>
+
 <style src="./NavItemGroup.scss" lang="scss"></style>

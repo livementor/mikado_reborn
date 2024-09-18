@@ -15,43 +15,30 @@
   </li>
 </template>
 
-<script lang="ts">
-import { defineComponent, computed } from 'vue';
+<script lang="ts" setup>
+import { defineProps, withDefaults, computed, useAttrs, useSlots } from 'vue';
 import MkrIcon from '../Icon/Icon.vue';
 import MkrTooltip from '../Tooltip/Tooltip.vue';
-import './NavItem.scss';
 
-export default defineComponent({
-  components: {
-    MkrIcon,
-    MkrTooltip,
+const props = withDefaults(
+  defineProps<{ active?: boolean, title?: string, icon?: string }>(),
+  { active: false }
+);
+const emit = defineEmits(['click']);
+
+const classes = computed(() => [
+  'mkr__nav-item',
+  {
+    'mkr__nav-item--icon-only': !(useSlots()).default,
+    'mkr__nav-item--active': props.active,
   },
-  props: {
-    active: { type: Boolean, default: false },
-    title: { type: String, default: undefined },
-    icon: { type: String, default: undefined },
-  },
-  setup(props, { emit, attrs, slots }) {
-    const classes = computed(() => [
-      'mkr__nav-item',
-      {
-        'mkr__nav-item--icon-only': !slots.default,
-        'mkr__nav-item--active': props.active,
-      },
-    ]);
+]);
 
-    const isRouterLink = computed(() => !!attrs.to);
-    const component = computed(() => (isRouterLink.value ? 'RouterLink' : 'a'));
+const isRouterLink = computed(() => !!(useAttrs()).to);
+const component = computed(() => (isRouterLink.value ? 'RouterLink' : 'a'));
 
-    const emitClick = (event: Event) => {
-      emit('click', event);
-    };
+const emitClick = (event: Event) => { emit('click', event); };
 
-    return {
-      classes,
-      component,
-      emitClick,
-    };
-  },
-});
 </script>
+
+<style src="./NavItem.scss" lang="scss"></style>
