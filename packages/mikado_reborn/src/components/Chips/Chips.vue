@@ -13,8 +13,45 @@
   </li>
 </template>
 
-<script lang="ts">
-import { defineComponent, computed, inject, ref } from 'vue';
+<script lang="ts" setup>
+import { computed, inject, ref, defineProps, withDefaults } from 'vue';
+import { MkrIcon } from '../Icon';
+
+import { ChipsListProvide } from './ChipsList.vue';
+const list = inject<ChipsListProvide>('list');
+
+const { generateUUID } = useUuid();
+import useUuid from '../../composables/useUuid';
+const uuid = generateUUID();
+
+const props = withDefaults(
+  defineProps<{ label?: string, value?: string }>(),
+  { label: '', value: '' },
+);
+
+const componentId = computed(() => `chips-${uuid}`);
+const selected = computed(() => (list ? list.value === props.value : false));
+const chipRef = ref<HTMLElement | null>(null);
+
+const classes = computed(() => [
+  'mkr__chips',
+  {
+    'mkr__chips--selected': selected.value,
+    'mkr__chips--small': list ? list.size === 'small' : false,
+  },
+]);
+
+const selectValue = () => {
+  if (list) {
+    if (selected.value) {
+      list.emitChange('');
+    } else {
+      list.emitChange(props.value);
+    }
+  }
+};
+
+/*import { defineComponent, computed, inject, ref } from 'vue';
 import { ChipsListProvide } from './ChipsList.vue';
 import { MkrIcon } from '../Icon';
 import useUuid from '../../composables/useUuid';
@@ -69,7 +106,7 @@ export default defineComponent({
       chipRef,
     };
   },
-});
+});*/
 </script>
 
 <style src="./Chips.scss" lang="scss"></style>

@@ -16,8 +16,57 @@
   </ul>
 </template>
 
-<script lang="ts">
-import {
+<script lang="ts" setup>
+import { provide, reactive, ref, watch, defineProps, withDefaults, defineEmits } from 'vue';
+import Chips from './Chips.vue';
+
+export type ChipsListProvide = {
+  value?: string | null;
+  size: 'medium' | 'small';
+  orientation: 'row' | 'column';
+  wrap: boolean;
+  emitChange: (value: string) => void;
+  registerChips: (chips: typeof Chips) => void;
+  unregisterChips: (uuid: string) => void;
+};
+
+
+const props = withDefaults(
+  defineProps<{
+    value: string | null,
+    size?: 'medium' | 'small',
+    orientation?: 'row' | 'column',
+    wrap?: boolean,
+  }>(),
+  {
+    size: 'medium',
+    orientation: 'row',
+    wrap: false,
+  }
+);
+
+const emits = defineEmits(['input']);
+
+const chips = ref<typeof Chips[]>([]);
+const listRef = ref<HTMLElement | null>(null);
+
+const list = reactive({
+  value: props.value,
+  size: props.size,
+  orientation: props.orientation,
+  wrap: props.wrap,
+  emitChange: (value: string) => {
+    emits('input', value);
+  },
+});
+
+provide('list', list);
+
+watch(() => props.value, (value: string) => {
+  list.value = value;
+});
+
+/*import {
   defineComponent, provide, reactive, ref, watch,
 } from 'vue';
 import Chips from './Chips.vue';
@@ -80,7 +129,7 @@ export default defineComponent({
       listRef,
     };
   },
-});
+});*/
 </script>
 
 <style src="./ChipsList.scss" lang="scss"></style>
