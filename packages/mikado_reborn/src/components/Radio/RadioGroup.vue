@@ -4,10 +4,8 @@
   </div>
 </template>
 
-<script lang="ts">
-import {
-  defineComponent, reactive, watch, provide,
-} from 'vue';
+<script lang="ts" setup>
+import { defineProps, withDefaults, defineEmits, reactive, provide, watch } from 'vue';
 
 export type RadioGroupProvide = {
   value: string;
@@ -16,44 +14,33 @@ export type RadioGroupProvide = {
   emitChange: (value: string) => void;
 };
 
-export default defineComponent({
-  name: 'RadioGroup',
-  props: {
-    value: {
-      type: String,
-      required: true,
-    },
-    name: {
-      type: String,
-      required: true,
-    },
-    required: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  setup(props, { emit }) {
-    const group = reactive<RadioGroupProvide>({
-      value: props.value,
-      name: props.name,
-      required: props.required,
-      emitChange: (value: string) => {
-        emit('change', value);
-      },
-    });
+const props = withDefaults(
+  defineProps<{
+    value: string,
+    name: string,
+    required?: boolean,
+  }>(),
+  { required: false }
+);
 
-    provide('group', group);
+const emit = defineEmits(['input']);
 
-    watch(
-      () => props.value,
-      (newValue) => {
-        group.value = newValue;
-      },
-    );
-
-    return {
-      group,
-    };
+const group = reactive<RadioGroupProvide>({
+  value: props.value,
+  name: props.name,
+  required: props.required,
+  emitChange: (value: string) => {
+    emit('input', value);
   },
 });
+
+provide('group', group);
+
+watch(
+  () => props.value,
+  (newValue) => {
+    group.value = newValue;
+  },
+);
+
 </script>
