@@ -6,7 +6,7 @@ export default {
   component: MkrNavItem,
   subcomponents: { 'MkrNavItemGroup': MkrNavItemGroup },
   argTypes: {
-    type: { control: { type: 'select', options: NavItemTypes, default: NavItemTypes[0] } },
+    type: { control: { type: 'select', options: ['main', 'sub', 'sub-light'], default: 'main' } },
   },
 };
 
