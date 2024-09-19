@@ -13,9 +13,9 @@ export type radiusType = 'small' | 'medium' | 'large';
 
 withDefaults(
   defineProps<{
-    elevated: boolean,
-    bordered: boolean,
-    radius: radiusType
+    elevated?: boolean,
+    bordered?: boolean,
+    radius?: radiusType
   }>(),
   { elevated: false, bordered: false, radius: 'small' },
 );

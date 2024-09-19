@@ -18,12 +18,12 @@
 import { defineProps, defineEmits } from 'vue';
 
 defineProps<{
-  value: string,
-  minlength: number,
-  maxlength: number,
-  placeholder: string,
-  error: boolean,
-  rows: number,
+  value?: string,
+  minlength?: number,
+  maxlength?: number,
+  placeholder?: string,
+  error?: boolean,
+  rows?: number,
 }>();
 
 const emit = defineEmits(['input', 'change']);
