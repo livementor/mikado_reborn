@@ -19,8 +19,92 @@
   </div>
 </template>
 
-<script lang="ts">
-import {
+<script lang="ts" setup>
+import { computed, defineProps, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue';
+import {  createPopper, Instance as PopperInstance, Placement } from '@popperjs/core';
+import useUuid from '../../composables/useUuid';
+
+const props = withDefaults(
+  defineProps<{
+    label: string,
+    disabled?: boolean,
+    placement?: Placement,
+    topLevel?: boolean,
+    addScrollListener?: boolean,
+  }>(),
+  {
+    label: '',
+    disabled: false,
+    placement: '',
+    topLevel: false,
+    addScrollListener: false,
+  }
+)
+
+const uuid = useUuid().generateUUID();
+const anchor = ref<HTMLElement | null>(null);
+const tooltip = ref<HTMLElement | null>(null);
+const opened = ref(false);
+const popperInstance = ref<PopperInstance | null>(null);
+
+const isOpened = computed(() => opened.value && !props.disabled);
+
+const updatePopper = async () => {
+  await nextTick();
+  await popperInstance.value?.update();
+};
+
+const setupListeners = () => {
+  if (!anchor.value || !tooltip.value) return;
+
+  const anchorEl = anchor.value.children[0] as HTMLElement;
+  const events = {
+    show: () => {
+      opened.value = true;
+    },
+    hide: () => {
+      opened.value = false;
+    },
+  };
+
+  ['focus', 'mouseenter'].forEach((event) => anchorEl.addEventListener(event, events.show));
+  ['blur', 'mouseleave'].forEach((event) => anchorEl.addEventListener(event, events.hide));
+
+  anchorEl.setAttribute('aria-describedby', `tooltip-${uuid}`);
+};
+
+// lifecycle hooks
+onMounted(() => {
+  if (props.topLevel && tooltip.value) {
+    const tooltipContainer = document.getElementById('tooltip-container') as HTMLElement;
+    if (tooltipContainer) {
+      tooltipContainer.appendChild(tooltip.value);
+    }
+  }
+
+  if (!anchor.value || !tooltip.value) return;
+
+  popperInstance.value = createPopper(anchor.value, tooltip.value, {
+    placement: props.placement || 'bottom',
+    modifiers: [
+      { name: 'offset', options: { offset: [0, 4] } },
+      { name: 'eventListeners', options: { scroll: props.addScrollListener } },
+    ],
+  });
+
+  setupListeners();
+});
+
+onBeforeUnmount(() => {
+  if (props.topLevel && tooltip.value) {
+    tooltip.value.remove();
+  }
+});
+
+watch(() => opened.value, updatePopper);
+
+
+/*import {
   defineComponent, ref, computed, onMounted, onBeforeUnmount, nextTick, watch,
 } from 'vue';
 import { createPopper, Instance as PopperInstance, Placement } from '@popperjs/core';
@@ -103,7 +187,7 @@ export default defineComponent({
       isOpened,
     };
   },
-});
+});*/
 </script>
 
 <style src="./Tooltip.scss" lang="scss"></style>
