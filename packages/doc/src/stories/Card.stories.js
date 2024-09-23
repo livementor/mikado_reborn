@@ -1,5 +1,4 @@
 import { MkrCard } from "../../../mikado_reborn/src/components";
-import { radiusType } from "../../../mikado_reborn/src/components/Card/Card.vue";
 
 export default {
   title: 'Components/Card',
@@ -22,5 +21,5 @@ const Template = (args, { argTypes }) => ({
 export const Card = Template.bind({});
 Card.args = {
   elevated: true,
-  bordered: true,
+  border: true,
 };

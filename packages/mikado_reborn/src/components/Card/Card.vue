@@ -1,7 +1,7 @@
 <template>
   <div
     class="mkr__card"
-    :class="[`mkr__card--radius-${radius}`, { 'mkr__card--elevated': elevated, 'mkr__card--border': bordered }]">
+    :class="[`mkr__card--radius-${radius}`, { 'mkr__card--elevated': elevated, 'mkr__card--border': border }]">
     <slot/>
   </div>
 </template>
@@ -14,10 +14,10 @@ export type radiusType = 'small' | 'medium' | 'large';
 withDefaults(
   defineProps<{
     elevated?: boolean,
-    bordered?: boolean,
+    border?: boolean,
     radius?: radiusType
   }>(),
-  { elevated: false, bordered: false, radius: 'small' },
+  { elevated: false, border: false, radius: 'small' },
 );
 
 </script>
