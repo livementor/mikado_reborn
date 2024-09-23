@@ -15,7 +15,7 @@
 <script lang="ts" setup>
 import { withDefaults, defineProps } from 'vue';
 
-withDefaults( defineProps<{ clickable?: boolean }>(), { clickable: false } );
+withDefaults(defineProps<{ clickable?: boolean }>(), { clickable: false });
 
 </script>
 

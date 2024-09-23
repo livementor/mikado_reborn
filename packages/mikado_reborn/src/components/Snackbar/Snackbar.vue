@@ -16,7 +16,10 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, ref, defineProps, defineEmits, withDefaults } from 'vue';
+import {
+  onMounted, ref, defineProps, defineEmits, withDefaults,
+} from 'vue';
+
 const show = ref(true);
 const props = withDefaults(
   defineProps<{
@@ -44,11 +47,11 @@ const click = (event: Event) => {
 onMounted(() => {
   if (props.timeout > 0) {
     setTimeout(
-      () => { if (show.value) { close() } },
+      () => { if (show.value) { close(); } },
       props.timeout,
     );
   }
-})
+});
 
 </script>
 

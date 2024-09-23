@@ -15,7 +15,9 @@
 </template>
 
 <script lang="ts" setup>
-import { inject, computed, defineProps } from 'vue';
+import {
+  inject, computed, defineProps, defineEmits,
+} from 'vue';
 import { RadioGroupProvide } from './RadioGroup.vue';
 
 const props = defineProps<{ label: string, value: string }>();

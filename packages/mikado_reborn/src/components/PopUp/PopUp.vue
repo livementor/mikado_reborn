@@ -10,7 +10,9 @@
 </template>
 
 <script lang="ts" setup>
-import { defineProps, watch, withDefaults, ref, onMounted, nextTick } from 'vue';
+import {
+  defineProps, watch, withDefaults, ref, onMounted, nextTick, defineEmits,
+} from 'vue';
 import { createPopper, Instance as PopperInstance, Placement } from '@popperjs/core';
 
 const props = withDefaults(
@@ -19,7 +21,7 @@ const props = withDefaults(
     dismissable?: boolean,
     value?: boolean,
   }>(),
-  { placement: 'auto', dismissable: false }
+  { placement: 'auto', dismissable: false },
 );
 
 const emit = defineEmits(['input']);

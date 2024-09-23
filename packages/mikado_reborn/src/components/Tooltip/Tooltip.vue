@@ -20,8 +20,10 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, defineProps, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue';
-import {  createPopper, Instance as PopperInstance, Placement } from '@popperjs/core';
+import {
+  computed, withDefaults, defineProps, nextTick, onBeforeUnmount, onMounted, ref, watch,
+} from 'vue';
+import { createPopper, Instance as PopperInstance, Placement } from '@popperjs/core';
 import useUuid from '../../composables/useUuid';
 
 const props = withDefaults(
@@ -38,8 +40,8 @@ const props = withDefaults(
     placement: '',
     topLevel: false,
     addScrollListener: false,
-  }
-)
+  },
+);
 
 const uuid = useUuid().generateUUID();
 const anchor = ref<HTMLElement | null>(null);

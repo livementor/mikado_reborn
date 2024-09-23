@@ -15,8 +15,10 @@
 </template>
 
 <script lang="ts" setup>
+import {
+  computed, withDefaults, defineProps, defineEmits,
+} from 'vue';
 import { MkrIcon } from '../Icon';
-import { computed, withDefaults, defineProps, defineEmits } from 'vue';
 
 const props = withDefaults(
   defineProps<{
@@ -29,22 +31,19 @@ const props = withDefaults(
 
 const emit = defineEmits(['input']);
 
-const isChecked = computed(() =>
-  Array.isArray(props.value) && props.name ?
-    props.value.includes(props.name) :
-    props.value === true
-);
+const isChecked = computed(() => (Array.isArray(props.value) && props.name
+  ? props.value.includes(props.name)
+  : props.value === true));
 
 const setValue = (e) => { // prepare value according to context
   let newValue: boolean | Array<string | number>;
   // if value is array && name is set => emit updated array
   // else => emit boolean
-  if ( Array.isArray(props.value) && props.name ){
-    newValue = props.value.includes(props.name) ?
-      props.value.filter(v => v != props.name) :
-      props.value.concat(props.name);
-  }
-  else newValue = e.target.checked;
+  if (Array.isArray(props.value) && props.name) {
+    newValue = props.value.includes(props.name)
+      ? props.value.filter((v) => v !== props.name)
+      : props.value.concat(props.name);
+  } else newValue = e.target.checked;
 
   emit('input', newValue);
 };

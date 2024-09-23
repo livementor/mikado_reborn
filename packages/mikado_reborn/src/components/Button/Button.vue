@@ -13,7 +13,9 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, defineProps, useAttrs, useSlots, withDefaults } from 'vue';
+import {
+  defineEmits, computed, defineProps, useAttrs, useSlots, withDefaults,
+} from 'vue';
 import { MkrIcon } from '../Icon';
 import './Button.scss';
 
@@ -37,7 +39,7 @@ const props = withDefaults(
   },
 );
 
-const emit = defineEmits(['click'])
+const emit = defineEmits(['click']);
 
 const baseClass = 'mkr__button';
 

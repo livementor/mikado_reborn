@@ -28,12 +28,12 @@ import { defineProps } from 'vue';
 interface Column {
   label: string,
   value: string,
-};
+}
 
 defineProps<{
   title?: string,
   columns: Column[],
-  items?: Array<any>,
+  items?: Array,
 }>();
 
 </script>

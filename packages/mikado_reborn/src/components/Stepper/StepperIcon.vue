@@ -5,7 +5,6 @@
   />
 </template>
 
-
 <script lang="ts" setup>
 import { computed, withDefaults, defineProps } from 'vue';
 import Icon from '../Icon/Icon.vue';

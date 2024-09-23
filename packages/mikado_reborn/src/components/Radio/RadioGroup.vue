@@ -5,7 +5,9 @@
 </template>
 
 <script lang="ts" setup>
-import { defineProps, withDefaults, defineEmits, reactive, provide, watch } from 'vue';
+import {
+  defineProps, withDefaults, defineEmits, reactive, provide, watch,
+} from 'vue';
 
 export type RadioGroupProvide = {
   value: string;
@@ -20,7 +22,7 @@ const props = withDefaults(
     name: string,
     required?: boolean,
   }>(),
-  { required: false }
+  { required: false },
 );
 
 const emit = defineEmits(['input']);

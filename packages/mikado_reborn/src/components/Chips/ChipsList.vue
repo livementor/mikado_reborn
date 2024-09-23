@@ -17,7 +17,9 @@
 </template>
 
 <script lang="ts" setup>
-import { provide, reactive, ref, watch, defineProps, withDefaults, defineEmits } from 'vue';
+import {
+  provide, reactive, ref, watch, defineProps, withDefaults, defineEmits,
+} from 'vue';
 import Chips from './Chips.vue';
 
 export type ChipsListProvide = {
@@ -30,7 +32,6 @@ export type ChipsListProvide = {
   unregisterChips: (uuid: string) => void;
 };
 
-
 const props = withDefaults(
   defineProps<{
     value: string | null,
@@ -42,7 +43,7 @@ const props = withDefaults(
     size: 'medium',
     orientation: 'row',
     wrap: false,
-  }
+  },
 );
 
 const emit = defineEmits(['input']);
@@ -62,7 +63,9 @@ const list = reactive({
 
 provide('list', list);
 
-watch(() => props.value, (value) => list.value = value);
+watch(() => props.value, (value) => {
+  list.value = value;
+});
 
 </script>
 

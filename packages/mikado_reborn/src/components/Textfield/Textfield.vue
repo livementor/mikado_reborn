@@ -27,7 +27,9 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref, withDefaults, defineProps, defineEmits } from 'vue';
+import {
+  computed, ref, withDefaults, defineProps, defineEmits,
+} from 'vue';
 import MkrIcon from '../Icon/Icon.vue';
 import MkrContainedButton from '../Button/Contained/ContainedButton.vue';
 
@@ -48,12 +50,13 @@ const showPassword = ref<boolean>(false);
 const toggleFocus = (e: Event) => {
   e.preventDefault();
   console.log(e);
-  if( e.type == 'focus' ) focused.value = true;
-  if( e.type == 'blur' ) focused.value = false;
-}
+  if (e.type === 'focus') focused.value = true;
+  if (e.type === 'blur') focused.value = false;
+};
 
-const iconColor = computed<string>(() => focused.value ? (props.error ? 'danger' : 'secondary') : 'neutral-60');
-const getType = computed<string>(() => showPassword.value ? 'text' : props.type);
+// eslint-disable-next-line no-nested-ternary
+const iconColor = computed<string>(() => (focused.value ? (props.error ? 'danger' : 'secondary') : 'neutral-60'));
+const getType = computed<string>(() => (showPassword.value ? 'text' : props.type));
 
 const emit = defineEmits(['input', 'change']);
 

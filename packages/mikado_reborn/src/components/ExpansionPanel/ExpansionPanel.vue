@@ -25,10 +25,10 @@
 import { defineProps, ref, withDefaults } from 'vue';
 import MkrInteractiveIcon from '../InteractiveIcon/InteractiveIcon.vue';
 
-const props = withDefaults( defineProps<{ defaultExpanded: boolean }>(), { defaultExpanded: false } );
+const props = withDefaults(defineProps<{ defaultExpanded: boolean }>(), { defaultExpanded: false });
 
 const expanded = ref(props.defaultExpanded);
-const togglePanel = () => { expanded.value = !expanded.value };
+const togglePanel = () => { expanded.value = !expanded.value; };
 
 </script>
 

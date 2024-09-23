@@ -24,7 +24,7 @@ withDefaults(
     itemHoverable: false,
     padded: false,
     size: 'medium',
-  }
+  },
 );
 
 </script>

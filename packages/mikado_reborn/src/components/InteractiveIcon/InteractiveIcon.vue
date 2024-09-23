@@ -11,7 +11,9 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, withDefaults, defineProps, defineEmits } from 'vue';
+import {
+  computed, withDefaults, defineProps,
+} from 'vue';
 import { MkrIcon } from '../Icon';
 
 const props = withDefaults(
@@ -35,9 +37,10 @@ const component = computed((context) => {
   const isRouterLink = !!context.$attrs.to;
   const isLink = !!context.$attrs.href;
 
-  return isRouterLink ? 'RouterLink' :
-    isLink ? 'a' :
-      'button';
+  // eslint-disable-next-line no-nested-ternary
+  return isRouterLink ? 'RouterLink'
+    : isLink ? 'a'
+      : 'button';
 });
 
 </script>

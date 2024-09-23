@@ -10,10 +10,9 @@
 </template>
 
 <script lang="ts" setup>
-import MkrButton from '../Button.vue';
-import './TextButton.scss';
-
 import { withDefaults, defineProps } from 'vue';
+import './TextButton.scss';
+import MkrButton from '../Button.vue';
 
 type textButtonThemes = 'neutral' | 'neutral-80' | 'neutral-60' | 'secondary-dark' | 'danger';
 

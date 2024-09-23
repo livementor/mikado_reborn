@@ -26,7 +26,7 @@ withDefaults(
     type: 'main',
     topNav: false,
     horizontal: false,
-  }
+  },
 );
 
 </script>

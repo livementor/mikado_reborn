@@ -14,7 +14,9 @@
 </template>
 
 <script lang="ts" setup>
-import { withDefaults, defineProps, onMounted, inject, ref, watch, onBeforeUnmount } from 'vue';
+import {
+  withDefaults, defineProps, defineEmits, onMounted, inject, ref, watch, onBeforeUnmount,
+} from 'vue';
 
 const props = withDefaults(
   defineProps<{
@@ -28,7 +30,7 @@ const props = withDefaults(
   },
 );
 
-const emit = defineEmits(['click', 'input'])
+const emit = defineEmits(['click', 'input']);
 
 const appRef = inject('appRef');
 const overlayRef = ref(null);

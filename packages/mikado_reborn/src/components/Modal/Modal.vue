@@ -43,7 +43,9 @@
 </template>
 
 <script lang="ts" setup>
-import { defineProps, withDefaults, defineEmits, inject, onMounted, ref, onUnmounted, watch, nextTick, } from 'vue';
+import {
+  defineProps, withDefaults, defineEmits, inject, onMounted, ref, onUnmounted, watch, nextTick,
+} from 'vue';
 import { MkrCard } from '../Card';
 import { MkrOverlay } from '../Overlay';
 import { MkrTextButton } from '../Button';
@@ -71,7 +73,7 @@ const props = withDefaults(
     focusFirstSelector: null,
     noHeader: false,
     value: false,
-  }
+  },
 );
 
 const emit = defineEmits(['input']);
@@ -104,10 +106,27 @@ const onClickOutside = (event: MouseEvent) => {
 
   const isClickInModal = modalRef.value.contains(event.target as Node);
   if (!isClickInModal) emit('input', false);
-
 };
 const keydownHandler = (event: KeyboardEvent) => {
   if (event.key === 'Escape') emit('input', false);
+};
+
+// scroll state
+let isScrolled = ref(false);
+let isFullyScrolled = ref(false);
+let hasScroll = ref(false);
+const setScrollState = (event?: UIEvent) => {
+  if (!props.scrollable) return;
+
+  setTimeout(() => {
+    const target = (event?.target as Element) ?? modalContent;
+
+    if (!target) return;
+
+    isScrolled = target.scrollTop >= 20;
+    hasScroll = target.clientHeight < target.scrollHeight;
+    isFullyScrolled = target.scrollHeight - target.scrollTop - target.clientHeight < 20;
+  }, 200);
 };
 
 // listeners
@@ -134,7 +153,6 @@ const onOpenedChanged = async (isOpened: boolean) => {
     teleportModalToAppElement();
     focusSelector();
     if (props.scrollable) setScrollState();
-
   } else {
     (focusTrapListenerCleanup as ReturnType<typeof focusTrap>)?.();
     removeModalFromDom();
@@ -144,28 +162,8 @@ const onOpenedChanged = async (isOpened: boolean) => {
   toggleEventListeners(isOpened);
 };
 
-// scroll state
-let isScrolled = ref(false);
-let isFullyScrolled = ref(false);
-let hasScroll = ref(false);
-const setScrollState = (event?: UIEvent) => {
-  if (!props.scrollable) return;
-
-  setTimeout(() => {
-    const target = (event?.target as Element) ?? modalContent;
-
-    if (!target) return;
-
-    isScrolled = target.scrollTop >= 20;
-    hasScroll = target.clientHeight < target.scrollHeight;
-    isFullyScrolled = target.scrollHeight - target.scrollTop - target.clientHeight < 20;
-
-  }, 200);
-};
-
-
 // lifecycle hooks
-onMounted( () => {
+onMounted(() => {
   toggleEventListeners(props.value);
 });
 
@@ -173,7 +171,7 @@ onUnmounted(() => {
   removeModalFromDom();
   (focusTrapListenerCleanup as ReturnType<typeof focusTrap>)?.();
   if (props.closeable) removeCloseEventListeners();
-})
+});
 
 // watchers
 watch(() => props.closeable, onCloseableChanged);

@@ -14,14 +14,17 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, inject, ref, defineProps, withDefaults } from 'vue';
+import {
+  computed, inject, ref, defineProps, withDefaults,
+} from 'vue';
 import { MkrIcon } from '../Icon';
 
 import { ChipsListProvide } from './ChipsList.vue';
+import useUuid from '../../composables/useUuid';
+
 const list = inject<ChipsListProvide>('list');
 
 const { generateUUID } = useUuid();
-import useUuid from '../../composables/useUuid';
 const uuid = generateUUID();
 
 const props = withDefaults(
