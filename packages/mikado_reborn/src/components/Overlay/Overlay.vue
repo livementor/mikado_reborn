@@ -1,10 +1,10 @@
 <template>
-  <div
+  <div ref="overlayRef"
     class="mkr__overlay"
     :class="[
       `mkr__overlay--${color}`,
       {
-        'mkr__overlay--opened': opened,
+        'mkr__overlay--opened': value,
       },
     ]"
     @click="click"
@@ -13,59 +13,48 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script lang="ts" setup>
+import { withDefaults, defineProps, onMounted, inject, ref, watch, onBeforeUnmount } from 'vue';
 
-export const colors = {
-  dark: 'dark',
-  light: 'light',
+const props = withDefaults(
+  defineProps<{
+    color?: 'dark' | 'light',
+    keepOnClick?: boolean,
+    value?: boolean, // native v-model ; original term = "opened"
+  }>(),
+  {
+    color: 'dark',
+    keepOnClick: false,
+  },
+);
+
+const emit = defineEmits(['click', 'input'])
+
+const appRef = inject('appRef');
+const overlayRef = ref(null);
+
+// functions
+const click = () => {
+  if (!props.keepOnClick) {
+    emit('input', false);
+  }
+  emit('click');
+};
+const onOpenedChanged = (isOpen: boolean) => {
+  document.body.style.overflow = isOpen ? 'hidden' : 'visible';
 };
 
-function setDocumentOverflow(isOpen: boolean): void {
-  document.body.style.overflow = isOpen ? 'hidden' : 'visible';
-}
-
-export default defineComponent({
-  mounted(): void {
-    setDocumentOverflow(this.opened);
-
-    const app = window.document.querySelector('.mkr__app') as HTMLElement;
-    app.insertBefore(this.$el, app.children[0]);
-  },
-  destroyed(): void {
-    this.$el?.remove();
-    document.body.style.overflow = 'visible';
-  },
-  methods: {
-    click(): void {
-      if (!this.keepOnClick) {
-        this.$emit('close', false);
-      }
-      this.$emit('click');
-    },
-    onOpenedChanged(isOpen: boolean): void {
-      setDocumentOverflow(isOpen);
-    },
-  },
-  props: {
-    color: {
-      type: String,
-      validator: (value: string): boolean => Object.values(colors).includes(value),
-      default: 'dark',
-    },
-    keepOnClick: { type: Boolean, default: false },
-    opened: { type: Boolean },
-  },
-  model: {
-    prop: 'opened',
-    event: 'close',
-  },
-  watch: {
-    opened: [{
-      handler: 'onOpenedChanged',
-    }],
-  },
+// hooks
+onMounted(() => {
+  appRef.value.insertBefore(overlayRef.value, appRef.value.children[0]);
 });
+
+onBeforeUnmount(() => {
+  overlayRef.value?.remove();
+  document.body.style.overflow = 'visible';
+});
+
+watch(() => props.value, onOpenedChanged);
 
 </script>
 
