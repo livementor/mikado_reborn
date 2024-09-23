@@ -7,11 +7,10 @@
         :type="getType"
         :placeholder="placeholder"
         v-bind="$attrs"
-        @focus
-        v-on="{
-          ...$listeners,
-          input: emitInputValue,
-        }"
+        @focus="toggleFocus"
+        @blur="toggleFocus"
+        @input="emitInputValue"
+        v-on="{...$listeners}"
       />
       <mkr-icon v-if="error" name="exclamation-circle" color="danger" />
     </div>

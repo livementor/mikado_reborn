@@ -6,10 +6,8 @@
       :maxlength="maxlength"
       :minlength="minlength"
       :rows="rows"
-      v-on="{
-        ...$listeners,
-        input: emitInputValue,
-      }"
+      @input="emitInputValue"
+      v-on="{ ...$listeners }"
     />
   </div>
 </template>
