@@ -26,7 +26,7 @@ import useUuid from '../../composables/useUuid';
 
 const props = withDefaults(
   defineProps<{
-    label: string,
+    label?: string,
     disabled?: boolean,
     placement?: Placement,
     topLevel?: boolean,

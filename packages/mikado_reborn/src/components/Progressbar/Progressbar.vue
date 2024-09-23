@@ -32,8 +32,8 @@ const props = withDefaults(
   defineProps<{
     current?: number,
     total: number,
-    shrinkEmoji: boolean,
-    size: 'small' | 'medium',
+    shrinkEmoji?: boolean,
+    size?: 'small' | 'medium',
     hideState?: boolean,
   }>(),
   {
