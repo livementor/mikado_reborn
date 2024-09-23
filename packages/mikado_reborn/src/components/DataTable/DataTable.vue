@@ -33,7 +33,7 @@ interface Column {
 defineProps<{
   title?: string,
   columns: Column[],
-  items: Array<any>,
+  items?: Array<any>,
 }>();
 
 </script>
