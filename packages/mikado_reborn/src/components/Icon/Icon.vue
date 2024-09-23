@@ -1,9 +1,9 @@
 <template>
-  <span class="mkr__icon" :class="classNames" @click="emit('click', $event)"/>
+  <span class="mkr__icon" :class="classNames" @click="$emit('click', $event)"/>
 </template>
 
 <script lang="ts" setup>
-import { computed, defineProps, defineEmits } from 'vue';
+import { computed, defineProps } from 'vue';
 
 const props = defineProps<{ name: string, color?: string }>();
 
@@ -13,8 +13,6 @@ const classNames = computed(() => {
   if (props.name) classes.push(`icon-${props.name}`);
   return classes;
 });
-
-const emit = defineEmits(['click']);
 
 </script>
 <style src="./Icon.scss" lang="scss"></style>

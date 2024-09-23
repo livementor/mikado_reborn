@@ -45,7 +45,7 @@ const props = withDefaults(
   }
 );
 
-const emits = defineEmits(['input']);
+const emit = defineEmits(['input']);
 
 // const chips = ref<typeof Chips[]>([]); // TODO: confirm useless line
 const listRef = ref<HTMLElement | null>(null);
@@ -56,15 +56,13 @@ const list = reactive({
   orientation: props.orientation,
   wrap: props.wrap,
   emitChange: (value: string) => {
-    emits('input', value);
+    emit('input', value);
   },
 });
 
 provide('list', list);
 
-watch(() => props.value, (value: string) => {
-  list.value = value;
-});
+watch(() => props.value, (value) => list.value = value);
 
 </script>
 

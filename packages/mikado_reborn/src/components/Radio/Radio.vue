@@ -19,6 +19,7 @@ import { inject, computed, defineProps } from 'vue';
 import { RadioGroupProvide } from './RadioGroup.vue';
 
 const props = defineProps<{ label: string, value: string }>();
+const emit = defineEmits(['change']);
 
 const group = inject<RadioGroupProvide>('group', {
   value: '',

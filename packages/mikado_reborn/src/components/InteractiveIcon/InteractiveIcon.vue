@@ -3,7 +3,7 @@
     :is="component"
     :class="classes"
     v-bind="$attrs"
-    @click="emit('click', $event)"
+    @click="$emit('click', $event)"
   >
     <MkrIcon :name="name" />
     <slot></slot>
@@ -39,8 +39,6 @@ const component = computed((context) => {
     isLink ? 'a' :
       'button';
 });
-
-const emit = defineEmits(['click']);
 
 </script>
 

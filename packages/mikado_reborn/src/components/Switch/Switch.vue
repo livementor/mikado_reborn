@@ -16,9 +16,9 @@
 import { defineProps, defineEmits } from 'vue';
 
 const props = defineProps<{ value: boolean }>();
-const emits = defineEmits(['input']);
+const emit = defineEmits(['input']);
 
-const toggle = () => emits('input', !props.value);
+const toggle = () => emit('input', !props.value);
 
 </script>
 

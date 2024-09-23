@@ -14,8 +14,8 @@
       @click="handleButtonClick"
       @mousedown="buttonClick = true"
       @keydown="handleKeyDown"
-      @focus="emit('focus', $event)"
-      @blur="emit('blur', $event)"
+      @focus="$emit('focus', $event)"
+      @blur="$emit('blur', $event)"
     >
       <span
         class="mkr__dropdown__input__value"
