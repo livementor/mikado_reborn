@@ -7,10 +7,13 @@
         :type="getType"
         :placeholder="placeholder"
         v-bind="$attrs"
-        @focus="toggleFocus"
-        @blur="toggleFocus"
-        @input="emitInputValue"
-        v-on="{...$listeners}"
+        @focus="focused=true"
+        @blur="focused=false"
+        v-on="{
+          ...$listeners,
+          change: (e) => ($emit('change', e.target.value)),
+          input: (e) => ($emit('input', e.target.value)),
+        }"
       />
       <mkr-icon v-if="error" name="exclamation-circle" color="danger" />
     </div>
@@ -28,7 +31,7 @@
 
 <script lang="ts" setup>
 import {
-  computed, ref, withDefaults, defineProps, defineEmits,
+  computed, ref, withDefaults, defineProps,
 } from 'vue';
 import MkrIcon from '../Icon/Icon.vue';
 import MkrContainedButton from '../Button/Contained/ContainedButton.vue';
@@ -44,29 +47,14 @@ const props = withDefaults(
   { type: 'text' },
 );
 
-const focused = ref(false);
 const showPassword = ref<boolean>(false);
-
-const toggleFocus = (e: Event) => {
-  e.preventDefault();
-  console.log(e);
-  if (e.type === 'focus') focused.value = true;
-  if (e.type === 'blur') focused.value = false;
-};
+const focused = ref(false);
 
 // eslint-disable-next-line no-nested-ternary
 const iconColor = computed<string>(() => (focused.value ? (props.error ? 'danger' : 'secondary') : 'neutral-60'));
 const getType = computed<string>(() => (showPassword.value ? 'text' : props.type));
 
-const emit = defineEmits(['input', 'change']);
-
 const showPasswordClick = () => { showPassword.value = !showPassword.value; };
-
-const emitInputValue = (event: InputEvent) => {
-  const input = event.target as HTMLInputElement | null;
-  if (input) emit('input', input.value);
-  else emit('change', event);
-};
 
 </script>
 

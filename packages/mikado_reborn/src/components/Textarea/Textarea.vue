@@ -6,14 +6,17 @@
       :maxlength="maxlength"
       :minlength="minlength"
       :rows="rows"
-      @input="emitInputValue"
-      v-on="{ ...$listeners }"
+      v-on="{
+          ...$listeners,
+          change: (e) => ($emit('change', e.target.value)),
+          input: (e) => ($emit('input', e.target.value)),
+        }"
     />
   </div>
 </template>
 
 <script lang="ts" setup>
-import { defineProps, defineEmits } from 'vue';
+import { defineProps } from 'vue';
 
 defineProps<{
   value?: string,
@@ -23,16 +26,6 @@ defineProps<{
   error?: boolean,
   rows?: number,
 }>();
-
-const emit = defineEmits(['input', 'change']);
-
-const emitInputValue = (event: InputEvent) => {
-  const input = event.target as HTMLInputElement | null;
-  if (input) {
-    emit('input', input.value);
-  }
-  emit('change', event);
-};
 
 </script>
 
