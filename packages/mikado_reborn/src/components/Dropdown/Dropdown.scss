@@ -4,7 +4,6 @@
   @include font('body-medium');
   display: flex;
   position: relative;
-  flex-direction: column;
 
   .mkr__dropdown__input {
     $input: &;

@@ -42,6 +42,7 @@
         class="mkr__dropdown__list__container"
         tabindex="-1"
         role="listbox"
+        :aria-activedescendant="selectedItem ? selectedItem.id : null"
         @blur="handleListBlur"
         @keydown="handleListKeyDown"
       >
@@ -266,7 +267,7 @@ const handleListBlur = () => {
 
 onMounted(() => {
   if (dropdownInput.value && dropdownList.value) {
-    popperInstance.value = createPopper(dropdownInput.value, dropdownList.value, {
+    popperInstance.value = createPopper(dropdownInput.value, dropdownList.value.$el, {
       placement: 'bottom-start',
       modifiers: [
         {
