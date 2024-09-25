@@ -11,8 +11,8 @@
         @blur="focused=false"
         v-on="{
           ...$listeners,
-          change: (e) => ($emit('change', e.target.value)),
-          input: (e) => ($emit('input', e.target.value)),
+          change: emitInputValue,
+          input: emitInputValue,
         }"
       />
       <mkr-icon v-if="error" name="exclamation-circle" color="danger" />
@@ -31,7 +31,7 @@
 
 <script lang="ts" setup>
 import {
-  computed, ref, withDefaults, defineProps,
+  computed, ref, withDefaults, defineProps, defineEmits,
 } from 'vue';
 import MkrIcon from '../Icon/Icon.vue';
 import MkrContainedButton from '../Button/Contained/ContainedButton.vue';
@@ -47,6 +47,8 @@ const props = withDefaults(
   { type: 'text' },
 );
 
+const emit = defineEmits(['input', 'change']);
+
 const showPassword = ref<boolean>(false);
 const focused = ref(false);
 
@@ -55,6 +57,12 @@ const iconColor = computed<string>(() => (focused.value ? (props.error ? 'danger
 const getType = computed<string>(() => (showPassword.value ? 'text' : props.type));
 
 const showPasswordClick = () => { showPassword.value = !showPassword.value; };
+
+const emitInputValue = (e: Event) => {
+  const input = e.target as HTMLInputElement | null;
+  if (input) emit('input', input.value);
+  emit('change', e);
+};
 
 </script>
 
