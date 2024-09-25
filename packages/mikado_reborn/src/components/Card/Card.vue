@@ -1,7 +1,8 @@
 <template>
-  <div
-    class="mkr__card"
-    :class="[`mkr__card--radius-${radius}`, { 'mkr__card--elevated': elevated, 'mkr__card--border': border }]">
+  <div class="mkr__card"
+    :class="[`mkr__card--radius-${radius}`, { 'mkr__card--elevated': elevated, 'mkr__card--border': border }]"
+    v-bind="$attrs"
+    v-on="$listeners">
     <slot/>
   </div>
 </template>
