@@ -34,7 +34,7 @@ export type ChipsListProvide = {
 
 const props = withDefaults(
   defineProps<{
-    value: string | null,
+    value?: string,
     size?: 'medium' | 'small',
     orientation?: 'row' | 'column',
     wrap?: boolean,
