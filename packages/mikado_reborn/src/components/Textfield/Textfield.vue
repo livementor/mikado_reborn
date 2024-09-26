@@ -1,7 +1,7 @@
 <template>
   <div :class="['mkr__textfield', { error }]">
     <div class="mkr__textfield__inner">
-      <mkr-icon v-if="iconName" :color="iconColor" :name="iconName" />
+      <mkr-icon v-if="iconName" :color="focused?iconColor:'neutral-60'" :name="iconName" />
       <input
         :value="value"
         :type="getType"
@@ -52,8 +52,7 @@ const emit = defineEmits(['input', 'change']);
 const showPassword = ref<boolean>(false);
 const focused = ref(false);
 
-// eslint-disable-next-line no-nested-ternary
-const iconColor = computed<string>(() => (focused.value ? (props.error ? 'danger' : 'secondary') : 'neutral-60'));
+const iconColor = computed<string>(() => (props.error ? 'danger' : 'secondary'));
 const getType = computed<string>(() => (showPassword.value ? 'text' : props.type));
 
 const showPasswordClick = () => { showPassword.value = !showPassword.value; };
