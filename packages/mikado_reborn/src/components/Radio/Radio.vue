@@ -14,51 +14,40 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import {
-  Component, Vue, InjectReactive, Prop,
-} from 'vue-property-decorator';
+  inject, computed, defineProps, defineEmits,
+} from 'vue';
 import { RadioGroupProvide } from './RadioGroup.vue';
 
-@Component
-export default class Radio extends Vue {
-  @InjectReactive('group') readonly group?: RadioGroupProvide
+const props = defineProps<{ label: string, value: string }>();
+const emit = defineEmits(['change']);
 
-  @Prop({ type: String }) label!: string
+const group = inject<RadioGroupProvide>('group', {
+  value: '',
+  name: '',
+  required: false,
+  emitChange: () => {},
+});
 
-  @Prop({ type: String }) value!: string
+const name = computed(() => (group ? group.name : ''));
+const required = computed(() => (group ? group.required : false));
+const checked = computed(() => (group ? group.value === props.value : false));
+const classes = computed(() => [
+  'mkr__radio',
+  {
+    'mkr__radio--checked': checked.value,
+  },
+]);
 
-  get name(): string {
-    if (this.group) return this.group.name;
-    return '';
+const emitChange = () => {
+  if (group) {
+    group.emitChange(props.value);
+  } else {
+    emit('change', props.value);
   }
+};
 
-  get required(): boolean {
-    if (this.group) return this.group.required;
-    return false;
-  }
-
-  get checked(): boolean {
-    if (this.group) return this.group.value === this.value;
-    return false;
-  }
-
-  get classes(): (string | {[className: string]: boolean;})[] {
-    return [
-      'mkr__radio',
-      {
-        'mkr__radio--checked': this.checked,
-      },
-    ];
-  }
-
-  emitChange(): void {
-    if (this.group) {
-      this.group.emitChange(this.value);
-    } else {
-      this.$emit('change', this.value);
-    }
-  }
-}
 </script>
+
 <style src="./Radio.scss" lang="scss"></style>

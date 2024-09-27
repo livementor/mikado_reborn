@@ -12,19 +12,14 @@
   </span>
 </template>
 
-<script lang="ts">
-import { Component, Model, Vue } from 'vue-property-decorator';
+<script lang="ts" setup>
+import { defineProps, defineEmits } from 'vue';
 
-@Component({
-  name: 'MkrSwitch',
-})
-export default class Switch extends Vue {
-  @Model('change', { type: Boolean }) readonly value!: boolean;
+const props = defineProps<{ value: boolean }>();
+const emit = defineEmits(['input']);
 
-  toggle(): void {
-    this.$emit('change', !this.value);
-  }
-}
+const toggle = () => emit('input', !props.value);
+
 </script>
 
 <style src="./Switch.scss" lang="scss"></style>

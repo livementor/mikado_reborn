@@ -5,36 +5,32 @@
   />
 </template>
 
-<script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
+<script lang="ts" setup>
+import { computed, withDefaults, defineProps } from 'vue';
 import Icon from '../Icon/Icon.vue';
 
-@Component({
-  components: {
-    Icon,
-  },
-})
-export default class StepperIcon extends Vue {
-  @Prop({ type: String, required: true })
-  public type!: 'default' | 'warning' | 'error';
+const props = withDefaults(
+  defineProps<{ type: 'default' | 'warning' | 'error' }>(),
+  { type: 'default' },
+);
 
-  get iconProperties() {
-    const types = {
-      default: {
-        name: 'check-circle',
-        color: 'secondary',
-      },
-      warning: {
-        name: 'exclamation-circle',
-        color: 'warning',
-      },
-      error: {
-        name: 'cross-circle',
-        color: 'danger',
-      },
-    };
+const iconProperties = computed(() => {
+  const types = {
+    default: {
+      name: 'check-circle',
+      color: 'secondary',
+    },
+    warning: {
+      name: 'exclamation-circle',
+      color: 'warning',
+    },
+    error: {
+      name: 'cross-circle',
+      color: 'danger',
+    },
+  };
 
-    return types[this.type] || types.default;
-  }
-}
+  return types[props.type] || types.default;
+});
+
 </script>

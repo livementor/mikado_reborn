@@ -21,21 +21,15 @@
   </div>
 </template>
 
-<script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
-import MkrInteractiveIcon from '../InteractiveIcon/InteractiveIcon';
+<script lang="ts" setup>
+import { defineProps, ref, withDefaults } from 'vue';
+import MkrInteractiveIcon from '../InteractiveIcon/InteractiveIcon.vue';
 
-@Component({ components: { MkrInteractiveIcon } })
-export default class ExpansionPanel extends Vue {
-  @Prop({ default: false, type: Boolean })
-  defaultExpanded!: boolean;
+const props = withDefaults(defineProps<{ defaultExpanded: boolean }>(), { defaultExpanded: false });
 
-  expanded = this.defaultExpanded;
+const expanded = ref(props.defaultExpanded);
+const togglePanel = () => { expanded.value = !expanded.value; };
 
-  togglePanel(): void {
-    this.expanded = !this.expanded;
-  }
-}
 </script>
 
 <style src="./ExpansionPanel.scss" lang="scss"></style>

@@ -10,8 +10,8 @@ export default {
   }
 };
 
-const Template = (args) => ({
-  props: Object.keys(args),
+const Template = (args, {argTypes}) => ({
+  props: Object.keys(argTypes),
   template: '<mkr-stepped-progress v-bind="$props" />',
 });
 

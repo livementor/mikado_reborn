@@ -15,59 +15,44 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import {
-  Component, Prop, Vue,
-} from 'vue-property-decorator';
-import { MkrIcon } from '../Icon';
+  onMounted, ref, defineProps, defineEmits, withDefaults,
+} from 'vue';
 
-@Component({
-  components: {
-    MkrIcon,
-  },
-})
-export default class Snackbar extends Vue {
-  @Prop({ type: String, required: true })
-  message!: string
+const show = ref(true);
+const props = withDefaults(
+  defineProps<{
+    message: string,
+    error?: boolean,
+    success?: boolean,
+    neutral?: boolean,
+    closable?: boolean,
+    timeout: number,
+  }>(),
+  { closable: false, timeout: 5000 },
+);
 
-  @Prop({ type: Boolean })
-  error?: boolean
+const emit = defineEmits(['close']);
 
-  @Prop({ type: Boolean })
-  success?: boolean
+const close = (event?: Event) => {
+  show.value = false;
+  emit('close', event);
+};
 
-  @Prop({ type: Boolean })
-  neutral?: boolean
+const click = (event: Event) => {
+  if (props.closable) close(event);
+};
 
-  @Prop({ type: Boolean, default: false })
-  closable!: boolean
-
-  @Prop({ type: Number, default: 5000 })
-  timeout!: number
-
-  show = true
-
-  click(event: Event): void {
-    if (this.closable) {
-      this.close(event);
-    }
+onMounted(() => {
+  if (props.timeout > 0) {
+    setTimeout(
+      () => { if (show.value) { close(); } },
+      props.timeout,
+    );
   }
+});
 
-  close(event?: Event): void {
-    this.show = false;
-    this.$emit('close', event);
-  }
-
-  mounted(): void {
-    if (this.timeout > 0) {
-      setTimeout(() => {
-        if (this.show) {
-          this.close();
-        }
-      }, this.timeout);
-    }
-  }
-}
 </script>
 
 <style src="./Snackbar.scss" lang="scss"></style>

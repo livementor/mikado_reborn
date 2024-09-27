@@ -8,23 +8,23 @@
   </div>
 </template>
 
-<script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
+<script lang="ts" setup>
+import { withDefaults, defineProps } from 'vue';
 
-@Component
-export default class SteppedProgress extends Vue {
-@Prop({ type: Number })
-steps!: number
+withDefaults(
+  defineProps<{
+    steps?: number,
+    progress?: number,
+    color?: string,
+    backgroundColor?: string,
+  }>(),
+  {
+    progress: 0,
+    color: 'primary',
+    backgroundColor: 'neutral-20',
+  },
+);
 
-@Prop({ type: Number, default: 0 })
-progress!: number
-
-@Prop({ type: String, default: 'primary' })
-color!: string
-
-@Prop({ type: String, default: 'neutral-20' })
-backgroundColor!: string
-}
 </script>
 
 <style src="./SteppedProgress.scss" lang="scss"></style>

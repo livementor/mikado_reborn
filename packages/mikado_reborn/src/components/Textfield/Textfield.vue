@@ -1,14 +1,17 @@
 <template>
-  <div :class="['mkr__textfield', { error: error }]">
+  <div :class="['mkr__textfield', { error }]">
     <div class="mkr__textfield__inner">
-      <mkr-icon v-if="iconName" :color="iconColor" :name="iconName" />
+      <mkr-icon v-if="iconName" :color="focused?iconColor:'neutral-60'" :name="iconName" />
       <input
-        v-bind="$attrs"
         :value="value"
         :type="getType"
         :placeholder="placeholder"
+        v-bind="$attrs"
+        @focus="focused=true"
+        @blur="focused=false"
         v-on="{
           ...$listeners,
+          change: emitInputValue,
           input: emitInputValue,
         }"
       />
@@ -26,70 +29,40 @@
   </div>
 </template>
 
-<script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
+<script lang="ts" setup>
+import {
+  computed, ref, withDefaults, defineProps, defineEmits,
+} from 'vue';
 import MkrIcon from '../Icon/Icon.vue';
-import MkrContainedButton from '../Button/Contained/ContainedButton';
+import MkrContainedButton from '../Button/Contained/ContainedButton.vue';
 
-@Component({
-  components: {
-    MkrContainedButton,
-    MkrIcon,
-  },
-  inheritAttrs: false,
-})
-export default class TextField extends Vue {
-  @Prop({ type: String })
-  value?: string;
+const props = withDefaults(
+  defineProps<{
+    placeholder?: string,
+    error?: boolean,
+    type?: 'text' | 'email' | 'password' | 'date',
+    iconName?: string,
+    value?: string
+  }>(),
+  { type: 'text' },
+);
 
-  @Prop({ type: String })
-  iconName?: string;
+const emit = defineEmits(['input', 'change']);
 
-  @Prop({ type: String })
-  placeholder?: string;
+const showPassword = ref<boolean>(false);
+const focused = ref(false);
 
-  @Prop({ type: Boolean })
-  error!: boolean;
+const iconColor = computed<string>(() => (props.error ? 'danger' : 'secondary'));
+const getType = computed<string>(() => (showPassword.value ? 'text' : props.type));
 
-  @Prop({
-    default: 'text',
-    type: String,
-    validator: (type: string) => ['text', 'email', 'password', 'date'].includes(type),
-  })
-  type!: string;
+const showPasswordClick = () => { showPassword.value = !showPassword.value; };
 
-  focused = false;
+const emitInputValue = (e: Event) => {
+  const input = e.target as HTMLInputElement | null;
+  if (input) emit('input', input.value);
+  emit('change', e);
+};
 
-  showPassword = false;
-
-  get iconColor(): string {
-    if (this.focused) {
-      return this.error ? 'danger' : 'secondary';
-    }
-    return 'neutral-60';
-  }
-
-  get getType(): string {
-    if (this.showPassword) {
-      return 'text';
-    }
-    return this.type;
-  }
-
-  showPasswordClick(): void {
-    this.showPassword = !this.showPassword;
-  }
-
-  emitInputValue(event: InputEvent) {
-    const input = event.target as HTMLInputElement | null;
-
-    if (input) {
-      this.$emit('input', input.value);
-    }
-
-    this.$emit('change', event);
-  }
-}
 </script>
 
 <style src="./Textfield.scss" lang="scss"></style>

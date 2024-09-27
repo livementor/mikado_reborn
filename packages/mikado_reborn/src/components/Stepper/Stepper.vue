@@ -33,33 +33,30 @@
 </div>
 </template>
 
-<script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
+<script lang="ts" setup>
+import { computed, withDefaults, defineProps } from 'vue';
+import StepperIcon from './StepperIcon.vue';
 
-@Component({
-  components: {
-    StepperIcon: () => import('./StepperIcon.vue'),
-  },
-})
-export default class Stepper extends Vue {
-  @Prop({ type: Array, required: true })
-  public items!: string[] | { type: string, label: string }[];
+export type StepperItem = { type: string; label: string };
 
-  @Prop({ type: Number, default: 1 })
-  public step!: number;
+const props = withDefaults(
+  defineProps<{
+    items: Array<string | StepperItem>,
+    step: number
+  }>(),
+  { step: 1 },
+);
 
-  get itemsAsObject() {
-    return this.items.map((item) => {
-      if (typeof item === 'string') {
-        return {
-          type: 'default',
-          label: item,
-        };
-      }
-      return item;
-    });
+const itemsAsObject: StepperItem[] = computed(() => props.items.map((item: string | StepperItem) => {
+  if (typeof item === 'string') {
+    return {
+      type: 'default',
+      label: item,
+    };
   }
-}
+  return item;
+}));
+
 </script>
 
 <style src="./Stepper.scss" lang="scss"></style>

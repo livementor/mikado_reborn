@@ -1,12 +1,11 @@
 import { MkrCard } from "../../../mikado_reborn/src/components";
-import { radius } from "../../../mikado_reborn/src/components/Card/Card.vue";
 
 export default {
   title: 'Components/Card',
   component: MkrCard,
   argTypes: {
     radius: {
-      options: Object.values(radius),
+      options: ['small', 'medium', 'large'],
       control: {
         type: 'radio',
       }
@@ -14,13 +13,13 @@ export default {
   },
 };
 
-const Template = (args) => ({
-  props: Object.keys(args),
+const Template = (args, { argTypes }) => ({
+  props: Object.keys(argTypes),
   template: '<mkr-card v-bind="$props">Im a Card</mkr-card>',
 });
 
 export const Card = Template.bind({});
 Card.args = {
   elevated: true,
-  bordered: true,
+  border: true,
 };

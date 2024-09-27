@@ -26,7 +26,7 @@ export default {
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
   data: () => ({
-    gender: 'nonbinary',
+    gender: null,
   }),
   template: `
   <div>

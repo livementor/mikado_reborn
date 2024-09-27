@@ -13,28 +13,22 @@
   </ul>
 </template>
 
-<script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
+<script lang="ts" setup>
+import { withDefaults, defineProps } from 'vue';
 
-export const NavItemTypes = {
-  main: 'main',
-  sub: 'sub',
-  'sub-light': 'sub-light',
-};
+withDefaults(
+  defineProps<{
+    type?: 'main' | 'sub' | 'sub-light',
+    topNav?: boolean,
+    horizontal?: boolean
+  }>(),
+  {
+    type: 'main',
+    topNav: false,
+    horizontal: false,
+  },
+);
 
-@Component
-export default class NavItemGroup extends Vue {
-  @Prop({
-    default: NavItemTypes.main,
-    validator: (type: string) => Object.values(NavItemTypes).includes(type),
-  })
-  type!: string;
-
-  @Prop({ type: Boolean, default: false })
-  topNav!: boolean;
-
-  @Prop({ type: Boolean, default: false })
-  horizontal!: boolean;
-}
 </script>
+
 <style src="./NavItemGroup.scss" lang="scss"></style>

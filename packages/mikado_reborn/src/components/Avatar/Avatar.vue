@@ -4,20 +4,19 @@
   </div>
 </template>
 
-<script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
+<script lang="ts" setup>
 
-@Component({
-  inheritAttrs: false,
-})
-export default class Avatar extends Vue {
-  @Prop({ default: 5, type: Number }) readonly size!: number;
+import { computed, withDefaults, defineProps } from 'vue';
 
-  get avatarStyle(): Partial<CSSStyleDeclaration> {
-    const width = `${this.size}rem`;
+const props = withDefaults(
+  defineProps<{size?: number}>(), { size: 5 },
+);
 
-    return { height: width, width };
-  }
-}
+const avatarStyle: Partial<CSSStyleDeclaration> = computed(() => {
+  const width = `${props.size}rem`;
+  return { height: width, width };
+});
+
 </script>
+
 <style src="./Avatar.scss" lang="scss"></style>

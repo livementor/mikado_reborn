@@ -5,49 +5,49 @@
   >
     <input
       type="checkbox"
-      :value="value"
-      v-model="internalValue"
-    >
+      :value="name"
+      :checked="value"
+      @change="setValue"/>
+
     <mkr-icon v-if="isChecked" name="check" />
   </div>
 
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import {
-  Component, Model, Prop, Vue,
-} from 'vue-property-decorator';
+  computed, withDefaults, defineProps, defineEmits,
+} from 'vue';
 import { MkrIcon } from '../Icon';
 
-@Component({
-  components: {
-    MkrIcon,
-  },
-})
-export default class Checkbox extends Vue {
-  @Model('change', { type: [Boolean, Array] }) readonly modelValue!: boolean | (string|number)[]
+const props = withDefaults(
+  defineProps<{
+    size?: 'small' | 'medium',
+    name?: string | number,
+    value?: boolean | Array<string | number>
+  }>(),
+  { size: 'small' },
+);
 
-  @Prop({ default: 'medium', validator: (size: string) => ['small', 'medium'].includes(size) })
-  size!: string;
+const emit = defineEmits(['input']);
 
-  @Prop({ type: [String, Number] })
-  value?: string | number;
+const isChecked = computed(() => (Array.isArray(props.value) && props.name
+  ? props.value.includes(props.name)
+  : props.value === true));
 
-  get internalValue(): boolean | (string|number)[] {
-    return this.modelValue;
-  }
+const setValue = (e) => { // prepare value according to context
+  let newValue: boolean | Array<string | number>;
+  // if value is array && name is set => emit updated array
+  // else => emit boolean
+  if (Array.isArray(props.value) && props.name) {
+    newValue = props.value.includes(props.name)
+      ? props.value.filter((v) => v !== props.name)
+      : props.value.concat(props.name);
+  } else newValue = e.target.checked;
 
-  set internalValue(value: boolean | (string|number)[]) {
-    this.$emit('change', value);
-  }
+  emit('input', newValue);
+};
 
-  get isChecked(): boolean {
-    if (Array.isArray(this.modelValue) && this.value) {
-      return this.modelValue.includes(this.value);
-    }
-    return this.modelValue === true;
-  }
-}
 </script>
 
 <style src="./Checkbox.scss" lang="scss" />

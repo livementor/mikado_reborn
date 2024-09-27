@@ -7,44 +7,26 @@
       :minlength="minlength"
       :rows="rows"
       v-on="{
-        ...$listeners,
-        input: emitInputValue,
-      }"
+          ...$listeners,
+          change: (e) => ($emit('change', e.target.value)),
+          input: (e) => ($emit('input', e.target.value)),
+        }"
     />
   </div>
 </template>
 
-<script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
+<script lang="ts" setup>
+import { defineProps } from 'vue';
 
-@Component
-export default class Textarea extends Vue {
-  @Prop({ type: String })
-  value?: string;
+defineProps<{
+  value?: string,
+  minlength?: number,
+  maxlength?: number,
+  placeholder?: string,
+  error?: boolean,
+  rows?: number,
+}>();
 
-  @Prop({ type: Number })
-  minlength?: number;
-
-  @Prop({ type: Number })
-  maxlength?: number;
-
-  @Prop({ type: String })
-  placeholder?: string;
-
-  @Prop({ type: Boolean })
-  error!: boolean;
-
-  @Prop({ type: Number })
-  rows!: number;
-
-  emitInputValue(event: InputEvent) {
-    const input = event.target as HTMLInputElement | null;
-    if (input) {
-      this.$emit('input', input.value);
-    }
-    this.$emit('change', event);
-  }
-}
 </script>
 
 <style src="./Textarea.scss" lang="scss"></style>

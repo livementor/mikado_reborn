@@ -1,28 +1,18 @@
 <template>
-  <span class="mkr__icon" :class="classNames" @click="click"/>
+  <span class="mkr__icon" :class="classNames" @click="$emit('click', $event)"/>
 </template>
 
-<script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
+<script lang="ts" setup>
+import { computed, defineProps } from 'vue';
 
-@Component
-export default class Icon extends Vue {
-  @Prop({ required: true, type: String })
-  private name!: string;
+const props = defineProps<{ name: string, color?: string }>();
 
-  @Prop({ default: undefined, type: String })
-  private color?: string;
+const classNames = computed(() => {
+  const classes = [];
+  if (props.color) classes.push(props.color);
+  if (props.name) classes.push(`icon-${props.name}`);
+  return classes;
+});
 
-  get classNames() : string[] {
-    const classes = [];
-    if (this.color) classes.push(this.color);
-    if (this.name) classes.push(`icon-${this.name}`);
-    return classes;
-  }
-
-  click(event: Event): void {
-    this.$emit('click', event);
-  }
-}
 </script>
 <style src="./Icon.scss" lang="scss"></style>

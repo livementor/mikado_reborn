@@ -1,6 +1,5 @@
 import { MkrTextButton } from '../../../../mikado_reborn/src/components';
 import icons from '../../../../mikado_reborn/src/utils/icons';
-import { textButtonThemes } from '../../../../mikado_reborn/src/components/Button/Text/TextButton';
 
 export default {
   title: 'Components/Button/TextButton',
@@ -9,7 +8,7 @@ export default {
     theme: {
       control: {
         type: 'select',
-        options: Object.keys(textButtonThemes),
+        options: ['neutral', 'neutral-80', 'neutral-60', 'secondary-dark', 'danger'],
       },
     },
     size: { control: { type: 'select', options: ['large', 'medium', 'small'] } },

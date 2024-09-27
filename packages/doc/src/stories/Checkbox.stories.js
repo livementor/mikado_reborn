@@ -26,9 +26,9 @@ const CheckboxListTemplate = (args) => ({
   template: `
     <div>
       <div style="display: flex;">
-        <mkr-checkbox value="checkbox1" v-model="values" />
-        <mkr-checkbox value="checkbox2" v-model="values" style="margin-left: 10px" />
-        <mkr-checkbox value="checkbox3" v-model="values" style="margin-left: 10px;" />
+        <mkr-checkbox v-bind="$props" name="checkbox1" v-model="values" />
+        <mkr-checkbox v-bind="$props" name="checkbox2" v-model="values" style="margin-left: 10px" />
+        <mkr-checkbox v-bind="$props" name="checkbox3" v-model="values" style="margin-left: 10px;" />
       </div>
       
       <div style="margin-top: 15px;">

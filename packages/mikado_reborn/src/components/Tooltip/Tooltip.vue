@@ -19,104 +19,92 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import {
-  Component, Prop, Mixins, Watch,
-} from 'vue-property-decorator';
-import {
-  createPopper,
-  Instance as PopperInstance,
-  Modifier,
-  OptionsGeneric,
-  Placement,
-} from '@popperjs/core';
+  computed, withDefaults, defineProps, nextTick, onBeforeUnmount, onMounted, ref, watch,
+} from 'vue';
+import { createPopper, Instance as PopperInstance, Placement } from '@popperjs/core';
+import useUuid from '../../composables/useUuid';
 
-import Uuid from '../../mixins/uuid';
+const props = withDefaults(
+  defineProps<{
+    label?: string,
+    disabled?: boolean,
+    placement?: Placement,
+    topLevel?: boolean,
+    addScrollListener?: boolean,
+  }>(),
+  {
+    label: '',
+    disabled: false,
+    placement: '',
+    topLevel: false,
+    addScrollListener: false,
+  },
+);
 
-@Component
-export default class Tooltip extends Mixins(Uuid) {
-  @Prop({ type: String, default: '' })
-  readonly label!: string;
+const uuid = useUuid().generateUUID();
+const anchor = ref<HTMLElement | null>(null);
+const tooltip = ref<HTMLElement | null>(null);
+const opened = ref(false);
+const popperInstance = ref<PopperInstance | null>(null);
 
-  @Prop({ type: Boolean, default: false })
-  readonly disabled!: boolean;
+const isOpened = computed(() => opened.value && !props.disabled);
 
-  @Prop({ type: String, default: '' })
-  readonly placement!: Placement;
+const updatePopper = async () => {
+  await nextTick();
+  await popperInstance.value?.update();
+};
 
-  @Prop({ type: Boolean, default: false })
-  readonly topLevel!: boolean;
+const setupListeners = () => {
+  if (!anchor.value || !tooltip.value) return;
 
-  @Prop({ type: Boolean, default: false })
-  readonly addScrollListener!: boolean;
+  const anchorEl = anchor.value.children[0] as HTMLElement;
+  const events = {
+    show: () => {
+      opened.value = true;
+    },
+    hide: () => {
+      opened.value = false;
+    },
+  };
 
-  opened = false;
+  ['focus', 'mouseenter'].forEach((event) => anchorEl.addEventListener(event, events.show));
+  ['blur', 'mouseleave'].forEach((event) => anchorEl.addEventListener(event, events.hide));
 
-  popperInstance: PopperInstance | null = null;
+  anchorEl.setAttribute('aria-describedby', `tooltip-${uuid}`);
+};
 
-  get isOpened(): boolean {
-    return this.opened && !this.disabled;
-  }
-
-  @Watch('opened')
-  async handleOpening(isOpened: boolean): Promise<void> {
-    if (isOpened) {
-      await this.$nextTick();
-      await this.popperInstance?.update();
+// lifecycle hooks
+onMounted(() => {
+  if (props.topLevel && tooltip.value) {
+    const tooltipContainer = document.getElementById('tooltip-container') as HTMLElement;
+    if (tooltipContainer) {
+      tooltipContainer.appendChild(tooltip.value);
     }
   }
 
-  mounted(): void {
-    const anchor = this.$refs.anchor as HTMLElement;
-    const tooltip = this.$refs.tooltip as HTMLElement;
+  if (!anchor.value || !tooltip.value) return;
 
-    if (this.topLevel) {
-      (this.$app.$refs.tooltipContainer as HTMLElement).appendChild(tooltip);
-    }
-    const config: Partial<OptionsGeneric<Partial<Modifier<unknown, unknown>>>> = {
-      modifiers: [
-        {
-          name: 'offset',
-          options: {
-            offset: [0, 4],
-          },
-        },
-        {
-          name: 'eventListeners',
-          options: {
-            scroll: this.addScrollListener,
-          },
-        },
-      ],
-    };
+  popperInstance.value = createPopper(anchor.value, tooltip.value, {
+    placement: props.placement || 'bottom',
+    modifiers: [
+      { name: 'offset', options: { offset: [0, 4] } },
+      { name: 'eventListeners', options: { scroll: props.addScrollListener } },
+    ],
+  });
 
-    if (this.placement) {
-      config.placement = this.placement;
-    }
+  setupListeners();
+});
 
-    this.popperInstance = createPopper(anchor, tooltip, config);
-
-    if (!anchor.children[0]) {
-      return;
-    }
-
-    ['focus', 'mouseenter'].forEach((event) => anchor.children[0].addEventListener(event, () => {
-      if (!this.disabled) {
-        this.opened = true;
-      }
-    }));
-    ['blur', 'mouseleave'].forEach((event) => anchor.children[0].addEventListener(event, () => {
-      this.opened = false;
-    }));
-    anchor.children[0].setAttribute('aria-describedby', `tooltip-${this.uuid}`);
+onBeforeUnmount(() => {
+  if (props.topLevel && tooltip.value) {
+    tooltip.value.remove();
   }
+});
 
-  beforeDestroy(): void {
-    if (this.topLevel) {
-      (this.$refs.tooltip as Element)?.remove();
-    }
-  }
-}
+watch(() => opened.value, updatePopper);
+
 </script>
 
 <style src="./Tooltip.scss" lang="scss"></style>

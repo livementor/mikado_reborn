@@ -12,17 +12,11 @@
   </li>
 </template>
 
-<script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
+<script lang="ts" setup>
+import { withDefaults, defineProps } from 'vue';
 
-@Component
-export default class ListItem extends Vue {
-  @Prop({
-    type: Boolean,
-    default: false,
-  })
-  clickable!: boolean
-}
+withDefaults(defineProps<{ clickable?: boolean }>(), { clickable: false });
+
 </script>
 
 <style src="./ListItem.scss" lang="scss"></style>

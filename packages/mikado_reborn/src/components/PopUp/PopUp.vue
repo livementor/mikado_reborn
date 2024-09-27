@@ -3,64 +3,85 @@
     <div ref="anchor" @click="handleButtonClick">
       <slot name="anchor" />
     </div>
-    <div ref="content" :class="{ 'mkr__popup--hidden': !opened }">
+    <div ref="content" :class="{ 'mkr__popup--hidden': !value }">
       <slot />
     </div>
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import {
-  Component, Vue, Prop, Model, Watch,
-} from 'vue-property-decorator';
+  defineProps, watch, withDefaults, ref, onMounted, nextTick, defineEmits,
+} from 'vue';
 import { createPopper, Instance as PopperInstance, Placement } from '@popperjs/core';
 
-@Component
-export default class PopUp extends Vue {
-  @Model('close', { type: Boolean }) readonly opened!: boolean;
+const props = withDefaults(
+  defineProps<{
+    placement?: Placement,
+    dismissable?: boolean,
+    value?: boolean,
+  }>(),
+  { placement: 'auto', dismissable: false },
+);
 
-  @Prop({ type: String, default: 'auto' })
-  placement!: Placement;
+const emit = defineEmits(['input']);
 
-  @Prop({ type: Boolean, default: false })
-  readonly dismissable!: boolean;
+const popperInstance = ref<PopperInstance | null>(null);
+const anchor = ref<HTMLElement | null>(null);
+const content = ref<HTMLElement | null>(null);
 
-  popperInstance: PopperInstance | null = null;
-
-  async mouted() {
-    await this.updatePopperInstance(this.opened);
-    this.handleEventListeners(this.opened);
+const onClickOutside = (event: MouseEvent) => {
+  const target = event.target as Node | null;
+  if (!target) {
+    return;
   }
-
-  @Watch('opened')
-  async handleOpening(isOpened: boolean): Promise<void> {
-    await this.updatePopperInstance(isOpened);
-    this.handleEventListeners(isOpened);
+  const isClickInModal = anchor.value?.contains(target) || content.value?.contains(target);
+  if (!isClickInModal) {
+    emit('input', false);
   }
+};
 
-  async updatePopperInstance(isOpened: boolean) {
+const initCloseEventListeners = () => {
+  document.addEventListener('mousedown', onClickOutside);
+};
+
+const removeCloseEventListeners = () => {
+  document.removeEventListener('mousedown', onClickOutside);
+};
+
+const updatePopperInstance = async (isOpened: boolean) => {
+  if (isOpened) {
+    await nextTick();
+    await popperInstance.value?.update();
+  }
+};
+
+const handleEventListeners = (isOpened: boolean) => {
+  if (props.dismissable) {
     if (isOpened) {
-      await this.$nextTick();
-      await this.popperInstance?.update();
+      initCloseEventListeners();
+    } else {
+      removeCloseEventListeners();
     }
   }
+};
 
-  handleEventListeners(isOpened: boolean) {
-    if (this.dismissable) {
-      if (isOpened) {
-        this.initCloseEventListeners();
-      } else {
-        this.removeCloseEventListeners();
-      }
-    }
-  }
+const handleButtonClick = async () => {
+  emit('input', !props.value);
+};
 
-  mounted(): void {
-    const anchor = this.$refs.anchor as HTMLElement;
-    const content = this.$refs.content as HTMLElement;
+const handleOpening = async (isOpened: boolean) => {
+  await updatePopperInstance(isOpened);
+  handleEventListeners(isOpened);
+};
 
-    this.popperInstance = createPopper(anchor.children[0], content.children[0] as HTMLElement, {
-      placement: this.placement,
+onMounted(() => {
+  if (anchor.value && content.value) {
+    const anchorChild = anchor.value.children[0] as HTMLElement;
+    const contentChild = content.value.children[0] as HTMLElement;
+
+    popperInstance.value = createPopper(anchorChild, contentChild, {
+      placement: props.placement || 'bottom',
       modifiers: [
         {
           name: 'offset',
@@ -71,30 +92,12 @@ export default class PopUp extends Vue {
       ],
     });
   }
+});
 
-  initCloseEventListeners(): void {
-    document.addEventListener('mousedown', this.onClickOutside);
-  }
+watch(() => props.value, (newVal) => {
+  handleOpening(newVal);
+});
 
-  removeCloseEventListeners(): void {
-    document.removeEventListener('mousedown', this.onClickOutside);
-  }
-
-  onClickOutside(event: MouseEvent): void {
-    const target = event.target as Node | null;
-    if (!target) {
-      return;
-    }
-    const isClickOutside = !this.$el.contains(event.target as Node);
-    if (isClickOutside) {
-      this.$emit('close', false);
-    }
-  }
-
-  async handleButtonClick(): Promise<void> {
-    this.$emit('close', !this.opened);
-  }
-}
 </script>
 
 <style src="./PopUp.scss" lang="scss"></style>

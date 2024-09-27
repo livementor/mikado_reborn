@@ -6,72 +6,54 @@
     tabindex="-1"
     :aria-selected="selected"
     @click="selectValue"
+    ref="chipRef"
   >
     <mkr-icon v-if="selected" name="check" />
     {{ label }}
   </li>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import {
-  Component, Prop, Mixins, InjectReactive,
-} from 'vue-property-decorator';
-import { ChipsListProvide } from './ChipsList.vue';
-import Uuid from '../../mixins/uuid';
-
+  computed, inject, ref, defineProps, withDefaults,
+} from 'vue';
 import { MkrIcon } from '../Icon';
 
-@Component({
-  components: {
-    MkrIcon,
+import { ChipsListProvide } from './ChipsList.vue';
+import useUuid from '../../composables/useUuid';
+
+const list = inject<ChipsListProvide>('list');
+
+const { generateUUID } = useUuid();
+const uuid = generateUUID();
+
+const props = withDefaults(
+  defineProps<{ label?: string, value?: string }>(),
+  { label: '', value: '' },
+);
+
+const componentId = computed(() => `chips-${uuid}`);
+const selected = computed(() => (list ? list.value === props.value : false));
+const chipRef = ref<HTMLElement | null>(null);
+
+const classes = computed(() => [
+  'mkr__chips',
+  {
+    'mkr__chips--selected': selected.value,
+    'mkr__chips--small': list ? list.size === 'small' : false,
   },
-})
-export default class Chips extends Mixins(Uuid) {
-  @InjectReactive('list') readonly list?: ChipsListProvide;
+]);
 
-  @Prop({ type: String, default: '' })
-  readonly label!: string;
-
-  @Prop({ type: String, default: '' })
-  readonly value!: string;
-
-  get componentId(): string {
-    return `chips-${this.uuid}`;
-  }
-
-  get classes(): (string | { [className: string]: boolean })[] {
-    return [
-      'mkr__chips',
-      {
-        'mkr__chips--selected': this.selected,
-        'mkr__chips--small': this.list ? this.list.size === 'small' : false,
-      },
-    ];
-  }
-
-  get selected(): boolean {
-    if (this.list) return this.list.value === this.value;
-    return false;
-  }
-
-  created(): void {
-    if (this.list) this.list.registerChips(this);
-  }
-
-  beforeDestroy(): void {
-    if (this.list) this.list.unregisterChips(this.uuid);
-  }
-
-  selectValue(): void {
-    if (this.list) {
-      if (this.selected) {
-        this.list.emitChange('');
-      } else {
-        this.list.emitChange(this.value);
-      }
+const selectValue = () => {
+  if (list) {
+    if (selected.value) {
+      list.emitChange('');
+    } else {
+      list.emitChange(props.value);
     }
   }
-}
+};
+
 </script>
 
 <style src="./Chips.scss" lang="scss"></style>

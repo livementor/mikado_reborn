@@ -1,12 +1,11 @@
 import { MkrOverlay } from "../../../mikado_reborn/src/components";
-import { colors } from "../../../mikado_reborn/src/components/Overlay/Overlay.vue";
 
 export default {
   title: 'Components/Overlay',
   component: MkrOverlay,
   argTypes: {
     color: {
-      options: Object.values(colors),
+      options: ['dark', 'light'],
       control: {
         type: 'select',
       }

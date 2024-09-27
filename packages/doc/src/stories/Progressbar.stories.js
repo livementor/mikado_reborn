@@ -3,10 +3,13 @@ import { MkrProgressbar } from '../../../mikado_reborn/src/components';
 export default {
   title: 'Components/Progressbar',
   component: MkrProgressbar,
+  argTypes: {
+    size: { control: { type: 'select', options: ['medium', 'small'] } },
+  }
 };
 
-const Template = (args) => ({
-  props: Object.keys(args),
+const Template = (args, {argTypes}) => ({
+  props: Object.keys(argTypes),
   template:
     '<div style="width: 200px;"><mkr-progressbar v-bind="$props" /></div>',
 });
@@ -18,8 +21,8 @@ Progressbar.args = {
   shrinkEmoji: false,
 };
 
-const WithSlotTemplate = (args) => ({
-  props: Object.keys(args),
+const WithSlotTemplate = (args, {argTypes}) => ({
+  props: Object.keys(argTypes),
   template:
     '<div style="width: 200px;"><mkr-progressbar v-bind="$props">🎉</mkr-progressbar></div>',
 });
@@ -31,8 +34,8 @@ ProgressbarWithSlot.args = {
   shrinkEmoji: false,
 };
 
-const simpleProgress = (args) => ({
-  props: Object.keys(args),
+const simpleProgress = (args, {argTypes}) => ({
+  props: Object.keys(argTypes),
   template:
     '<div style="width: 200px;"><mkr-progressbar v-bind="$props"></mkr-progressbar></div>',
 });

@@ -1,19 +1,16 @@
 <template>
-  <div class="mkr__app">
-    <div ref="tooltipContainer" />
+  <div class="mkr__app" ref="appRef">
+    <div ref="tooltipContainer" id="tooltip-container" />
     <slot />
   </div>
 </template>
 
-<script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+<script lang="ts" setup>
+import { provide, ref } from 'vue';
 
-@Component
-export default class App extends Vue {
-  created(): void {
-    Vue.prototype.$app = this;
-  }
-}
+const appRef = ref(null);
+provide('appRef', appRef);
+
 </script>
 
 <style src="./App.scss" lang="scss"></style>

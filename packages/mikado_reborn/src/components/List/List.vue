@@ -11,35 +11,21 @@
   </ul>
 </template>
 
-<script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
+<script lang="ts" setup>
+import { withDefaults, defineProps } from 'vue';
 
-export const ListSize = {
-  medium: 'medium',
-  large: 'large',
-};
-
-@Component
-export default class List extends Vue {
-  @Prop({
-    type: Boolean,
-    default: false,
-  })
-  itemHoverable?: boolean
-
-  @Prop({
-    type: Boolean,
-    default: false,
-  })
-  padded?: boolean
-
-  @Prop({
-    type: String,
-    default: ListSize.medium,
-    validator: (variant: string) => Object.values(ListSize).includes(variant),
-  })
-  size!: keyof typeof ListSize
-}
+withDefaults(
+  defineProps<{
+    itemHoverable?: boolean,
+    padded?: boolean,
+    size?: 'small' | 'medium' | 'large'
+  }>(),
+  {
+    itemHoverable: false,
+    padded: false,
+    size: 'medium',
+  },
+);
 
 </script>
 

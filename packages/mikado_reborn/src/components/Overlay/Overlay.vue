@@ -1,10 +1,10 @@
 <template>
-  <div
+  <div ref="overlayRef"
     class="mkr__overlay"
     :class="[
       `mkr__overlay--${color}`,
       {
-        'mkr__overlay--opened': opened,
+        'mkr__overlay--opened': value,
       },
     ]"
     @click="click"
@@ -13,60 +13,51 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import {
-  Component, Prop, Vue, Model, Watch,
-} from 'vue-property-decorator';
+  withDefaults, defineProps, defineEmits, onMounted, inject, ref, watch, onBeforeUnmount,
+} from 'vue';
 
-export const colors = {
-  dark: 'dark',
-  light: 'light',
+const props = withDefaults(
+  defineProps<{
+    color?: 'dark' | 'light',
+    keepOnClick?: boolean,
+    value?: boolean, // native v-model ; original term = "opened"
+  }>(),
+  {
+    color: 'dark',
+    keepOnClick: false,
+  },
+);
+
+const emit = defineEmits(['click', 'input']);
+
+const appRef = inject('appRef');
+const overlayRef = ref(null);
+
+// functions
+const click = () => {
+  if (!props.keepOnClick) {
+    emit('input', false);
+  }
+  emit('click');
+};
+const onOpenedChanged = (isOpen: boolean) => {
+  document.body.style.overflow = isOpen ? 'hidden' : 'visible';
 };
 
-function setDocumentOverflow(isOpen: boolean): void {
-  document.body.style.overflow = isOpen ? 'hidden' : 'visible';
-}
+// hooks
+onMounted(() => {
+  appRef.value.insertBefore(overlayRef.value, appRef.value.children[0]);
+});
 
-@Component
-export default class Modal extends Vue {
-  @Model('close', { type: Boolean }) readonly opened!: boolean;
+onBeforeUnmount(() => {
+  overlayRef.value?.remove();
+  document.body.style.overflow = 'visible';
+});
 
-  @Prop({
-    type: String,
-    validator: (value: string): boolean => Object.values(colors).includes(value),
-    default: 'dark',
-  })
-  readonly color!: keyof typeof colors;
+watch(() => props.value, onOpenedChanged);
 
-  @Prop({ type: Boolean, default: false })
-  readonly keepOnClick!: boolean;
-
-  /* eslint-disable */
-  @Watch('opened')
-  onOpenedChanged(isOpen: boolean): void {
-    setDocumentOverflow(isOpen);
-  }
-  /* eslint-enable */
-
-  mounted(): void {
-    setDocumentOverflow(this.opened);
-
-    const app = this.$app;
-    app.$el.insertBefore(this.$el, app.$el.children[0]);
-  }
-
-  destroyed(): void {
-    this.$el?.remove();
-    document.body.style.overflow = 'visible';
-  }
-
-  click(): void {
-    if (!this.keepOnClick) {
-      this.$emit('close', false);
-    }
-    this.$emit('click');
-  }
-}
 </script>
 
 <style src="./Overlay.scss" lang="scss"></style>

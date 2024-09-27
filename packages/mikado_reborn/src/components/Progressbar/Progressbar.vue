@@ -25,46 +25,35 @@
   </div>
 </template>
 
-<script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
+<script lang="ts" setup>
+import { computed, withDefaults, defineProps } from 'vue';
 
-@Component
-export default class Progressbar extends Vue {
-  @Prop({ type: Number, default: 0 })
-  current!: number;
+const props = withDefaults(
+  defineProps<{
+    current?: number,
+    total: number,
+    shrinkEmoji?: boolean,
+    size?: 'small' | 'medium',
+    hideState?: boolean,
+  }>(),
+  {
+    current: 0,
+    shrinkEmoji: false,
+    size: 'medium',
+    hideState: false,
+  },
+);
 
-  @Prop({ type: Number, required: true })
-  total!: number;
+const isCompleted = computed<boolean>(() => props.total > 0 && props.current >= props.total);
+const showEmoji = computed<boolean>(() => props.isCompleted || !props.shrinkEmoji);
+const spanStyle = computed(() => {
+  const percentage = Math.max(Math.min((props.current / props.total) * 100, 100), 0);
+  return {
+    transform: props.current <= 0 ? 'translateX(-4px)' : '', // hide border-width
+    width: `${percentage}%`,
+  };
+});
 
-  @Prop({ type: Boolean, required: false, default: false })
-  shrinkEmoji!: boolean;
-
-  @Prop({
-    required: false,
-    default: 'medium',
-    validator: (size: string) => ['small', 'medium'].includes(size),
-  })
-  size!: 'small' | 'medium'
-
-  @Prop({ type: Boolean, required: false, default: false })
-  hideState!: boolean;
-
-  get isCompleted(): boolean {
-    return this.total > 0 && this.current >= this.total;
-  }
-
-  get showEmoji(): boolean {
-    return this.isCompleted || !this.shrinkEmoji;
-  }
-
-  get spanStyle(): Partial<CSSStyleDeclaration> {
-    const percentage = Math.max(Math.min((this.current / this.total) * 100, 100), 0);
-    return {
-      transform: this.current <= 0 ? 'translateX(-4px)' : '', // hide border-width
-      width: `${percentage}%`,
-    };
-  }
-}
 </script>
 
 <style src="./Progressbar.scss" lang="scss"></style>

@@ -30,6 +30,17 @@ const Template = (args, { argTypes }) => ({
 
 export const Stepper = Template.bind({});
 Stepper.args = {
-  items: ['Formation', 'Paiement', 'Contrat', 'Confirmation'],
+  items: [
+    'Formation',
+    {
+      type: 'warning',
+      label: 'Paiement',
+    },
+    {
+      type: 'error',
+      label: 'Réservation',
+    },
+    'Confirmation'
+  ],
   step: 1,
 };
