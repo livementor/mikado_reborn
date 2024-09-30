@@ -1,14 +1,14 @@
 <template>
-  <div ref="modalRef" v-if="value">
-    <mkr-overlay v-if="overlay" :value="value" />
+  <div ref="modalRef" v-if="isModalOpened">
+    <mkr-overlay v-if="overlay" :value="isModalOpened" />
     <mkr-card
       role="dialog"
-      :aria-modal="value"
+      :aria-modal="isModalOpened"
       class="mkr__modal"
       :class="[
         `mkr__modal--${size}`,
         {
-          'mkr__modal--opened': value,
+          'mkr__modal--opened': isModalOpened,
           'mkr__modal--slim': slim,
           'mkr__modal--scrollable': scrollable,
           'mkr__modal--scrolled': isScrolled && scrollable,
@@ -27,7 +27,7 @@
             type="button"
             icon="cross"
             size="small"
-            @click="emit('input', false)"
+            @click="close()"
           />
           <slot name="title" />
         </slot>
@@ -44,14 +44,12 @@
 
 <script lang="ts" setup>
 import {
-  defineProps, withDefaults, defineEmits, inject, onMounted, ref, onUnmounted, watch, nextTick,
+  defineProps, withDefaults, defineEmits, inject, onMounted, ref, onUnmounted, watch, nextTick, computed, Ref,
 } from 'vue';
 import { MkrCard } from '../Card';
 import { MkrOverlay } from '../Overlay';
 import { MkrTextButton } from '../Button';
 import focusTrap from './focusTrap';
-
-const modalRef = ref(null);
 
 const props = withDefaults(
   defineProps<{
@@ -60,9 +58,10 @@ const props = withDefaults(
     closeable?: boolean,
     overlay?: boolean,
     scrollable?: boolean,
-    focusFirstSelector?: string,
+    focusFirstSelector?: string | null,
     noHeader?: boolean,
-    value?: boolean, // in order to use native v-model => original name = "opened"
+    value?: boolean,
+    opened?: boolean
   }>(),
   {
     size: 'medium',
@@ -76,13 +75,23 @@ const props = withDefaults(
   },
 );
 
-const emit = defineEmits(['input']);
+const isModalOpened = computed(() => props.value || props.opened);
+
+const emit = defineEmits(['close', 'input']);
 
 // dom manipulation
-const appRef = inject('appRef');
+const appRef = inject<Ref<HTMLElement>>('appRef');
+const modalRef = ref<HTMLElement | null>(null);
+
+const close = () => {
+  emit('close');
+  emit('input', false);
+};
+
 const modalContent = ref(null);
 const teleportModalToAppElement = () => {
-  appRef.value.insertBefore(modalRef.value, appRef.value.children[0]);
+  if (!modalRef.value) return;
+  appRef?.value.insertBefore(modalRef.value, appRef.value.children[0]);
 };
 const removeModalFromDom = () => {
   modalRef.value?.remove();
@@ -104,17 +113,17 @@ const onClickOutside = (event: MouseEvent) => {
   const target = event.target as Node | null;
   if (!target) return;
 
-  const isClickInModal = modalRef.value.contains(event.target as Node);
-  if (!isClickInModal) emit('input', false);
+  const isClickInModal = modalRef.value?.contains(event.target as Node);
+  if (!isClickInModal) close();
 };
 const keydownHandler = (event: KeyboardEvent) => {
-  if (event.key === 'Escape') emit('input', false);
+  if (event.key === 'Escape') close();
 };
 
 // scroll state
-let isScrolled = ref(false);
-let isFullyScrolled = ref(false);
-let hasScroll = ref(false);
+const isScrolled = ref(false);
+const isFullyScrolled = ref(false);
+const hasScroll = ref(false);
 const setScrollState = (event?: UIEvent) => {
   if (!props.scrollable) return;
 
@@ -123,9 +132,9 @@ const setScrollState = (event?: UIEvent) => {
 
     if (!target) return;
 
-    isScrolled = target.scrollTop >= 20;
-    hasScroll = target.clientHeight < target.scrollHeight;
-    isFullyScrolled = target.scrollHeight - target.scrollTop - target.clientHeight < 20;
+    isScrolled.value = target.scrollTop >= 20;
+    hasScroll.value = target.clientHeight < target.scrollHeight;
+    isFullyScrolled.value = target.scrollHeight - target.scrollTop - target.clientHeight < 20;
   }, 200);
 };
 
