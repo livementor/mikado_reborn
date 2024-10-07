@@ -17,7 +17,7 @@
 
 <script lang="ts" setup>
 import {
-  onMounted, ref, defineProps, defineEmits, withDefaults,
+  onMounted, ref, withDefaults,
 } from 'vue';
 
 const show = ref(true);

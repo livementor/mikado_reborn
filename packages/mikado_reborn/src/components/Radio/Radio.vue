@@ -16,7 +16,7 @@
 
 <script lang="ts" setup>
 import {
-  inject, computed, defineProps, defineEmits,
+  inject, computed,
 } from 'vue';
 import { RadioGroupProvide } from './RadioGroup.vue';
 

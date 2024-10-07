@@ -15,7 +15,7 @@
 
 <script lang="ts" setup>
 import {
-  computed, inject, ref, defineProps, withDefaults,
+  computed, inject, ref, withDefaults,
 } from 'vue';
 import { MkrIcon } from '../Icon';
 

@@ -67,7 +67,7 @@
 
 <script lang="ts" setup>
 import {
-  withDefaults, defineProps, nextTick, onMounted, ref, computed, defineEmits,
+  withDefaults, nextTick, onMounted, ref, computed,
 } from 'vue';
 import { createPopper, Instance as PopperInstance } from '@popperjs/core';
 import useUuid from '../../composables/useUuid';

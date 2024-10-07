@@ -14,7 +14,7 @@
 
 <script lang="ts" setup>
 import {
-  defineEmits, computed, defineProps, useAttrs, useSlots, withDefaults,
+  computed, useAttrs, useSlots, withDefaults,
 } from 'vue';
 import { MkrIcon } from '../Icon';
 import './Button.scss';

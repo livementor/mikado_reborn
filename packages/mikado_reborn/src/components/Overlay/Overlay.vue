@@ -15,7 +15,7 @@
 
 <script lang="ts" setup>
 import {
-  withDefaults, defineProps, defineEmits, onMounted, inject, ref, watch, onBeforeUnmount,
+  withDefaults, onMounted, inject, ref, watch, onBeforeUnmount,
 } from 'vue';
 
 const props = withDefaults(

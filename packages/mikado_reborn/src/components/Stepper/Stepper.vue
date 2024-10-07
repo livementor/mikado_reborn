@@ -34,7 +34,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, withDefaults, defineProps } from 'vue';
+import { computed, withDefaults } from 'vue';
 import StepperIcon from './StepperIcon.vue';
 
 export type StepperItem = { type: string; label: string };

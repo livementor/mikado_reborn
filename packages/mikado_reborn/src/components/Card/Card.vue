@@ -8,7 +8,7 @@
 </template>
 
 <script lang="ts" setup>
-import { withDefaults, defineProps } from 'vue';
+import { withDefaults } from 'vue';
 
 export type radiusType = 'small' | 'medium' | 'large';
 
