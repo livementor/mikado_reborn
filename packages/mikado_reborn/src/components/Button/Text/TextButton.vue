@@ -1,8 +1,8 @@
 <template>
   <MkrButton
+    v-bind="$attrs"
     :variant="'text'"
     :theme="theme"
-    v-bind="$attrs"
   >
     <slot></slot>
   </MkrButton>

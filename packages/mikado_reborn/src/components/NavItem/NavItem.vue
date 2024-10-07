@@ -2,8 +2,8 @@
   <li :class="classes">
     <MkrTooltip :disabled="!title" :label="title">
       <component
-        :is="component"
         v-bind="$attrs"
+        :is="component"
         @click="emitClick"
       >
         <slot name="icon">

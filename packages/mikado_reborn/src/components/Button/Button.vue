@@ -1,8 +1,8 @@
 <template>
   <component
+    v-bind="attributes"
     :is="componentType"
     :class="buttonClasses"
-    v-bind="attributes"
     :disabled="disabled"
     @click="handleClick"
   >

@@ -1,7 +1,7 @@
 <template>
   <Icon
-    style="font-size: 24px; height: 24px; width: 24px"
     v-bind="iconProperties"
+    style="font-size: 24px; height: 24px; width: 24px"
   />
 </template>
 

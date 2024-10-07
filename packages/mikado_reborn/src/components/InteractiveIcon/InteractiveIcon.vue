@@ -1,8 +1,8 @@
 <template>
   <component
+    v-bind="$attrs"
     :is="component"
     :class="classes"
-    v-bind="$attrs"
     @click="$emit('click', $event)"
   >
     <MkrIcon :name="name" />
