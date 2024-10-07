@@ -2,9 +2,10 @@
   "name": "@livementor/mikado_reborn",
   "version": "0.34.3",
   "scripts": {
-    "build": "vue-cli-service build --target lib --name mikado_reborn ./src/index.ts",
-    "build:tokens": "style-dictionary build",
-    "lint": "vue-cli-service lint"
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint --ext .ts,.vue --ignore-path .gitignore --fix src",
+    "serve": "vite preview"
   },
   "repository": {
     "type": "git",
@@ -35,27 +36,19 @@
   "dependencies": {
     "@popperjs/core": "^2.11.0",
     "@types/uuid": "^10.0.0",
-    "core-js": "^3.19.3",
     "uuid": "^10.0.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.16.5",
     "@typescript-eslint/eslint-plugin": "^5.7.0",
     "@typescript-eslint/parser": "^5.7.0",
-    "@vue/cli-plugin-babel": "~4.5.0",
-    "@vue/cli-plugin-eslint": "~4.5.0",
-    "@vue/cli-plugin-typescript": "~4.5.0",
-    "@vue/cli-service": "~4.5.0",
+    "@vitejs/plugin-vue": "^1.6.1",
     "@vue/eslint-config-airbnb": "^5.3.0",
     "@vue/eslint-config-typescript": "^9.1.0",
-    "babel-loader": "^8.2.2",
-    "eslint": "^7.32.0",
-    "eslint-plugin-import": "^2.25.3",
-    "eslint-plugin-vue": "^8.2.0",
     "sass": "^1.45.0",
-    "sass-loader": "^10",
-    "style-dictionary": "^3.0.3",
+    "eslint": "8",
+    "eslint-plugin-vue": "8",
     "typescript": "^4.4.4",
+    "vite": "^2.5.4",
     "vue-loader": "^15.9.6"
   }
 }
