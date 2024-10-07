@@ -7,10 +7,9 @@
       :minlength="minlength"
       :rows="rows"
       v-on="{
-          ...$listeners,
-          change: (e) => ($emit('change', e.target.value)),
-          input: (e) => ($emit('input', e.target.value)),
-        }"
+         change: (e) => ($emit('change', e.target.value)),
+         input: (e) => ($emit('input', e.target.value)),
+       }"
     />
   </div>
 </template>

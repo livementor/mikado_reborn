@@ -10,7 +10,6 @@
         @focus="focused=true"
         @blur="focused=false"
         v-on="{
-          ...$listeners,
           change: emitInputValue,
           input: emitInputValue,
         }"

@@ -3,7 +3,6 @@
     :variant="'text'"
     :theme="theme"
     v-bind="$attrs"
-    v-on="$listeners"
   >
     <slot></slot>
   </MkrButton>

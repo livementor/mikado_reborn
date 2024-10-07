@@ -4,7 +4,6 @@
     :class="{ 'mkr__list__item--clickable': clickable }"
     tabindex="-1"
     v-on="{
-      ...$listeners,
       click: (event) => clickable ? $emit('click', event) : undefined
     }"
   >
