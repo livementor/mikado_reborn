@@ -24,6 +24,7 @@ const props = withDefaults(
   }>(),
   { theme: 'light', activated: false },
 );
+defineEmits(['click']);
 
 // classes
 const classBase = 'mkr__interactive-icon';

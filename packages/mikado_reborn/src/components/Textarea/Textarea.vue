@@ -23,6 +23,7 @@ defineProps<{
   error?: boolean,
   rows?: number,
 }>();
+defineEmits(['input', 'change']);
 
 </script>
 

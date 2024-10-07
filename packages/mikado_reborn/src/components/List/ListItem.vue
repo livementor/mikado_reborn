@@ -15,6 +15,7 @@
 import { withDefaults } from 'vue';
 
 withDefaults(defineProps<{ clickable?: boolean }>(), { clickable: false });
+defineEmits(['click']);
 
 </script>
 
