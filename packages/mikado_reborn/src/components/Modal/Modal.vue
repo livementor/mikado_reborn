@@ -44,7 +44,7 @@
 
 <script lang="ts" setup>
 import {
-  defineProps, withDefaults, defineEmits, inject, onMounted, ref, onUnmounted, watch, nextTick, computed, Ref,
+  withDefaults, inject, onMounted, ref, onUnmounted, watch, nextTick, computed, Ref,
 } from 'vue';
 import { MkrCard } from '../Card';
 import { MkrOverlay } from '../Overlay';

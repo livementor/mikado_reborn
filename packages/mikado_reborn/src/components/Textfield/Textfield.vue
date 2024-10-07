@@ -3,17 +3,16 @@
     <div class="mkr__textfield__inner">
       <mkr-icon v-if="iconName" :color="focused?iconColor:'neutral-60'" :name="iconName" />
       <input
-        :value="value"
-        :type="getType"
-        :placeholder="placeholder"
         v-bind="$attrs"
-        @focus="focused=true"
-        @blur="focused=false"
         v-on="{
-          ...$listeners,
           change: emitInputValue,
           input: emitInputValue,
         }"
+        :value="value"
+        :type="getType"
+        :placeholder="placeholder"
+        @focus="focused=true"
+        @blur="focused=false"
       />
       <mkr-icon v-if="error" name="exclamation-circle" color="danger" />
     </div>
@@ -31,7 +30,7 @@
 
 <script lang="ts" setup>
 import {
-  computed, ref, withDefaults, defineProps, defineEmits,
+  computed, ref, withDefaults,
 } from 'vue';
 import MkrIcon from '../Icon/Icon.vue';
 import MkrContainedButton from '../Button/Contained/ContainedButton.vue';

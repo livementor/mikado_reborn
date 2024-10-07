@@ -26,7 +26,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, withDefaults, defineProps } from 'vue';
+import { computed, withDefaults } from 'vue';
 
 const props = withDefaults(
   defineProps<{

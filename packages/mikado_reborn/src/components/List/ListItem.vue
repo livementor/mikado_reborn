@@ -4,7 +4,6 @@
     :class="{ 'mkr__list__item--clickable': clickable }"
     tabindex="-1"
     v-on="{
-      ...$listeners,
       click: (event) => clickable ? $emit('click', event) : undefined
     }"
   >
@@ -13,9 +12,10 @@
 </template>
 
 <script lang="ts" setup>
-import { withDefaults, defineProps } from 'vue';
+import { withDefaults } from 'vue';
 
 withDefaults(defineProps<{ clickable?: boolean }>(), { clickable: false });
+defineEmits(['click']);
 
 </script>
 

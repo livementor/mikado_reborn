@@ -18,7 +18,7 @@
 
 <script lang="ts" setup>
 import {
-  provide, reactive, ref, watch, defineProps, withDefaults, defineEmits,
+  provide, reactive, ref, watch, withDefaults,
 } from 'vue';
 import Chips from './Chips.vue';
 

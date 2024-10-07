@@ -1,8 +1,8 @@
 <template>
   <component
+    v-bind="$attrs"
     :is="component"
     :class="classes"
-    v-bind="$attrs"
     @click="$emit('click', $event)"
   >
     <MkrIcon :name="name" />
@@ -12,7 +12,7 @@
 
 <script lang="ts" setup>
 import {
-  computed, withDefaults, defineProps,
+  computed, withDefaults,
 } from 'vue';
 import { MkrIcon } from '../Icon';
 
@@ -24,6 +24,7 @@ const props = withDefaults(
   }>(),
   { theme: 'light', activated: false },
 );
+defineEmits(['click']);
 
 // classes
 const classBase = 'mkr__interactive-icon';

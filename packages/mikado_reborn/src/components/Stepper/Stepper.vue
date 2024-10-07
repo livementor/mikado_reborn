@@ -5,7 +5,7 @@
       <div class="mkr__stepper-header">
         <template v-for="({ type, label }, i) in itemsAsObject">
           <!-- Header Divider -->
-          <div v-if="i !== 0" :key="i" class="mkr__stepper-header__divider" />
+          <div v-if="i !== 0" class="mkr__stepper-header__divider" />
           <!-- Header Item -->
           <div
             :key="label"
@@ -34,7 +34,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, withDefaults, defineProps } from 'vue';
+import { computed, withDefaults } from 'vue';
 import StepperIcon from './StepperIcon.vue';
 
 export type StepperItem = { type: string; label: string };
