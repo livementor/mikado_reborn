@@ -5,7 +5,7 @@
       <div class="mkr__stepper-header">
         <template v-for="({ type, label }, i) in itemsAsObject">
           <!-- Header Divider -->
-          <div v-if="i !== 0" :key="i" class="mkr__stepper-header__divider" />
+          <div v-if="i !== 0" class="mkr__stepper-header__divider" />
           <!-- Header Item -->
           <div
             :key="label"
