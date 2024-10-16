@@ -20,7 +20,6 @@ body{
 
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
   gap: 15px;
 }
 
@@ -35,20 +34,15 @@ header{
 header ul{ display: flex; list-style: none; padding:0 }
 header ul li{ padding: 3px 5px; }
 
-/* COMMON STYLE */
-.card-like{
-  background-color: white;
-  border: 1px solid rgba(33, 46, 59, 0.2);
-  border-radius: 15px;
-}
-
 /* ASIDE - Components List */
 aside{
   width: 200px;
   flex: 0 0 auto;
 }
+aside hr{ opacity: .1; margin: 10px 15px; }
 aside h3{ font-size: 1.5rem; margin: 15px 10px; padding: 0; text-align: center; }
 aside ul{ margin: 10px; padding:0; }
+aside ul a{ all: unset }
 aside ul li{
   position: relative;
   list-style: none;
@@ -72,7 +66,7 @@ aside ul li:hover{
   box-shadow: 0 1px 3px rgba(0,0,0,.05);
   cursor:pointer;
 }
-aside ul li.active{
+aside ul .active li{
   background-color: white;
   border-color: lightgray;
 }
@@ -85,3 +79,8 @@ section{
 section .card-like{
   padding: 30px;
 }
+
+
+.demonstration{ display: flex; margin: 15px 0 60px; }
+.demonstration .variant{ flex: 1 1 auto; display:flex; flex-direction: column; align-items: center; }
+.demonstration .variant h6{ margin-bottom: 15px; }
