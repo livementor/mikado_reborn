@@ -3,7 +3,7 @@
     <div ref="anchor" @click="handleButtonClick">
       <slot name="anchor" />
     </div>
-    <div ref="content" :class="{ 'mkr__popup--hidden': !value }">
+    <div ref="content" :class="{ 'mkr__popup--hidden': !model }">
       <slot />
     </div>
   </div>
@@ -19,10 +19,11 @@ const props = withDefaults(
   defineProps<{
     placement?: Placement,
     dismissable?: boolean,
-    value?: boolean,
   }>(),
   { placement: 'auto', dismissable: false },
 );
+
+const model = defineModel();
 
 const emit = defineEmits(['input']);
 
@@ -67,7 +68,7 @@ const handleEventListeners = (isOpened: boolean) => {
 };
 
 const handleButtonClick = async () => {
-  emit('input', !props.value);
+  model.value = !model.value;
 };
 
 const handleOpening = async (isOpened: boolean) => {

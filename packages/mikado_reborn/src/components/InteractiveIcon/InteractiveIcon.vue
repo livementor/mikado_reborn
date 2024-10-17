@@ -12,7 +12,7 @@
 
 <script lang="ts" setup>
 import {
-  computed, withDefaults,
+  computed, withDefaults, defineProps, defineEmits, useAttrs,
 } from 'vue';
 import { MkrIcon } from '../Icon';
 
@@ -24,7 +24,10 @@ const props = withDefaults(
   }>(),
   { theme: 'light', activated: false },
 );
+
 defineEmits(['click']);
+
+const $attrs = useAttrs();
 
 // classes
 const classBase = 'mkr__interactive-icon';
@@ -34,9 +37,9 @@ const classes = computed(() => [
   { [`${classBase}--${props.theme}--activated`]: props.activated },
 ]);
 
-const component = computed((context) => {
-  const isRouterLink = !!context.$attrs.to;
-  const isLink = !!context.$attrs.href;
+const component = computed(() => {
+  const isRouterLink = !!$attrs.to;
+  const isLink = !!$attrs.href;
 
   // eslint-disable-next-line no-nested-ternary
   return isRouterLink ? 'RouterLink'

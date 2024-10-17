@@ -3,12 +3,11 @@
     <div class="mkr__stepper">
       <!-- Header -->
       <div class="mkr__stepper-header">
-        <template v-for="({ type, label }, i) in itemsAsObject">
+        <template v-for="({ type, label }, i) in itemsAsObject" :key="i">
           <!-- Header Divider -->
           <div v-if="i !== 0" class="mkr__stepper-header__divider" />
           <!-- Header Item -->
           <div
-            :key="label"
             class="mkr__stepper-header__item"
             :class="{ 'current': step === i + 1 }"
           >

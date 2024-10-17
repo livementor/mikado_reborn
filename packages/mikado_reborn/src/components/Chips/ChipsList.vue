@@ -23,18 +23,18 @@ import {
 import Chips from './Chips.vue';
 
 export type ChipsListProvide = {
-  value?: string | null;
   size: 'medium' | 'small';
   orientation: 'row' | 'column';
   wrap: boolean;
-  emitChange: (value: string) => void;
+  emitInput: (value: string) => void;
   registerChips: (chips: typeof Chips) => void;
   unregisterChips: (uuid: string) => void;
 };
 
+const model = defineModel();
+
 const props = withDefaults(
   defineProps<{
-    value?: string,
     size?: 'medium' | 'small',
     orientation?: 'row' | 'column',
     wrap?: boolean,
@@ -48,23 +48,22 @@ const props = withDefaults(
 
 const emit = defineEmits(['input']);
 
-// const chips = ref<typeof Chips[]>([]); // TODO: confirm useless line
 const listRef = ref<HTMLElement | null>(null);
 
 const list = reactive({
-  value: props.value,
+  model: model.value,
   size: props.size,
   orientation: props.orientation,
   wrap: props.wrap,
-  emitChange: (value: string) => {
+  emitInput: (value: string) => {
     emit('input', value);
   },
 });
 
 provide('list', list);
 
-watch(() => props.value, (value) => {
-  list.value = value;
+watch(() => model.value, (value) => {
+  list.model = value;
 });
 
 </script>
