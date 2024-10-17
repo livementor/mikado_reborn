@@ -7,8 +7,8 @@ import Layout from './Layout.vue'
 import Home from '@/pages/Home.vue'
 import Install from '@/pages/Install.vue'
 
-// Auto import components contexts list from folder Contexts
-const components = import.meta.glob('./pages/Contexts/*.vue');
+// Auto import components contexts list from folder Definitions
+const components = import.meta.glob('./pages/Definitions/*.vue');
 const componentRoutes = () => Object.entries(components).map( async ([path, component]) => ({
   path: '/' + path.split('/').pop().replace('.vue', '').toLowerCase(),
   component: (await component()).default

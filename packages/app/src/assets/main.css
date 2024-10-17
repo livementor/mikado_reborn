@@ -4,7 +4,7 @@
 html{ font-size: 8px; } /* set px/rem ration => 1rem = 8px */
 
 body{
-  background: #EFF1F1;
+  background: var(--color-background-mute);
 
   font-family: Rubik;
   font-size: 16px;
@@ -50,8 +50,8 @@ aside ul li{
   font-size: 1.4rem;
   padding: 0px 15px;
   margin: 5px 0;
-  border: 1px solid #f8f8f8;
-  background-color: #f8f8f8;
+  border: 1px solid var(--color-background-soft);
+  background-color: var(--color-background-soft);
   border-radius: 8px;
   transition: .2s;
 }
@@ -67,7 +67,7 @@ aside ul li:hover{
   cursor:pointer;
 }
 aside ul .active li{
-  background-color: white;
+  background-color: var(--color-background);
   border-color: lightgray;
 }
 
@@ -81,6 +81,9 @@ section .card-like{
 }
 
 
-.demonstration{ display: flex; margin: 15px 0 60px; }
-.demonstration .variant{ flex: 1 1 auto; display:flex; flex-direction: column; align-items: center; }
-.demonstration .variant h6{ margin-bottom: 15px; }
+.variant{ display: flex; margin: 15px 0 60px;
+  > div{
+    flex: 1 1 auto; display:flex; flex-direction: column; align-items: center;
+    h6{ margin-bottom: 15px; }
+  }
+}

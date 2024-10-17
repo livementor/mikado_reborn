@@ -5,8 +5,8 @@ import { ref, watch } from 'vue'
 import { MkrApp } from '@livementor/mikado_reborn/src/components/App';
 import { MkrAvatar } from '@livementor/mikado_reborn/src/components/Avatar';
 
-// Auto import components contexts list from folder Contexts
-const components = import.meta.glob('./pages/Contexts/*.vue');
+// Auto import components contexts list from folder Definitions
+const components = import.meta.glob('./pages/Definitions/*.vue');
 const componentNames = Object.keys(components).map(path => path.split('/').pop().replace('.vue', ''));
 
 const activeRoute = ref(null)
