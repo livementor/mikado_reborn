@@ -14,7 +14,7 @@
 
 <script lang="ts" setup>
 import {
-  computed, useAttrs, useSlots, withDefaults,
+  computed, useAttrs, useSlots, withDefaults, defineProps, defineEmits,
 } from 'vue';
 import { MkrIcon } from '../Icon';
 import './Button.scss';
@@ -43,7 +43,9 @@ const emit = defineEmits(['click']);
 
 const baseClass = 'mkr__button';
 
-const hasContent = computed(() => useSlots().default && useSlots().default().length > 0);
+const slots = useSlots();
+
+const hasContent = computed(() => (slots.length || 0) > 0);
 const componentClass = computed(() => `${baseClass}--${props.variant}`);
 const themeClass = computed(() => (props.theme ? `${componentClass.value}--${props.theme}` : ''));
 

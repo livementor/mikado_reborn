@@ -60,7 +60,6 @@ const props = withDefaults(
     scrollable?: boolean,
     focusFirstSelector?: string | null,
     noHeader?: boolean,
-    value?: boolean,
     opened?: boolean
   }>(),
   {
@@ -71,11 +70,12 @@ const props = withDefaults(
     scrollable: false,
     focusFirstSelector: null,
     noHeader: false,
-    value: false,
   },
 );
 
-const isModalOpened = computed(() => props.value || props.opened);
+const model = defineModel<boolean>();
+
+const isModalOpened = computed(() => model.value || props.opened);
 
 const emit = defineEmits(['close', 'input']);
 
@@ -173,7 +173,7 @@ const onOpenedChanged = async (isOpened: boolean) => {
 
 // lifecycle hooks
 onMounted(() => {
-  toggleEventListeners(props.value);
+  toggleEventListeners(model.value);
 });
 
 onUnmounted(() => {
@@ -184,7 +184,7 @@ onUnmounted(() => {
 
 // watchers
 watch(() => props.closeable, onCloseableChanged);
-watch(() => props.value, onOpenedChanged);
+watch(() => model.value, onOpenedChanged);
 
 </script>
 

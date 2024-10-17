@@ -1,9 +1,9 @@
 <template>
   <span
     class="mkr__switch"
-    :class="{ 'mkr__switch--active': value }"
+    :class="{ 'mkr__switch--active': model }"
     role="checkbox"
-    :aria-checked="value"
+    :aria-checked="model"
     tabindex="0"
     @click="toggle"
     @keydown.space.prevent="toggle"
@@ -13,10 +13,11 @@
 </template>
 
 <script lang="ts" setup>
-const props = defineProps<{ value: boolean }>();
-const emit = defineEmits(['input']);
+const model = defineModel<boolean>();
 
-const toggle = () => emit('input', !props.value);
+const toggle = () => {
+  model.value = !model.value;
+};
 
 </script>
 

@@ -10,28 +10,29 @@ import {
 } from 'vue';
 
 export type RadioGroupProvide = {
-  value: string;
+  model: string;
   name: string;
   required: boolean;
-  emitChange: (value: string) => void;
+  emitInput: (value: string) => void;
 };
 
 const props = withDefaults(
   defineProps<{
-    value: string,
     name: string,
     required?: boolean,
   }>(),
   { required: false },
 );
 
+const model = defineModel();
+
 const emit = defineEmits(['input']);
 
 const group = reactive<RadioGroupProvide>({
-  value: props.value,
+  model: model.value,
   name: props.name,
   required: props.required,
-  emitChange: (value: string) => {
+  emitInput: (value: string) => {
     emit('input', value);
   },
 });
@@ -39,9 +40,9 @@ const group = reactive<RadioGroupProvide>({
 provide('group', group);
 
 watch(
-  () => props.value,
+  () => model.value,
   (newValue) => {
-    group.value = newValue;
+    group.model = newValue;
   },
 );
 

@@ -20,7 +20,7 @@
       <span
         class="mkr__dropdown__input__value"
         :class="{
-          'mkr__dropdown__input__value--placeholder': !value && placeholder
+          'mkr__dropdown__input__value--placeholder': !model && placeholder
         }"
         v-text="
           (selectedItem && (selectedItem[itemInputLabel] || selectedItem[itemLabel])) ||
@@ -67,7 +67,7 @@
 
 <script lang="ts" setup>
 import {
-  withDefaults, nextTick, onMounted, ref, computed,
+  withDefaults, nextTick, onMounted, ref, computed, defineProps, defineEmits,
 } from 'vue';
 import { createPopper, Instance as PopperInstance } from '@popperjs/core';
 import useUuid from '../../composables/useUuid';
@@ -82,7 +82,6 @@ type Item = {
 
 const props = withDefaults(
   defineProps<{
-    value?: string,
     placeholder?: string,
     items: Item[] | string[],
     itemValue?: string,
@@ -98,7 +97,9 @@ const props = withDefaults(
   },
 );
 
-const emit = defineEmits('focus', 'blur', 'click', 'input', 'change');
+const model = defineModel();
+
+const emit = defineEmits(['focus', 'blur', 'click', 'input', 'change']);
 
 // Refs
 const dropdownInput = ref<HTMLElement | null>(null);
@@ -121,14 +122,14 @@ const itemList = computed(() => props.items.map((item, index) => {
       [props.itemValue]: item,
       [props.itemLabel]: item,
       [props.itemInputLabel]: item,
-      selected: item === props.value,
+      selected: item === model.value,
       id,
     };
   }
 
   return {
     ...item,
-    selected: item[props.itemValue] === props.value,
+    selected: item[props.itemValue] === model.value,
     id,
   };
 }));

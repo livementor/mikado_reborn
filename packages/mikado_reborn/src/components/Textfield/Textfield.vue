@@ -4,11 +4,7 @@
       <mkr-icon v-if="iconName" :color="focused?iconColor:'neutral-60'" :name="iconName" />
       <input
         v-bind="$attrs"
-        v-on="{
-          change: emitInputValue,
-          input: emitInputValue,
-        }"
-        :value="value"
+        v-model="model"
         :type="getType"
         :placeholder="placeholder"
         @focus="focused=true"
@@ -30,10 +26,12 @@
 
 <script lang="ts" setup>
 import {
-  computed, ref, withDefaults,
+  computed, ref, withDefaults, defineProps,
 } from 'vue';
 import MkrIcon from '../Icon/Icon.vue';
 import MkrContainedButton from '../Button/Contained/ContainedButton.vue';
+
+const model = defineModel();
 
 const props = withDefaults(
   defineProps<{
@@ -41,12 +39,9 @@ const props = withDefaults(
     error?: boolean,
     type?: 'text' | 'email' | 'password' | 'date',
     iconName?: string,
-    value?: string
   }>(),
   { type: 'text' },
 );
-
-const emit = defineEmits(['input', 'change']);
 
 const showPassword = ref<boolean>(false);
 const focused = ref(false);
@@ -55,12 +50,6 @@ const iconColor = computed<string>(() => (props.error ? 'danger' : 'secondary'))
 const getType = computed<string>(() => (showPassword.value ? 'text' : props.type));
 
 const showPasswordClick = () => { showPassword.value = !showPassword.value; };
-
-const emitInputValue = (e: Event) => {
-  const input = e.target as HTMLInputElement | null;
-  if (input) emit('input', input.value);
-  emit('change', e);
-};
 
 </script>
 
