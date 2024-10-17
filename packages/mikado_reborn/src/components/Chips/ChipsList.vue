@@ -26,9 +26,8 @@ export type ChipsListProvide = {
   size: 'medium' | 'small';
   orientation: 'row' | 'column';
   wrap: boolean;
-  emitInput: (value: string) => void;
-  registerChips: (chips: typeof Chips) => void;
-  unregisterChips: (uuid: string) => void;
+  model: string
+  updateValue: (value: string) => void
 };
 
 const model = defineModel();
@@ -55,8 +54,8 @@ const list = reactive({
   size: props.size,
   orientation: props.orientation,
   wrap: props.wrap,
-  emitInput: (value: string) => {
-    emit('input', value);
+  updateValue: (value: string) => {
+    model.value = value;
   },
 });
 

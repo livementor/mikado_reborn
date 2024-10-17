@@ -27,15 +27,19 @@ const list = inject<ChipsListProvide>('list');
 const { generateUUID } = useUuid();
 const uuid = generateUUID();
 
-const model = defineModel('');
-
 const props = withDefaults(
-  defineProps<{ label?: string }>(),
-  { label: '' },
+  defineProps<{
+    label?: string,
+    value?: string
+  }>(),
+  {
+    label: '',
+    value: '',
+  },
 );
 
 const componentId = computed(() => `chips-${uuid}`);
-const selected = computed(() => (list ? list.value === model.value : false));
+const selected = computed(() => (list ? list.model === props.value : false));
 const chipRef = ref<HTMLElement | null>(null);
 
 const classes = computed(() => [
@@ -49,9 +53,9 @@ const classes = computed(() => [
 const selectValue = () => {
   if (list) {
     if (selected.value) {
-      list.emitInput('');
+      list.updateValue('');
     } else {
-      list.emitInput(model.value);
+      list.updateValue(props.value);
     }
   }
 };
