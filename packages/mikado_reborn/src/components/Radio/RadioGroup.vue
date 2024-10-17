@@ -13,7 +13,7 @@ export type RadioGroupProvide = {
   model: string;
   name: string;
   required: boolean;
-  emitInput: (value: string) => void;
+  updateValue: (value: string) => void
 };
 
 const props = withDefaults(
@@ -26,14 +26,12 @@ const props = withDefaults(
 
 const model = defineModel();
 
-const emit = defineEmits(['input']);
-
 const group = reactive<RadioGroupProvide>({
   model: model.value,
   name: props.name,
   required: props.required,
-  emitInput: (value: string) => {
-    emit('input', value);
+  updateValue(value) {
+    model.value = value;
   },
 });
 
