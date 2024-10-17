@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { MkrChips, MkrChipsList } from '@livementor/mikado_reborn/src/components/Chips'
-import DemoArea from '@/components/DemoArea.vue'
+import { MkrChips, MkrChipsList } from '@livementor/mikado_reborn/src/components'
 import { ref } from 'vue'
 import PropParameters from '@/components/Parameters/PropParameters.vue'
 import ParametersTable from '@/components/ParametersTable.vue'

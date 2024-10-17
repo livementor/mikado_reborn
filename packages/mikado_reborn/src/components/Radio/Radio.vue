@@ -30,10 +30,11 @@ const group = inject<RadioGroupProvide>('group', {
   required: false,
   emitInput: () => {},
 });
+console.log("group", group.name);
 
-const name = computed(() => (group ? group.name : ''));
-const required = computed(() => (group ? group.required : false));
-const checked = computed(() => (group ? group.model === model.value : false));
+const name = computed(() => (group.name || ''));
+const required = computed(() => (group.required || false));
+const checked = computed(() => (group && group.model === model.value));
 const classes = computed(() => [
   'mkr__radio',
   {

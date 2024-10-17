@@ -3,20 +3,23 @@
 </script>
 
 <template>
-  <table class="parameters" v-bind="$attrs">
-    <thead>
-      <tr>
-        <th colspan="2">Paramètres du composant</th>
-      </tr>
-    </thead>
-    <tbody>
-      <slot></slot>
-    </tbody>
-  </table>
+  <div class="parameters" v-bind="$attrs">
+    <table>
+      <thead>
+        <tr>
+          <th colspan="2">Paramètres du composant</th>
+        </tr>
+      </thead>
+      <tbody>
+        <slot></slot>
+      </tbody>
+    </table>
+  </div>
 </template>
 
 <style lang="scss">
-  table.parameters{
+table{ width: 100% }
+  .parameters{
     margin: 15px -15px -15px; padding: 15px; width: calc(100% + 30px); background: #f8f8f8; border-radius: 5px;
     th{ opacity: .8; text-align: start; padding: 10px 0; }
     td{

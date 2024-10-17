@@ -33,7 +33,7 @@ const slots = useSlots();
 const classes = computed(() => [
   'mkr__nav-item',
   {
-    'mkr__nav-item--icon-only': !slots.length,
+    'mkr__nav-item--icon-only': !(slots.default()[0].children.toString().replace(' ', '')).length,
     'mkr__nav-item--active': props.active,
   },
 ]);

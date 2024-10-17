@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { MkrCheckbox } from '@livementor/mikado_reborn/src/components/Checkbox'
+import { MkrCheckbox } from '@livementor/mikado_reborn/src/components'
 import PropParameters from '@/components/Parameters/PropParameters.vue'
 import ParametersTable from '@/components/ParametersTable.vue'
 import { ref } from 'vue'

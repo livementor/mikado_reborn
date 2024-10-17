@@ -51,6 +51,7 @@ import { MkrOverlay } from '../Overlay';
 import { MkrTextButton } from '../Button';
 import focusTrap from './focusTrap';
 
+const opened = defineModel();
 const props = withDefaults(
   defineProps<{
     size?: 'medium' | 'large',
@@ -60,7 +61,6 @@ const props = withDefaults(
     scrollable?: boolean,
     focusFirstSelector?: string | null,
     noHeader?: boolean,
-    opened?: boolean
   }>(),
   {
     size: 'medium',
@@ -73,11 +73,10 @@ const props = withDefaults(
   },
 );
 
-const model = defineModel<boolean>();
 
-const isModalOpened = computed(() => model.value || props.opened);
+const isModalOpened = computed(() => opened.value);
 
-const emit = defineEmits(['close', 'input']);
+const emit = defineEmits(['close']);
 
 // dom manipulation
 const appRef = inject<Ref<HTMLElement>>('appRef');
@@ -85,7 +84,7 @@ const modalRef = ref<HTMLElement | null>(null);
 
 const close = () => {
   emit('close');
-  emit('input', false);
+  opened.value = false;
 };
 
 const modalContent = ref(null);
@@ -173,7 +172,7 @@ const onOpenedChanged = async (isOpened: boolean) => {
 
 // lifecycle hooks
 onMounted(() => {
-  toggleEventListeners(model.value);
+  toggleEventListeners(opened.value);
 });
 
 onUnmounted(() => {
@@ -184,7 +183,7 @@ onUnmounted(() => {
 
 // watchers
 watch(() => props.closeable, onCloseableChanged);
-watch(() => model.value, onOpenedChanged);
+watch(() => opened.value, onOpenedChanged);
 
 </script>
 

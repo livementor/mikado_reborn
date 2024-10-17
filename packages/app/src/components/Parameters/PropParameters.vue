@@ -16,7 +16,7 @@ const emit = defineEmits(['change'])
 
 const updateProps = () => {
   // transform componentProps table into a v-bind-friendly configuration
-  const propsConfig = componentProps.reduce((a, v) => (v.value ? {...a, [v.name]: v.value } : {...a}), {})
+  const propsConfig = componentProps.reduce((a, v) => (v.value !== undefined ? {...a, [v.name]: v.value } : {...a}), {})
   emit('change', propsConfig);
 }
 

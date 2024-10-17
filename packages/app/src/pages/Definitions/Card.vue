@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import { MkrCard } from '@livementor/mikado_reborn/src/components/Card'
-import DemoArea from '@/components/DemoArea.vue'
-import { MkrBadge } from '@livementor/mikado_reborn/src/components'
+import { MkrCard } from '@livementor/mikado_reborn/src/components'
 import PropParameters from '@/components/Parameters/PropParameters.vue'
 import SlotParameter from '@/components/Parameters/SlotParameter.vue'
 import ParametersTable from '@/components/ParametersTable.vue'

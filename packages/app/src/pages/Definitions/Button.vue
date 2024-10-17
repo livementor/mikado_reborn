@@ -4,7 +4,7 @@ import { ref } from 'vue'
 import PropParameters from '@/components/Parameters/PropParameters.vue'
 import SlotParameter from '@/components/Parameters/SlotParameter.vue'
 import ParametersTable from '@/components/ParametersTable.vue'
-const iconNames = ["circle-empty", "quote", "thumb-down", "thumb-up", "video-camera-circle", "arrow-narrow-bottom", "arrow-narrow-top", "phone", "video-camera", "bell", "bookmark-empty", "bookmark", "chat-alt", "check-circle", "clock", "download", "reply", "menu", "dots", "dots-vertical", "selector", "target", "copy-id", "dashboard", "directory", "list", "lm-logo", "lock-closed", "lock-open", "editor-bold", "editor-image", "editor-italic", "editor-list", "editor-order-list", "editor-underline", "archive", "arrow-narrow-left", "arrow-narrow-right", "arrows-expand", "arrows-reduce", "chevron-left", "chevron-right", "documents", "information-circle", "link", "microphone", "paper-clip", "pause", "play-backwards", "play-circle", "play-forwards", "play", "plus", "inbox", "paper-airplane", "speakerphone", "trash", "document-download", "pencil", "cross", "cross-circle", "arrow-full-bottom", "arrow-full-top", "book-open", "briefcase", "calendar", "camera", "chat", "check-empty", "check", "cog", "credit-card", "document-text", "exclamation-circle", "eye-off", "eye", "flag", "grid", "mail", "pin-map", "question-mark-circle", "search", "social-facebook", "social-instagram", "social-twitter", "sun", "tribe", "user-group", "user"]
+import icons from '@livementor/mikado_reborn/src/utils/icons';
 
 
 const personalizedSlot = ref('Button');
@@ -27,7 +27,7 @@ const componentProps = [
       'secondary-light'
     ] },
   { name: 'size', type: 'select', options: ['large', 'medium', { isGroupName: true, mkr:['TextButton', 'ContainedButton'] }, 'small'] },
-  { name: 'icon', type: 'select', options: iconNames },
+  { name: 'icon', type: 'select', options: icons },
   { name: 'iconSide', type: 'select', options: ['left', 'right']  },
   { name: 'disabled', type: 'boolean', value: false },
   { name: 'activated', type: 'boolean', value: false },

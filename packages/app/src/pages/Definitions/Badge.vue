@@ -7,7 +7,7 @@ import ParametersTable from '@/components/ParametersTable.vue'
 
 const propsBinding = ref({});
 const componentProps = [
-  { name: 'type', type: 'select', value: null,
+  { name: 'type', type: 'select', value: 'primary',
     options: ['danger', 'danger-light', 'info', 'info-light', 'primary', 'primary-light', 'secondary', 'success', 'success-light', 'warning-light', 'other-1'] },
 ]
 
