@@ -76,7 +76,8 @@ const setupListeners = () => {
 };
 
 // lifecycle hooks
-onMounted(() => {
+onMounted(() => resetPopper());
+const resetPopper = () => {
   if (props.topLevel && tooltip.value) {
     const tooltipContainer = document.getElementById('tooltip-container') as HTMLElement;
     if (tooltipContainer) {
@@ -95,7 +96,7 @@ onMounted(() => {
   });
 
   setupListeners();
-});
+}
 
 onBeforeUnmount(() => {
   if (props.topLevel && tooltip.value) {
@@ -104,6 +105,7 @@ onBeforeUnmount(() => {
 });
 
 watch(() => opened.value, updatePopper);
+watch(() => props.placement, updatePopper);
 
 </script>
 

@@ -1,6 +1,6 @@
 <template>
-  <div ref="overlayRef"
-    class="mkr__overlay"
+  <Teleport :to="domTarget">
+  <div class="mkr__overlay"
     :class="[
       `mkr__overlay--${color}`,
       {
@@ -11,33 +11,34 @@
   >
     <slot />
   </div>
+  </Teleport>
 </template>
 
 <script lang="ts" setup>
 import {
-  withDefaults, onMounted, inject, ref, watch, onBeforeUnmount,
+  withDefaults, watch, onBeforeUnmount,
 } from 'vue';
 
+const value = defineModel();
 const props = withDefaults(
   defineProps<{
     color?: 'dark' | 'light',
     keepOnClick?: boolean,
-    value?: boolean, // native v-model ; original term = "opened"
+    domTarget?: string
   }>(),
   {
     color: 'dark',
     keepOnClick: false,
+    domTarget: 'body'
   },
 );
 
 const emit = defineEmits(['click', 'input']);
 
-const appRef = inject('appRef');
-const overlayRef = ref(null);
-
 // functions
 const click = () => {
   if (!props.keepOnClick) {
+    value.value = false;
     emit('input', false);
   }
   emit('click');
@@ -46,13 +47,8 @@ const onOpenedChanged = (isOpen: boolean) => {
   document.body.style.overflow = isOpen ? 'hidden' : 'visible';
 };
 
-// hooks
-onMounted(() => {
-  appRef.value.insertBefore(overlayRef.value, appRef.value.children[0]);
-});
 
 onBeforeUnmount(() => {
-  overlayRef.value?.remove();
   document.body.style.overflow = 'visible';
 });
 

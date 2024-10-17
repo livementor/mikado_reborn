@@ -177,6 +177,7 @@ const clearCurrentSearch = () => {
 };
 
 const selectItem = (item: Item) => {
+  model.value = item[props.itemValue];
   emit('input', item[props.itemValue]);
   emit('change', item[props.itemValue]);
   // Scroll selected item into view if needed
