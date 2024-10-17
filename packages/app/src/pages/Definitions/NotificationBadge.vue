@@ -4,7 +4,7 @@ import { ref } from 'vue'
 import ParametersTable from '@/components/ParametersTable.vue'
 import PropParameters from '@/components/Parameters/PropParameters.vue'
 
-const bindingProps = ref({})
+const bindingProps = ref({show: true})
 const componentProps = [
   { name: 'show', type: 'boolean', value: true }
 ]

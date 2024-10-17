@@ -107,6 +107,13 @@ section .card-like{
   .parameters{
     flex: 1 1 auto;
     overflow: scroll;
+
+    .compliance{
+      text-align: center;
+      font-size: 1.4rem;
+      .mkr__icon.icon-check{ color: green; }
+      .mkr__icon.icon-cross{ opacity: .2; }
+    }
   }
 
 }

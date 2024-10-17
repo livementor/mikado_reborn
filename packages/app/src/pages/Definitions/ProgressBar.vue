@@ -4,7 +4,7 @@ import { ref } from 'vue'
 import ParametersTable from '@/components/ParametersTable.vue'
 import PropParameters from '@/components/Parameters/PropParameters.vue'
 
-const bindingProps = ref({});
+const bindingProps = ref({total: 4});
 const componentProps = [
   { name: 'total', type: 'number', value: 4 },
   { name: 'current', type: 'number', value: 1 },

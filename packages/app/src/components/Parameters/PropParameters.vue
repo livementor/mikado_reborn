@@ -16,8 +16,7 @@ const emit = defineEmits(['change'])
 
 const updateProps = () => {
   // transform componentProps table into a v-bind-friendly configuration
-  const propsConfig = componentProps.reduce((a, v) => (v.value !== undefined ? {...a, [v.name]: (v.type=='json' ? ( v.valid ? JSON.parse(v.value) : []) : v.value) } : {...a}), {})
-  console.log(propsConfig)
+  const propsConfig = componentProps.reduce((a, v) => (v.value !== undefined ? {...a, [v.name]: (v.type=='json' ? ( v.valid !== false ? JSON.parse(v.value) : []) : v.value) } : {...a}), {})
   emit('change', propsConfig);
 }
 
@@ -50,7 +49,7 @@ const isValidJSONProp = (prop) => {
       <input v-else-if="prop.type=='text'" type="text" v-model="prop.value" @input="updateProps">
       <input v-else-if="prop.type=='number'" type="number" v-model="prop.value" @input="updateProps">
       <BooleanInput v-else-if="prop.type=='boolean'" v-model="prop.value" @update="updateProps"></BooleanInput>
-      <textarea v-else-if="prop.type=='json'" v-model="prop.value" @input="isValidJSONProp(prop)" @change="updateProps" :class="{'error': !prop.valid}"/>
+      <textarea v-else-if="prop.type=='json'" v-model="prop.value" @input="isValidJSONProp(prop)" @change="updateProps" :class="{'error': prop.valid === false}"/>
     </td>
     <!-- variantProps -->
     <td class="compliance" v-for="(propNames, index) in Object.values(variantProps)" :key="index">

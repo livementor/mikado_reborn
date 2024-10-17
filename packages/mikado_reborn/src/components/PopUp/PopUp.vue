@@ -14,7 +14,6 @@ import {
   watch, withDefaults, ref, onMounted, nextTick,
 } from 'vue';
 import { createPopper, Instance as PopperInstance, Placement } from '@popperjs/core';
-import modal from '@/components/Modal'
 
 const props = withDefaults(
   defineProps<{
@@ -102,7 +101,6 @@ const resetPopper = () => {
 }
 
 watch(() => props.placement, newPlacement => {
-  console.log(newPlacement);
   updatePopperInstance(newPlacement)
 })
 watch(() => model.value, handleOpening );

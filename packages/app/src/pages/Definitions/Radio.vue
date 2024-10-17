@@ -7,7 +7,6 @@ import PropParameters from '@/components/Parameters/PropParameters.vue'
 const bindingProps = ref({});
 const componentProps = [
   { name: 'name', type: 'text', value: 'animal' },
-  { name: 'value', type: 'select', options: ['chien', 'chat', 'perroquet'] },
   { name: 'required', type: 'boolean', value: false },
 ]
 

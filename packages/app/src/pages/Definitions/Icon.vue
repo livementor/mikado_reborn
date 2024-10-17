@@ -6,7 +6,7 @@ import ParametersTable from '@/components/ParametersTable.vue'
 import icons from '@livementor/mikado_reborn/src/utils/icons';
 import colors from '@livementor/mikado_reborn/src/utils/colors';
 
-const propsBinding = ref({});
+const propsBinding = ref({ name: 'bell' });
 const componentProps = [
   { name: 'name', type: 'select', options: icons, value: 'bell' },
   { name: 'color', type: 'select', options: colors },
