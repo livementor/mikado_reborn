@@ -1,5 +1,6 @@
 <template>
-  <div ref="modalRef" v-if="isModalOpened">
+  <Teleport to="body">
+  <div v-if="isModalOpened">
     <mkr-overlay v-if="overlay" :value="isModalOpened" />
     <mkr-card
       role="dialog"
@@ -40,6 +41,7 @@
       </div>
     </mkr-card>
   </div>
+  </Teleport>
 </template>
 
 <script lang="ts" setup>
@@ -76,25 +78,12 @@ const props = withDefaults(
 
 const isModalOpened = computed(() => opened.value);
 
-const emit = defineEmits(['close']);
-
 // dom manipulation
-const appRef = inject<Ref<HTMLElement>>('appRef');
 const modalRef = ref<HTMLElement | null>(null);
-
-const close = () => {
-  emit('close');
-  opened.value = false;
-};
-
 const modalContent = ref(null);
-const teleportModalToAppElement = () => {
-  if (!modalRef.value) return;
-  appRef?.value.insertBefore(modalRef.value, appRef.value.children[0]);
-};
-const removeModalFromDom = () => {
-  modalRef.value?.remove();
-};
+
+const close = () => opened.value = false ;
+
 
 // focus trap
 let focusTrapListenerCleanup: ReturnType<typeof focusTrap> = null;
@@ -158,12 +147,10 @@ const onCloseableChanged = (isCloseable: boolean) => {
 const onOpenedChanged = async (isOpened: boolean) => {
   if (isOpened) {
     await nextTick();
-    teleportModalToAppElement();
     focusSelector();
     if (props.scrollable) setScrollState();
   } else {
     (focusTrapListenerCleanup as ReturnType<typeof focusTrap>)?.();
-    removeModalFromDom();
   }
 
   if (!props.closeable) return;
@@ -176,7 +163,6 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
-  removeModalFromDom();
   (focusTrapListenerCleanup as ReturnType<typeof focusTrap>)?.();
   if (props.closeable) removeCloseEventListeners();
 });

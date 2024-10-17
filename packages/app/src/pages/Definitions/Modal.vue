@@ -25,7 +25,6 @@ const open = () => showModal.value = !showModal.value
   <section class="variant">
     <div>
         <MkrModal v-bind="propsBinding" v-model="showModal">
-          <template #header></template>
           <template #title>Titre</template>
           Hello World
           <template #footer>Footer</template>
