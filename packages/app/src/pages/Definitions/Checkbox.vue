@@ -12,7 +12,7 @@ const componentProps = [
 ];
 
 const values = ref([]);
-const value = ref(null)
+const value = ref(false)
 </script>
 
 <template>

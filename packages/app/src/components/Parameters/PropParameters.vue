@@ -16,13 +16,25 @@ const emit = defineEmits(['change'])
 
 const updateProps = () => {
   // transform componentProps table into a v-bind-friendly configuration
-  const propsConfig = componentProps.reduce((a, v) => (v.value !== undefined ? {...a, [v.name]: v.value } : {...a}), {})
+  const propsConfig = componentProps.reduce((a, v) => (v.value !== undefined ? {...a, [v.name]: (v.type=='json' ? ( v.valid ? JSON.parse(v.value) : []) : v.value) } : {...a}), {})
+  console.log(propsConfig)
   emit('change', propsConfig);
 }
 
 // init component props
 onMounted(() => updateProps() );
 
+const isValidJSONProp = (prop) => {
+  try{
+    JSON.parse(prop.value);
+    prop.valid = true;
+    return true
+  } catch (e){
+    console.log(e)
+    prop.valid = false;
+    return false;
+  }
+}
 </script>
 
 <template>
@@ -38,6 +50,7 @@ onMounted(() => updateProps() );
       <input v-else-if="prop.type=='text'" type="text" v-model="prop.value" @input="updateProps">
       <input v-else-if="prop.type=='number'" type="number" v-model="prop.value" @input="updateProps">
       <BooleanInput v-else-if="prop.type=='boolean'" v-model="prop.value" @update="updateProps"></BooleanInput>
+      <textarea v-else-if="prop.type=='json'" v-model="prop.value" @input="isValidJSONProp(prop)" @change="updateProps" :class="{'error': !prop.valid}"/>
     </td>
     <!-- variantProps -->
     <td class="compliance" v-for="(propNames, index) in Object.values(variantProps)" :key="index">
@@ -48,12 +61,5 @@ onMounted(() => updateProps() );
 </template>
 
 <style scoped lang="scss">
-.compliance{
-  text-align: center;
-  .mkr__icon {
-    font-size: 1.5rem;
-    &.icon-check { color: mediumseagreen }
-    &.icon-cross { opacity: 0.2; }
-  }
-}
+textarea.error{ border-color: red; }
 </style>

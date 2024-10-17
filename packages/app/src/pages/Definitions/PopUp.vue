@@ -12,6 +12,7 @@ const componentProps = [
     "auto", "auto-start", "auto-end", "top", "bottom", "right", "left", "top-start", "top-end", "bottom-start", "bottom-end", "right-start", "right-end", "left-start", "left-end"] }
 ]
 
+
 const show = ref(false)
 </script>
 

@@ -27,8 +27,9 @@ table{ width: 100% }
       &:first-child{ font-weight: bold }
       &.variant div{ margin-top: 2%; margin-bottom: -1%; }
     }
-    input, select{ padding: 10px 10px; font-size: 1.8rem; border-radius: 10px; border: 1px solid lightgray }
+    input, select, textarea{ padding: 10px 10px; font-size: 1.8rem; border-radius: 10px; border: 1px solid lightgray }
     input[type="text"], select { width: min(90%, 300px); }
+    textarea { width: 100%; }
     .variant{
       display: flex; justify-content: center; align-items: center; text-align: center; height: 100%;
       div{ flex: 1 1 auto; width: 75px; }

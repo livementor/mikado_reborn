@@ -5,7 +5,7 @@ import PropParameters from '@/components/Parameters/PropParameters.vue'
 import SlotParameter from '@/components/Parameters/SlotParameter.vue'
 import ParametersTable from '@/components/ParametersTable.vue'
 
-const propsBinding = ref({});
+const propsBinding = ref({type: 'primary'});
 const componentProps = [
   { name: 'type', type: 'select', value: 'primary',
     options: ['danger', 'danger-light', 'info', 'info-light', 'primary', 'primary-light', 'secondary', 'success', 'success-light', 'warning-light', 'other-1'] },
