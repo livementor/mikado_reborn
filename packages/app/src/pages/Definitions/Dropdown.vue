@@ -45,15 +45,15 @@ const personalizedItems = [
 </script>
 
 <template>
-  <section class="variant">
+  <section class="variant" style="gap:30px">
     <div>
       <h6>Valeurs personnalisées</h6>
-      <MkrDropdown v-bind="propsBinding" v-model="value" :items="itemsWithValues">{{ personalizedSlot }}</MkrDropdown>
+      <MkrDropdown style="width:100%" v-bind="propsBinding" v-model="value" :items="itemsWithValues">{{ personalizedSlot }}</MkrDropdown>
     </div>
 
     <div>
       <h6>Clés d'items personnalisées</h6>
-      <MkrDropdown v-bind="propsBinding"  v-model="value" :items="personalizedItems" itemLabel="countryName" itemValue="countryCode">{{ personalizedSlot }}</MkrDropdown>
+      <MkrDropdown style="width:100%" v-bind="propsBinding"  v-model="value" :items="personalizedItems" itemLabel="countryName" itemValue="countryCode">{{ personalizedSlot }}</MkrDropdown>
     </div>
   </section>
 
