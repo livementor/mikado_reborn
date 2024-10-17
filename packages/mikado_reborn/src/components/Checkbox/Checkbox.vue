@@ -6,7 +6,6 @@
     <input
       type="checkbox"
       :value="model"
-      v-model="model"
       :checked="isChecked"
       @input="setValue"
     />

@@ -2,29 +2,29 @@
 import { MkrCheckbox } from '@livementor/mikado_reborn/src/components'
 import PropParameters from '@/components/Parameters/PropParameters.vue'
 import ParametersTable from '@/components/ParametersTable.vue'
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 
 const propsBinding = ref({})
 const componentProps = [
-  { name: 'name', type: 'text' },
-  { name: 'value', type: 'text' },
+  { name: 'name', type: 'text', value: "choix-multiple" },
   { name: 'size', type: 'select', options: ['medium', 'small'], value: 'small' },
 ];
 
 const values = ref([]);
-const value = ref(false)
+watch(values, (n, o) => console.log(o,'=>', n))
+const checked = ref(false)
 </script>
 
 <template>
   <section class="variant">
     <div>
-      <MkrCheckbox v-bind="propsBinding" v-model="value"></MkrCheckbox>
+      <MkrCheckbox v-bind="propsBinding" v-model="checked"></MkrCheckbox>
     </div>
     <div>
-      <div style="display: flex;">
-        <MkrCheckbox v-bind="propsBinding" name="checkbox1" v-model="values" />
-        <MkrCheckbox v-bind="propsBinding" name="checkbox2" v-model="values" style="margin-left: 10px" />
-        <MkrCheckbox v-bind="propsBinding" name="checkbox3" v-model="values" style="margin-left: 10px;" />
+      <div style="display: flex; gap: 15px">
+        <MkrCheckbox v-model="values" v-bind="propsBinding" name="checkbox1" />
+        <MkrCheckbox v-model="values" v-bind="propsBinding" name="checkbox2" />
+        <MkrCheckbox v-model="values" v-bind="propsBinding" name="checkbox3" />
       </div>
 
       <div style="margin-top: 15px;"> {{values}} </div>
