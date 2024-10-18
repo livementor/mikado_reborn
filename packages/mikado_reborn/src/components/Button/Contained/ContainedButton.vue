@@ -9,7 +9,6 @@
 </template>
 
 <script lang="ts" setup>
-import { withDefaults, defineProps } from 'vue';
 import MkrButton from '../Button.vue';
 import './ContainedButton.scss';
 

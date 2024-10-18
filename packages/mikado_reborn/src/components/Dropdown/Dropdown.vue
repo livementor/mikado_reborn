@@ -74,10 +74,10 @@ import useUuid from '../../composables/useUuid';
 import { MkrCard } from '../Card';
 import { MkrIcon } from '../Icon';
 
-type Item = {
+export type Item = {
   [key: string]: string | number | boolean;
-  selected: boolean;
-  id: string;
+  selected?: boolean;
+  id?: string;
 };
 
 const props = withDefaults(

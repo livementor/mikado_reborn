@@ -13,7 +13,7 @@
 import {
   watch, withDefaults, ref, onMounted, nextTick,
 } from 'vue';
-import { createPopper, Instance as PopperInstance, Placement } from '@popperjs/core';
+import { createPopper, Instance as PopperInstance, type Placement } from '@popperjs/core';
 
 const props = withDefaults(
   defineProps<{
