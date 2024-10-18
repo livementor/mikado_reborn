@@ -11,8 +11,8 @@ const componentProps: MkdComponentProp = [
 ];
 
 const values = ref([]);
-watch(values, (n, o) => console.log(o,'=>', n))
 const checked = ref(false)
+
 </script>
 
 <template>

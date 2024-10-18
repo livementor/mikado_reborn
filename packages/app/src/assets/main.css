@@ -1,5 +1,7 @@
 @import './base.css';
+@import '@livementor/mikado_reborn/src/assets/styles/styles.scss';
 @import '@livementor/mikado_reborn/src/assets/styles/framework.scss';
+@import '@livementor/mikado_reborn/src/assets/styles/fonts.scss';
 
 html{ font-size: 8px; } /* set px/rem ration => 1rem = 8px */
 
