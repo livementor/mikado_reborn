@@ -7,8 +7,8 @@ jobs:
       run:
         working-directory: ./packages/mikado_reborn
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 18
           registry-url: "https://registry.npmjs.org"
@@ -16,5 +16,5 @@ jobs:
         run: yarn install
       - name: Build Package
         run: yarn workspace @livementor/mikado_reborn build
-      - name: Build Doc
-        run: yarn workspace app build
+      - name: Build Mika-Doc
+        run: yarn workspace mikadoc build-only
