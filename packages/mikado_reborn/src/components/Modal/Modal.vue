@@ -1,7 +1,7 @@
 <template>
   <Teleport to="body">
   <div v-if="isModalOpened">
-    <mkr-overlay v-if="overlay" :value="isModalOpened" />
+    <mkr-overlay v-if="overlay" v-model="isModalOpened" />
     <mkr-card
       role="dialog"
       :aria-modal="isModalOpened"

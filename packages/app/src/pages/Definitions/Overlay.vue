@@ -8,7 +8,6 @@ const bindingProps = ref({});
 const componentProps = [
   { name: 'color', type: 'select', options: ['dark', 'light'], value: 'dark' },
   { name: 'keepOnClick', type: 'boolean', value: false },
-  { name: 'domTarget', type: 'text' },
 ]
 
 const updateProps = (newConfig) => {
@@ -31,6 +30,5 @@ const show = ref(false)
 
   <ParametersTable>
     <PropParameters :componentProps @change="updateProps"></PropParameters>
-    <p>// TODO: "apply target" button</p>
   </ParametersTable>
 </template>
