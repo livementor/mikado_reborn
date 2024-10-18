@@ -1,16 +1,18 @@
-@import '../../assets/styles/styles.scss';
+@use "sass:map";
+@use "../../assets/styles/settings/colors";
+@use "../../assets/styles/settings/fonts";
 
 .mkr__tooltip {
   &__label {
-    @include font('caption-small');
+    @include fonts.font('caption-small');
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     padding: 0.25rem 1.5rem;
     border-radius: 12px;
-    background: map-get($colors, 'neutral');
-    color: map-get($colors, 'white');
+    background: map.get(colors.$colors, 'neutral');
+    color: map.get(colors.$colors, 'white');
     z-index: 300;
 
     &--hidden {

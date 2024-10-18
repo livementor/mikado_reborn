@@ -1,21 +1,22 @@
-@import "./tokens";
+@use "tokens";
+@use "utils";
 
 @mixin shadow-medium {
   box-shadow:
-    #{token('shadow-medium-offset-x')}px
-    #{token('shadow-medium-offset-y')}px
-    #{token('shadow-medium-radius')}px
-    #{token('shadow-medium-spread')}px
-    token('shadow-medium-color')
+    #{utils.token('shadow-medium-offset-x')}px
+    #{utils.token('shadow-medium-offset-y')}px
+    #{utils.token('shadow-medium-radius')}px
+    #{utils.token('shadow-medium-spread')}px
+    utils.token('shadow-medium-color')
   ;
 }
 
 @mixin shadow-small {
   box-shadow:
-    #{token('shadow-small-offset-x')}px
-    #{token('shadow-small-offset-y')}px
-    #{token('shadow-small-radius')}px
-    #{token('shadow-small-spread')}px
-    token('shadow-small-color')
+    #{utils.token('shadow-small-offset-x')}px
+    #{utils.token('shadow-small-offset-y')}px
+    #{utils.token('shadow-small-radius')}px
+    #{utils.token('shadow-small-spread')}px
+    utils.token('shadow-small-color')
   ;
 }

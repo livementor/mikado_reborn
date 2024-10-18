@@ -1,34 +1,35 @@
-@import '../../assets/styles/styles.scss';
+@use "sass:map";
+@use "../../assets/styles/settings/colors";
 
 .mkr__list {
   display: inline-flex;
   flex-direction: column;
   justify-content: space-between;
-  background-color: map-get($colors, 'white');
+  background-color: map.get(colors.$colors, 'white');
   border-radius: 0.5rem;
   overflow: hidden;
   margin: 0;
   padding: 0;
   list-style: none;
-  border: 1px solid map-get($colors, 'neutral-20');
+  border: 1px solid map.get(colors.$colors, 'neutral-20');
 
   & > .mkr__list__item:not(:last-child) {
-    border-bottom: 1px solid map-get($colors, 'neutral-20');
+    border-bottom: 1px solid map.get(colors.$colors, 'neutral-20');
   }
 
   &--padded {
     padding: 0 2rem 2rem 2rem;
-    border: 1px dashed map-get($colors, 'neutral-20');
+    border: 1px dashed map.get(colors.$colors, 'neutral-20');
 
     & > .mkr__list__item {
-      border-bottom: 1px solid map-get($colors, 'neutral-20');
+      border-bottom: 1px solid map.get(colors.$colors, 'neutral-20');
     }
   }
 
   &--item-hoverable > .mkr__list__item {
     &:hover {
-      background-color: map-get($colors, 'neutral-light');
-      color: map-get($colors, 'secondary-dark');
+      background-color: map.get(colors.$colors, 'neutral-light');
+      color: map.get(colors.$colors, 'secondary-dark');
     }
   }
 

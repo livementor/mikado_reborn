@@ -1,4 +1,5 @@
-@import '../../../assets/styles/styles.scss';
+@use "../../../assets/styles/settings/colors";
+@use "sass:map";
 
 $themes: (
   'neutral': (
@@ -44,14 +45,14 @@ $themes: (
 
   @each $themeName, $themeValues in $themes {
     &--#{$themeName} {
-      color: map-get($colors, map-get($themeValues, 'color'));
+      color: map.get(colors.$colors, map.get($themeValues, 'color'));
       &:hover:not(:disabled):not(&--activated) {
-        background-color: map-get($colors, map-get($themeValues, 'hover-background'));
-        color: map-get($colors, map-get($themeValues, 'hover-color'));
+        background-color: map.get(colors.$colors, map.get($themeValues, 'hover-background'));
+        color: map.get(colors.$colors, map.get($themeValues, 'hover-color'));
       }
       &--activated {
-        background-color: map-get($colors, map-get($themeValues, 'activated-background'));
-        color: map-get($colors, map-get($themeValues, 'activated-color'));
+        background-color: map.get(colors.$colors, map.get($themeValues, 'activated-background'));
+        color: map.get(colors.$colors, map.get($themeValues, 'activated-color'));
       }
     }
   }

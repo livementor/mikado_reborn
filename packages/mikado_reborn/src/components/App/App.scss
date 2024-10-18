@@ -1,20 +1,19 @@
-@import '../../assets/styles/styles.scss';
-@import '../../assets/styles/framework.scss';
-@import '../../assets/styles/fonts.scss';
+@use "../../assets/styles/settings/colors";
+@use "../../assets/styles/settings/fonts";
 
 .mkr__app {
   font-size: 2rem;
-  @include font('body-medium');
+  @include fonts.font('body-medium');
 
   /* COLORS */
 
-  @each $name, $color in $colors {
+  @each $name, $color in colors.$colors {
     .#{$name} {
       color: $color;
     }
   }
 
-  @each $name, $color in $colors {
+  @each $name, $color in colors.$colors {
     .#{$name}-bg {
       background-color: $color;
     }

@@ -1,28 +1,31 @@
-@import '../../assets/styles/styles.scss';
+@use "sass:map";
+@use '../../assets/styles/styles.scss';
+@use "../../assets/styles/settings/colors";
+@use "../../assets/styles/settings/fonts";
 
 .mkr__dropdown {
-  @include font('body-medium');
+  @include fonts.font('body-medium');
   display: flex;
   position: relative;
 
   .mkr__dropdown__input {
     $input: &;
-    @include mkr__input;
+    @include styles.mkr__input;
     padding: 1.5rem 2rem;
     outline: 0;
-    color: map-get($colors, 'neutral');
+    color: map.get(colors.$colors, 'neutral');
     font: inherit;
 
     .mkr__icon {
       margin-left: auto;
-      color: map-get($colors, 'neutral-60');
+      color: map.get(colors.$colors, 'neutral-60');
     }
 
     &:focus, &--focused {
-      border-color: map-get($colors, 'secondary');
+      border-color: map.get(colors.$colors, 'secondary');
 
       .mkr__icon {
-        color: map-get($colors, 'secondary');
+        color: map.get(colors.$colors, 'secondary');
       }
     }
 
@@ -30,15 +33,15 @@
       min-height: 3rem;
 
       &--placeholder {
-        color: map-get($colors, 'neutral-60');
+        color: map.get(colors.$colors, 'neutral-60');
       }
     }
 
     &--error, &--error:focus, &--error#{$input}--focused {
-      border-color: map-get($colors, 'danger');
+      border-color: map.get(colors.$colors, 'danger');
 
       .mkr__icon {
-        color: map-get($colors, 'danger');
+        color: map.get(colors.$colors, 'danger');
       }
     }
   }
@@ -67,7 +70,7 @@
           cursor: pointer;
 
           &:hover {
-            background-color: map-get($colors, 'neutral-light');
+            background-color: map.get(colors.$colors, 'neutral-light');
           }
         }
 

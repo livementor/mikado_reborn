@@ -1,27 +1,30 @@
-@import '../../assets/styles/styles.scss';
+@use "sass:map";
+@use '../../assets/styles/styles.scss';
+@use "../../assets/styles/settings/colors";
+@use "../../assets/styles/settings/fonts";
 
 .mkr__data-table {
-  background-color: map-get($colors, "white");
-  border: 1px solid map-get($colors, "neutral-20");;
+  background-color: map.get(colors.$colors, "white");
+  border: 1px solid map.get(colors.$colors, "neutral-20");;
   border-collapse: initial;
   border-radius: 4px;
   border-spacing: 0;
-  color: map-get($colors, "neutral");
+  color: map.get(colors.$colors, "neutral");
   text-align: left;
 
   caption {
-    @include font('body-large');
+    @include fonts.font('body-large');
     padding-bottom: 2rem;
     text-align: left;
   }
 
   th {
-    @include font('caption-small');
-    color: map-get($colors, "neutral-80");
+    @include fonts.font('caption-small');
+    color: map.get(colors.$colors, "neutral-80");
   }
 
   td {
-    @include font('body-medium-alt');
+    @include fonts.font('body-medium-alt');
   }
 
   th, td {
@@ -30,7 +33,7 @@
 
   tr {
     &:not(:last-child) td, th {
-      border-bottom: 1px solid map-get($colors, "neutral-20");
+      border-bottom: 1px solid map.get(colors.$colors, "neutral-20");
     }
   }
 }
