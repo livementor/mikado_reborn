@@ -11,5 +11,5 @@ const toggle = (isChecked) => {
 </script>
 
 <template>
-  <input type="checkbox" :checked="value" @change="toggle($event.target.checked)"/>
+  <input type="checkbox" :checked="value" @change="toggle((<HTMLInputElement> $event.target).checked)"/>
 </template>

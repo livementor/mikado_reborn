@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { type Component } from 'vue'
 
-defineProps<{ variants: Component[], personalizedSlot?: string }>()
+const {variants} = defineProps<{ variants: Component[], personalizedSlot?: string }>()
 
 </script>
 
 <template>
   <div class="demonstration">
     <div class="variant" v-for="(variant, index) in variants" :key="index">
-      <h6 v-if="variants.length > 1">{{ variant.__name }}</h6>
+      <h6 v-if="variants.length > 1">{{ variant.name }}</h6>
       <component :is="variant" v-bind="$attrs">{{ personalizedSlot }}</component>
     </div>
   </div>

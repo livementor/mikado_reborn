@@ -7,9 +7,9 @@ import { MkrAvatar } from '@livementor/mikado_reborn/src/components/Avatar';
 
 // Auto import components contexts list from folder Definitions
 const components = import.meta.glob('./pages/Definitions/*.vue');
-const componentNames = Object.keys(components).map(path => path.split('/').pop().replace('.vue', ''));
+const componentNames = Object.keys(components).map(path => path ? path.split('/').pop().replace('.vue', '') : '');
 
-const activeRoute = ref(null)
+const activeRoute = ref<string | null>(null)
 // screen component name through route params
 watch(useRoute(), to => updateRoute(to));
 const updateRoute = (route = useRoute()) => {
