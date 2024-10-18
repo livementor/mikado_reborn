@@ -1,6 +1,7 @@
 <template>
-  <div ref="modalRef" v-if="isModalOpened">
-    <mkr-overlay v-if="overlay" :value="isModalOpened" />
+  <Teleport to="body">
+  <div v-if="isModalOpened">
+    <mkr-overlay v-if="overlay" v-model="isModalOpened" />
     <mkr-card
       role="dialog"
       :aria-modal="isModalOpened"
@@ -40,6 +41,7 @@
       </div>
     </mkr-card>
   </div>
+  </Teleport>
 </template>
 
 <script lang="ts" setup>
@@ -51,6 +53,7 @@ import { MkrOverlay } from '../Overlay';
 import { MkrTextButton } from '../Button';
 import focusTrap from './focusTrap';
 
+const opened = defineModel();
 const props = withDefaults(
   defineProps<{
     size?: 'medium' | 'large',
@@ -60,7 +63,6 @@ const props = withDefaults(
     scrollable?: boolean,
     focusFirstSelector?: string | null,
     noHeader?: boolean,
-    opened?: boolean
   }>(),
   {
     size: 'medium',
@@ -73,29 +75,15 @@ const props = withDefaults(
   },
 );
 
-const model = defineModel<boolean>();
 
-const isModalOpened = computed(() => model.value || props.opened);
-
-const emit = defineEmits(['close', 'input']);
+const isModalOpened = computed(() => opened.value);
 
 // dom manipulation
-const appRef = inject<Ref<HTMLElement>>('appRef');
 const modalRef = ref<HTMLElement | null>(null);
-
-const close = () => {
-  emit('close');
-  emit('input', false);
-};
-
 const modalContent = ref(null);
-const teleportModalToAppElement = () => {
-  if (!modalRef.value) return;
-  appRef?.value.insertBefore(modalRef.value, appRef.value.children[0]);
-};
-const removeModalFromDom = () => {
-  modalRef.value?.remove();
-};
+
+const close = () => opened.value = false ;
+
 
 // focus trap
 let focusTrapListenerCleanup: ReturnType<typeof focusTrap> = null;
@@ -159,12 +147,10 @@ const onCloseableChanged = (isCloseable: boolean) => {
 const onOpenedChanged = async (isOpened: boolean) => {
   if (isOpened) {
     await nextTick();
-    teleportModalToAppElement();
     focusSelector();
     if (props.scrollable) setScrollState();
   } else {
     (focusTrapListenerCleanup as ReturnType<typeof focusTrap>)?.();
-    removeModalFromDom();
   }
 
   if (!props.closeable) return;
@@ -173,18 +159,17 @@ const onOpenedChanged = async (isOpened: boolean) => {
 
 // lifecycle hooks
 onMounted(() => {
-  toggleEventListeners(model.value);
+  toggleEventListeners(opened.value);
 });
 
 onUnmounted(() => {
-  removeModalFromDom();
   (focusTrapListenerCleanup as ReturnType<typeof focusTrap>)?.();
   if (props.closeable) removeCloseEventListeners();
 });
 
 // watchers
 watch(() => props.closeable, onCloseableChanged);
-watch(() => model.value, onOpenedChanged);
+watch(() => opened.value, onOpenedChanged);
 
 </script>
 

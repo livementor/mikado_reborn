@@ -5,7 +5,7 @@
     :class="classes"
     @click="$emit('click', $event)"
   >
-    <MkrIcon :name="name" />
+    <MkrIcon :name="name"/>
     <slot></slot>
   </component>
 </template>

@@ -6,7 +6,6 @@
 </template>
 
 <script lang="ts" setup>
-import { withDefaults } from 'vue';
 
 export type radiusType = 'small' | 'medium' | 'large';
 
