@@ -1,8 +1,11 @@
-@import '../../assets/styles/styles.scss';
+@use "sass:map";
+@use "../../assets/styles/settings/colors";
+@use "../../assets/styles/settings/fonts";
+@use "../../assets/styles/settings/shadows";
 
 .mkr__snackbar {
-  @include shadow-medium;
-  @include font('body-medium');
+  @include shadows.shadow-medium;
+  @include fonts.font('body-medium');
 
   display: flex;
   cursor: default;
@@ -12,11 +15,11 @@
   justify-content: space-between;
   min-width: 46rem;
   border-radius: 4px;
-  color: map-get($colors, 'white');
+  color: map.get(colors.$colors, 'white');
   z-index: 200;
 
   &--error {
-    background-color: map-get($colors, 'danger');
+    background-color: map.get(colors.$colors, 'danger');
   };
 
   &--closable {
@@ -24,11 +27,11 @@
   }
 
   &--success {
-    background-color: map-get($colors, 'success');
+    background-color: map.get(colors.$colors, 'success');
   };
 
   &--neutral {
-    background-color: map-get($colors, 'neutral');
+    background-color: map.get(colors.$colors, 'neutral');
   };
 
   &--hidden {
@@ -40,7 +43,7 @@
     animation: appear 1s normal forwards ease-in-out;
   }
 
-  mkr__icon {
+  .mkr__icon {
     margin-left: 2rem;
   }
 

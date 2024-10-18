@@ -1,10 +1,12 @@
-@import '../../../assets/styles/styles.scss';
+@use "../../../assets/styles/settings/colors";
+@use "../../../assets/styles/settings/fonts";
+@use "sass:map";
 
 .mkr__button {
   $button: &;
   &--outlined {
-    border: 1px solid map-get($colors, 'neutral-40');
-    color: map-get($colors, 'neutral');
+    border: 1px solid map.get(colors.$colors, 'neutral-40');
+    color: map.get(colors.$colors, 'neutral');
     box-sizing: border-box;
     border-radius: 4px;
 
@@ -14,13 +16,13 @@
     padding: calc(1.5rem - 1px) calc(2rem - 1px);
 
     &:hover:not(:disabled) {
-      background: map-get($colors, 'primary-light');
-      border-color: map-get($colors, 'primary');
+      background: map.get(colors.$colors, 'primary-light');
+      border-color: map.get(colors.$colors, 'primary');
     };
 
     &:disabled {
-      background-color: map-get($colors, 'white');
-      border: 1px solid map-get($colors, 'neutral-20');
+      background-color: map.get(colors.$colors, 'white');
+      border: 1px solid map.get(colors.$colors, 'neutral-20');
     };
   }
 }

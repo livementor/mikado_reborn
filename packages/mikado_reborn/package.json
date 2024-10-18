@@ -52,8 +52,8 @@
     "eslint": "^7.32.0",
     "eslint-plugin-import": "^2.25.3",
     "eslint-plugin-vue": "^8.2.0",
-    "sass": "^1.45.0",
-    "sass-loader": "^10",
+    "sass": "^1.80.2",
+    "sass-loader": "^16.0.2",
     "style-dictionary": "^3.0.3",
     "typescript": "^4.4.4",
     "vue-loader": "^15.9.6"

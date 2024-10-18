@@ -1,4 +1,6 @@
-@import '../../assets/styles/styles.scss';
+@use "sass:map";
+@use "../../assets/styles/settings/colors";
+@use "../../assets/styles/settings/fonts";
 
 .mkr__progressbar {
   display: flex;
@@ -28,9 +30,9 @@
   }
 
   &__text {
-    @include font('body-small');
+    @include fonts.font('body-small');
     flex-shrink: 0;
-    color: map-get($colors, 'success');
+    color: map.get(colors.$colors, 'success');
     font-variant-numeric: tabular-nums;
   }
 
@@ -45,7 +47,7 @@
       position: absolute;
       inset: 2px;
       border-radius: 999px;
-      background-color: map-get($colors, 'neutral-20');
+      background-color: map.get(colors.$colors, 'neutral-20');
     }
 
     & > span {
@@ -53,10 +55,10 @@
       top: 0;
       left: 0;
       height: 100%;
-      border: 2px solid map-get($colors, 'white');
+      border: 2px solid map.get(colors.$colors, 'white');
       box-sizing: border-box;
       border-radius: 999px;
-      background-color: map-get($colors, 'success');
+      background-color: map.get(colors.$colors, 'success');
       transition: transform 0.2s ease-in-out, width 0.2s ease-in-out;
     }
   }

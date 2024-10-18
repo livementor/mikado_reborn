@@ -1,29 +1,30 @@
-@import '../../assets/styles/styles.scss';
+@use "sass:map";
+@use "../../assets/styles/settings/colors";
 
 $themes: (
   'light': (
-    'background': map-get($colors, 'white'),
-    'color': map-get($colors, 'neutral-60'),
-    'hover-background': map-get($colors, 'neutral-light'),
-    'hover-color': map-get($colors, 'secondary-dark'),
-    'activated-background': map-get($colors, 'secondary-dark'),
-    'activated-color': map-get($colors, 'white'),
+    'background': map.get(colors.$colors, 'white'),
+    'color': map.get(colors.$colors, 'neutral-60'),
+    'hover-background': map.get(colors.$colors, 'neutral-light'),
+    'hover-color': map.get(colors.$colors, 'secondary-dark'),
+    'activated-background': map.get(colors.$colors, 'secondary-dark'),
+    'activated-color': map.get(colors.$colors, 'white'),
   ),
   'dark': (
-    'background': map-get($colors, 'white'),
-    'color': map-get($colors, 'secondary-dark'),
-    'hover-background': map-get($colors, 'neutral-light'),
-    'hover-color': map-get($colors, 'secondary-dark'),
-    'activated-background': map-get($colors, 'secondary-dark'),
-    'activated-color': map-get($colors, 'white'),
+    'background': map.get(colors.$colors, 'white'),
+    'color': map.get(colors.$colors, 'secondary-dark'),
+    'hover-background': map.get(colors.$colors, 'neutral-light'),
+    'hover-color': map.get(colors.$colors, 'secondary-dark'),
+    'activated-background': map.get(colors.$colors, 'secondary-dark'),
+    'activated-color': map.get(colors.$colors, 'white'),
   ),
   'customColor': (
-    'background': map-get($colors, 'white'),
+    'background': map.get(colors.$colors, 'white'),
     'color': currentColor,
-    'hover-background': map-get($colors, 'neutral-light'),
+    'hover-background': map.get(colors.$colors, 'neutral-light'),
     'hover-color': currentColor,
-    'activated-background': map-get($colors, 'secondary-dark'),
-    'activated-color': map-get($colors, 'white'),
+    'activated-background': map.get(colors.$colors, 'secondary-dark'),
+    'activated-color': map.get(colors.$colors, 'white'),
   )
 );
 
@@ -40,22 +41,22 @@ $themes: (
 
   @each $themeName, $themeValues in $themes {
     &--#{$themeName} {
-      background: map-get($themeValues, 'background');
+      background: map.get($themeValues, 'background');
       .mkr__icon {
-        color: map-get($themeValues, 'color');
+        color: map.get($themeValues, 'color');
       }
 
       &:hover:not(&--activated):not(:disabled), &:focus:not(&--activated):not(:disabled) {
-        background-color: map-get($themeValues, 'hover-background');
+        background-color: map.get($themeValues, 'hover-background');
         .mkr__icon {
-          color: map-get($themeValues, 'hover-color');
+          color: map.get($themeValues, 'hover-color');
         }
       }
 
       &--activated {
-        background-color: map-get($themeValues, 'activated-background');
+        background-color: map.get($themeValues, 'activated-background');
         .mkr__icon {
-          color: map-get($themeValues, 'activated-color');
+          color: map.get($themeValues, 'activated-color');
         }
       }
     }

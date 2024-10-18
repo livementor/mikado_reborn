@@ -1,8 +1,9 @@
-@import '../../assets/styles/styles.scss';
+@use "sass:map";
+@use "../../assets/styles/settings/colors";
 
 .mkr__checkbox {
-  background-color: map-get($colors, 'white');
-  border: 1px solid map-get($colors, 'neutral-20');
+  background-color: map.get(colors.$colors, 'white');
+  border: 1px solid map.get(colors.$colors, 'neutral-20');
   border-radius: 4px;
   box-sizing: border-box;
   position: relative;
@@ -24,8 +25,8 @@
 
   &:focus-within, &:hover {
     outline: none;
-    box-shadow: 0 0 0 0.5rem map-get($colors, 'secondary-20');
-    border-color: map-get($colors, 'secondary');
+    box-shadow: 0 0 0 0.5rem map.get(colors.$colors, 'secondary-20');
+    border-color: map.get(colors.$colors, 'secondary');
   }
 
   &--small {
@@ -38,8 +39,8 @@
   }
 
   &--checked {
-    background-color: map-get($colors, 'secondary');
-    color: map-get($colors, 'white');
+    background-color: map.get(colors.$colors, 'secondary');
+    color: map.get(colors.$colors, 'white');
     border: none;
   }
 

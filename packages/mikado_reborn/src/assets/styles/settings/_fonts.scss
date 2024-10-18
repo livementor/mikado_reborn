@@ -1,8 +1,9 @@
 @use "sass:math";
 
-@import "./variables";
-@import "./tokens";
-@import "./utils";
+@use "sass:list";
+@use "variables";
+@use "tokens";
+@use "utils";
 
 $font-names:
   caption-small,
@@ -19,17 +20,17 @@ $font-names:
   button-medium;
 
 @mixin font($font-name) {
-  @if index($font-names, $font-name) {
-    font-size: math.div(token($font-name + '-font-size'), $baseFontSize) * 1rem;
-    text-decoration: token($font-name + '-text-decoration');
-    font-family: token($font-name + '-font-family');
-    font-weight: token($font-name + '-font-weight');
-    font-style: token($font-name + '-font-style');
-    font-stretch: token($font-name + '-font-stretch');
-    letter-spacing: token($font-name + '-letter-spacing') * 0.01 * 1em;
-    line-height: math.div(token($font-name + '-line-height'), $baseFontSize) * 1rem;
-    @if token($font-name + '-text-case') != 'normal' {
-      text-transform: token($font-name + '-text-case');
+  @if list.index($font-names, $font-name) {
+    font-size: math.div(utils.token($font-name + '-font-size'), variables.$baseFontSize) * 1rem;
+    text-decoration: utils.token($font-name + '-text-decoration');
+    font-family: utils.token($font-name + '-font-family');
+    font-weight: utils.token($font-name + '-font-weight');
+    font-style: utils.token($font-name + '-font-style');
+    font-stretch: utils.token($font-name + '-font-stretch');
+    letter-spacing: utils.token($font-name + '-letter-spacing') * 0.01 * 1em;
+    line-height: math.div(utils.token($font-name + '-line-height'), variables.$baseFontSize) * 1rem;
+    @if utils.token($font-name + '-text-case') != 'normal' {
+      text-transform: utils.token($font-name + '-text-case');
     }
   }
 }

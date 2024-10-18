@@ -1,12 +1,14 @@
-@import '../../assets/styles/styles.scss';
+@use "sass:map";
+@use "../../assets/styles/settings/colors";
+@use "../../assets/styles/settings/fonts";
 
 .mkr__radio {
   label {
-    @include font('body-medium');
+    @include fonts.font('body-medium');
     display: flex;
     align-items: center;
     margin: 1rem 0;
-    color: map-get($colors, 'neutral-80');
+    color: map.get(colors.$colors, 'neutral-80');
     cursor: pointer;
   }
 
@@ -21,7 +23,7 @@
     cursor: pointer;
     appearance: none;
     border-radius: 50%;
-    border: 1px solid map-get($colors, 'neutral-40');
+    border: 1px solid map.get(colors.$colors, 'neutral-40');
 
     &:focus {
       outline: none;
@@ -34,7 +36,7 @@
         bottom: -0.5rem;
         left: -0.5rem;
         right: -0.5rem;
-        background: map-get($colors, 'success');
+        background: map.get(colors.$colors, 'success');
         border-radius: 50%;
         opacity: 0.4;
       }
@@ -43,13 +45,13 @@
 
   &--checked {
     label {
-      color: map-get($colors, 'neutral-dark');
+      color: map.get(colors.$colors, 'neutral-dark');
     }
 
     input {
-      border-color: map-get($colors, 'success');
+      border-color: map.get(colors.$colors, 'success');
       background-clip: content-box;
-      background-color: map-get($colors, 'success');
+      background-color: map.get(colors.$colors, 'success');
     }
   }
 }

@@ -1,16 +1,18 @@
-@import '../../assets/styles/styles.scss';
+@use "sass:map";
+@use "../../assets/styles/settings/colors";
+@use "../../assets/styles/settings/shadows";
 
 .mkr__card {
-  background: map-get($colors, 'white');
+  background: map.get(colors.$colors, 'white');
   box-sizing: border-box;
   overflow: hidden;
 
   &--elevated {
-    @include shadow-medium;
+    @include shadows.shadow-medium;
   }
 
   &--border {
-    border: 1px solid map-get($colors, 'neutral-20');
+    border: 1px solid map.get(colors.$colors, 'neutral-20');
   }
 
   &--radius {

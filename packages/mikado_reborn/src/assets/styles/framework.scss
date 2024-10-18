@@ -1,10 +1,9 @@
-@import './fonts.scss';
-@import './styles.scss';
+@use 'settings/fonts';
 
 /* FONTS */
 
-@each $font in $font-names {
+@each $font in fonts.$font-names {
   .#{$font}-font {
-    @include font($font)
+    @include fonts.font($font)
   }
 }

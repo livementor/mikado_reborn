@@ -1,4 +1,6 @@
-@import '../../assets/styles/styles.scss';
+@use "sass:map";
+@use "../../assets/styles/settings/colors";
+@use "../../assets/styles/settings/fonts";
 
 $themes: (
   'danger': (
@@ -48,7 +50,7 @@ $themes: (
 );
 
 .mkr__badge {
-  @include font('caption-small');
+  @include fonts.font('caption-small');
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -59,8 +61,8 @@ $themes: (
 
   @each $themeName, $themeValues in $themes {
     &--#{$themeName} {
-      background-color: map-get($colors, map-get($themeValues, 'background'));
-      color: map-get($colors, map-get($themeValues, 'color'));
+      background-color: map.get(colors.$colors, map.get($themeValues, 'background'));
+      color: map.get(colors.$colors, map.get($themeValues, 'color'));
     }
   }
 }

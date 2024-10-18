@@ -1,8 +1,10 @@
-@import '../../assets/styles/styles.scss';
+@use "sass:map";
+@use "../../assets/styles/settings/colors";
+@use "../../assets/styles/settings/fonts";
 
 .mkr__nav-item {
-  @include font('caption-small');
-  color: map-get($colors, 'neutral-80');
+  @include fonts.font('caption-small');
+  color: map.get(colors.$colors, 'neutral-80');
 
   a {
     display: flex;

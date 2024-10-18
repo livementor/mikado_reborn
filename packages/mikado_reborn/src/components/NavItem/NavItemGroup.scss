@@ -1,4 +1,5 @@
-@import '../../assets/styles/styles.scss';
+@use "../../assets/styles/settings/colors";
+@use "sass:map";
 
 .mkr__nav-item-group {
   list-style: none;
@@ -9,15 +10,15 @@
     display: inline-block;
     .mkr__nav-item {
       &--active, &:hover, &:focus-within {
-        color: map-get($colors, 'secondary-dark');
+        color: map.get(colors.$colors, 'secondary-dark');
       }
 
       a {
-        background-color: map-get($colors, 'white');
+        background-color: map.get(colors.$colors, 'white');
       }
 
       &:hover a {
-        background-color: map-get($colors, 'accent-light');;
+        background-color: map.get(colors.$colors, 'accent-light');;
       }
     }
   }
@@ -25,35 +26,35 @@
   &--sub .mkr__nav-item {
     &:focus-within:not(.mkr__nav-item--active),
     &:hover:not(.mkr__nav-item--active) {
-      color: map-get($colors, 'secondary-dark');
+      color: map.get(colors.$colors, 'secondary-dark');
 
       a {
-        background-color: map-get($colors, 'white-60');
+        background-color: map.get(colors.$colors, 'white-60');
       }
     }
 
     &--active a {
-      background-color: map-get($colors, 'secondary-dark');
-      color: map-get($colors, 'white');
+      background-color: map.get(colors.$colors, 'secondary-dark');
+      color: map.get(colors.$colors, 'white');
 
       .mkr__icon {
-        color: map-get($colors, 'primary');
+        color: map.get(colors.$colors, 'primary');
       }
     }
   }
 
   &--sub-light .mkr__nav-item {
     &--active, &:hover, &:focus-within {
-      color: map-get($colors, 'secondary-dark');
+      color: map.get(colors.$colors, 'secondary-dark');
     }
 
     &:focus-within:not(.mkr__nav-item--active) a,
     &:hover:not(.mkr__nav-item--active) a {
-      background-color: map-get($colors, 'white-60');
+      background-color: map.get(colors.$colors, 'white-60');
     }
 
     &--active a {
-      background-color: map-get($colors, 'neutral-light');
+      background-color: map.get(colors.$colors, 'neutral-light');
     }
   }
 
@@ -89,7 +90,7 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background: map-get($colors, 'secondary-dark');
+        background: map.get(colors.$colors, 'secondary-dark');
         border-top-left-radius: 2px;
         border-top-right-radius: 2px;
       }
