@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { MkrChips, MkrChipsList } from '@livementor/mikado_reborn/src/components'
 import { ref } from 'vue'
-import PropParameters from '@/components/Parameters/PropParameters.vue'
+import PropParameters, { type MkdComponentProp } from '@/components/Parameters/PropParameters.vue'
 import ParametersTable from '@/components/ParametersTable.vue'
 
 const propsBinding = ref({})
-const componentProps = [
+const componentProps: MkdComponentProp = [
   // { name: 'name', type: 'text' },
   { name: 'size', type: 'select', options: ['medium', 'small'], value: 'medium' },
   { name: 'orientation', type: 'select', options: ['row', 'column'] },

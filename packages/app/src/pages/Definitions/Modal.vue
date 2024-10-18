@@ -1,14 +1,14 @@
 <script setup lang="ts">
 
 import { MkrModal, MkrContainedButton } from '@livementor/mikado_reborn/src/components'
-import PropParameters from '@/components/Parameters/PropParameters.vue'
+import PropParameters, { type MkdComponentProp } from '@/components/Parameters/PropParameters.vue'
 import ParametersTable from '@/components/ParametersTable.vue'
 import { ref } from 'vue'
 
-const propsBinding = ref({});
-const componentProps = [
+const propsBinding = ref({ closeable: true });
+const componentProps: MkdComponentProp = [
   { name: 'size' ,type: 'select', options: ['large', 'medium'], value: 'medium' },
-  { name: 'closeable', type: 'boolean' },
+  { name: 'closeable', type: 'boolean', value: true },
   { name: 'overlay', type: 'boolean' },
   { name: 'scrollable', type: 'boolean' },
   { name: 'noHeader', type: 'boolean' },

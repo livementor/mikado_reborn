@@ -2,10 +2,10 @@
 import { MkrTooltip, MkrContainedButton } from '@livementor/mikado_reborn/src/components'
 import { ref } from 'vue'
 import ParametersTable from '@/components/ParametersTable.vue'
-import PropParameters from '@/components/Parameters/PropParameters.vue'
+import PropParameters, { type MkdComponentProp } from '@/components/Parameters/PropParameters.vue'
 
 const bindingProps = ref({});
-const componentProps = [
+const componentProps: MkdComponentProp = [
   { name: 'label', type: 'text', value: "Messagerie" },
   { name: 'placement', type: 'select', value: 'bottom', options: [
       { isGroupName: true, mkr:['Placement'] },

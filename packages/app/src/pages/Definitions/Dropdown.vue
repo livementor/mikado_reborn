@@ -1,21 +1,21 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { MkrDropdown } from '@livementor/mikado_reborn/src/components'
-import PropParameters from '@/components/Parameters/PropParameters.vue'
+import { MkrDropdown, type MkrDropdownItem, MkrExpansionPanel } from '@livementor/mikado_reborn/src/components'
+import PropParameters, { type MkdComponentProp } from '@/components/Parameters/PropParameters.vue'
 import ParametersTable from '@/components/ParametersTable.vue'
 
 const propsBinding = ref({});
-const componentProps = [
+const componentProps: MkdComponentProp = [
   { name: 'placeholder', type: 'text', value: 'Placeholder... ' },
   { name: 'itemInputLabel', type: 'text' },
   { name: 'error', type: 'boolean' },
 ]
 
-const personalizedSlot = ref('Badge');
+const selectedString = ref(null);
+const stringsList: MkrDropdownItem[] | string[] = ['Arabic' , 'Chinese' , 'Dutch' , 'English' , 'French' , 'German' , 'Italian' , 'Japanese' , 'Korean' , 'Spanish' ]
 
-const value = ref(null);
-
-const itemsWithValues = [
+const selectedItem = ref(null);
+const itemsList: MkrDropdownItem[] | string[] = [
   { value: 'ar', label: 'Arabic' },
   { value: 'ch', label: 'Chinese' },
   { value: 'du', label: 'Dutch' },
@@ -28,7 +28,8 @@ const itemsWithValues = [
   { value: 'sp', label: 'Spanish' },
 ]
 
-const personalizedItems = [
+const selectedObject = ref(null);
+const objectsList: MkrDropdownItem[] | string[] = [
   { countryCode: 'ar', countryName: 'Arabic' },
   { countryCode: 'ch', countryName: 'Chinese' },
   { countryCode: 'du', countryName: 'Dutch' },
@@ -42,23 +43,60 @@ const personalizedItems = [
 ]
 
 
+const itemsProps: MkdComponentProp = [
+  {name: 'texts', type: 'json', value: JSON.stringify(stringsList, null, 2)},
+  {name: 'items', type: 'json', value: JSON.stringify(itemsList, null, 2)},
+  {name: 'objects', type: 'json', value: JSON.stringify(objectsList, null, 2)}
+]
+const bindingItemsList = ref({
+  texts: stringsList,
+  items: itemsList,
+  objects: objectsList,
+});
+
 </script>
 
 <template>
   <section class="variant" style="gap:30px">
     <div>
-      <h6>Valeurs personnalisées</h6>
-      <MkrDropdown style="width:100%" v-bind="propsBinding" v-model="value" :items="itemsWithValues">{{ personalizedSlot }}</MkrDropdown>
+      <h6>Liste de texte</h6>
+      <MkrDropdown v-if="bindingItemsList.texts" style="width:100%" v-bind="propsBinding" v-model="selectedString" :items="bindingItemsList.texts"></MkrDropdown>
+    </div>
+    <div>
+      <h6>Liste d'items</h6>
+      <MkrDropdown v-if="bindingItemsList.items" style="width:100%" v-bind="propsBinding" v-model="selectedItem" :items="bindingItemsList.items"></MkrDropdown>
     </div>
 
     <div>
-      <h6>Clés d'items personnalisées</h6>
-      <MkrDropdown style="width:100%" v-bind="propsBinding"  v-model="value" :items="personalizedItems" itemLabel="countryName" itemValue="countryCode">{{ personalizedSlot }}</MkrDropdown>
+      <h6>Liste d'objets</h6>
+      <MkrDropdown v-if="bindingItemsList.objects" style="width:100%" v-bind="propsBinding" v-model="selectedObject" :items="bindingItemsList.objects" itemLabel="countryName" itemValue="countryCode"></MkrDropdown>
     </div>
   </section>
 
   <ParametersTable>
     <PropParameters :componentProps @change="propsBinding=$event"></PropParameters>
+    <tr>
+      <td colspan="2">
+        <MkrExpansionPanel :defaultExpanded="false">
+          <template #header>Types possibles pour "items"</template>
+          <template #content>
+            <table style="width: 100%">
+              <PropParameters :componentProps="itemsProps" @change="bindingItemsList=$event"></PropParameters>
+              <tr>
+                <td></td>
+                <td>
+                  <p><small>Attributs pour la lecture de la liste d'objects aux valeurs personnalisées :</small></p>
+                  <ul>
+                    <li>itemLabel="countryName"</li>
+                    <li>itemValue="countryCode"</li>
+                  </ul>
+                </td>
+              </tr>
+            </table>
+          </template>
+        </MkrExpansionPanel>
+      </td>
+    </tr>
   </ParametersTable>
 
 </template>

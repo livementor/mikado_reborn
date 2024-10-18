@@ -1,16 +1,17 @@
 <script setup lang="ts">
 import { MkrTextButton, MkrContainedButton, MkrOutlinedButton } from '@livementor/mikado_reborn/src/components'
 import { ref } from 'vue'
-import PropParameters from '@/components/Parameters/PropParameters.vue'
+import PropParameters, { type MkdComponentProp } from '@/components/Parameters/PropParameters.vue'
 import SlotParameter from '@/components/Parameters/SlotParameter.vue'
 import ParametersTable from '@/components/ParametersTable.vue'
+// @ts-ignore
 import icons from '@livementor/mikado_reborn/src/utils/icons';
 
 
 const personalizedSlot = ref('Button');
 const propsBinding = ref({}) // no default
 
-const componentProps = [
+const componentProps: MkdComponentProp = [
   { name: 'theme', type: 'select', options: [
     { isGroupName: true, mkr:['TextButton', 'ContainedButton'] },
       'neutral',

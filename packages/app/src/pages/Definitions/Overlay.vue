@@ -2,19 +2,13 @@
 import { MkrContainedButton, MkrOverlay } from '@livementor/mikado_reborn/src/components'
 import { ref } from 'vue'
 import ParametersTable from '@/components/ParametersTable.vue'
-import PropParameters from '@/components/Parameters/PropParameters.vue'
+import PropParameters, { type MkdComponentProp } from '@/components/Parameters/PropParameters.vue'
 
 const bindingProps = ref({});
-const componentProps = [
+const componentProps: MkdComponentProp = [
   { name: 'color', type: 'select', options: ['dark', 'light'], value: 'dark' },
   { name: 'keepOnClick', type: 'boolean', value: false },
 ]
-
-const updateProps = (newConfig) => {
-  delete newConfig.domTarget;
-  bindingProps.value = newConfig;
-
-}
 
 const show = ref(false)
 
@@ -29,6 +23,6 @@ const show = ref(false)
   </section>
 
   <ParametersTable>
-    <PropParameters :componentProps @change="updateProps"></PropParameters>
+    <PropParameters :componentProps @change="bindingProps=$event"></PropParameters>
   </ParametersTable>
 </template>

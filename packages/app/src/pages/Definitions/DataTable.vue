@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { MkrDataTable } from '@livementor/mikado_reborn/src/components'
-import PropParameters from '@/components/Parameters/PropParameters.vue'
+import PropParameters, { type MkdComponentProp } from '@/components/Parameters/PropParameters.vue'
 import ParametersTable from '@/components/ParametersTable.vue'
 
 const data = {
@@ -33,7 +33,7 @@ const data = {
   ]};
 
 const propsBinding = ref({columns: data.columns, items: data.items});
-const componentProps = [
+const componentProps: MkdComponentProp = [
   { name: 'title', type: 'text', value: 'Formation' },
   { name: 'columns', type: 'json', value: JSON.stringify(data.columns, null, 2) },
   { name: 'items', type: 'json', value: JSON.stringify(data.items, null, 2) },

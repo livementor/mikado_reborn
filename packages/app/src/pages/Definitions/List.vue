@@ -1,12 +1,12 @@
 <script setup lang="ts">
 
 import { MkrList, MkrListItem, MkrTextButton, MkrContainedButton } from '@livementor/mikado_reborn/src/components'
-import PropParameters from '@/components/Parameters/PropParameters.vue'
+import PropParameters, { type MkdComponentProp } from '@/components/Parameters/PropParameters.vue'
 import ParametersTable from '@/components/ParametersTable.vue'
 import { ref } from 'vue'
 
 const propsBinding = ref({});
-const componentProps = [
+const componentProps: MkdComponentProp = [
   { name: 'size' ,type: 'select', options: ['large', 'medium', 'small'], value: 'medium' },
   { name: 'itemHoverable', type: 'boolean' },
   { name: 'padded', type: 'boolean' },
@@ -29,8 +29,8 @@ const componentProps = [
             Télécharger
           </MkrContainedButton>
         </MkrListItem>
-        <MkrListItem :clickable="propsBinding.clickable"> Third </MkrListItem>
-        <MkrListItem :clickable="propsBinding.clickable"> Fourth </MkrListItem>
+        <MkrListItem v-bind="propsBinding"> Third </MkrListItem>
+        <MkrListItem v-bind="propsBinding"> Fourth </MkrListItem>
       </MkrList>
     </div>
   </section>

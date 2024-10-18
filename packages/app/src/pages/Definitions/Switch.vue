@@ -2,9 +2,9 @@
 import { MkrSwitch } from '@livementor/mikado_reborn/src/components'
 import { ref } from 'vue'
 import ParametersTable from '@/components/ParametersTable.vue'
-import PropParameters from '@/components/Parameters/PropParameters.vue'
+import PropParameters, { type MkdComponentProp } from '@/components/Parameters/PropParameters.vue'
 
-const componentProps = [
+const componentProps: MkdComponentProp = [
   { name: 'value', type:'boolean' },
 ];
 

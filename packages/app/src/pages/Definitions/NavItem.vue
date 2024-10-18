@@ -2,19 +2,20 @@
 import { MkrNavItem, MkrNavItemGroup, MkrNotificationBadge, MkrIcon } from '@livementor/mikado_reborn/src/components'
 import { ref } from 'vue'
 import ParametersTable from '@/components/ParametersTable.vue'
-import PropParameters from '@/components/Parameters/PropParameters.vue'
+import PropParameters, { type MkdComponentProp } from '@/components/Parameters/PropParameters.vue'
+// @ts-ignore
 import icons from '@livementor/mikado_reborn/src/utils/icons'
 import SlotParameter from '@/components/Parameters/SlotParameter.vue'
 
 const propsBinding = ref({});
-const componentProps = [
+const componentProps: MkdComponentProp = [
   { name: 'icon', type: 'select', options: icons, value: 'bell' },
   { name: 'title', type: 'text', value: 'Tooltip' },
   { name: 'active', type: 'boolean', value: true },
 ]
 
 const groupPropsBinding = ref({});
-const groupComponentProps = [
+const groupComponentProps: MkdComponentProp = [
   { name: 'type', type: 'select', options: ['main','sub','sub-light'] },
   { name: 'horizontal', type: 'boolean', value: false },
   { name: 'topNav', type: 'boolean', value: true },

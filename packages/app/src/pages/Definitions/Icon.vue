@@ -1,13 +1,15 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { MkrIcon, MkrInteractiveIcon} from '@livementor/mikado_reborn/src/components'
-import PropParameters from '@/components/Parameters/PropParameters.vue'
+import PropParameters, { type MkdComponentProp } from '@/components/Parameters/PropParameters.vue'
 import ParametersTable from '@/components/ParametersTable.vue'
+// @ts-ignore
 import icons from '@livementor/mikado_reborn/src/utils/icons';
+// @ts-ignore
 import colors from '@livementor/mikado_reborn/src/utils/colors';
 
 const propsBinding = ref({ name: 'bell' });
-const componentProps = [
+const componentProps: MkdComponentProp = [
   { name: 'name', type: 'select', options: icons, value: 'bell' },
   { name: 'color', type: 'select', options: colors },
   { name: 'theme', type: 'select', options: ['light', 'dark'], value: 'light' },

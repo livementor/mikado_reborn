@@ -2,10 +2,10 @@
 import { MkrNotificationBadge, MkrIcon } from '@livementor/mikado_reborn/src/components'
 import { ref } from 'vue'
 import ParametersTable from '@/components/ParametersTable.vue'
-import PropParameters from '@/components/Parameters/PropParameters.vue'
+import PropParameters, { type MkdComponentProp } from '@/components/Parameters/PropParameters.vue'
 
 const bindingProps = ref({show: true})
-const componentProps = [
+const componentProps: MkdComponentProp = [
   { name: 'show', type: 'boolean', value: true }
 ]
 

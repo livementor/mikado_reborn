@@ -4,26 +4,35 @@ import { MkrIcon } from '@livementor/mikado_reborn/src/components/Icon'
 import ListInput from '@/components/Parameters/Inputs/ListInput.vue'
 import BooleanInput from '@/components/Parameters/Inputs/BooleanInput.vue'
 
-const { componentProps } = withDefaults( defineProps<{ componentProps: {
-    name: string,
-    type: 'boolean' | 'text' | 'select',
-    value?: boolean | string | null,
-    options?: (string | string[])[]
-  }[],
-  variantProps?: { [key:string]: string[] } }>(), { variantProps: {} });
+export type MkdComponentProp = {
+  name: string,
+  type: 'boolean' | 'text' | 'select' | 'textarea' | 'json' | 'number',
+  value?: number | boolean | string,
+  options?: (string | string[] | { isGroupName: boolean, mkr: string[] })[],
+  valid?: boolean
+}[];
+
+const { componentProps } = withDefaults(
+  defineProps<{
+    componentProps: MkdComponentProp,
+    variantProps?: object
+  }>(),
+  // eslint-disable-next-line vue/require-valid-default-prop
+  { variantProps: {} }
+);
 
 const emit = defineEmits(['change'])
 
 const updateProps = () => {
   // transform componentProps table into a v-bind-friendly configuration
-  const propsConfig = componentProps.reduce((a, v) => (v.value !== undefined ? {...a, [v.name]: (v.type=='json' ? ( v.valid !== false ? JSON.parse(v.value) : []) : v.value) } : {...a}), {})
+  const propsConfig = componentProps.reduce((a, v) => (v.value !== undefined ? {...a, [v.name]: (v.type=='json' ? ( v.valid !== false ? JSON.parse(<string> v.value) : []) : v.value) } : {...a}), {})
   emit('change', propsConfig);
 }
 
 // init component props
 onMounted(() => updateProps() );
 
-const isValidJSONProp = (prop) => {
+const isValidJSONProp = (prop: object) => {
   try{
     JSON.parse(prop.value);
     prop.valid = true;
@@ -50,6 +59,7 @@ const isValidJSONProp = (prop) => {
       <input v-else-if="prop.type=='number'" type="number" v-model="prop.value" @input="updateProps">
       <BooleanInput v-else-if="prop.type=='boolean'" v-model="prop.value" @update="updateProps"></BooleanInput>
       <textarea v-else-if="prop.type=='json'" v-model="prop.value" @input="isValidJSONProp(prop)" @change="updateProps" :class="{'error': prop.valid === false}"/>
+      <textarea v-else-if="prop.type=='textarea'" v-model="prop.value" @input="updateProps" />
     </td>
     <!-- variantProps -->
     <td class="compliance" v-for="(propNames, index) in Object.values(variantProps)" :key="index">

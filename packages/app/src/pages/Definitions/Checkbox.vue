@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { MkrCheckbox } from '@livementor/mikado_reborn/src/components'
-import PropParameters from '@/components/Parameters/PropParameters.vue'
+import PropParameters, { type MkdComponentProp } from '@/components/Parameters/PropParameters.vue'
 import ParametersTable from '@/components/ParametersTable.vue'
 import { ref, watch } from 'vue'
 
 const propsBinding = ref({})
-const componentProps = [
+const componentProps: MkdComponentProp = [
   { name: 'name', type: 'text', value: "choix-multiple" },
   { name: 'size', type: 'select', options: ['medium', 'small'], value: 'small' },
 ];

@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { MkrCard } from '@livementor/mikado_reborn/src/components'
-import PropParameters from '@/components/Parameters/PropParameters.vue'
+import PropParameters, { type MkdComponentProp } from '@/components/Parameters/PropParameters.vue'
 import SlotParameter from '@/components/Parameters/SlotParameter.vue'
 import ParametersTable from '@/components/ParametersTable.vue'
 import { ref } from 'vue'
 
 const propsBinding = ref({})
-const componentProps = [
+const componentProps: MkdComponentProp = [
   { name: 'elevated', type: 'boolean', value: true },
   { name: 'border', type: 'boolean', value: true },
   { name: 'radius', type: 'select', value: 'small', options: ['large', 'medium', 'small'] },
