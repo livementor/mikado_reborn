@@ -1,11 +1,17 @@
 <script setup lang="ts">
 import { MkrChips, MkrChipsList } from '@livementor/mikado_reborn/src/components'
-import { ref } from 'vue'
+import { onBeforeMount, ref } from 'vue'
 import PropParameters, { type MkdComponentProp } from '@/components/Parameters/PropParameters.vue'
 import ParametersTable from '@/components/ParametersTable.vue'
+import { useRouter } from 'vue-router'
+import queryProps from '@/utils/queryProps'
 
 const propsBinding = ref({})
-const componentProps: MkdComponentProp = [
+onBeforeMount(() => {
+  const query = useRouter().currentRoute.value.query
+  componentProps = queryProps(componentProps, query)
+})
+let componentProps: MkdComponentProp = [
   // { name: 'name', type: 'text' },
   { name: 'size', type: 'select', options: ['medium', 'small'], value: 'medium' },
   { name: 'orientation', type: 'select', options: ['row', 'column'] },

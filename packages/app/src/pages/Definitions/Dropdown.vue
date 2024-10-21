@@ -1,11 +1,17 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { onBeforeMount, ref } from 'vue'
 import { MkrDropdown, type MkrDropdownItem, MkrExpansionPanel } from '@livementor/mikado_reborn/src/components'
 import PropParameters, { type MkdComponentProp } from '@/components/Parameters/PropParameters.vue'
 import ParametersTable from '@/components/ParametersTable.vue'
+import { useRouter } from 'vue-router'
+import queryProps from '@/utils/queryProps'
 
 const propsBinding = ref({});
-const componentProps: MkdComponentProp = [
+onBeforeMount(() => {
+  const query = useRouter().currentRoute.value.query
+  componentProps = queryProps(componentProps, query)
+})
+let componentProps: MkdComponentProp = [
   { name: 'placeholder', type: 'text', value: 'Placeholder... ' },
   { name: 'itemInputLabel', type: 'text' },
   { name: 'error', type: 'boolean' },
@@ -81,17 +87,19 @@ const bindingItemsList = ref({
           <template #header>Types possibles pour "items"</template>
           <template #content>
             <table style="width: 100%">
-              <PropParameters :componentProps="itemsProps" @change="bindingItemsList=$event"></PropParameters>
-              <tr>
-                <td></td>
-                <td>
-                  <p><small>Attributs pour la lecture de la liste d'objects aux valeurs personnalisées :</small></p>
-                  <ul>
-                    <li>itemLabel="countryName"</li>
-                    <li>itemValue="countryCode"</li>
-                  </ul>
-                </td>
-              </tr>
+              <tbody>
+                <PropParameters :componentProps="itemsProps" @change="bindingItemsList=$event"></PropParameters>
+                <tr>
+                  <td></td>
+                  <td>
+                    <p><small>Attributs pour la lecture de la liste d'objects aux valeurs personnalisées :</small></p>
+                    <ul>
+                      <li>itemLabel="countryName"</li>
+                      <li>itemValue="countryCode"</li>
+                    </ul>
+                  </td>
+                </tr>
+              </tbody>
             </table>
           </template>
         </MkrExpansionPanel>

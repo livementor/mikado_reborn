@@ -1,10 +1,16 @@
 <script setup lang="ts">
 import { MkrSwitch } from '@livementor/mikado_reborn/src/components'
-import { ref } from 'vue'
+import { onBeforeMount, ref } from 'vue'
 import ParametersTable from '@/components/ParametersTable.vue'
 import PropParameters, { type MkdComponentProp } from '@/components/Parameters/PropParameters.vue'
+import { useRouter } from 'vue-router'
+import queryProps from '@/utils/queryProps'
 
-const componentProps: MkdComponentProp = [
+onBeforeMount(() => {
+  const query = useRouter().currentRoute.value.query
+  componentProps = queryProps(componentProps, query)
+})
+let componentProps: MkdComponentProp = [
   { name: 'value', type:'boolean' },
 ];
 

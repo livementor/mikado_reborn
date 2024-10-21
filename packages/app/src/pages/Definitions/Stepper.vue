@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { MkrStepper, type StepperItem, MkrExpansionPanel } from '@livementor/mikado_reborn/src/components'
-import { ref } from 'vue'
+import { onBeforeMount, ref } from 'vue'
 import ParametersTable from '@/components/ParametersTable.vue'
 import PropParameters, { type MkdComponentProp } from '@/components/Parameters/PropParameters.vue'
 import SlotParameter from '@/components/Parameters/SlotParameter.vue'
+import { useRouter } from 'vue-router'
+import queryProps from '@/utils/queryProps'
 
 const items: Array<string | StepperItem> = [
   'Formation',
@@ -12,9 +14,12 @@ const items: Array<string | StepperItem> = [
   'Confirmation',
 ]
 
-
 const bindingProps = ref({step:1, items: items});
-const componentProps: MkdComponentProp = [
+onBeforeMount(() => {
+  const query = useRouter().currentRoute.value.query
+  componentProps = queryProps(componentProps, query)
+})
+let componentProps: MkdComponentProp = [
   { name: 'step', type: 'number', value: 1 },
   { name: 'items', type: 'json', value: JSON.stringify(items, null, 2)  },
 ]

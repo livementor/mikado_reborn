@@ -1,11 +1,17 @@
 <script setup lang="ts">
 import { MkrTextarea } from '@livementor/mikado_reborn/src/components'
-import { ref } from 'vue'
+import { onBeforeMount, ref } from 'vue'
 import ParametersTable from '@/components/ParametersTable.vue'
 import PropParameters, { type MkdComponentProp } from '@/components/Parameters/PropParameters.vue'
+import { useRouter } from 'vue-router'
+import queryProps from '@/utils/queryProps'
 
 const bindingProps = ref({});
-const componentProps: MkdComponentProp = [
+onBeforeMount(() => {
+  const query = useRouter().currentRoute.value.query
+  componentProps = queryProps(componentProps, query)
+})
+let componentProps: MkdComponentProp = [
   { name: 'minlength', type: 'number', value: 0 },
   { name: 'maxlength', type: 'number', value: 100 },
   { name: 'placeholder', type: 'text', value: "Placeholder..." },

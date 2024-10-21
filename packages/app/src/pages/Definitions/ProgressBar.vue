@@ -1,11 +1,17 @@
 <script setup lang="ts">
 import { MkrProgressbar } from '@livementor/mikado_reborn/src/components'
-import { ref } from 'vue'
+import { onBeforeMount, ref } from 'vue'
 import ParametersTable from '@/components/ParametersTable.vue'
 import PropParameters, { type MkdComponentProp } from '@/components/Parameters/PropParameters.vue'
+import { useRouter } from 'vue-router'
+import queryProps from '@/utils/queryProps'
 
 const bindingProps = ref({total: 4});
-const componentProps: MkdComponentProp = [
+onBeforeMount(() => {
+  const query = useRouter().currentRoute.value.query
+  componentProps = queryProps(componentProps, query)
+})
+let componentProps: MkdComponentProp = [
   { name: 'total', type: 'number', value: 4 },
   { name: 'current', type: 'number', value: 1 },
   { name: 'size', type: 'select', options: ['medium', 'small'], value: 'medium' },

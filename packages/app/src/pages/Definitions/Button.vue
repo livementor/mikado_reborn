@@ -1,17 +1,21 @@
 <script setup lang="ts">
 import { MkrTextButton, MkrContainedButton, MkrOutlinedButton } from '@livementor/mikado_reborn/src/components'
-import { ref } from 'vue'
+import { onBeforeMount, ref } from 'vue'
 import PropParameters, { type MkdComponentProp } from '@/components/Parameters/PropParameters.vue'
 import SlotParameter from '@/components/Parameters/SlotParameter.vue'
 import ParametersTable from '@/components/ParametersTable.vue'
 // @ts-ignore
 import icons from '@livementor/mikado_reborn/src/utils/icons';
-
+import { useRouter } from 'vue-router'
+import queryProps from '@/utils/queryProps'
 
 const personalizedSlot = ref('Button');
 const propsBinding = ref({}) // no default
-
-const componentProps: MkdComponentProp = [
+onBeforeMount(() => {
+  const query = useRouter().currentRoute.value.query
+  componentProps = queryProps(componentProps, query)
+})
+let componentProps: MkdComponentProp = [
   { name: 'theme', type: 'select', options: [
     { isGroupName: true, mkr:['TextButton', 'ContainedButton'] },
       'neutral',

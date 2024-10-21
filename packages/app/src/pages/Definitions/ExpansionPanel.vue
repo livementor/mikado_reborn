@@ -1,11 +1,17 @@
 <script setup lang="ts">
 import { MkrExpansionPanel, MkrInteractiveIcon } from '@livementor/mikado_reborn/src/components'
-import { ref } from 'vue'
+import { onBeforeMount, ref } from 'vue'
 import ParametersTable from '@/components/ParametersTable.vue'
 import PropParameters, { type MkdComponentProp } from '@/components/Parameters/PropParameters.vue'
+import { useRouter } from 'vue-router'
+import queryProps from '@/utils/queryProps'
 
 const propsBinding = ref({defaultExpanded: false});
-const componentProps: MkdComponentProp = [ { name: 'defaultExpanded', type: 'boolean', value: false} ]
+onBeforeMount(() => {
+  const query = useRouter().currentRoute.value.query
+  componentProps = queryProps(componentProps, query)
+})
+let componentProps: MkdComponentProp = [ { name: 'defaultExpanded', type: 'boolean', value: false} ]
 
 </script>
 

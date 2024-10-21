@@ -1,14 +1,20 @@
 <script setup lang="ts">
 import { MkrNavItem, MkrNavItemGroup, MkrNotificationBadge, MkrIcon } from '@livementor/mikado_reborn/src/components'
-import { ref } from 'vue'
+import { onBeforeMount, ref } from 'vue'
 import ParametersTable from '@/components/ParametersTable.vue'
 import PropParameters, { type MkdComponentProp } from '@/components/Parameters/PropParameters.vue'
 // @ts-ignore
 import icons from '@livementor/mikado_reborn/src/utils/icons'
 import SlotParameter from '@/components/Parameters/SlotParameter.vue'
+import { useRouter } from 'vue-router'
+import queryProps from '@/utils/queryProps'
 
 const propsBinding = ref({});
-const componentProps: MkdComponentProp = [
+onBeforeMount(() => {
+  const query = useRouter().currentRoute.value.query
+  componentProps = queryProps(componentProps, query)
+})
+let componentProps: MkdComponentProp = [
   { name: 'icon', type: 'select', options: icons, value: 'bell' },
   { name: 'title', type: 'text', value: 'Tooltip' },
   { name: 'active', type: 'boolean', value: true },

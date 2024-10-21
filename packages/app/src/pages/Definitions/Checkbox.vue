@@ -2,10 +2,16 @@
 import { MkrCheckbox } from '@livementor/mikado_reborn/src/components'
 import PropParameters, { type MkdComponentProp } from '@/components/Parameters/PropParameters.vue'
 import ParametersTable from '@/components/ParametersTable.vue'
-import { ref, watch } from 'vue'
+import { onBeforeMount, ref } from 'vue'
+import { useRouter } from 'vue-router'
+import queryProps from '@/utils/queryProps'
 
 const propsBinding = ref({})
-const componentProps: MkdComponentProp = [
+onBeforeMount(() => {
+  const query = useRouter().currentRoute.value.query
+  componentProps = queryProps(componentProps, query)
+})
+let componentProps: MkdComponentProp = [
   { name: 'name', type: 'text', value: "choix-multiple" },
   { name: 'size', type: 'select', options: ['medium', 'small'], value: 'small' },
 ];

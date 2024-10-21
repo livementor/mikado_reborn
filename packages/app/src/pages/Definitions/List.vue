@@ -1,12 +1,17 @@
 <script setup lang="ts">
-
 import { MkrList, MkrListItem, MkrTextButton, MkrContainedButton } from '@livementor/mikado_reborn/src/components'
 import PropParameters, { type MkdComponentProp } from '@/components/Parameters/PropParameters.vue'
 import ParametersTable from '@/components/ParametersTable.vue'
-import { ref } from 'vue'
+import { onBeforeMount, ref } from 'vue'
+import { useRouter } from 'vue-router'
+import queryProps from '@/utils/queryProps'
 
 const propsBinding = ref({});
-const componentProps: MkdComponentProp = [
+onBeforeMount(() => {
+  const query = useRouter().currentRoute.value.query
+  componentProps = queryProps(componentProps, query)
+})
+let componentProps: MkdComponentProp = [
   { name: 'size' ,type: 'select', options: ['large', 'medium', 'small'], value: 'medium' },
   { name: 'itemHoverable', type: 'boolean' },
   { name: 'padded', type: 'boolean' },

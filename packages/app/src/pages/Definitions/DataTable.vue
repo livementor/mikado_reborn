@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { onBeforeMount, ref } from 'vue'
 import { MkrDataTable } from '@livementor/mikado_reborn/src/components'
 import PropParameters, { type MkdComponentProp } from '@/components/Parameters/PropParameters.vue'
 import ParametersTable from '@/components/ParametersTable.vue'
+import { useRouter } from 'vue-router'
+import queryProps from '@/utils/queryProps'
 
 const data = {
   columns: [
@@ -33,7 +35,11 @@ const data = {
   ]};
 
 const propsBinding = ref({columns: data.columns, items: data.items});
-const componentProps: MkdComponentProp = [
+onBeforeMount(() => {
+  const query = useRouter().currentRoute.value.query
+  componentProps = queryProps(componentProps, query)
+})
+let componentProps: MkdComponentProp = [
   { name: 'title', type: 'text', value: 'Formation' },
   { name: 'columns', type: 'json', value: JSON.stringify(data.columns, null, 2) },
   { name: 'items', type: 'json', value: JSON.stringify(data.items, null, 2) },
