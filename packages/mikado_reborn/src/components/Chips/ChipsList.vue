@@ -18,8 +18,9 @@
 
 <script lang="ts" setup>
 import {
-  provide, reactive, ref, watch, withDefaults,
-} from 'vue';
+  computed,
+  provide, reactive, ref, shallowRef, watch, withDefaults
+} from 'vue'
 import Chips from './Chips.vue';
 
 export type ChipsListProvide = {
@@ -39,7 +40,7 @@ const props = withDefaults(
     wrap?: boolean,
   }>(),
   {
-    size: 'medium',
+    size: 'small',
     orientation: 'row',
     wrap: false,
   },
@@ -60,6 +61,9 @@ const list = reactive({
 });
 
 provide('list', list);
+watch(() => props.size, () => {
+  list.size = props.size
+})
 
 watch(() => model.value, (value) => {
   list.model = value;

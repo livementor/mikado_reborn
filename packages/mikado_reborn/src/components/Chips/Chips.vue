@@ -15,8 +15,8 @@
 
 <script lang="ts" setup>
 import {
-  computed, inject, ref, withDefaults,
-} from 'vue';
+  computed, inject, onBeforeMount, onMounted, ref, watch, withDefaults
+} from 'vue'
 import { MkrIcon } from '../Icon';
 
 import { ChipsListProvide } from './ChipsList.vue';
@@ -43,12 +43,12 @@ const selected = computed(() => (list ? list.model === props.value : false));
 const chipRef = ref<HTMLElement | null>(null);
 
 const classes = computed(() => [
-  'mkr__chips',
-  {
-    'mkr__chips--selected': selected.value,
-    'mkr__chips--small': list ? list.size === 'small' : false,
-  },
-]);
+    'mkr__chips',
+    {
+      'mkr__chips--selected': selected.value,
+      'mkr__chips--small': list ? list.size === 'small' : false
+    }
+  ]);
 
 const selectValue = () => {
   if (list) {

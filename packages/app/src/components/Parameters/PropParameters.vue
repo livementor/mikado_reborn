@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
+import { computed, onBeforeMount, ref } from 'vue'
 import { MkrIcon } from '@livementor/mikado_reborn/src/components/Icon'
 import ListInput from '@/components/Parameters/Inputs/ListInput.vue'
 import BooleanInput from '@/components/Parameters/Inputs/BooleanInput.vue'
@@ -24,7 +24,6 @@ const emit = defineEmits(['change'])
 const router = useRouter()
 
 const updateProps = () => {
-  console.log("updating", componentProps)
   // transform componentProps table into a v-bind-friendly configuration
   const propsConfig = componentProps.reduce((a, v) => (v.value !== undefined ? {...a, [v.name]: (v.type=='json' ? ( v.valid !== false ? JSON.parse(<string> v.value) : []) : v.value) } : {...a}), {})
   // apply to url params
@@ -34,7 +33,7 @@ const updateProps = () => {
 }
 
 // init component props
-onMounted(() => {
+onBeforeMount(() => {
   const query = useRouter().currentRoute.value.query
   const queryComponentProps = queryProps(componentProps, query)
   componentProps.map(prop => queryComponentProps.find(query => query.name == prop.name));
