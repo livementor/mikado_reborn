@@ -5,7 +5,7 @@ export default (componentProps: MkdComponentProp, query) => {
     switch (prop.type) {
       case 'boolean': prop.value = query[prop.name] ? query[prop.name] == 'true' : prop.value;
       break;
-      case 'json': prop.value = query[prop.name] ? decodeURI(query[prop.name]).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g, '":"') : prop.value;
+      case 'json': prop.value = prop.value //  query[prop.name] ? decodeURI(query[prop.name]).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g, '":"') : prop.value;
       break;
       case 'number': prop.value = query[prop.name] ? parseInt(query[prop.name]) : prop.value;
       break;

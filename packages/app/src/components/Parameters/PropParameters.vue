@@ -25,7 +25,7 @@ const router = useRouter()
 
 const updateProps = () => {
   // transform componentProps table into a v-bind-friendly configuration
-  const propsConfig = componentProps.reduce((a, v) => (v.value !== undefined ? {...a, [v.name]: (v.type=='json' ? ( v.valid !== false ? JSON.parse(<string> v.value) : []) : v.value) } : {...a}), {})
+  const propsConfig = componentProps.reduce((a, v) => (v.value !== undefined ? {...a, [v.name]: (v.type=='json' ? ( v.valid !== false ? JSON.parse(v.value) : []) : v.value) } : {...a}), {})
   // apply to url params
   router.replace({ query: propsConfig })
   // emit to component's variants
