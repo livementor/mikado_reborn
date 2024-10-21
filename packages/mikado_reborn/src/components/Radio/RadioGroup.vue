@@ -6,7 +6,7 @@
 
 <script lang="ts" setup>
 import {
-  withDefaults, reactive, provide, watch,
+  reactive, provide, watch,
 } from 'vue';
 
 export type RadioGroupProvide = {

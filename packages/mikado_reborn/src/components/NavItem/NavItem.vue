@@ -21,6 +21,7 @@ import {
 } from 'vue';
 import MkrIcon from '../Icon/Icon.vue';
 import MkrTooltip from '../Tooltip/Tooltip.vue';
+import { isEmpty } from '../../composables/useSlotCheck';
 
 const props = withDefaults(
   defineProps<{ active?: boolean, title?: string, icon?: string }>(),
@@ -33,7 +34,7 @@ const slots = useSlots();
 const classes = computed(() => [
   'mkr__nav-item',
   {
-    'mkr__nav-item--icon-only': !(slots.default()[0].children.toString().replace(' ', '')).length,
+    'mkr__nav-item--icon-only': isEmpty(slots['default']),
     'mkr__nav-item--active': props.active,
   },
 ]);

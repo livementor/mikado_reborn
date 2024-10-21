@@ -18,6 +18,7 @@ import {
 } from 'vue';
 import { MkrIcon } from '../Icon';
 import './Button.scss';
+import { isEmpty } from '../../composables/useSlotCheck'
 
 const props = withDefaults(
   defineProps<{
@@ -45,7 +46,7 @@ const baseClass = 'mkr__button';
 
 const slots = useSlots();
 
-const hasContent = computed(() => (slots.length || 0) > 0);
+const hasContent = computed(() => !isEmpty(slots['default']));
 const componentClass = computed(() => `${baseClass}--${props.variant}`);
 const themeClass = computed(() => (props.theme ? `${componentClass.value}--${props.theme}` : ''));
 
