@@ -1,6 +1,8 @@
 <script setup lang="ts">
+import { MkrSwitch } from '@livementor/mikado_reborn/src/components'
+import { ref } from 'vue'
 
-const value = defineModel();
+const value = defineModel()
 const emit = defineEmits(['update']);
 
 const toggle = (isChecked) => {
@@ -11,5 +13,7 @@ const toggle = (isChecked) => {
 </script>
 
 <template>
-  <input type="checkbox" :checked="value" @change="toggle((<HTMLInputElement> $event.target).checked)"/>
+  <div style="display: flex; gap: 30px">
+    <input type="checkbox" :checked="value" @change="toggle($event.target.checked)"/>
+  </div>
 </template>
