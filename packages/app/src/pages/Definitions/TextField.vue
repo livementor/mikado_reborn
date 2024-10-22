@@ -3,7 +3,6 @@ import { MkrTextfield } from '@livementor/mikado_reborn/src/components'
 import { onBeforeMount, ref } from 'vue'
 import ParametersTable from '@/components/ParametersTable.vue'
 import PropParameters, { type MkdComponentProp } from '@/components/Parameters/PropParameters.vue'
-// @ts-ignore
 import icons from '@livementor/mikado_reborn/src/utils/icons'
 import { useRouter } from 'vue-router'
 import queryProps from '@/utils/queryProps'

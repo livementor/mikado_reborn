@@ -3,7 +3,6 @@ import { MkrSteppedProgress } from '@livementor/mikado_reborn/src/components'
 import ParametersTable from '@/components/ParametersTable.vue'
 import PropParameters, { type MkdComponentProp } from '@/components/Parameters/PropParameters.vue'
 import { onBeforeMount, ref } from 'vue'
-// @ts-ignore
 import colors from '@livementor/mikado_reborn/src/utils/colors';
 import { useRouter } from 'vue-router'
 import queryProps from '@/utils/queryProps'

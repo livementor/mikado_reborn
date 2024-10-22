@@ -3,9 +3,7 @@ import { onBeforeMount, ref } from 'vue'
 import { MkrIcon, MkrInteractiveIcon} from '@livementor/mikado_reborn/src/components'
 import PropParameters, { type MkdComponentProp } from '@/components/Parameters/PropParameters.vue'
 import ParametersTable from '@/components/ParametersTable.vue'
-// @ts-ignore
 import icons from '@livementor/mikado_reborn/src/utils/icons';
-// @ts-ignore
 import colors from '@livementor/mikado_reborn/src/utils/colors';
 import { useRouter } from 'vue-router'
 import queryProps from '@/utils/queryProps'
