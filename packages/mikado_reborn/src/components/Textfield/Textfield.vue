@@ -26,7 +26,7 @@
 
 <script lang="ts" setup>
 import {
-  computed, ref, withDefaults, defineProps,
+  computed, ref
 } from 'vue';
 import MkrIcon from '../Icon/Icon.vue';
 import MkrContainedButton from '../Button/Contained/ContainedButton.vue';

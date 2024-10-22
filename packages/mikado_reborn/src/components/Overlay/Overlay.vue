@@ -16,7 +16,7 @@
 
 <script lang="ts" setup>
 import {
-  withDefaults, watch, onBeforeUnmount,
+  watch, onBeforeUnmount,
 } from 'vue';
 
 const value = defineModel();

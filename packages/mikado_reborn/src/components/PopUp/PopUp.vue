@@ -11,7 +11,7 @@
 
 <script lang="ts" setup>
 import {
-  watch, withDefaults, ref, onMounted, nextTick,
+  watch, ref, onMounted, nextTick,
 } from 'vue';
 import { createPopper, Instance as PopperInstance, type Placement } from '@popperjs/core';
 

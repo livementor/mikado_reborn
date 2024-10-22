@@ -17,7 +17,7 @@
 
 <script lang="ts" setup>
 import {
-  withDefaults, computed, useAttrs, useSlots,
+  computed, useAttrs, useSlots,
 } from 'vue';
 import MkrIcon from '../Icon/Icon.vue';
 import MkrTooltip from '../Tooltip/Tooltip.vue';

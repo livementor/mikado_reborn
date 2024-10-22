@@ -14,9 +14,7 @@
 </template>
 
 <script lang="ts" setup>
-import {
-  computed, inject, onBeforeMount, onMounted, ref, watch, withDefaults
-} from 'vue'
+import { computed, inject, ref } from 'vue'
 import { MkrIcon } from '../Icon';
 
 import { ChipsListProvide } from './ChipsList.vue';

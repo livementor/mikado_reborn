@@ -17,7 +17,7 @@
 
 <script lang="ts" setup>
 import {
-  onMounted, ref, withDefaults,
+  onMounted, ref
 } from 'vue';
 import { MkrIcon } from '../'
 

@@ -18,10 +18,8 @@
 
 <script lang="ts" setup>
 import {
-  computed,
-  provide, reactive, ref, shallowRef, watch, withDefaults
+  provide, reactive, ref, watch
 } from 'vue'
-import Chips from './Chips.vue';
 
 export type ChipsListProvide = {
   size: 'medium' | 'small';
@@ -45,8 +43,6 @@ const props = withDefaults(
     wrap: false,
   },
 );
-
-const emit = defineEmits(['input']);
 
 const listRef = ref<HTMLElement | null>(null);
 
