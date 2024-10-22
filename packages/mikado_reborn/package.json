@@ -36,6 +36,7 @@
   "dependencies": {
     "@popperjs/core": "^2.11.0",
     "@types/uuid": "^10.0.0",
+    "@vueuse/core": "^11.1.0",
     "uuid": "^10.0.0"
   },
   "devDependencies": {
