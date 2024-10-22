@@ -25,7 +25,6 @@ const variantProps = {
   InteractiveIcon: ['name', 'theme', 'activated'],
 }
 
-
 </script>
 
 <template>

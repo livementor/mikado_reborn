@@ -9,10 +9,12 @@ import Install from '@/pages/Install.vue'
 
 // Auto import components contexts list from folder Definitions
 const components = import.meta.glob('./pages/Definitions/*.vue');
-const componentRoutes = () => Object.entries(components).map( async ([path, component]) => ({
-  path: '/' + (path ? path.split('/').pop().replace('.vue', '').toLowerCase() : ''),
-  component: <Component> (await component()).default
-}) )
+const componentRoutes = () => Object.entries(components).map( async ([path, component]: [string, any]) => {
+  const fileName: string = path.split('/').pop() || '';
+  return {
+    path: '/' + fileName.replace('.vue', '').toLowerCase(),
+    component: <Component> (await component()).default
+  }})
 
 
 const router = createRouter({
@@ -24,4 +26,4 @@ const router = createRouter({
   ]
 })
 
-createApp(Layout).use(router).mount('#app')
+createApp(Layout).use(router).mount('#app');

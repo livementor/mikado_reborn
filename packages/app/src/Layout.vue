@@ -6,9 +6,12 @@ import { MkrApp, MkrAvatar } from '@livementor/mikado_reborn/src/components';
 
 // Auto import components contexts list from folder Definitions
 const components = import.meta.glob('./pages/Definitions/*.vue');
-const componentNames = Object.keys(components).map(path => path ? path.split('/').pop().replace('.vue', '') : '');
+const componentNames = Object.keys(components).map(path => {
+  const fileName = path.split('/').pop() || '';
+  return fileName.replace('.vue', '')
+});
 
-const activeRoute = ref<string | null>(null)
+const activeRoute = ref<Array<string>>([])
 // screen component name through route params
 watch(useRoute(), to => updateRoute(to));
 const updateRoute = (route = useRoute()) => {
@@ -20,13 +23,35 @@ const updateRoute = (route = useRoute()) => {
 
 <template>
   <aside>
-    <h1>Mika'doc <MkrAvatar src="./favicon.png" :size="3"></MkrAvatar></h1>
+    <h1>
+      Mika'doc <MkrAvatar
+        src="./favicon.png"
+        :size="3"
+      />
+    </h1>
     <nav class="card-like">
       <ul>
-        <RouterLink activeClass="active" to="/"><li>Accueil</li></RouterLink>
-        <RouterLink activeClass="active" to="/installation"><li>Installation</li></RouterLink>
+        <RouterLink
+          active-class="active"
+          to="/"
+        >
+          <li>Accueil</li>
+        </RouterLink>
+        <RouterLink
+          active-class="active"
+          to="/installation"
+        >
+          <li>Installation</li>
+        </RouterLink>
         <hr>
-        <RouterLink v-for="name in componentNames" :key="name" :to="name.toLowerCase()" activeClass="active"><li>{{ name }}</li></RouterLink>
+        <RouterLink
+          v-for="name in componentNames"
+          :key="name"
+          :to="name.toLowerCase()"
+          active-class="active"
+        >
+          <li>{{ name }}</li>
+        </RouterLink>
       </ul>
     </nav>
   </aside>
@@ -34,14 +59,18 @@ const updateRoute = (route = useRoute()) => {
   <section>
     <header>
       <ul>
-        <li v-for="(step, index) in activeRoute" :key="index">{{ step }}</li>
+        <li
+          v-for="(step, index) in activeRoute"
+          :key="index"
+        >
+          {{ step }}
+        </li>
       </ul>
     </header>
 
     <MkrApp class="card-like">
       <RouterView />
     </MkrApp>
-
   </section>
 </template>
 

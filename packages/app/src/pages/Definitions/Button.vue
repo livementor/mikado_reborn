@@ -51,7 +51,7 @@ const variantProps = {
 
   <section class="variant">
     <div v-for="(variant, index) in [MkrTextButton, MkrContainedButton, MkrOutlinedButton]" :key="index">
-      <h6>{{ variant.__name }}</h6>
+      <h6>{{ variant.name }}</h6>
       <component :is="variant" v-bind="propsBinding">{{ personalizedSlot }}</component>
     </div>
   </section>

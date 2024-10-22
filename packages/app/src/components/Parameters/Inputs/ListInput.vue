@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const selectedModel = defineModel();
-defineProps<{ list: Array<string | object> }>();
+defineProps<{ list?: Array< string | { isGroupName: boolean, [key: string]: any }>}>();
 
 </script>
 

@@ -10,13 +10,13 @@ export type MkdComponentProp = {
   name: string,
   type: 'boolean' | 'text' | 'select' | 'textarea' | 'json' | 'number',
   value?: number | boolean | string,
-  options?: (string | string[] | { isGroupName: boolean, mkr: string[] })[],
+  options?: (string[] | { isGroupName: boolean, mkr: string[] })[],
   valid?: boolean,
 }[];
 
-const { componentProps, variantProps } = defineProps<{
+const props = defineProps<{
   componentProps: MkdComponentProp,
-  variantProps?: object,
+  variantProps?: any[],
 }>();
 
 const emit = defineEmits(['change'])
@@ -25,7 +25,7 @@ const router = useRouter()
 
 const updateProps = () => {
   // transform componentProps table into a v-bind-friendly configuration
-  const propsConfig = componentProps.reduce((a, v) => (v.value !== undefined ? {...a, [v.name]: (v.type=='json' ? ( v.valid !== false ? JSON.parse(v.value) : []) : v.value) } : {...a}), {})
+  const propsConfig = props.componentProps.reduce((a, v) => (v.value !== undefined ? {...a, [v.name]: (v.type=='json' ? undefined : v.value) } : {...a}), {})
   // apply to url params
   router.replace({ query: propsConfig })
   // emit to component's variants
@@ -35,12 +35,12 @@ const updateProps = () => {
 // init component props
 onBeforeMount(() => {
   const query = useRouter().currentRoute.value.query
-  const queryComponentProps = queryProps(componentProps, query)
-  componentProps.map(prop => queryComponentProps.find(query => query.name == prop.name));
+  const queryComponentProps = queryProps(props.componentProps, query)
+  props.componentProps.map(prop => queryComponentProps.find(query => query.name == prop.name));
   updateProps();
 });
 
-const isValidJSONProp = (prop: object) => {
+const isValidJSONProp = (prop: { [key:string]: any, valid?: boolean }) => {
   try{
     JSON.parse(prop.value);
     prop.valid = true;
@@ -53,7 +53,7 @@ const isValidJSONProp = (prop: object) => {
 }
 
 const variantNames = computed( () => {
-  return variantProps ? Object.keys(variantProps) : []
+  return props.variantProps ? Object.keys(props.variantProps) : []
 })
 
 // TEST BOOLEAN
