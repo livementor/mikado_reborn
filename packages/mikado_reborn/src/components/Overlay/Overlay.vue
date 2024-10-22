@@ -3,9 +3,7 @@
   <div class="mkr__overlay"
     :class="[
       `mkr__overlay--${color}`,
-      {
-        'mkr__overlay--opened': value,
-      },
+      'mkr__overlay--opened'
     ]"
     @click="click"
   >
@@ -15,11 +13,6 @@
 </template>
 
 <script lang="ts" setup>
-import {
-  watch, onBeforeUnmount,
-} from 'vue';
-
-const value = defineModel();
 const props = withDefaults(
   defineProps<{
     color?: 'dark' | 'light',
@@ -37,22 +30,9 @@ const emit = defineEmits(['click', 'input']);
 
 // functions
 const click = () => {
-  if (!props.keepOnClick) {
-    value.value = false;
-    emit('input', false);
-  }
   emit('click');
 };
-const onOpenedChanged = (isOpen: boolean) => {
-  document.body.style.overflow = isOpen ? 'hidden' : 'visible';
-};
 
-
-onBeforeUnmount(() => {
-  document.body.style.overflow = 'visible';
-});
-
-watch(() => props.value, onOpenedChanged);
 
 </script>
 

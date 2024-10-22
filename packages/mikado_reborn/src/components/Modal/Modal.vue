@@ -1,9 +1,10 @@
 <template>
   <div>
     <Teleport to=".mkr__app">
-      <div ref="modelRef" :class="$attrs.class" v-if="isModalOpened">
-        <mkr-overlay v-if="overlay" v-model="isModalOpened" />
+      <div :class="$attrs.class" v-if="isModalOpened">
+        <mkr-overlay v-if="overlay" @click="closeIfAllowed" />
         <mkr-card
+          ref="modalRef"
           role="dialog"
           :aria-modal="isModalOpened"
           class="mkr__modal"
@@ -73,7 +74,7 @@ const props = withDefaults(
     size: 'medium',
     slim: false,
     closeable: true,
-    overlay: false,
+    overlay: true,
     scrollable: false,
     focusFirstSelector: null,
     noHeader: false,
@@ -87,17 +88,15 @@ const isModalOpened = computed(() => model.value || props.opened);
 const modalRef = ref<HTMLElement | null>(null);
 const modalContent = ref(null);
 
-onClickOutside(modalRef, () => {
+const closeIfAllowed = () => {
   if (props.closeable) {
     close();
   }
-})
+}
 
-onKeyStroke('Escape', (e) => {
-  if (props.closeable) {
-    close();
-  }
-})
+onClickOutside(modalRef, closeIfAllowed)
+
+onKeyStroke('Escape', closeIfAllowed)
 
 const close = () => {
   model.value = false;
