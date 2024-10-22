@@ -69,12 +69,12 @@ const testBool = ref()
     <td>"{{ prop.name }}"</td>
     <td>
       <!-- prop.value is edited from the component ; updateProps only called as a v-bind-friendly builder -->
-      <ListInput v-if="prop.type=='select'" :list="prop.options" v-model="prop.value" @update="updateProps"></ListInput>
+      <ListInput v-if="prop.type=='select'" :list="prop.options" v-model="prop.value" @update:modelValue="updateProps"></ListInput>
       <input v-else-if="prop.type=='text'" type="text" v-model="prop.value" @input="updateProps">
       <input v-else-if="prop.type=='number'" type="number" v-model="prop.value" @input="updateProps">
       <textarea v-else-if="prop.type=='json'" v-model="prop.value" @input="isValidJSONProp(prop)" @change="updateProps" :class="{'error': prop.valid === false}"/>
       <textarea v-else-if="prop.type=='textarea'" v-model="prop.value" @input="updateProps" />
-      <BooleanInput v-else-if="prop.type=='boolean'" v-model="prop.value" @update="updateProps"></BooleanInput>
+      <BooleanInput v-else-if="prop.type=='boolean'" v-model="prop.value" @update:modelValue="updateProps"></BooleanInput>
     </td>
     <!-- variantProps -->
     <td class="compliance" v-for="(propNames, index) in variantProps" :key="index">

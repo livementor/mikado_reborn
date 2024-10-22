@@ -2,8 +2,7 @@
 import { useRoute } from 'vue-router'
 import { ref, watch } from 'vue'
 
-import { MkrApp } from '@livementor/mikado_reborn/src/components/App';
-import { MkrAvatar } from '@livementor/mikado_reborn/src/components/Avatar';
+import { MkrApp, MkrAvatar } from '@livementor/mikado_reborn/src/components';
 
 // Auto import components contexts list from folder Definitions
 const components = import.meta.glob('./pages/Definitions/*.vue');
