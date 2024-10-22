@@ -46,17 +46,19 @@
 
 <script lang="ts" setup>
 import {
-  withDefaults, inject, onMounted, ref, onUnmounted, watch, nextTick, computed, Ref,
+  withDefaults, onMounted, ref, onUnmounted, watch, nextTick, computed,
 } from 'vue';
 import { MkrCard } from '../Card';
 import { MkrOverlay } from '../Overlay';
 import { MkrTextButton } from '../Button';
 import focusTrap from './focusTrap';
 
-const opened = defineModel();
+const model = defineModel();
+
 const props = withDefaults(
   defineProps<{
     size?: 'medium' | 'large',
+    opened?: boolean,
     slim?: boolean,
     closeable?: boolean,
     overlay?: boolean,
@@ -75,14 +77,18 @@ const props = withDefaults(
   },
 );
 
+const emit = defineEmits(['close']);
 
-const isModalOpened = computed(() => opened.value);
+const isModalOpened = computed(() => model.value || props.opened);
 
 // dom manipulation
 const modalRef = ref<HTMLElement | null>(null);
 const modalContent = ref(null);
 
-const close = () => opened.value = false ;
+const close = () => {
+  model.value = false;
+  emit('close')
+}
 
 
 // focus trap
@@ -159,7 +165,7 @@ const onOpenedChanged = async (isOpened: boolean) => {
 
 // lifecycle hooks
 onMounted(() => {
-  toggleEventListeners(opened.value);
+  toggleEventListeners(model.value);
 });
 
 onUnmounted(() => {
@@ -169,7 +175,7 @@ onUnmounted(() => {
 
 // watchers
 watch(() => props.closeable, onCloseableChanged);
-watch(() => opened.value, onOpenedChanged);
+watch(() => model.value, onOpenedChanged);
 
 </script>
 
