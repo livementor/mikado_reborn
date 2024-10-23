@@ -1,15 +1,21 @@
 <template>
   <li :class="classes">
-    <MkrTooltip :disabled="!title" :label="title">
+    <MkrTooltip
+      :disabled="!title"
+      :label="title"
+    >
       <component
         v-bind="$attrs"
         :is="component"
         @click="emitClick"
       >
         <slot name="icon">
-          <MkrIcon v-if="icon" :name="icon" />
+          <MkrIcon
+            v-if="icon"
+            :name="icon"
+          />
         </slot>
-        <slot></slot>
+        <slot />
       </component>
     </MkrTooltip>
   </li>
@@ -21,7 +27,7 @@ import {
 } from 'vue';
 import MkrIcon from '../Icon/Icon.vue';
 import MkrTooltip from '../Tooltip/Tooltip.vue';
-import { isEmpty } from '../../composables/useSlotCheck';
+import { hasSlotContent } from '../../composables/useCheckSlotContent';
 
 const props = withDefaults(
   defineProps<{ active?: boolean, title?: string, icon?: string }>(),
@@ -34,7 +40,7 @@ const slots = useSlots();
 const classes = computed(() => [
   'mkr__nav-item',
   {
-    'mkr__nav-item--icon-only': isEmpty(slots['default']),
+    'mkr__nav-item--icon-only': !hasSlotContent(slots['default']),
     'mkr__nav-item--active': props.active,
   },
 ]);
