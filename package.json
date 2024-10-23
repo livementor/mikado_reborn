@@ -1,6 +1,5 @@
 {
   "private": true,
-  "type": "module",
   "scripts": {
     "create-component": "./scripts/createComponent.sh",
     "upgrade:mikado": "node ./scripts/upgrade.js"
