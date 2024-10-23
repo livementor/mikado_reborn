@@ -2,10 +2,10 @@ install: ## Install project dependencies
 	yarn
 
 doc-start: ## Start storybook dev server
-	yarn workspace doc storybook
+	yarn workspace app dev
 
 doc-build: ## Build storybook doc
-	yarn workspace doc build-storybook
+	yarn workspace app build-only
 
 lib-build: ## Build library
 	yarn workspace @livementor/mikado_reborn build
@@ -15,9 +15,6 @@ lib-build-tokens: ## Update library design tokens with the design-tokens.json fi
 
 lib-lint: ## Lint library
 	yarn workspace @livementor/mikado_reborn lint
-
-create-component:  ## Creates everything needed for a new component development
-	npm run create-component -- ${name}
 
 upgrade-mikado:  ## Publish a new release of the mikado library
 	npm run upgrade:mikado
