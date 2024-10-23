@@ -12,22 +12,24 @@ onBeforeMount(() => {
   const query = useRouter().currentRoute.value.query
   componentProps = queryProps(componentProps, query)
 })
-let componentProps: MkdComponentProp = [
+let componentProps: MkdComponentProp[] = [
   { name: 'steps', type: 'number', value: 4 },
   { name: 'progress', type: 'number', value: 1 },
-  { name: 'color', type: 'select', options: colors, value: 'primary' },
-  { name: 'backgroundColor', type: 'select', options: colors, value: 'neutral-light' },
+  { name: 'color', type: 'select', options: colors.map(value => ({value})), value: 'primary' },
+  { name: 'backgroundColor', type: 'select', options: colors.map(value => ({value})), value: 'neutral-light' },
 ]
 
 </script>
 
 <template>
   <section>
-    <MkrSteppedProgress v-bind="bindingProps"></MkrSteppedProgress>
+    <MkrSteppedProgress v-bind="bindingProps" />
   </section>
 
   <ParametersTable>
-    <PropParameters :componentProps @change="bindingProps=$event"></PropParameters>
+    <PropParameters
+      :component-props
+      @change="bindingProps=$event"
+    />
   </ParametersTable>
-
 </template>

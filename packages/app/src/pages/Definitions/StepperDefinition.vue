@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { MkrStepper, type StepperItem, MkrExpansionPanel } from '@livementor/mikado_reborn/src/components'
-import { onBeforeMount, ref } from 'vue'
+import { computed, onBeforeMount, ref } from 'vue'
 import ParametersTable from '@/components/ParametersTable.vue'
 import PropParameters, { type MkdComponentProp } from '@/components/Parameters/PropParameters.vue'
 import SlotParameter from '@/components/Parameters/SlotParameter.vue'
@@ -19,7 +19,7 @@ onBeforeMount(() => {
   const query = useRouter().currentRoute.value.query
   componentProps = queryProps(componentProps, query)
 })
-let componentProps: MkdComponentProp = [
+let componentProps: MkdComponentProp[] = [
   { name: 'step', type: 'number', value: 1 },
   { name: 'items', type: 'json', value: JSON.stringify(items, null, 2)  },
 ]
@@ -29,11 +29,18 @@ const step2 = ref('Step 2')
 const step3 = ref('Step 3')
 const step4 = ref('Step 4')
 
+const stepNames = computed(() => bindingProps.value.items
+    .map((item: string | StepperItem) => typeof item === 'string' ? item : item.label))
+
 </script>
 
 <template>
   <section>
-    <MkrStepper v-bind="bindingProps">
+    <MkrStepper
+      v-if="bindingProps.items"
+      :step="bindingProps.step"
+      :items="bindingProps.items"
+    >
       <template #step_1>
         <div>{{ step1 }}</div>
       </template>
@@ -50,22 +57,38 @@ const step4 = ref('Step 4')
   </section>
 
   <ParametersTable>
-    <PropParameters :componentProps @change="bindingProps=$event" />
+    <PropParameters
+      :component-props
+      @change="bindingProps=$event"
+    />
     <tr>
       <td colspan="2">
-        <MkrExpansionPanel :defaultExpanded="false">
-          <template #header>Contenus des étapes</template>
+        <MkrExpansionPanel :default-expanded="false">
+          <template #header>
+            Contenus des étapes
+          </template>
           <template #content>
             <table style="width: 100%">
-              <SlotParameter v-model="step1" :name="items[0].label || items[0]"></SlotParameter>
-              <SlotParameter v-model="step2" :name="items[1].label || items[1]"></SlotParameter>
-              <SlotParameter v-model="step3" :name="items[2].label || items[2]"></SlotParameter>
-              <SlotParameter v-model="step4" :name="items[3].label || items[3]"></SlotParameter>
+              <SlotParameter
+                v-model="step1"
+                :name="stepNames[0]"
+              />
+              <SlotParameter
+                v-model="step2"
+                :name="stepNames[1]"
+              />
+              <SlotParameter
+                v-model="step3"
+                :name="stepNames[2]"
+              />
+              <SlotParameter
+                v-model="step4"
+                :name="stepNames[3]"
+              />
             </table>
           </template>
         </MkrExpansionPanel>
       </td>
     </tr>
   </ParametersTable>
-
 </template>

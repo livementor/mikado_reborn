@@ -14,25 +14,25 @@ onBeforeMount(() => {
   const query = useRouter().currentRoute.value.query
   componentProps = queryProps(componentProps, query)
 })
-let componentProps: MkdComponentProp = [
+let componentProps: MkdComponentProp[] = [
   { name: 'theme', type: 'select', options: [
-    { isGroupName: true, mkr:['TextButton', 'ContainedButton'] },
-      'neutral',
-    { isGroupName: true, mkr:['TextButton'] },
-      'danger',
-      'neutral-60',
-      'neutral-80',
-      'secondary-dark',
-    { isGroupName: true, mkr:['ContainedButton'] },
-      'danger-light',
-      'primary',
-      'primary-light',
-      'secondary',
-      'secondary-light'
+    { value:"container", variants: ['TextButton', 'ContainedButton'] },
+      { value: 'neutral' },
+    { value:"container", variants:['TextButton'] },
+      { value: 'danger' },
+      { value: 'neutral-60' },
+      { value: 'neutral-80' },
+      { value: 'secondary-dark' },
+    { value:"container", variants:['ContainedButton'] },
+      { value: 'danger-light' },
+      { value: 'primary' },
+      { value: 'primary-light' },
+      { value: 'secondary' },
+      { value: 'secondary-light' }
     ] },
-  { name: 'size', type: 'select', options: ['large', 'medium', { isGroupName: true, mkr:['TextButton', 'ContainedButton'] }, 'small'] },
-  { name: 'icon', type: 'select', options: icons },
-  { name: 'iconSide', type: 'select', options: ['left', 'right']  },
+  { name: 'size', type: 'select', options: [{value: 'large' }, {value: 'medium' }, { value:"container", variants:['TextButton', 'ContainedButton'] }, {value: 'small' }] },
+  { name: 'icon', type: 'select', options: icons.map(value => ({value})) },
+  { name: 'iconSide', type: 'select', options: ['left', 'right'].map(value => ({value}))  },
   { name: 'disabled', type: 'boolean', value: false },
   { name: 'activated', type: 'boolean', value: false },
 ]
@@ -48,17 +48,27 @@ const variantProps = {
 </script>
 
 <template>
-
   <section class="variant">
-    <div v-for="(variant, index) in [MkrTextButton, MkrContainedButton, MkrOutlinedButton]" :key="index">
+    <div
+      v-for="(variant, index) in [MkrTextButton, MkrContainedButton, MkrOutlinedButton]"
+      :key="index"
+    >
       <h6>{{ variant.name }}</h6>
-      <component :is="variant" v-bind="propsBinding">{{ personalizedSlot }}</component>
+      <component
+        :is="variant"
+        v-bind="propsBinding"
+      >
+        {{ personalizedSlot }}
+      </component>
     </div>
   </section>
 
   <ParametersTable>
-    <SlotParameter v-model="personalizedSlot"></SlotParameter>
-    <PropParameters :componentProps @change="propsBinding=$event" :variantProps></PropParameters>
+    <SlotParameter v-model="personalizedSlot" />
+    <PropParameters
+      :component-props
+      @change="propsBinding=$event"
+      :variant-props="variantProps"
+    />
   </ParametersTable>
-
 </template>

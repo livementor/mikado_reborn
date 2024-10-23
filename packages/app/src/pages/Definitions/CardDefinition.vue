@@ -12,10 +12,10 @@ onBeforeMount(() => {
   const query = useRouter().currentRoute.value.query
   componentProps = queryProps(componentProps, query)
 })
-let componentProps: MkdComponentProp = [
+let componentProps: MkdComponentProp[] = [
   { name: 'elevated', type: 'boolean', value: true },
   { name: 'border', type: 'boolean', value: true },
-  { name: 'radius', type: 'select', value: 'small', options: ['large', 'medium', 'small'] },
+  { name: 'radius', type: 'select', value: 'small', options: ['large', 'medium', 'small'].map(value => ({value})) },
 ];
 
 const personalizedSlot = ref('Je suis une Card');
@@ -25,13 +25,17 @@ const personalizedSlot = ref('Je suis une Card');
 <template>
   <section class="variant">
     <div>
-      <MkrCard v-bind="propsBinding">{{ personalizedSlot }}</MkrCard>
+      <MkrCard v-bind="propsBinding">
+        {{ personalizedSlot }}
+      </MkrCard>
     </div>
   </section>
 
   <ParametersTable>
-    <SlotParameter v-model="personalizedSlot"></SlotParameter>
-    <PropParameters :componentProps @change="propsBinding=$event"></PropParameters>
+    <SlotParameter v-model="personalizedSlot" />
+    <PropParameters
+      :component-props
+      @change="propsBinding=$event"
+    />
   </ParametersTable>
-
 </template>

@@ -11,7 +11,7 @@ onBeforeMount(() => {
   const query = useRouter().currentRoute.value.query
   componentProps = queryProps(componentProps, query)
 })
-let componentProps: MkdComponentProp = [
+let componentProps: MkdComponentProp[] = [
   { name: 'size', type: 'number', value: 5 },
   { name: 'src', type:'text', value: "https://randomuser.me/api/portraits/men/43.jpg" },
   { name: 'alt', type:'text', value: 'Hey man !' } ];
@@ -21,12 +21,14 @@ let componentProps: MkdComponentProp = [
 <template>
   <section class="variant">
     <div>
-      <MkrAvatar v-bind="propsBinding"></MkrAvatar>
+      <MkrAvatar v-bind="propsBinding" />
     </div>
   </section>
 
   <ParametersTable>
-    <PropParameters :componentProps @change="propsBinding=$event"></PropParameters>
+    <PropParameters
+      :component-props
+      @change="propsBinding=$event"
+    />
   </ParametersTable>
-
 </template>

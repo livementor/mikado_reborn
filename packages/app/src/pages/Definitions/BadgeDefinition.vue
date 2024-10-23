@@ -12,9 +12,10 @@ onBeforeMount(() => {
   const query = useRouter().currentRoute.value.query
   componentProps = queryProps(componentProps, query)
 })
-let componentProps: MkdComponentProp = [
+let componentProps: MkdComponentProp[] = [
   { name: 'type', type: 'select', value: 'primary',
-    options: <MkrBadgeType[]> ['danger', 'danger-light', 'info', 'info-light', 'primary', 'primary-light', 'secondary', 'success', 'success-light', 'warning-light', 'other-1'] },
+    options: (<MkrBadgeType[]> ['danger', 'danger-light', 'info', 'info-light', 'primary', 'primary-light', 'secondary', 'success', 'success-light', 'warning-light', 'other-1'])
+      .map(value => ({value}))},
 ]
 
 const personalizedSlot = ref('Badge');
@@ -24,13 +25,17 @@ const personalizedSlot = ref('Badge');
 <template>
   <section class="variant">
     <div>
-      <MkrBadge v-bind="propsBinding">{{ personalizedSlot }}</MkrBadge>
+      <MkrBadge v-bind="propsBinding">
+        {{ personalizedSlot }}
+      </MkrBadge>
     </div>
   </section>
 
   <ParametersTable>
-    <SlotParameter v-model="personalizedSlot"></SlotParameter>
-    <PropParameters :componentProps @change="propsBinding=$event"></PropParameters>
+    <SlotParameter v-model="personalizedSlot" />
+    <PropParameters
+      :component-props
+      @change="propsBinding=$event"
+    />
   </ParametersTable>
-
 </template>

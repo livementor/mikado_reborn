@@ -13,15 +13,15 @@ onBeforeMount(() => {
   const query = useRouter().currentRoute.value.query
   componentProps = queryProps(componentProps, query)
 })
-let componentProps: MkdComponentProp = [
-  { name: 'icon', type: 'select', options: icons, value: 'bell' },
+let componentProps: MkdComponentProp[] = [
+  { name: 'icon', type: 'select', options: icons.map(value => ({value})), value: 'bell' },
   { name: 'title', type: 'text', value: 'Tooltip' },
   { name: 'active', type: 'boolean', value: true },
 ]
 
 const groupPropsBinding = ref({});
-const groupComponentProps: MkdComponentProp = [
-  { name: 'type', type: 'select', options: ['main','sub','sub-light'] },
+const groupComponentProps: MkdComponentProp[] = [
+  { name: 'type', type: 'select', options: ['main','sub','sub-light'].map(value => ({value})) },
   { name: 'horizontal', type: 'boolean', value: false },
   { name: 'topNav', type: 'boolean', value: true },
 ]
@@ -36,7 +36,12 @@ const personalizedSlot = ref('Item');
     <div>
       <h6>NavItem</h6>
       <MkrNavItemGroup>
-      <MkrNavItem v-bind="propsBinding" href="#" >{{ personalizedSlot }}</MkrNavItem>
+        <MkrNavItem
+          v-bind="propsBinding"
+          href="#"
+        >
+          {{ personalizedSlot }}
+        </MkrNavItem>
       </MkrNavItemGroup>
     </div>
     <div>
@@ -46,7 +51,7 @@ const personalizedSlot = ref('Item');
           <MkrNavItem href="#">
             <template #icon>
               <MkrNotificationBadge show>
-                <MkrIcon name="book-open"/>
+                <MkrIcon name="book-open" />
               </MkrNotificationBadge>
             </template>
             {{ personalizedSlot }}
@@ -58,20 +63,40 @@ const personalizedSlot = ref('Item');
       <h6>NavItemGroup</h6>
       <div>
         <MkrNavItemGroup v-bind="groupPropsBinding">
-          <MkrNavItem href="#" v-bind="propsBinding" >{{ personalizedSlot }}</MkrNavItem>
-          <MkrNavItem href="#" icon="book-open">Exemple 2</MkrNavItem>
-          <MkrNavItem href="#" icon="chat">Dernier</MkrNavItem>
+          <MkrNavItem
+            href="#"
+            v-bind="propsBinding"
+          >
+            {{ personalizedSlot }}
+          </MkrNavItem>
+          <MkrNavItem
+            href="#"
+            icon="book-open"
+          >
+            Exemple 2
+          </MkrNavItem>
+          <MkrNavItem
+            href="#"
+            icon="chat"
+          >
+            Dernier
+          </MkrNavItem>
         </MkrNavItemGroup>
       </div>
     </div>
   </section>
 
   <ParametersTable>
-    <SlotParameter v-model="personalizedSlot"></SlotParameter>
-    <PropParameters :componentProps @change="propsBinding=$event"></PropParameters>
-    <PropParameters :componentProps="groupComponentProps" @change="groupPropsBinding=$event"></PropParameters>
+    <SlotParameter v-model="personalizedSlot" />
+    <PropParameters
+      :component-props
+      @change="propsBinding=$event"
+    />
+    <PropParameters
+      :component-props="groupComponentProps"
+      @change="groupPropsBinding=$event"
+    />
   </ParametersTable>
-
 </template>
 
 <style scoped lang="scss">

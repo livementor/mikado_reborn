@@ -10,7 +10,7 @@ onBeforeMount(() => {
   const query = useRouter().currentRoute.value.query
   componentProps = queryProps(componentProps, query)
 })
-let componentProps: MkdComponentProp = [
+let componentProps: MkdComponentProp[] = [
   { name: 'value', type:'boolean' },
 ];
 
@@ -21,12 +21,14 @@ const activated = ref(false)
 <template>
   <section class="variant">
     <div>
-      <MkrSwitch v-model="activated"></MkrSwitch>
+      <MkrSwitch v-model="activated" />
     </div>
   </section>
 
   <ParametersTable>
-    <PropParameters :componentProps @change="activated=$event.value"></PropParameters>
+    <PropParameters
+      :component-props
+      @change="activated=$event.value"
+    />
   </ParametersTable>
-
 </template>

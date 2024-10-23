@@ -5,6 +5,9 @@ const checkedModel = defineModel<boolean>()
 
 <template>
   <div style="display: flex; gap: 30px">
-    <input type="checkbox" v-model="checkedModel"/>
+    <input
+      type="checkbox"
+      v-model="checkedModel"
+    >
   </div>
 </template>

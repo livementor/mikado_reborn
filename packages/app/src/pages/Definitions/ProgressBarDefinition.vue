@@ -11,10 +11,10 @@ onBeforeMount(() => {
   const query = useRouter().currentRoute.value.query
   componentProps = queryProps(componentProps, query)
 })
-let componentProps: MkdComponentProp = [
+let componentProps: MkdComponentProp[] = [
   { name: 'total', type: 'number', value: 4 },
   { name: 'current', type: 'number', value: 1 },
-  { name: 'size', type: 'select', options: ['medium', 'small'], value: 'medium' },
+  { name: 'size', type: 'select', options: ['medium', 'small'].map(value => ({value})), value: 'medium' },
   { name: 'hideState', type: 'boolean', value: false },
   { name: 'shrinkEmoji', type: 'boolean', value: false },
 ]
@@ -22,17 +22,20 @@ let componentProps: MkdComponentProp = [
 </script>
 
 <template>
-<section class="variant">
-  <div>
-    <div style="width: 200px;">
-      <MkrProgressbar v-bind="bindingProps"/>
+  <section class="variant">
+    <div>
+      <div style="width: 200px;">
+        <MkrProgressbar
+          v-bind="bindingProps"
+        />
+      </div>
     </div>
-  </div>
-
-</section>
+  </section>
 
   <ParametersTable>
-    <PropParameters :componentProps @change="bindingProps=$event"></PropParameters>
+    <PropParameters
+      :component-props
+      @change="bindingProps=$event"
+    />
   </ParametersTable>
-
 </template>

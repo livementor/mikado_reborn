@@ -11,8 +11,8 @@ onBeforeMount(() => {
   const query = useRouter().currentRoute.value.query
   componentProps = queryProps(componentProps, query)
 })
-let componentProps: MkdComponentProp = [
-  { name: 'color', type: 'select', options: ['dark', 'light'], value: 'dark' },
+let componentProps: MkdComponentProp[] = [
+  { name: 'color', type: 'select', options: ['dark', 'light'].map(value => ({value})), value: 'dark' },
   { name: 'keepOnClick', type: 'boolean', value: false },
 ]
 
@@ -21,14 +21,25 @@ const show = ref(false)
 </script>
 
 <template>
-  <section id="frame" class="variant">
+  <section
+    id="frame"
+    class="variant"
+  >
     <div>
-      <MkrContainedButton @click="show=true">Afficher l'overlay</MkrContainedButton>
-      <MkrOverlay v-bind="bindingProps" v-model="show"/>
+      <MkrContainedButton @click="show=true">
+        Afficher l'overlay
+      </MkrContainedButton>
+      <MkrOverlay
+        v-bind="bindingProps"
+        v-model="show"
+      />
     </div>
   </section>
 
   <ParametersTable>
-    <PropParameters :componentProps @change="bindingProps=$event"></PropParameters>
+    <PropParameters
+      :component-props
+      @change="bindingProps=$event"
+    />
   </ParametersTable>
 </template>

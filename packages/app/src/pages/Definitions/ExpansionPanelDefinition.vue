@@ -12,7 +12,7 @@ onBeforeMount(() => {
   const query = useRouter().currentRoute.value.query
   componentProps = queryProps(componentProps, query)
 })
-let componentProps: MkdComponentProp = [ { name: 'defaultExpanded', type: 'boolean', value: false} ]
+let componentProps: MkdComponentProp[] = [ { name: 'defaultExpanded', type: 'boolean', value: false} ]
 
 const openTitle = ref("Titre ouvert")
 const closeTitle = ref("Titre fermé")
@@ -24,7 +24,9 @@ const fixedTitle = ref("Titre constant")
   <section>
     <div style="margin-bottom: 30px">
       <MkrExpansionPanel v-bind="propsBinding">
-        <template #header="{expanded}">{{ fixedTitle }}</template>
+        <template #header>
+          {{ fixedTitle }}
+        </template>
         <template #content>
           Lorem ipsum dolor sit amet.
         </template>
@@ -32,8 +34,15 @@ const fixedTitle = ref("Titre constant")
     </div>
     <div style="margin-bottom: 30px">
       <MkrExpansionPanel v-bind="propsBinding">
-        <template #activator="{expanded, toggle}"><MkrInteractiveIcon :name="expanded ? 'eye-off' : 'eye'" @click="toggle" /></template>
-        <template #header="{expanded}">{{ expanded ? openTitle : closeTitle }}</template>
+        <template #activator="{expanded, toggle}">
+          <MkrInteractiveIcon
+            :name="expanded ? 'eye-off' : 'eye'"
+            @click="toggle"
+          />
+        </template>
+        <template #header="{expanded}">
+          {{ expanded ? openTitle : closeTitle }}
+        </template>
         <template #content>
           Lorem ipsum dolor sit amet.
         </template>
@@ -42,10 +51,22 @@ const fixedTitle = ref("Titre constant")
   </section>
 
   <ParametersTable>
-    <SlotParameter name="Titre constant" v-model="fixedTitle"></SlotParameter>
-    <SlotParameter name="Titre ouvert" v-model="openTitle"></SlotParameter>
-    <SlotParameter name="Titre fermé" v-model="closeTitle"></SlotParameter>
-    <PropParameters :componentProps @change="propsBinding.defaultExpanded=$event.defaultExpanded || false"></PropParameters>
+    <SlotParameter
+      name="Titre constant"
+      v-model="fixedTitle"
+    />
+    <SlotParameter
+      name="Titre ouvert"
+      v-model="openTitle"
+    />
+    <SlotParameter
+      name="Titre fermé"
+      v-model="closeTitle"
+    />
+    <PropParameters
+      :component-props
+      @change="propsBinding.defaultExpanded=$event.defaultExpanded || false"
+    />
   </ParametersTable>
 </template>
 

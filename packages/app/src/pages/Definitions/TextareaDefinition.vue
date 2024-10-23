@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { MkrTextfield } from '@livementor/mikado_reborn/src/components'
+import { MkrTextarea } from '@livementor/mikado_reborn/src/components'
 import { onBeforeMount, ref } from 'vue'
 import ParametersTable from '@/components/ParametersTable.vue'
-import PropParameters, { type MkdComponentProp } from '@/components/Parameters/PropParameters.vue'
-import icons from '@livementor/mikado_reborn/src/utils/icons'
+import PropParameters from '@/components/Parameters/PropParameters.vue'
+import { type MkdComponentProp } from '@/components/Parameters/PropParameters.vue'
 import { useRouter } from 'vue-router'
 import queryProps from '@/utils/queryProps'
 
@@ -11,23 +11,26 @@ const bindingProps = ref({});
 onBeforeMount(() => {
   const query = useRouter().currentRoute.value.query
   componentProps = queryProps(componentProps, query)
-})
-let componentProps: MkdComponentProp = [
+});
+let componentProps: MkdComponentProp[] = [
+  { name: 'minlength', type: 'number', value: 0 },
+  { name: 'maxlength', type: 'number', value: 100 },
   { name: 'placeholder', type: 'text', value: "Placeholder..." },
-  { name: 'type', type: 'select', options: ['text', 'email', 'password', 'date'], value: "text" },
-  { name: 'iconName', type: 'select', options: icons },
   { name: 'error', type: 'boolean' },
+  { name: 'rows', type: 'number' },
 ]
 
 </script>
 
 <template>
   <section>
-    <MkrTextfield v-bind="bindingProps"></MkrTextfield>
+    <MkrTextarea v-bind="bindingProps" />
   </section>
 
   <ParametersTable>
-    <PropParameters :componentProps @change="bindingProps=$event"></PropParameters>
+    <PropParameters
+      :component-props
+      @change="bindingProps=$event"
+    />
   </ParametersTable>
-
 </template>

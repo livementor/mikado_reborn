@@ -11,9 +11,9 @@ onBeforeMount(() => {
   const query = useRouter().currentRoute.value.query
   componentProps = queryProps(componentProps, query)
 })
-let componentProps: MkdComponentProp = [
+let componentProps: MkdComponentProp[] = [
   { name: 'name', type: 'text', value: "choix-multiple" },
-  { name: 'size', type: 'select', options: ['medium', 'small'], value: 'small' },
+  { name: 'size', type: 'select', options: ['medium', 'small'].map(value => ({value})), value: 'small' },
 ];
 
 const values = ref([]);
@@ -24,21 +24,40 @@ const checked = ref(false)
 <template>
   <section class="variant">
     <div>
-      <MkrCheckbox v-bind="propsBinding" v-model="checked"></MkrCheckbox>
+      <MkrCheckbox
+        v-bind="propsBinding"
+        v-model="checked"
+      />
     </div>
     <div>
       <div style="display: flex; gap: 15px">
-        <MkrCheckbox v-model="values" v-bind="propsBinding" name="checkbox1" />
-        <MkrCheckbox v-model="values" v-bind="propsBinding" name="checkbox2" />
-        <MkrCheckbox v-model="values" v-bind="propsBinding" name="checkbox3" />
+        <MkrCheckbox
+          v-model="values"
+          v-bind="propsBinding"
+          name="checkbox1"
+        />
+        <MkrCheckbox
+          v-model="values"
+          v-bind="propsBinding"
+          name="checkbox2"
+        />
+        <MkrCheckbox
+          v-model="values"
+          v-bind="propsBinding"
+          name="checkbox3"
+        />
       </div>
 
-      <div style="margin-top: 15px;"> {{values}} </div>
+      <div style="margin-top: 15px;">
+        {{ values }}
+      </div>
     </div>
   </section>
 
   <ParametersTable>
-    <PropParameters :componentProps @change="propsBinding=$event"></PropParameters>
+    <PropParameters
+      :component-props
+      @change="propsBinding=$event"
+    />
   </ParametersTable>
-
 </template>

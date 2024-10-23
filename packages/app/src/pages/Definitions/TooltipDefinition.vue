@@ -11,11 +11,11 @@ onBeforeMount(() => {
   const query = useRouter().currentRoute.value.query
   componentProps = queryProps(componentProps, query)
 })
-let componentProps: MkdComponentProp = [
+let componentProps: MkdComponentProp[] = [
   { name: 'label', type: 'text', value: "Messagerie" },
   { name: 'placement', type: 'select', value: 'bottom', options: [
-      { isGroupName: true, mkr:['Placement'] },
-      "auto", "auto-start", "auto-end", "top", "bottom", "right", "left", "top-start", "top-end", "bottom-start", "bottom-end", "right-start", "right-end", "left-start", "left-end"] },
+      { value: "container", variants: ['type Placement'] },
+      ...["auto", "auto-start", "auto-end", "top", "bottom", "right", "left", "top-start", "top-end", "bottom-start", "bottom-end", "right-start", "right-end", "left-start", "left-end"].map(value => ({value}))] },
   { name: 'disabled', type: 'boolean' },
   { name: 'topLevel', type: 'boolean' },
   { name: 'addScrollListener', type: 'boolean' },
@@ -28,14 +28,20 @@ let componentProps: MkdComponentProp = [
     <div>
       <div style="height:200px;display:flex;align-items:center;justify-content: center;">
         <MkrTooltip v-bind="bindingProps">
-          <MkrContainedButton size="medium" icon="chat" theme="primary" />
+          <MkrContainedButton
+            size="medium"
+            icon="chat"
+            theme="primary"
+          />
         </MkrTooltip>
       </div>
     </div>
   </section>
 
   <ParametersTable>
-    <PropParameters :componentProps @change="bindingProps=$event"></PropParameters>
+    <PropParameters
+      :component-props
+      @change="bindingProps=$event"
+    />
   </ParametersTable>
-
 </template>

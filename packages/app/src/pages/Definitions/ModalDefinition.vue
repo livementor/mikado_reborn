@@ -11,8 +11,8 @@ onBeforeMount(() => {
   const query = useRouter().currentRoute.value.query
   componentProps = queryProps(componentProps, query)
 })
-let componentProps: MkdComponentProp = [
-  { name: 'size' ,type: 'select', options: ['large', 'medium'], value: 'medium' },
+let componentProps: MkdComponentProp[] = [
+  { name: 'size' ,type: 'select', options: ['large', 'medium'].map(value => ({value})), value: 'medium' },
   { name: 'closeable', type: 'boolean', value: true },
   { name: 'overlay', type: 'boolean', value: false },
   { name: 'scrollable', type: 'boolean', value: false },
@@ -27,18 +27,28 @@ const open = () => showModal.value = !showModal.value
 <template>
   <section class="variant">
     <div>
-      <MkrModal v-bind="propsBinding" v-model="showModal">
-        <template #title>Titre</template>
+      <MkrModal
+        v-bind="propsBinding"
+        v-model="showModal"
+      >
+        <template #title>
+          Titre
+        </template>
         Hello World
-        <template #footer>Footer</template>
-
+        <template #footer>
+          Footer
+        </template>
       </MkrModal>
-      <MkrContainedButton @click="open">Open Modal</MkrContainedButton>
+      <MkrContainedButton @click="open">
+        Open Modal
+      </MkrContainedButton>
     </div>
   </section>
 
   <ParametersTable>
-    <PropParameters :componentProps @change="propsBinding=$event"></PropParameters>
+    <PropParameters
+      :component-props
+      @change="propsBinding=$event"
+    />
   </ParametersTable>
-
 </template>

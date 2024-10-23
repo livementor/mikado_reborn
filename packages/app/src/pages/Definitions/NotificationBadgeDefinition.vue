@@ -11,27 +11,30 @@ onBeforeMount(() => {
   const query = useRouter().currentRoute.value.query
   componentProps = queryProps(componentProps, query)
 })
-let componentProps: MkdComponentProp = [
+let componentProps: MkdComponentProp[] = [
   { name: 'show', type: 'boolean', value: true }
 ]
 
 </script>
 
 <template>
-<section class="variant">
-  <div>
-    <MkrNotificationBadge v-bind="bindingProps">
-      <MkrIcon name="mail" />
-    </MkrNotificationBadge>
-  </div>
-  <div>
-    <MkrNotificationBadge v-bind="bindingProps">
-      <MkrIcon name="paper-airplane" />
-    </MkrNotificationBadge>
-  </div>
-</section>
+  <section class="variant">
+    <div>
+      <MkrNotificationBadge v-bind="bindingProps">
+        <MkrIcon name="mail" />
+      </MkrNotificationBadge>
+    </div>
+    <div>
+      <MkrNotificationBadge v-bind="bindingProps">
+        <MkrIcon name="paper-airplane" />
+      </MkrNotificationBadge>
+    </div>
+  </section>
 
   <ParametersTable>
-    <PropParameters :componentProps @change="bindingProps=$event"></PropParameters>
+    <PropParameters
+      :component-props
+      @change="bindingProps=$event"
+    />
   </ParametersTable>
 </template>

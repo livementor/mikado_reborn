@@ -11,7 +11,7 @@ onBeforeMount(() => {
   const query = useRouter().currentRoute.value.query
   componentProps = queryProps(componentProps, query)
 })
-let componentProps: MkdComponentProp = [
+let componentProps: MkdComponentProp[] = [
   { name: 'placeholder', type: 'text', value: 'Placeholder... ' },
   { name: 'itemInputLabel', type: 'text' },
   { name: 'error', type: 'boolean' },
@@ -49,7 +49,7 @@ const objectsList: MkrDropdownItem[] | string[] = [
 ]
 
 
-const itemsProps: MkdComponentProp = [
+const itemsProps: MkdComponentProp[] = [
   {name: 'texts', type: 'json', value: JSON.stringify(stringsList, null, 2)},
   {name: 'items', type: 'json', value: JSON.stringify(itemsList, null, 2)},
   {name: 'objects', type: 'json', value: JSON.stringify(objectsList, null, 2)}
@@ -63,34 +63,65 @@ const bindingItemsList = ref({
 </script>
 
 <template>
-  <section class="variant" style="gap:30px">
+  <section
+    class="variant"
+    style="gap:30px"
+  >
     <div>
       <h6>Liste de texte</h6>
-      <MkrDropdown v-if="bindingItemsList.texts" style="width:100%" v-bind="propsBinding" v-model="selectedString" :items="bindingItemsList.texts"></MkrDropdown>
+      <MkrDropdown
+        v-if="bindingItemsList.texts"
+        style="width:100%"
+        v-bind="propsBinding"
+        v-model="selectedString"
+        :items="bindingItemsList.texts"
+      />
     </div>
     <div>
       <h6>Liste d'items</h6>
-      <MkrDropdown v-if="bindingItemsList.items" style="width:100%" v-bind="propsBinding" v-model="selectedItem" :items="bindingItemsList.items"></MkrDropdown>
+      <MkrDropdown
+        v-if="bindingItemsList.items"
+        style="width:100%"
+        v-bind="propsBinding"
+        v-model="selectedItem"
+        :items="bindingItemsList.items"
+      />
     </div>
 
     <div>
       <h6>Liste d'objets</h6>
-      <MkrDropdown v-if="bindingItemsList.objects" style="width:100%" v-bind="propsBinding" v-model="selectedObject" :items="bindingItemsList.objects" itemLabel="countryName" itemValue="countryCode"></MkrDropdown>
+      <MkrDropdown
+        v-if="bindingItemsList.objects"
+        style="width:100%"
+        v-bind="propsBinding"
+        v-model="selectedObject"
+        :items="bindingItemsList.objects"
+        item-label="countryName"
+        item-value="countryCode"
+      />
     </div>
   </section>
 
   <ParametersTable>
-    <PropParameters :componentProps @change="propsBinding=$event"></PropParameters>
+    <PropParameters
+      :component-props
+      @change="propsBinding=$event"
+    />
     <tr>
       <td colspan="2">
-        <MkrExpansionPanel :defaultExpanded="false">
-          <template #header>Types possibles pour "items"</template>
+        <MkrExpansionPanel :default-expanded="false">
+          <template #header>
+            Types possibles pour "items"
+          </template>
           <template #content>
             <table style="width: 100%">
               <tbody>
-                <PropParameters :componentProps="itemsProps" @change="bindingItemsList=$event"></PropParameters>
+                <PropParameters
+                  :component-props="itemsProps"
+                  @change="bindingItemsList=$event"
+                />
                 <tr>
-                  <td></td>
+                  <td />
                   <td>
                     <p><small>Attributs pour la lecture de la liste d'objects aux valeurs personnalisées :</small></p>
                     <ul>
@@ -106,5 +137,4 @@ const bindingItemsList = ref({
       </td>
     </tr>
   </ParametersTable>
-
 </template>

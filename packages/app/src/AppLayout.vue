@@ -8,7 +8,7 @@ import { MkrApp, MkrAvatar } from '@livementor/mikado_reborn/src/components';
 const components = import.meta.glob('./pages/Definitions/*.vue');
 const componentNames = Object.keys(components).map(path => {
   const fileName = path.split('/').pop() || '';
-  return fileName.replace('.vue', '')
+  return fileName.replace('Definition.vue', '')
 });
 
 const activeRoute = ref<Array<string>>([])
@@ -43,7 +43,9 @@ const updateRoute = (route = useRoute()) => {
         >
           <li>Installation</li>
         </RouterLink>
-        <hr>
+        <li class="disabled">
+          <hr>
+        </li>
         <RouterLink
           v-for="name in componentNames"
           :key="name"

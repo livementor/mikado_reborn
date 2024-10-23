@@ -13,10 +13,10 @@ onBeforeMount(() => {
   const query = useRouter().currentRoute.value.query
   componentProps = queryProps(componentProps, query)
 })
-let componentProps: MkdComponentProp = [
-  { name: 'name', type: 'select', options: icons, value: 'bell' },
-  { name: 'color', type: 'select', options: colors },
-  { name: 'theme', type: 'select', options: ['light', 'dark'], value: 'light' },
+let componentProps: MkdComponentProp[] = [
+  { name: 'name', type: 'select', options: icons.map(value => ({value})), value: 'bell' },
+  { name: 'color', type: 'select', options: colors.map(value => ({value})) },
+  { name: 'theme', type: 'select', options: ['light', 'dark'].map(value => ({value})), value: 'light' },
   { name: 'activated', type: 'boolean' },
 ]
 
@@ -31,16 +31,23 @@ const variantProps = {
   <section class="variant">
     <div>
       <h6>Icon</h6>
-      <MkrIcon v-bind="propsBinding"></MkrIcon>
+      <MkrIcon
+        v-bind="propsBinding"
+      />
     </div>
     <div>
       <h6>InteractiveIcon</h6>
-      <MkrInteractiveIcon v-bind="propsBinding"></MkrInteractiveIcon>
+      <MkrInteractiveIcon
+        v-bind="propsBinding"
+      />
     </div>
   </section>
 
   <ParametersTable>
-    <PropParameters :componentProps @change="propsBinding=$event" :variantProps></PropParameters>
+    <PropParameters
+      :component-props
+      @change="propsBinding=$event"
+      :variant-props="variantProps"
+    />
   </ParametersTable>
-
 </template>

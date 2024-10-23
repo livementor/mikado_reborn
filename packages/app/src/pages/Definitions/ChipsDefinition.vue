@@ -11,10 +11,10 @@ onBeforeMount(() => {
   const query = useRouter().currentRoute.value.query
   componentProps = queryProps(componentProps, query)
 })
-let componentProps: MkdComponentProp = [
+let componentProps: MkdComponentProp[] = [
   // { name: 'name', type: 'text' },
-  { name: 'size', type: 'select', options: ['medium', 'small'], value: 'medium' },
-  { name: 'orientation', type: 'select', options: ['row', 'column'] },
+  { name: 'size', type: 'select', options: ['medium', 'small'].map(value => ({value})), value: 'medium' },
+  { name: 'orientation', type: 'select', options: ['row', 'column'].map(value => ({value})) },
   { name: 'wrap', type: 'boolean' },
 ]
 
@@ -25,16 +25,30 @@ const model = ref(null);
 <template>
   <section class="variant">
     <div>
-      <MkrChipsList v-bind="propsBinding" v-model="model">
-        <MkrChips label="Chien" value="chien"/>
-        <MkrChips label="Chat" value="chat"/>
-        <MkrChips label="Perroquet" value="perroquet"/>
+      <MkrChipsList
+        v-bind="propsBinding"
+        v-model="model"
+      >
+        <MkrChips
+          label="Chien"
+          value="chien"
+        />
+        <MkrChips
+          label="Chat"
+          value="chat"
+        />
+        <MkrChips
+          label="Perroquet"
+          value="perroquet"
+        />
       </MkrChipsList>
     </div>
   </section>
 
   <ParametersTable>
-    <PropParameters :componentProps @change="propsBinding=$event"></PropParameters>
+    <PropParameters
+      :component-props
+      @change="propsBinding=$event"
+    />
   </ParametersTable>
-
 </template>

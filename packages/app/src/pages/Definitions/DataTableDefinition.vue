@@ -34,12 +34,12 @@ const data = {
     }
   ]};
 
-const propsBinding = ref({columns: data.columns, items: data.items});
+const propsBinding = ref({columns: data.columns, items: data.items, title: 'Formation'});
 onBeforeMount(() => {
   const query = useRouter().currentRoute.value.query
   componentProps = queryProps(componentProps, query)
 })
-let componentProps: MkdComponentProp = [
+let componentProps: MkdComponentProp[] = [
   { name: 'title', type: 'text', value: 'Formation' },
   { name: 'columns', type: 'json', value: JSON.stringify(data.columns, null, 2) },
   { name: 'items', type: 'json', value: JSON.stringify(data.items, null, 2) },
@@ -50,12 +50,18 @@ let componentProps: MkdComponentProp = [
 <template>
   <section class="variant">
     <div>
-      <MkrDataTable v-bind="propsBinding"></MkrDataTable>
+      <MkrDataTable
+        :columns="propsBinding.columns"
+        :items="propsBinding.items"
+        :title="propsBinding.title"
+      />
     </div>
   </section>
 
   <ParametersTable>
-    <PropParameters :componentProps @change="propsBinding=$event"></PropParameters>
+    <PropParameters
+      :component-props
+      @change="propsBinding=$event"
+    />
   </ParametersTable>
-
 </template>

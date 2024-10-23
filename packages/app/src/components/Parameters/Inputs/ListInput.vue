@@ -1,15 +1,23 @@
 <script setup lang="ts">
-const selectedModel = defineModel();
-defineProps<{ list?: Array< string | { isGroupName: boolean, [key: string]: any }>}>();
+const selectedModel = defineModel<never>();
+defineProps<{ list: Array<{ value?: string, label?: string, variants?: string[] }> }>();
 
 </script>
 
 <template>
-    <select v-model="selectedModel">
-    <option value="">--</option>
-    <option v-for="(option, index) in list" :key="index" :value="option" :disabled="option.isGroupName">{{ option.isGroupName ? '▼ ' + option.mkr.join(', ') : option }}</option>
+  <select v-model="selectedModel">
+    <option value="">
+      --
+    </option>
+    <option
+      v-for="(option, index) in list"
+      :key="index"
+      :value="option.value"
+      :disabled="option.variants && option.variants.length>0"
+    >
+      {{ option.variants ? '▼ ' + option.variants.join(', ') : (option.label || option.value) }}
+    </option>
   </select>
-
 </template>
 
 <style scoped lang="scss">

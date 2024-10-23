@@ -11,8 +11,8 @@ onBeforeMount(() => {
   const query = useRouter().currentRoute.value.query
   componentProps = queryProps(componentProps, query)
 })
-let componentProps: MkdComponentProp = [
-  { name: 'size' ,type: 'select', options: ['large', 'medium', 'small'], value: 'medium' },
+let componentProps: MkdComponentProp[] = [
+  { name: 'size' ,type: 'select', options: ['large', 'medium', 'small'].map(value => ({value})), value: 'medium' },
   { name: 'itemHoverable', type: 'boolean' },
   { name: 'padded', type: 'boolean' },
   { name: 'clickable', type: 'boolean' },
@@ -26,22 +26,36 @@ let componentProps: MkdComponentProp = [
       <MkrList v-bind="propsBinding">
         <MkrListItem>
           First
-          <MkrTextButton icon="chat" size="small" style="margin-left: 3rem;" />
+          <MkrTextButton
+            icon="chat"
+            size="small"
+            style="margin-left: 3rem;"
+          />
         </MkrListItem>
         <MkrListItem>
           Second
-          <MkrContainedButton icon="download" size="small" style="margin-left: 3rem;">
+          <MkrContainedButton
+            icon="download"
+            size="small"
+            style="margin-left: 3rem;"
+          >
             Télécharger
           </MkrContainedButton>
         </MkrListItem>
-        <MkrListItem v-bind="propsBinding"> Third </MkrListItem>
-        <MkrListItem v-bind="propsBinding"> Fourth </MkrListItem>
+        <MkrListItem v-bind="propsBinding">
+          Third
+        </MkrListItem>
+        <MkrListItem v-bind="propsBinding">
+          Fourth
+        </MkrListItem>
       </MkrList>
     </div>
   </section>
 
   <ParametersTable>
-    <PropParameters :componentProps @change="propsBinding=$event"></PropParameters>
+    <PropParameters
+      :component-props
+      @change="propsBinding=$event"
+    />
   </ParametersTable>
-
 </template>

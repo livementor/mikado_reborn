@@ -11,7 +11,7 @@ onBeforeMount(() => {
   const query = useRouter().currentRoute.value.query
   componentProps = queryProps(componentProps, query)
 })
-let componentProps: MkdComponentProp = [
+let componentProps: MkdComponentProp[] = [
   { name: 'message', type: 'text', value: "Message de démonstration"},
   { name: 'timeout', type: 'number', value: 0 },
   { name: 'error', type: 'boolean', value: true },
@@ -31,8 +31,9 @@ let componentProps: MkdComponentProp = [
 
 
   <ParametersTable>
-    <PropParameters :componentProps @change="bindingProps=$event">
-
-    </PropParameters>
+    <PropParameters
+      :component-props
+      @change="bindingProps=$event"
+    />
   </ParametersTable>
 </template>

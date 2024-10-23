@@ -3,17 +3,17 @@ import './assets/main.css'
 import { type Component, createApp } from 'vue'
 import { createWebHistory, createRouter } from 'vue-router'
 
-import Layout from './Layout.vue'
+import Layout from './AppLayout.vue'
 import Home from '@/pages/Home.vue'
 import Install from '@/pages/Install.vue'
 
 // Auto import components contexts list from folder Definitions
 const components = import.meta.glob('./pages/Definitions/*.vue');
-const componentRoutes = () => Object.entries(components).map( async ([path, component]: [string, any]) => {
+const componentRoutes = () => Object.entries(components).map( async ([path, component]: [string, () => Promise<unknown>]) => {
   const fileName: string = path.split('/').pop() || '';
   return {
-    path: '/' + fileName.replace('.vue', '').toLowerCase(),
-    component: <Component> (await component()).default
+    path: '/' + fileName.replace('Definition.vue', '').toLowerCase(),
+    component: <Component> (<{ default: Component }> await component()).default
   }})
 
 

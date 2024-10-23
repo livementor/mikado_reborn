@@ -3,15 +3,20 @@
 </script>
 
 <template>
-  <div class="parameters" v-bind="$attrs">
+  <div
+    class="parameters"
+    v-bind="$attrs"
+  >
     <table>
       <thead>
         <tr>
-          <th colspan="2">Paramètres du composant</th>
+          <th colspan="2">
+            Paramètres du composant
+          </th>
         </tr>
       </thead>
       <tbody>
-        <slot></slot>
+        <slot />
       </tbody>
     </table>
   </div>
