@@ -6,18 +6,27 @@
     :disabled="disabled"
     @click="handleClick"
   >
-    <MkrIcon v-if="icon && iconSide === 'left'" :name="icon" :class="`${baseClass}__icon--left`" />
-    <slot></slot>
-    <MkrIcon v-if="icon && iconSide === 'right'" :name="icon" :class="`${baseClass}__icon--right`" />
+    <MkrIcon
+      v-if="icon && iconSide === 'left'"
+      :name="icon"
+      :class="`${baseClass}__icon--left`"
+    />
+    <slot />
+    <MkrIcon
+      v-if="icon && iconSide === 'right'"
+      :name="icon"
+      :class="`${baseClass}__icon--right`"
+    />
   </component>
 </template>
 
 <script lang="ts" setup>
 import {
-  computed, useAttrs, useSlots, withDefaults, defineProps, defineEmits,
+  computed, useAttrs, useSlots,
 } from 'vue';
 import { MkrIcon } from '../Icon';
 import './Button.scss';
+import { hasSlotContent } from '../../composables/useCheckSlotContent'
 
 const props = withDefaults(
   defineProps<{
@@ -45,7 +54,7 @@ const baseClass = 'mkr__button';
 
 const slots = useSlots();
 
-const hasContent = computed(() => (slots.length || 0) > 0);
+const hasContent = computed(() => hasSlotContent(slots['default']));
 const componentClass = computed(() => `${baseClass}--${props.variant}`);
 const themeClass = computed(() => (props.theme ? `${componentClass.value}--${props.theme}` : ''));
 
@@ -67,7 +76,7 @@ const componentType = computed(() => {
   return 'button';
 });
 
-const handleClick = (event) => emit('click', event);
+const handleClick = (event: Event) => emit('click', event);
 
 const attributes = computed(() => ({
   ...useAttrs(),

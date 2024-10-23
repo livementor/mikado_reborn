@@ -11,14 +11,15 @@
         }]"
         @click="click">
     <span>{{ message }}</span>
-    <mkr-icon v-if="closable" name="cross" />
+    <MkrIcon v-if="closable" name="cross" />
   </div>
 </template>
 
 <script lang="ts" setup>
 import {
-  onMounted, ref, withDefaults,
+  onMounted, ref
 } from 'vue';
+import { MkrIcon } from '../'
 
 const show = ref(true);
 const props = withDefaults(

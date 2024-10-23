@@ -67,17 +67,17 @@
 
 <script lang="ts" setup>
 import {
-  withDefaults, nextTick, onMounted, ref, computed, defineProps, defineEmits,
+  nextTick, onMounted, ref, computed,
 } from 'vue';
 import { createPopper, Instance as PopperInstance } from '@popperjs/core';
 import useUuid from '../../composables/useUuid';
 import { MkrCard } from '../Card';
 import { MkrIcon } from '../Icon';
 
-type Item = {
+export type Item = {
   [key: string]: string | number | boolean;
-  selected: boolean;
-  id: string;
+  selected?: boolean;
+  id?: string;
 };
 
 const props = withDefaults(
@@ -177,6 +177,7 @@ const clearCurrentSearch = () => {
 };
 
 const selectItem = (item: Item) => {
+  model.value = item[props.itemValue];
   emit('input', item[props.itemValue]);
   emit('change', item[props.itemValue]);
   // Scroll selected item into view if needed

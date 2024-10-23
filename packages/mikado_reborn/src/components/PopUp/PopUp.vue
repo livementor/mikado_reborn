@@ -11,21 +11,21 @@
 
 <script lang="ts" setup>
 import {
-  watch, withDefaults, ref, onMounted, nextTick,
+  watch, ref, onMounted, nextTick,
 } from 'vue';
-import { createPopper, Instance as PopperInstance, Placement } from '@popperjs/core';
+import { createPopper, Instance as PopperInstance, type Placement } from '@popperjs/core';
 
 const props = withDefaults(
   defineProps<{
     placement?: Placement,
     dismissable?: boolean,
   }>(),
-  { placement: 'auto', dismissable: false },
+  { placement: 'bottom', dismissable: false },
 );
 
 const model = defineModel();
 
-const emit = defineEmits(['input']);
+const emit = defineEmits(['input', 'update']);
 
 const popperInstance = ref<PopperInstance | null>(null);
 const anchor = ref<HTMLElement | null>(null);
@@ -38,6 +38,7 @@ const onClickOutside = (event: MouseEvent) => {
   }
   const isClickInModal = anchor.value?.contains(target) || content.value?.contains(target);
   if (!isClickInModal) {
+    model.value = false
     emit('input', false);
   }
 };
@@ -53,6 +54,8 @@ const removeCloseEventListeners = () => {
 const updatePopperInstance = async (isOpened: boolean) => {
   if (isOpened) {
     await nextTick();
+    popperInstance.value
+    resetPopper();
     await popperInstance.value?.update();
   }
 };
@@ -76,13 +79,15 @@ const handleOpening = async (isOpened: boolean) => {
   handleEventListeners(isOpened);
 };
 
-onMounted(() => {
+onMounted(() => resetPopper);
+const resetPopper = () => {
+
   if (anchor.value && content.value) {
     const anchorChild = anchor.value.children[0] as HTMLElement;
     const contentChild = content.value.children[0] as HTMLElement;
 
     popperInstance.value = createPopper(anchorChild, contentChild, {
-      placement: props.placement || 'bottom',
+      placement: props.placement,
       modifiers: [
         {
           name: 'offset',
@@ -93,11 +98,12 @@ onMounted(() => {
       ],
     });
   }
-});
+}
 
-watch(() => props.value, (newVal) => {
-  handleOpening(newVal);
-});
+watch(() => props.placement, newPlacement => {
+  updatePopperInstance(newPlacement)
+})
+watch(() => model.value, handleOpening );
 
 </script>
 

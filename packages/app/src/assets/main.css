@@ -1,0 +1,122 @@
+@import './base.css';
+@import '@livementor/mikado_reborn/src/assets/styles/styles.scss';
+@import '@livementor/mikado_reborn/src/assets/styles/framework.scss';
+@import '@livementor/mikado_reborn/src/assets/styles/fonts.scss';
+
+html{ font-size: 8px; } /* set px/rem ration => 1rem = 8px */
+
+body{
+  background: var(--color-background-mute);
+  font-family: Rubik, sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0.04em;
+}
+
+#app {
+  padding:15px;
+  margin:0;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: stretch;
+  gap: 15px;
+  max-height: 100vh;
+  overflow: hidden;
+}
+
+/* TOP LINE */
+h1{  text-align: center }
+header{
+  height: 5rem;
+  width: 100%;
+  padding-left: 15px;
+  display: flex;
+}
+header ul{ display: flex; list-style: none; padding:0 }
+header ul li{ padding: 3px 5px; }
+
+/* ASIDE - Components List */
+aside{
+  max-height: 100%;
+  width: 200px;
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+aside nav{ flex: 1 1 auto; overflow-y: scroll; }
+aside hr{ opacity: .1; margin: 10px 15px; flex: 0 0 auto; }
+aside h3{ font-size: 1.5rem; margin: 15px 10px; padding: 0; text-align: center; }
+aside ul{ margin: 10px; padding:0; }
+aside ul a{ all: unset;
+  overflow: scroll;
+}
+aside ul li{
+  position: relative;
+  list-style: none;
+  font-weight: bold;
+  font-size: 1.4rem;
+  padding: 0 15px;
+  margin: 5px 0;
+  border: 1px solid var(--color-background-soft);
+  background-color: var(--color-background-soft);
+  border-radius: 8px;
+  transition: .2s;
+  &.disabled{ background-color: transparent; border: none }
+}
+aside ul li::after{
+  content:'›';
+  position: absolute;
+  right: 10px;
+  height: 100%;
+  opacity:.3;
+}
+aside ul li:hover{
+  box-shadow: 0 1px 3px rgba(0,0,0,.05);
+  cursor:pointer;
+}
+aside ul .active li{
+  background-color: var(--color-background);
+  border-color: lightgray;
+}
+
+/* MAIN - Component demo zone */
+section{
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+
+ .card-like{
+  padding: 30px;
+  flex: 1 1 auto;
+  overflow-y: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  section{ flex: 0 0 auto; }
+  section:not(.variant){ margin: 15px 0 60px }
+  .variant{ display: flex; flex-direction: row; margin: 15px 0 60px;
+    > div{
+      flex: 1 1 auto; display:flex; flex-direction: column; align-items: center;
+      h6{ margin-bottom: 15px; }
+    }
+  }
+  .parameters{
+    flex: 1 1 auto;
+    overflow: scroll;
+
+    .compliance{
+      text-align: center;
+      font-size: 1.4rem;
+      .mkr__icon.icon-check{ color: green; }
+      .mkr__icon.icon-cross{ opacity: .2; }
+    }
+  }
+ }
+}
+
+

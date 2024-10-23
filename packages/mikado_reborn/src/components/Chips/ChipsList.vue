@@ -18,9 +18,8 @@
 
 <script lang="ts" setup>
 import {
-  provide, reactive, ref, watch, withDefaults,
-} from 'vue';
-import Chips from './Chips.vue';
+  provide, reactive, ref, watch
+} from 'vue'
 
 export type ChipsListProvide = {
   size: 'medium' | 'small';
@@ -39,13 +38,11 @@ const props = withDefaults(
     wrap?: boolean,
   }>(),
   {
-    size: 'medium',
+    size: 'small',
     orientation: 'row',
     wrap: false,
   },
 );
-
-const emit = defineEmits(['input']);
 
 const listRef = ref<HTMLElement | null>(null);
 
@@ -60,6 +57,9 @@ const list = reactive({
 });
 
 provide('list', list);
+watch(() => props.size, () => {
+  list.size = props.size
+})
 
 watch(() => model.value, (value) => {
   list.model = value;

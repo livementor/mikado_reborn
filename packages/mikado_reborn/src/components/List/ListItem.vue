@@ -12,7 +12,6 @@
 </template>
 
 <script lang="ts" setup>
-import { withDefaults } from 'vue';
 
 withDefaults(defineProps<{ clickable?: boolean }>(), { clickable: false });
 defineEmits(['click']);

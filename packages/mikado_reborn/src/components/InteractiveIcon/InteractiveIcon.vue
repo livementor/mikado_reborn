@@ -5,14 +5,14 @@
     :class="classes"
     @click="$emit('click', $event)"
   >
-    <MkrIcon :name="name" />
+    <MkrIcon :name="name"/>
     <slot></slot>
   </component>
 </template>
 
 <script lang="ts" setup>
 import {
-  computed, withDefaults, defineProps, defineEmits, useAttrs,
+  computed, useAttrs,
 } from 'vue';
 import { MkrIcon } from '../Icon';
 

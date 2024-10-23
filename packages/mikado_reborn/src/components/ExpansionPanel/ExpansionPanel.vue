@@ -22,7 +22,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, withDefaults } from 'vue';
+import { ref } from 'vue';
 import MkrInteractiveIcon from '../InteractiveIcon/InteractiveIcon.vue';
 
 const props = withDefaults(defineProps<{ defaultExpanded: boolean }>(), { defaultExpanded: false });
