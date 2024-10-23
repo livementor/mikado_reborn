@@ -10,7 +10,6 @@ export * from './Dropdown';
 export * from './ExpansionPanel';
 export * from './Icon';
 export * from './InteractiveIcon';
-export * from './LargeTooltip';
 export * from './List';
 export * from './Modal';
 export * from './NavItem';

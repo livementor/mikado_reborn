@@ -1,15 +1,21 @@
 <template>
   <li :class="classes">
-    <MkrTooltip :disabled="!title" :label="title">
+    <MkrTooltip
+      :disabled="!title"
+      :label="title"
+    >
       <component
-        :is="component"
         v-bind="$attrs"
+        :is="component"
         @click="emitClick"
       >
         <slot name="icon">
-          <MkrIcon v-if="icon" :name="icon" />
+          <MkrIcon
+            v-if="icon"
+            :name="icon"
+          />
         </slot>
-        <slot></slot>
+        <slot />
       </component>
     </MkrTooltip>
   </li>
@@ -17,10 +23,11 @@
 
 <script lang="ts" setup>
 import {
-  defineProps, withDefaults, computed, useAttrs, useSlots, defineEmits,
+  computed, useAttrs, useSlots,
 } from 'vue';
 import MkrIcon from '../Icon/Icon.vue';
 import MkrTooltip from '../Tooltip/Tooltip.vue';
+import { hasSlotContent } from '../../composables/useCheckSlotContent';
 
 const props = withDefaults(
   defineProps<{ active?: boolean, title?: string, icon?: string }>(),
@@ -28,15 +35,19 @@ const props = withDefaults(
 );
 const emit = defineEmits(['click']);
 
+const slots = useSlots();
+
 const classes = computed(() => [
   'mkr__nav-item',
   {
-    'mkr__nav-item--icon-only': !(useSlots()).default,
+    'mkr__nav-item--icon-only': !hasSlotContent(slots['default']),
     'mkr__nav-item--active': props.active,
   },
 ]);
 
-const isRouterLink = computed(() => !!(useAttrs()).to);
+const attrs = useAttrs();
+
+const isRouterLink = computed(() => !!attrs.to);
 const component = computed(() => (isRouterLink.value ? 'RouterLink' : 'a'));
 
 const emitClick = (event: Event) => { emit('click', event); };

@@ -1,8 +1,7 @@
 <template>
   <MkrButton
-    :variant="'outlined'"
     v-bind="$attrs"
-    v-on="$listeners"
+    :variant="'outlined'"
   >
     <slot></slot>
   </MkrButton>

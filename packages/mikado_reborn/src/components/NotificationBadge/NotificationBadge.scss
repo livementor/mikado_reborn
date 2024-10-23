@@ -1,4 +1,5 @@
-@import '../../assets/styles/styles.scss';
+@use "sass:map";
+@use "../../assets/styles/settings/colors";
 
 .mkr__notification-badge {
   display: inline-flex;
@@ -16,9 +17,9 @@
       right: -25%;
       top: -12.5%;
       bottom: 62.5%;
-      background: map-get($colors, 'danger');
+      background: map.get(colors.$colors, 'danger');
       border-radius: 50%;
-      border: 1px solid map-get($colors, 'white');
+      border: 1px solid map.get(colors.$colors, 'white');
     }
   }
 

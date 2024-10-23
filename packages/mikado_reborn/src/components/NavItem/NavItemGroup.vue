@@ -14,7 +14,6 @@
 </template>
 
 <script lang="ts" setup>
-import { withDefaults, defineProps } from 'vue';
 
 withDefaults(
   defineProps<{

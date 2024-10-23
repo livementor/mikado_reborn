@@ -5,10 +5,7 @@
 </template>
 
 <script lang="ts" setup>
-
-import { withDefaults, defineProps } from 'vue';
-
-type badgeType =
+export type badgeType =
   'danger' |
   'danger-light' |
   'info' |

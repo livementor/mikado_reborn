@@ -1,12 +1,12 @@
 <template>
   <Icon
-    style="font-size: 24px; height: 24px; width: 24px"
     v-bind="iconProperties"
+    style="font-size: 24px; height: 24px; width: 24px"
   />
 </template>
 
 <script lang="ts" setup>
-import { computed, withDefaults, defineProps } from 'vue';
+import { computed } from 'vue';
 import Icon from '../Icon/Icon.vue';
 
 const props = withDefaults(

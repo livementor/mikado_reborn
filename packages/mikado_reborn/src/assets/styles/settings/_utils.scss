@@ -1,5 +1,8 @@
+@use "sass:map";
+@use 'tokens';
+
 @function token($token-name) {
-  @if map-has-key($tokens, $token-name) {
-    @return (map-get($tokens, $token-name));
+  @if map.has-key(tokens.$tokens, $token-name) {
+    @return (map.get(tokens.$tokens, $token-name));
   }
 }

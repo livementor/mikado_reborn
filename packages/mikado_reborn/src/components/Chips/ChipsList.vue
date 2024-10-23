@@ -18,53 +18,51 @@
 
 <script lang="ts" setup>
 import {
-  provide, reactive, ref, watch, defineProps, withDefaults, defineEmits,
-} from 'vue';
-import Chips from './Chips.vue';
+  provide, reactive, ref, watch
+} from 'vue'
 
 export type ChipsListProvide = {
-  value?: string | null;
   size: 'medium' | 'small';
   orientation: 'row' | 'column';
   wrap: boolean;
-  emitChange: (value: string) => void;
-  registerChips: (chips: typeof Chips) => void;
-  unregisterChips: (uuid: string) => void;
+  model: string
+  updateValue: (value: string) => void
 };
+
+const model = defineModel();
 
 const props = withDefaults(
   defineProps<{
-    value?: string,
     size?: 'medium' | 'small',
     orientation?: 'row' | 'column',
     wrap?: boolean,
   }>(),
   {
-    size: 'medium',
+    size: 'small',
     orientation: 'row',
     wrap: false,
   },
 );
 
-const emit = defineEmits(['input']);
-
-// const chips = ref<typeof Chips[]>([]); // TODO: confirm useless line
 const listRef = ref<HTMLElement | null>(null);
 
 const list = reactive({
-  value: props.value,
+  model: model.value,
   size: props.size,
   orientation: props.orientation,
   wrap: props.wrap,
-  emitChange: (value: string) => {
-    emit('input', value);
+  updateValue: (value: string) => {
+    model.value = value;
   },
 });
 
 provide('list', list);
+watch(() => props.size, () => {
+  list.size = props.size
+})
 
-watch(() => props.value, (value) => {
-  list.value = value;
+watch(() => model.value, (value) => {
+  list.model = value;
 });
 
 </script>

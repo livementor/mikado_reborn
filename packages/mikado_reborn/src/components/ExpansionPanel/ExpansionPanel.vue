@@ -2,7 +2,7 @@
   <div class="mkr__expansion-panel">
     <div class="mkr__expansion-panel__header">
       <div class="mkr__expansion-panel__header-activator">
-        <slot name="activator" v-bind="{ expanded, toggle: togglePanel }">
+        <slot v-bind="{ expanded, toggle: togglePanel }" name="activator">
           <mkr-interactive-icon
             :name="expanded ? 'arrow-full-top' : 'arrow-full-bottom'"
             color="neutral-60"
@@ -11,7 +11,7 @@
         </slot>
       </div>
       <div class="mkr__expansion-panel__header-title">
-        <slot name="header" v-bind="{ expanded, toggle: togglePanel }" />
+        <slot v-bind="{ expanded, toggle: togglePanel }" name="header" />
       </div>
     </div>
 
@@ -22,7 +22,7 @@
 </template>
 
 <script lang="ts" setup>
-import { defineProps, ref, withDefaults } from 'vue';
+import { ref } from 'vue';
 import MkrInteractiveIcon from '../InteractiveIcon/InteractiveIcon.vue';
 
 const props = withDefaults(defineProps<{ defaultExpanded: boolean }>(), { defaultExpanded: false });

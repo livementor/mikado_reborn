@@ -3,17 +3,12 @@
     <div class="mkr__textfield__inner">
       <mkr-icon v-if="iconName" :color="focused?iconColor:'neutral-60'" :name="iconName" />
       <input
-        :value="value"
+        v-bind="$attrs"
+        v-model="model"
         :type="getType"
         :placeholder="placeholder"
-        v-bind="$attrs"
         @focus="focused=true"
         @blur="focused=false"
-        v-on="{
-          ...$listeners,
-          change: emitInputValue,
-          input: emitInputValue,
-        }"
       />
       <mkr-icon v-if="error" name="exclamation-circle" color="danger" />
     </div>
@@ -31,10 +26,12 @@
 
 <script lang="ts" setup>
 import {
-  computed, ref, withDefaults, defineProps, defineEmits,
+  computed, ref
 } from 'vue';
 import MkrIcon from '../Icon/Icon.vue';
 import MkrContainedButton from '../Button/Contained/ContainedButton.vue';
+
+const model = defineModel();
 
 const props = withDefaults(
   defineProps<{
@@ -42,12 +39,9 @@ const props = withDefaults(
     error?: boolean,
     type?: 'text' | 'email' | 'password' | 'date',
     iconName?: string,
-    value?: string
   }>(),
   { type: 'text' },
 );
-
-const emit = defineEmits(['input', 'change']);
 
 const showPassword = ref<boolean>(false);
 const focused = ref(false);
@@ -56,12 +50,6 @@ const iconColor = computed<string>(() => (props.error ? 'danger' : 'secondary'))
 const getType = computed<string>(() => (showPassword.value ? 'text' : props.type));
 
 const showPasswordClick = () => { showPassword.value = !showPassword.value; };
-
-const emitInputValue = (e: Event) => {
-  const input = e.target as HTMLInputElement | null;
-  if (input) emit('input', input.value);
-  emit('change', e);
-};
 
 </script>
 

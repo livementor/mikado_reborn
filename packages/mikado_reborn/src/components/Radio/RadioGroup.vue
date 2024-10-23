@@ -6,42 +6,41 @@
 
 <script lang="ts" setup>
 import {
-  defineProps, withDefaults, defineEmits, reactive, provide, watch,
+  reactive, provide, watch,
 } from 'vue';
 
 export type RadioGroupProvide = {
-  value: string;
+  model: string;
   name: string;
   required: boolean;
-  emitChange: (value: string) => void;
+  updateValue: (value: string) => void
 };
 
 const props = withDefaults(
   defineProps<{
-    value: string,
     name: string,
     required?: boolean,
   }>(),
   { required: false },
 );
 
-const emit = defineEmits(['input']);
+const model = defineModel();
 
 const group = reactive<RadioGroupProvide>({
-  value: props.value,
+  model: model.value,
   name: props.name,
   required: props.required,
-  emitChange: (value: string) => {
-    emit('input', value);
+  updateValue(value) {
+    model.value = value;
   },
 });
 
 provide('group', group);
 
 watch(
-  () => props.value,
+  () => model.value,
   (newValue) => {
-    group.value = newValue;
+    group.model = newValue;
   },
 );
 

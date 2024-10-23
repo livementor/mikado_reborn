@@ -1,8 +1,10 @@
-@import './settings/index';
+@use "sass:map";
+@use 'settings/index';
+@use "settings/colors";
 
 @mixin mkr__input {
-    background: map-get($colors, 'white');
-    border: 1px solid map-get($colors, 'neutral-40');
+    background: map.get(colors.$colors, 'white');
+    border: 1px solid map.get(colors.$colors, 'neutral-40');
     box-sizing: border-box;
     border-radius: 0.5rem;
     display: flex;
@@ -11,14 +13,14 @@
     align-items: center;
 
     ::placeholder {
-      color: map-get($colors, 'neutral-60');
+      color: map.get(colors.$colors, 'neutral-60');
     }
 
     &:focus, &:focus-within {
-      border: 1px solid map-get($colors, 'secondary');
+      border: 1px solid map.get(colors.$colors, 'secondary');
     }
 
     &.error {
-      border: 1px solid map-get($colors, 'danger');
+      border: 1px solid map.get(colors.$colors, 'danger');
     }
 }

@@ -1,16 +1,14 @@
 <template>
   <MkrButton
+    v-bind="$attrs"
     :variant="'contained'"
     :theme="theme"
-    v-bind="$attrs"
-    v-on="$listeners"
   >
     <slot></slot>
   </MkrButton>
 </template>
 
 <script lang="ts" setup>
-import { withDefaults, defineProps } from 'vue';
 import MkrButton from '../Button.vue';
 import './ContainedButton.scss';
 

@@ -1,14 +1,11 @@
 <template>
-  <div class="mkr__card"
-    :class="[`mkr__card--radius-${radius}`, { 'mkr__card--elevated': elevated, 'mkr__card--border': border }]"
-    v-bind="$attrs"
-    v-on="$listeners">
+  <div v-bind="$attrs" class="mkr__card"
+    :class="[`mkr__card--radius-${radius}`, { 'mkr__card--elevated': elevated, 'mkr__card--border': border }]">
     <slot/>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { withDefaults, defineProps } from 'vue';
 
 export type radiusType = 'small' | 'medium' | 'large';
 

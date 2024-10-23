@@ -20,7 +20,7 @@
       <span
         class="mkr__dropdown__input__value"
         :class="{
-          'mkr__dropdown__input__value--placeholder': !value && placeholder
+          'mkr__dropdown__input__value--placeholder': !model && placeholder
         }"
         v-text="
           (selectedItem && (selectedItem[itemInputLabel] || selectedItem[itemLabel])) ||
@@ -67,22 +67,21 @@
 
 <script lang="ts" setup>
 import {
-  withDefaults, defineProps, nextTick, onMounted, ref, computed, defineEmits,
+  nextTick, onMounted, ref, computed,
 } from 'vue';
 import { createPopper, Instance as PopperInstance } from '@popperjs/core';
 import useUuid from '../../composables/useUuid';
 import { MkrCard } from '../Card';
 import { MkrIcon } from '../Icon';
 
-type Item = {
+export type Item = {
   [key: string]: string | number | boolean;
-  selected: boolean;
-  id: string;
+  selected?: boolean;
+  id?: string;
 };
 
 const props = withDefaults(
   defineProps<{
-    value?: string,
     placeholder?: string,
     items: Item[] | string[],
     itemValue?: string,
@@ -98,7 +97,9 @@ const props = withDefaults(
   },
 );
 
-const emit = defineEmits('focus', 'blur', 'click', 'input', 'change');
+const model = defineModel();
+
+const emit = defineEmits(['focus', 'blur', 'click', 'input', 'change']);
 
 // Refs
 const dropdownInput = ref<HTMLElement | null>(null);
@@ -121,14 +122,14 @@ const itemList = computed(() => props.items.map((item, index) => {
       [props.itemValue]: item,
       [props.itemLabel]: item,
       [props.itemInputLabel]: item,
-      selected: item === props.value,
+      selected: item === model.value,
       id,
     };
   }
 
   return {
     ...item,
-    selected: item[props.itemValue] === props.value,
+    selected: item[props.itemValue] === model.value,
     id,
   };
 }));
@@ -176,6 +177,7 @@ const clearCurrentSearch = () => {
 };
 
 const selectItem = (item: Item) => {
+  model.value = item[props.itemValue];
   emit('input', item[props.itemValue]);
   emit('change', item[props.itemValue]);
   // Scroll selected item into view if needed

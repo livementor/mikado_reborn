@@ -5,14 +5,13 @@
 </template>
 
 <script lang="ts" setup>
-
-import { computed, withDefaults, defineProps } from 'vue';
+import { computed } from 'vue';
 
 const props = withDefaults(
   defineProps<{size?: number}>(), { size: 5 },
 );
 
-const avatarStyle: Partial<CSSStyleDeclaration> = computed(() => {
+const avatarStyle = computed(() => {
   const width = `${props.size}rem`;
   return { height: width, width };
 });

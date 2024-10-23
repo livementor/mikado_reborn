@@ -7,7 +7,7 @@
         type="radio"
         :checked="checked"
         :required="required"
-        @change="emitChange"
+        @input="emitInput"
       >
       {{ label }}
     </label>
@@ -16,23 +16,17 @@
 
 <script lang="ts" setup>
 import {
-  inject, computed, defineProps, defineEmits,
+  inject, computed,
 } from 'vue';
 import { RadioGroupProvide } from './RadioGroup.vue';
 
 const props = defineProps<{ label: string, value: string }>();
-const emit = defineEmits(['change']);
 
-const group = inject<RadioGroupProvide>('group', {
-  value: '',
-  name: '',
-  required: false,
-  emitChange: () => {},
-});
+const group = inject<RadioGroupProvide>('group');
 
 const name = computed(() => (group ? group.name : ''));
 const required = computed(() => (group ? group.required : false));
-const checked = computed(() => (group ? group.value === props.value : false));
+const checked = computed(() => (group ? group.model === props.value : false));
 const classes = computed(() => [
   'mkr__radio',
   {
@@ -40,11 +34,13 @@ const classes = computed(() => [
   },
 ]);
 
-const emitChange = () => {
+const emitInput = () => {
   if (group) {
-    group.emitChange(props.value);
-  } else {
-    emit('change', props.value);
+    if (checked.value) {
+      group.updateValue('');
+    } else {
+      group.updateValue(props.value);
+    }
   }
 };
 
