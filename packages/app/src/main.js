@@ -21,5 +21,13 @@ const router = createRouter({
         ...await Promise.all(componentRoutes())
     ]
 });
-createApp(Layout).use(router).mount('#app');
+const app = createApp(Layout);
+// create filter as explained : https://v3-migration.vuejs.org/breaking-changes/filters.html#global-filters
+app.config.globalProperties.$filters = {
+    titleCase(string) {
+        return string ? string[0].toUpperCase() + string.slice(1).toLowerCase() : "";
+    }
+};
+// implement router ans mount app.
+app.use(router).mount('#app');
 //# sourceMappingURL=main.js.map

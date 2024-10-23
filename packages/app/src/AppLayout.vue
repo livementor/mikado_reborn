@@ -14,9 +14,9 @@ const componentNames = Object.keys(components).map(path => {
 const activeRoute = ref<Array<string>>([])
 // screen component name through route params
 watch(useRoute(), to => updateRoute(to));
+// update Ariane's line with current route
 const updateRoute = (route = useRoute()) => {
   activeRoute.value = route.path.split('/')
-    .map(step => step == "" ? "/" : step[0].toUpperCase() + step.slice(1).toLowerCase() )
 }
 
 </script>
@@ -65,7 +65,7 @@ const updateRoute = (route = useRoute()) => {
           v-for="(step, index) in activeRoute"
           :key="index"
         >
-          {{ step }}
+          {{ $filters.titleCase(step) }}
         </li>
       </ul>
     </header>

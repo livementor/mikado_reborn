@@ -6,6 +6,7 @@
     "target": "esnext",
     "module": "esnext",
     "strict": true,
+    "types": ["vite/client"],
     "jsx": "preserve",
     "importHelpers": true,
     "moduleResolution": "node",
