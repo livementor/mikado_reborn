@@ -1,15 +1,11 @@
 <template>
   <div :class="['mkr__textarea', { error: error }]">
     <textarea
-      :value="value"
+      v-model="model"
       :placeholder="placeholder"
       :maxlength="maxlength"
       :minlength="minlength"
       :rows="rows"
-      v-on="{
-         change: (e) => ($emit('change', e.target.value)),
-         input: (e) => ($emit('input', e.target.value)),
-       }"
     />
   </div>
 </template>
@@ -24,6 +20,8 @@ defineProps<{
   rows?: number,
 }>();
 defineEmits(['input', 'change']);
+
+const model = defineModel<string>();
 
 </script>
 
