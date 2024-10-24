@@ -1,28 +1,40 @@
 <template>
   <div>
-    <Teleport to=".mkr__app">
-      <div :class="$attrs.class" v-if="isModalOpened">
-        <mkr-overlay v-if="overlay" @click="closeIfAllowed" />
+    <Teleport
+      to=".mkr__app"
+      v-if="isMounted"
+    >
+      <div
+        :class="$attrs.class"
+        v-if="isModalOpened"
+      >
+        <mkr-overlay
+          v-if="overlay"
+          @click="closeIfAllowed"
+        />
         <mkr-card
           ref="modalRef"
           role="dialog"
           :aria-modal="isModalOpened"
           class="mkr__modal"
           :class="[
-        `mkr__modal--${size}`,
-        {
-          'mkr__modal--opened': isModalOpened,
-          'mkr__modal--slim': slim,
-          'mkr__modal--scrollable': scrollable,
-          'mkr__modal--scrolled': isScrolled && scrollable,
-          'mkr__modal--has-scroll': hasScroll && scrollable,
-          'mkr__modal--fully-scrolled': isFullyScrolled && scrollable,
-        },
-      ]"
+            `mkr__modal--${size}`,
+            {
+              'mkr__modal--opened': isModalOpened,
+              'mkr__modal--slim': slim,
+              'mkr__modal--scrollable': scrollable,
+              'mkr__modal--scrolled': isScrolled && scrollable,
+              'mkr__modal--has-scroll': hasScroll && scrollable,
+              'mkr__modal--fully-scrolled': isFullyScrolled && scrollable,
+            },
+          ]"
           elevated
           radius="large"
         >
-          <div class="mkr__modal__header" v-if="!noHeader">
+          <div
+            class="mkr__modal__header"
+            v-if="!noHeader"
+          >
             <slot name="header">
               <mkr-text-button
                 v-if="closeable"
@@ -35,22 +47,28 @@
               <slot name="title" />
             </slot>
           </div>
-          <div ref="modalContent" class="mkr__modal__content" @scroll="setScrollState">
+          <div
+            ref="modalContent"
+            class="mkr__modal__content"
+            @scroll="setScrollState"
+          >
             <slot />
           </div>
-          <div class="mkr__modal__footer" v-if="$slots['footer']">
+          <div
+            class="mkr__modal__footer"
+            v-if="$slots['footer']"
+          >
             <slot name="footer" />
           </div>
         </mkr-card>
       </div>
     </Teleport>
-
   </div>
 </template>
 
 <script lang="ts" setup>
 import {
-  ref, computed,
+  ref, computed, onMounted
 } from 'vue';
 import { MkrCard } from '../Card';
 import { MkrOverlay } from '../Overlay';
@@ -80,6 +98,9 @@ const props = withDefaults(
     noHeader: false,
   },
 );
+
+const isMounted = ref(false);
+onMounted(() => isMounted.value = true);
 
 const emit = defineEmits(['close']);
 
