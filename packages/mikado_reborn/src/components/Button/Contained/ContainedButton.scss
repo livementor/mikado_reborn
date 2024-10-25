@@ -42,6 +42,9 @@ $themes: (
     &--#{$themeName} {
       background-color: map.get($themeValues, 'background');
       color: map.get($themeValues, 'color');
+      &:disabled{
+        color: map.get(colors.$colors, 'neutral-60');
+      }
       &:hover {
         background-color: map.get($themeValues, 'hover')
       }
