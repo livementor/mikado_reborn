@@ -1,28 +1,27 @@
 <template>
-  <Teleport :to="domTarget">
-  <div class="mkr__overlay"
-    :class="[
-      `mkr__overlay--${color}`,
-      'mkr__overlay--opened'
-    ]"
-    @click="click"
-  >
-    <slot />
-  </div>
+  <Teleport to=".mkr__app">
+    <div
+      class="mkr__overlay"
+      :class="[
+        `mkr__overlay--${color}`,
+        'mkr__overlay--opened'
+      ]"
+      @click="click"
+    >
+      <slot />
+    </div>
   </Teleport>
 </template>
 
 <script lang="ts" setup>
-const props = withDefaults(
+withDefaults(
   defineProps<{
     color?: 'dark' | 'light',
     keepOnClick?: boolean,
-    domTarget?: string
   }>(),
   {
     color: 'dark',
     keepOnClick: false,
-    domTarget: 'body'
   },
 );
 

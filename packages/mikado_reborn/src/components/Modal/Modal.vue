@@ -1,69 +1,66 @@
 <template>
-  <div>
-    <Teleport
-      to=".mkr__app"
-      v-if="isMounted"
+  <Teleport
+    to=".mkr__app"
+    v-if="isMounted && isModalOpened"
+  >
+    <div
+      :class="$attrs.class"
     >
-      <div
-        :class="$attrs.class"
-        v-if="isModalOpened"
+      <mkr-overlay
+        v-if="overlay"
+        @click="closeIfAllowed"
+      />
+      <mkr-card
+        ref="modalRef"
+        role="dialog"
+        :aria-modal="isModalOpened"
+        class="mkr__modal"
+        :class="[
+          `mkr__modal--${size}`,
+          {
+            'mkr__modal--opened': isModalOpened,
+            'mkr__modal--slim': slim,
+            'mkr__modal--scrollable': scrollable,
+            'mkr__modal--scrolled': isScrolled && scrollable,
+            'mkr__modal--has-scroll': hasScroll && scrollable,
+            'mkr__modal--fully-scrolled': isFullyScrolled && scrollable,
+          },
+        ]"
+        elevated
+        radius="large"
       >
-        <mkr-overlay
-          v-if="overlay"
-          @click="closeIfAllowed"
-        />
-        <mkr-card
-          ref="modalRef"
-          role="dialog"
-          :aria-modal="isModalOpened"
-          class="mkr__modal"
-          :class="[
-            `mkr__modal--${size}`,
-            {
-              'mkr__modal--opened': isModalOpened,
-              'mkr__modal--slim': slim,
-              'mkr__modal--scrollable': scrollable,
-              'mkr__modal--scrolled': isScrolled && scrollable,
-              'mkr__modal--has-scroll': hasScroll && scrollable,
-              'mkr__modal--fully-scrolled': isFullyScrolled && scrollable,
-            },
-          ]"
-          elevated
-          radius="large"
+        <div
+          class="mkr__modal__header"
+          v-if="!noHeader"
         >
-          <div
-            class="mkr__modal__header"
-            v-if="!noHeader"
-          >
-            <slot name="header">
-              <mkr-text-button
-                v-if="closeable"
-                class="mkr__modal__header__close"
-                type="button"
-                icon="cross"
-                size="small"
-                @click="close()"
-              />
-              <slot name="title" />
-            </slot>
-          </div>
-          <div
-            ref="modalContent"
-            class="mkr__modal__content"
-            @scroll="setScrollState"
-          >
-            <slot />
-          </div>
-          <div
-            class="mkr__modal__footer"
-            v-if="$slots['footer']"
-          >
-            <slot name="footer" />
-          </div>
-        </mkr-card>
-      </div>
-    </Teleport>
-  </div>
+          <slot name="header">
+            <mkr-text-button
+              v-if="closeable"
+              class="mkr__modal__header__close"
+              type="button"
+              icon="cross"
+              size="small"
+              @click="close()"
+            />
+            <slot name="title" />
+          </slot>
+        </div>
+        <div
+          ref="modalContent"
+          class="mkr__modal__content"
+          @scroll="setScrollState"
+        >
+          <slot />
+        </div>
+        <div
+          class="mkr__modal__footer"
+          v-if="$slots['footer']"
+        >
+          <slot name="footer" />
+        </div>
+      </mkr-card>
+    </div>
+  </Teleport>
 </template>
 
 <script lang="ts" setup>
