@@ -39,7 +39,7 @@
   }
 
   &:disabled {
-    color: map.get(colors.$colors, 'neutral-60');
+    color: map.get(colors.$colors, 'neutral-60') !important;
     cursor: not-allowed;
   }
 
