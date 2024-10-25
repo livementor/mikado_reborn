@@ -23,7 +23,6 @@
     &:disabled {
       background-color: map.get(colors.$colors, 'white');
       border: 1px solid map.get(colors.$colors, 'neutral-20');
-      color: map.get(colors.$colors, 'neutral-60');
     };
   }
 }

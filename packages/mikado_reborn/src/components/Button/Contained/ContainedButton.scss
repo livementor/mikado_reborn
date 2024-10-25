@@ -36,7 +36,6 @@ $themes: (
 
   &:disabled {
     background-color: map.get(colors.$colors, 'neutral-light');
-    color: map.get(colors.$colors, 'neutral-60');
   };
 
   @each $themeName, $themeValues in $themes {
