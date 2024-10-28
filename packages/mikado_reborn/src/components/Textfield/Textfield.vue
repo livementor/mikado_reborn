@@ -3,7 +3,7 @@
     <div class="mkr__textfield__inner">
       <mkr-icon v-if="iconName" :color="focused?iconColor:'neutral-60'" :name="iconName" />
       <input
-        v-bind="$attrs"
+        v-bind="{...$props, ...$emit}"
         v-model="model"
         :type="getType"
         :placeholder="placeholder"
