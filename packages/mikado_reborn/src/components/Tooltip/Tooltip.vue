@@ -1,6 +1,9 @@
 <template>
   <div class="mkr__tooltip">
-    <div class="mkr__tooltip__anchor" ref="anchor">
+    <div
+      class="mkr__tooltip__anchor"
+      ref="anchor"
+    >
       <slot />
     </div>
     <div
@@ -14,7 +17,10 @@
       <template v-if="label">
         {{ label }}
       </template>
-      <slot name="content" v-else />
+      <slot
+        name="content"
+        v-else
+      />
     </div>
   </div>
 </template>
@@ -33,6 +39,7 @@ const props = withDefaults(
     placement?: Placement,
     topLevel?: boolean,
     addScrollListener?: boolean,
+    keepOpen?: boolean
   }>(),
   {
     label: '',
@@ -59,18 +66,29 @@ const updatePopper = async () => {
 const setupListeners = () => {
   if (!anchor.value || !tooltip.value) return;
 
+
+  let hideTimeout: ReturnType<typeof setTimeout>;
   const anchorEl = anchor.value.children[0] as HTMLElement;
-  const events = {
-    show: () => {
-      opened.value = true;
-    },
-    hide: () => {
-      opened.value = false;
-    },
+  const tooltipEl = tooltip.value;
+
+  const showTooltip = () => {
+    clearTimeout(hideTimeout);
+    opened.value = true;
   };
 
-  ['focus', 'mouseenter'].forEach((event) => anchorEl.addEventListener(event, events.show));
-  ['blur', 'mouseleave'].forEach((event) => anchorEl.addEventListener(event, events.hide));
+  const hideTooltip = () => {
+    hideTimeout = setTimeout(() => {
+      opened.value = false;
+    }, props.keepOpen ? 100 : 0);
+  };
+
+  // Ajouter les événements de souris et de focus pour l’ancre
+  ['focus', 'mouseenter'].forEach((event) => anchorEl.addEventListener(event, showTooltip));
+  ['blur', 'mouseleave'].forEach((event) => anchorEl.addEventListener(event, hideTooltip));
+
+  // Ajouter des écouteurs d'événements sur le tooltip lui-même
+  tooltipEl.addEventListener('mouseenter', showTooltip);
+  tooltipEl.addEventListener('mouseleave', hideTooltip);
 
   anchorEl.setAttribute('aria-describedby', `tooltip-${uuid}`);
 };
