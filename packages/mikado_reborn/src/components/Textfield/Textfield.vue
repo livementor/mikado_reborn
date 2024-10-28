@@ -7,7 +7,7 @@
         :name="iconName"
       />
       <input
-        v-bind="{...$props, ...$emit}"
+        v-bind="$attrs"
         v-model="model"
         :type="getType"
         :placeholder="placeholder"

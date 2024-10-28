@@ -5,7 +5,7 @@
       :label="title"
     >
       <component
-        v-bind="$emit"
+        v-bind="$attrs"
         :is="component"
         @click="emitClick"
       >

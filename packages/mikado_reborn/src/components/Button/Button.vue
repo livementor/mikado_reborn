@@ -1,5 +1,6 @@
 <template>
   <component
+    v-bind="attributes"
     :is="componentType"
     :class="buttonClasses"
     :disabled="disabled"
@@ -76,5 +77,10 @@ const componentType = computed(() => {
 });
 
 const handleClick = (event: Event) => emit('click', event);
+
+const attributes = computed(() => ({
+  ...useAttrs(),
+  disabled: props.disabled,
+}));
 
 </script>
