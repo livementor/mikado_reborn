@@ -2,10 +2,7 @@
   <div class="mkr__expansion-panel">
     <div class="mkr__expansion-panel__header">
       <div class="mkr__expansion-panel__header-activator">
-        <slot
-          v-bind="{ expanded, toggle: togglePanel }"
-          name="activator"
-        >
+        <slot v-bind="{ expanded, toggle: togglePanel }" name="activator">
           <mkr-interactive-icon
             :name="expanded ? 'arrow-full-top' : 'arrow-full-bottom'"
             color="neutral-60"
@@ -14,17 +11,11 @@
         </slot>
       </div>
       <div class="mkr__expansion-panel__header-title">
-        <slot
-          v-bind="{ expanded, toggle: togglePanel }"
-          name="header"
-        />
+        <slot v-bind="{ expanded, toggle: togglePanel }" name="header" />
       </div>
     </div>
 
-    <div
-      class="mkr__expansion-panel__content"
-      v-if="$slots.content && expanded"
-    >
+    <div class="mkr__expansion-panel__content" v-if="$slots.content && expanded">
       <slot name="content" />
     </div>
   </div>

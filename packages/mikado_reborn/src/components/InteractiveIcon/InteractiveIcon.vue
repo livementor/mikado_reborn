@@ -1,10 +1,12 @@
 <template>
   <component
+    v-bind="$attrs"
     :is="component"
     :class="classes"
+    @click="$emit('click', $event)"
   >
-    <MkrIcon :name="name" />
-    <slot />
+    <MkrIcon :name="name"/>
+    <slot></slot>
   </component>
 </template>
 
@@ -23,6 +25,8 @@ const props = withDefaults(
   { theme: 'light', activated: false },
 );
 
+defineEmits(['click']);
+
 const $attrs = useAttrs();
 
 // classes
@@ -37,7 +41,7 @@ const component = computed(() => {
   const isRouterLink = !!$attrs.to;
   const isLink = !!$attrs.href;
 
-   
+  // eslint-disable-next-line no-nested-ternary
   return isRouterLink ? 'RouterLink'
     : isLink ? 'a'
       : 'button';
