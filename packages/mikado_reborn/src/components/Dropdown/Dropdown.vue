@@ -1,5 +1,8 @@
 <template>
-  <div ref="dropdown" class="mkr__dropdown">
+  <div
+    ref="dropdown"
+    class="mkr__dropdown"
+  >
     <button
       ref="dropdownInput"
       aria-haspopup="listbox"
@@ -24,14 +27,14 @@
         }"
         v-text="
           (selectedItem && (selectedItem[itemInputLabel] || selectedItem[itemLabel])) ||
-          placeholder
+            placeholder
         "
       />
       <mkr-icon :name="isTooltipVisible ? 'arrow-full-top' : 'arrow-full-bottom'" />
     </button>
     <mkr-card
       ref="dropdownList"
-      class='mkr__dropdown__list'
+      class="mkr__dropdown__list"
       :class="{
         'mkr__dropdown__list--hidden': !isTooltipVisible,
       }"
@@ -55,8 +58,15 @@
           class="mkr__dropdown__list__item"
           @click.stop.prevent="handleItemListClick(item)"
         >
-          <slot name="item" :item="item" :is-selected="item.selected">
-            <mkr-icon v-if="item.selected" name="check" />
+          <slot
+            name="item"
+            :item="item"
+            :is-selected="item.selected"
+          >
+            <mkr-icon
+              v-if="item.selected"
+              name="check"
+            />
             {{ item[itemLabel] }}
           </slot>
         </li>
@@ -158,6 +168,8 @@ const toggleTooltip = () => {
     showTooltip();
   }
 };
+
+toggleTooltip();
 
 const handleButtonClick = (event: Event) => {
   toggleTooltip();
