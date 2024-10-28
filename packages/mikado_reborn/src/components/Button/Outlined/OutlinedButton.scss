@@ -15,12 +15,12 @@
     }
     padding: calc(1.5rem - 1px) calc(2rem - 1px);
 
-    &:hover:not(:disabled) {
+    &:hover:not(:disabled), &:hover:not([disabled=true]) {
       background: map.get(colors.$colors, 'primary-light');
       border-color: map.get(colors.$colors, 'primary');
     };
 
-    &:disabled {
+    &:disabled, &[disabled=true] {
       background-color: map.get(colors.$colors, 'white');
       border: 1px solid map.get(colors.$colors, 'neutral-20');
     };

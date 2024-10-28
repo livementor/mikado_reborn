@@ -46,7 +46,7 @@ $themes: (
   @each $themeName, $themeValues in $themes {
     &--#{$themeName} {
       color: map.get(colors.$colors, map.get($themeValues, 'color'));
-      &:hover:not(:disabled):not(&--activated) {
+      &:hover:not(:disabled):not(&--activated), &:hover:not([disabled=true]):not(&--activated) {
         background-color: map.get(colors.$colors, map.get($themeValues, 'hover-background'));
         color: map.get(colors.$colors, map.get($themeValues, 'hover-color'));
       }

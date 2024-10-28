@@ -30,11 +30,11 @@ $themes: (
 );
 
 .mkr__button.mkr__button--contained {
-  &:hover:not(:disabled) {
+  &:hover:not(:disabled), &:hover:not([disabled=true]) {
     box-shadow: 0px 0px 8px -4px map.get(colors.$colors, 'neutral-20');
   };
 
-  &:disabled {
+  &:disabled, &[disabled=true] {
     background-color: map.get(colors.$colors, 'neutral-light');
   };
 
@@ -42,7 +42,7 @@ $themes: (
     &--#{$themeName} {
       background-color: map.get($themeValues, 'background');
       color: map.get($themeValues, 'color');
-      &:disabled{
+      &:disabled, &[disabled=true]{
         color: map.get(colors.$colors, 'neutral-60');
       }
       &:hover {
