@@ -21,8 +21,8 @@
 
 <script lang="ts" setup>
 import {
-  computed, useAttrs, useSlots,
-} from 'vue';
+  computed, useAttrs, useSlots
+} from 'vue'
 import { MkrIcon } from '../Icon';
 import './Button.scss';
 import { hasSlotContent } from '../../composables/useCheckSlotContent'

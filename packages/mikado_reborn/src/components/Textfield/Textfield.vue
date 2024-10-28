@@ -1,7 +1,11 @@
 <template>
   <div :class="['mkr__textfield', { error }]">
     <div class="mkr__textfield__inner">
-      <mkr-icon v-if="iconName" :color="focused?iconColor:'neutral-60'" :name="iconName" />
+      <mkr-icon
+        v-if="iconName"
+        :color="focused?iconColor:'neutral-60'"
+        :name="iconName"
+      />
       <input
         v-bind="{...$props, ...$emit}"
         v-model="model"
@@ -9,8 +13,12 @@
         :placeholder="placeholder"
         @focus="focused=true"
         @blur="focused=false"
+      >
+      <mkr-icon
+        v-if="error"
+        name="exclamation-circle"
+        color="danger"
       />
-      <mkr-icon v-if="error" name="exclamation-circle" color="danger" />
     </div>
     <mkr-contained-button
       v-if="type === 'password' || showPassword"
@@ -31,7 +39,7 @@ import {
 import MkrIcon from '../Icon/Icon.vue';
 import MkrContainedButton from '../Button/Contained/ContainedButton.vue';
 
-const model = defineModel();
+const model = defineModel<string>();
 
 const props = withDefaults(
   defineProps<{
@@ -40,7 +48,7 @@ const props = withDefaults(
     type?: 'text' | 'email' | 'password' | 'date',
     iconName?: string,
   }>(),
-  { type: 'text' },
+  { type: 'text', placeholder: '' },
 );
 
 const showPassword = ref<boolean>(false);

@@ -1,12 +1,14 @@
 <template>
-  <span class="mkr__icon" :class="classNames" @click="$emit('click', $event)"/>
+  <span
+    class="mkr__icon"
+    :class="classNames"
+  />
 </template>
 
 <script lang="ts" setup>
 import { computed } from 'vue';
 
 const props = defineProps<{ name: string, color?: string }>();
-defineEmits(['click']);
 
 const classNames = computed(() => {
   const classes = [];

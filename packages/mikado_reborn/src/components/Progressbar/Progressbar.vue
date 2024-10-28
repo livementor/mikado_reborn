@@ -4,7 +4,7 @@
     :class="`mkr__progressbar--${size}`"
     role="progressbar"
     aria-valuemin="0"
-    :aria-valuemax="total"
+    :aria-valuemax="total" 
     :aria-valuenow="current"
   >
     <div
@@ -18,7 +18,12 @@
     >
       <slot> 👍 </slot>
     </div>
-    <div v-if="!hideState" class="mkr__progressbar__text">{{ current }}/{{ total }}</div>
+    <div
+      v-if="!hideState"
+      class="mkr__progressbar__text"
+    >
+      {{ current }}/{{ total }}
+    </div>
     <div class="mkr__progressbar__bar">
       <span :style="spanStyle" />
     </div>

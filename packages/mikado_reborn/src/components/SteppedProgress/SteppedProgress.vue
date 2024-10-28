@@ -2,14 +2,14 @@
   <div class="mkr__stepped-progress">
     <div
       v-for="step in steps"
-      :key="step"
+      :key="step" 
       class="mkr__stepped-progress__step"
-      :class="`${progress >= step ? color : backgroundColor}-bg`"/>
+      :class="`${progress >= step ? color : backgroundColor}-bg`"
+    />
   </div>
 </template>
 
 <script lang="ts" setup>
-
 withDefaults(
   defineProps<{
     steps?: number,

@@ -1,9 +1,15 @@
 <template>
   <div class="mkr__popup">
-    <div ref="anchor" @click="handleButtonClick">
+    <div
+      ref="anchor"
+      @click="handleButtonClick"
+    >
       <slot name="anchor" />
     </div>
-    <div ref="content" :class="{ 'mkr__popup--hidden': !model }">
+    <div
+      ref="content"
+      :class="{ 'mkr__popup--hidden': !model }"
+    >
       <slot />
     </div>
   </div>

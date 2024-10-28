@@ -1,17 +1,21 @@
 <template>
   <div
-      :class="[
-        'mkr__snackbar',
-        show ? 'mkr__snackbar--show' : 'mkr__snackbar--hidden',
-        {
-          'mkr__snackbar--error': error,
-          'mkr__snackbar--neutral': neutral,
-          'mkr__snackbar--success' : success,
-          'mkr__snackbar--closable': closable,
-        }]"
-        @click="click">
+    :class="[
+      'mkr__snackbar',
+      show ? 'mkr__snackbar--show' : 'mkr__snackbar--hidden',
+      {
+        'mkr__snackbar--error': error,
+        'mkr__snackbar--neutral': neutral, 
+        'mkr__snackbar--success' : success,
+        'mkr__snackbar--closable': closable,
+      }]"
+    @click="click"
+  >
     <span>{{ message }}</span>
-    <MkrIcon v-if="closable" name="cross" />
+    <MkrIcon
+      v-if="closable"
+      name="cross"
+    />
   </div>
 </template>
 

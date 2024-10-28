@@ -8,11 +8,13 @@
       :value="model"
       :checked="isChecked"
       @input="setValue"
+    >
+
+    <mkr-icon
+      v-if="isChecked"
+      name="check"
     />
-
-    <mkr-icon v-if="isChecked" name="check" />
   </div>
-
 </template>
 
 <script lang="ts" setup>

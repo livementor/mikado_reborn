@@ -8,7 +8,10 @@
     @click="selectValue"
     ref="chipRef"
   >
-    <mkr-icon v-if="selected" name="check" />
+    <mkr-icon
+      v-if="selected"
+      name="check"
+    />
     {{ label }}
   </li>
 </template>

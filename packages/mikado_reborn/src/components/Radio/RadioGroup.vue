@@ -10,7 +10,7 @@ import {
 } from 'vue';
 
 export type RadioGroupProvide = {
-  model: string;
+  model: string | undefined;
   name: string;
   required: boolean;
   updateValue: (value: string) => void
@@ -24,7 +24,7 @@ const props = withDefaults(
   { required: false },
 );
 
-const model = defineModel();
+const model = defineModel<string | undefined>();
 
 const group = reactive<RadioGroupProvide>({
   model: model.value,

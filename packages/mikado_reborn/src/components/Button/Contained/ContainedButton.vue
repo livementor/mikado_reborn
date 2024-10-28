@@ -1,10 +1,9 @@
 <template>
   <MkrButton
-    v-bind="$attrs"
     :variant="'contained'"
     :theme="theme"
   >
-    <slot></slot>
+    <slot />
   </MkrButton>
 </template>
 

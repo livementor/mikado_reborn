@@ -1,6 +1,9 @@
 <template>
   <div class="mkr__tooltip">
-    <div class="mkr__tooltip__anchor" ref="anchor">
+    <div
+      class="mkr__tooltip__anchor"
+      ref="anchor"
+    >
       <slot />
     </div>
     <div
@@ -11,10 +14,13 @@
       role="tooltip"
       :aria-hidden="!isOpened"
     >
-      <template v-if="label">
+      <template v-if="label"> 
         {{ label }}
       </template>
-      <slot name="content" v-else />
+      <slot
+        name="content"
+        v-else
+      />
     </div>
   </div>
 </template>
