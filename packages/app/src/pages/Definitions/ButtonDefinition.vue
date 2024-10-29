@@ -7,6 +7,7 @@ import ParametersTable from '@/components/ParametersTable.vue'
 import icons from '@livementor/mikado_reborn/src/utils/icons';
 import { useRouter } from 'vue-router'
 import queryProps from '@/utils/queryProps'
+import Button from '@livementor/mikado_reborn/src/components/Button/Button.vue'
 
 const personalizedSlot = ref('Button');
 const propsBinding = ref({}) // no default
@@ -62,7 +63,20 @@ const variantProps = {
       </component>
     </div>
   </section>
-
+  <section class="variant">
+    <div>
+      <p>
+        Peut aussi être utilisé en tant que <Button
+          href="#"
+          size="small"
+          theme="primary"
+          v-bind="propsBinding"
+        >
+          Lien
+        </Button>
+      </p>
+    </div>
+  </section>
   <ParametersTable>
     <SlotParameter v-model="personalizedSlot" />
     <PropParameters
