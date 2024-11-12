@@ -60,6 +60,10 @@
       border-radius: 999px;
       background-color: map.get(colors.$colors, 'success');
       transition: transform 0.2s ease-in-out, width 0.2s ease-in-out;
+      &.disabled{
+        background-color: map.get(colors.$colors, 'neutral-40');
+
+      }
     }
   }
 }
