@@ -17,6 +17,7 @@ let componentProps: MkdComponentProp[] = [
   { name: 'size', type: 'select', options: ['medium', 'small'].map(value => ({value})), value: 'medium' },
   { name: 'hideState', type: 'boolean', value: false },
   { name: 'shrinkEmoji', type: 'boolean', value: false },
+  { name: 'disabled', type: 'boolean', value: false },
 ]
 
 </script>

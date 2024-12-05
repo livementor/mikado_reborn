@@ -18,9 +18,18 @@
     >
       <slot> 👍 </slot>
     </div>
-    <div v-if="!hideState" class="mkr__progressbar__text">{{ current }}/{{ total }}</div>
+    <div
+      v-if="!hideState"
+      class="mkr__progressbar__text"
+      :class="disabled?'neutral-40':'success'"
+    >
+      {{ current }}/{{ total }}
+    </div>
     <div class="mkr__progressbar__bar">
-      <span :style="spanStyle" />
+      <span
+        :class="{disabled}"
+        :style="spanStyle"
+      />
     </div>
   </div>
 </template>
@@ -35,12 +44,14 @@ const props = withDefaults(
     shrinkEmoji?: boolean,
     size?: 'small' | 'medium',
     hideState?: boolean,
+    disabled?: boolean,
   }>(),
   {
     current: 0,
     shrinkEmoji: false,
     size: 'medium',
     hideState: false,
+    disabled: false,
   },
 );
 
