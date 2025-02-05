@@ -15,9 +15,6 @@
     &-title {
       @include fonts.font('body-large');
       color: map.get(colors.$colors, 'neutral');
-      border-bottom: 1px solid map.get(colors.$colors, 'neutral-20');
-      padding-bottom: 2rem;
-      padding-top: 2rem;
       flex-grow: 1;
     }
   }
