@@ -15,6 +15,22 @@ onBeforeMount(() => {
   const query = useRouter().currentRoute.value.query
   componentProps = queryProps(componentProps, query)
 })
+
+// colors scheme
+/*
+* ** contained
+* neutral
+* danger-light
+* # primary
+* --
+* secondary
+* info-light
+* success-light
+* neutral-light
+*
+*
+* */
+
 let componentProps: MkdComponentProp[] = [
   { name: 'theme', type: 'select', options: [
     { value:"container", variants: ['TextButton', 'ContainedButton'] },
