@@ -62,7 +62,9 @@
       background-color: map.get(colors.$colors, 'success');
 
       &:hover:before{
-        background-color: transparent;
+        padding: calc(0.5rem - 1px);
+        border: white solid calc(0.5rem - 1px);
+        background-color: map.get(colors.$colors, 'success');
       }
     }
   }
