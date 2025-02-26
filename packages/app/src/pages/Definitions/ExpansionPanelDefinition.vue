@@ -7,16 +7,28 @@ import { useRouter } from 'vue-router'
 import queryProps from '@/utils/queryProps'
 import SlotParameter from '@/components/Parameters/SlotParameter.vue'
 
-const propsBinding = ref( {defaultExpanded: useRouter().currentRoute.value.query.defaultExpanded == "true" || false});
+const propsBinding = ref( {
+  defaultExpanded: useRouter().currentRoute.value.query.defaultExpanded == "true" || false,
+  expanded: false
+});
 onBeforeMount(() => {
   const query = useRouter().currentRoute.value.query
   componentProps = queryProps(componentProps, query)
 })
-let componentProps: MkdComponentProp[] = [ { name: 'defaultExpanded', type: 'boolean', value: false} ]
+let componentProps: MkdComponentProp[] = [
+  { name: 'defaultExpanded', type: 'boolean', value: false},
+  { name: 'expanded', type: 'boolean', value: true}
+]
 
 const openTitle = ref("Titre ouvert")
 const closeTitle = ref("Titre fermé")
 const fixedTitle = ref("Titre constant")
+const expanded = ref(false)
+
+const updateProps = ({defaultExpanded, expanded}) => {
+  propsBinding.value.defaultExpanded = defaultExpanded
+  propsBinding.value.expanded = expanded
+}
 
 </script>
 
@@ -65,7 +77,7 @@ const fixedTitle = ref("Titre constant")
     />
     <PropParameters
       :component-props
-      @change="propsBinding.defaultExpanded=$event.defaultExpanded || false"
+      @change="updateProps"
     />
   </ParametersTable>
 </template>

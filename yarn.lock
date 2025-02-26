@@ -230,7 +230,7 @@
   integrity sha512-gv3ZRaISU3fjPAgNsriBRqGWQL6quFx04YMPW/zD8XMLsU32mhCCbfbO6KZFLjvYpCZ8zyDEgqsgf+PwPaM7GQ==
 
 "@livementor/mikado_reborn@file:packages/mikado_reborn":
-  version "0.34.3"
+  version "1.0.4"
   dependencies:
     "@popperjs/core" "^2.11.0"
     "@types/uuid" "^10.0.0"

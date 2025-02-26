@@ -22,13 +22,18 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
 import MkrInteractiveIcon from '../InteractiveIcon/InteractiveIcon.vue';
+import {onMounted} from "vue";
 
 const props = withDefaults(defineProps<{ defaultExpanded: boolean }>(), { defaultExpanded: false });
+const expanded = defineModel('expanded', { required: false })
 
-const expanded = ref(props.defaultExpanded);
 const togglePanel = () => { expanded.value = !expanded.value; };
+
+onMounted(() => {
+  if( props.defaultExpanded )
+    expanded.value = true
+})
 
 </script>
 
