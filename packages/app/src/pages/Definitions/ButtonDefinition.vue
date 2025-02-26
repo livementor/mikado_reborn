@@ -29,7 +29,8 @@ let componentProps: MkdComponentProp[] = [
       { value: 'primary' },
       { value: 'primary-light' },
       { value: 'secondary' },
-      { value: 'secondary-light' }
+      { value: 'secondary-light' },
+      { value: 'info-light' }
     ] },
   { name: 'size', type: 'select', options: [{value: 'large' }, {value: 'medium' }, { value:"container", variants:['TextButton', 'ContainedButton'] }, {value: 'small' }] },
   { name: 'icon', type: 'select', options: icons.map(value => ({value})) },

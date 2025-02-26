@@ -26,6 +26,11 @@ $themes: (
     'background': map.get(colors.$colors, 'neutral-light'),
     'color': map.get(colors.$colors, 'secondary-dark'),
     'hover': map.get(colors.$colors, 'primary'),
+  ),
+  'info-light':(
+    'background': map.get(colors.$colors, 'info-light'),
+    'color': map.get(colors.$colors, 'info'),
+    'hover': map.get(colors.$colors, 'info-light'),
   )
 );
 
