@@ -25,21 +25,29 @@
     border-radius: 50%;
     border: 1px solid map.get(colors.$colors, 'neutral-40');
 
-    &:focus {
+    &:hover {
       outline: none;
 
       &::after{
         position: absolute;
         content: close-quote;
         display: block;
-        top: -0.5rem;
-        bottom: -0.5rem;
-        left: -0.5rem;
-        right: -0.5rem;
-        background: map.get(colors.$colors, 'success');
+        inset: -0.5rem;
+        background-color: map.get(colors.$colors, 'success');
         border-radius: 50%;
         opacity: 0.4;
       }
+
+      &:before{
+        position: absolute;
+        content: '';
+        z-index: 1;
+        display: block;
+        inset: 0;
+        background: white;
+        border-radius: 50%;
+      }
+
     }
   }
 
@@ -52,6 +60,10 @@
       border-color: map.get(colors.$colors, 'success');
       background-clip: content-box;
       background-color: map.get(colors.$colors, 'success');
+
+      &:hover:before{
+        background-color: transparent;
+      }
     }
   }
 }
