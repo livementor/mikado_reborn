@@ -100,6 +100,10 @@
     .mkr__chips__description {
       margin-top: 0rem;
     }
+
+    &.mkr__chips--light_selected {
+      padding: calc(0.5rem - 1px) calc(1rem - 1px);
+    }
   }
 
   &__illustration {
