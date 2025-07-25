@@ -25,3 +25,4 @@ export * from './Textarea';
 export * from './Textfield';
 export * from './Tooltip';
 export * from './Stepper';
+export * from './Tabs';

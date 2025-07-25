@@ -1,0 +1,21 @@
+@use "sass:map";
+@use "../../assets/styles/settings/colors";
+
+.mkr__tab-list {
+  display: flex;
+  width: 100%;
+  border-bottom: 1px solid map.get(colors.$colors, 'neutral-20');
+  background: map.get(colors.$colors, 'white');
+  position: relative;
+
+  // Ensure tabs are aligned properly
+  align-items: flex-end;
+
+  &--large {
+    min-height: 7.2rem;
+  }
+
+  &--medium {
+    min-height: 5.6rem;
+  }
+}

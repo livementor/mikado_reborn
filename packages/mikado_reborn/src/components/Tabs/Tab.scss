@@ -1,0 +1,73 @@
+@use "sass:map";
+@use "../../assets/styles/settings/colors";
+@use "../../assets/styles/settings/fonts";
+
+.mkr__tab {
+  // Base typography using the specification provided
+  font-family: 'Rubik', sans-serif;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: 0.96px;
+  text-transform: uppercase;
+  font-feature-settings: 'liga' off;
+
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 1.5rem 2rem;
+  color: rgba(33, 46, 59, 0.80);
+  transition: all 0.2s ease;
+  outline: none;
+  position: relative;
+
+  &:hover:not(&--disabled):not(&--active) {
+    color: map.get(colors.$colors, 'neutral-80');
+  }
+
+  &:focus-visible {
+    outline: 2px solid map.get(colors.$colors, 'secondary');
+    outline-offset: 2px;
+  }
+
+  &--active {
+    color: map.get(colors.$colors, 'secondary');
+    border-bottom-color: transparent; // Hide the original border
+
+    // Create the green bar with a pseudo-element
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -1px; // Position it to overlap the TabList border
+      height: 2px;
+      background-color: map.get(colors.$colors, 'secondary');
+      z-index: 1;
+    }
+  }
+
+  &--disabled {
+    color: map.get(colors.$colors, 'neutral-40');
+    cursor: not-allowed;
+
+    &:hover {
+      color: map.get(colors.$colors, 'neutral-40');
+    }
+  }
+
+  &--large {
+    min-height: 7.2rem;
+    padding: 2.4rem 3.2rem;
+    // Larger size keeps same typography but more padding
+  }
+
+  &--medium {
+    min-height: 5.6rem;
+    padding: 1.6rem 2.4rem;
+    // Medium size keeps same typography but less padding
+  }
+}
