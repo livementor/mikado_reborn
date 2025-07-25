@@ -8,7 +8,7 @@
     @click="selectValue"
     ref="chipRef"
   >
-    <div>
+    <div class="mkr__chips__label">
       <mkr-icon
         v-if="icon"
         :name="icon"
@@ -66,7 +66,8 @@ const chipRef = ref<HTMLElement | null>(null);
 const classes = computed(() => [
     'mkr__chips',
     {
-      'mkr__chips--selected': selected.value,
+      'mkr__chips--light_selected': props.description && selected.value,
+      'mkr__chips--selected': !props.description &&selected.value,
       'mkr__chips--small': list ? list.size === 'small' : false
     }
   ]);

@@ -34,6 +34,17 @@
     }
   }
 
+  &--light_selected {
+    border-radius: 4px;
+    border: 2px solid var(--app-primary-secondary, #007762);
+    padding: calc(1.5rem - 1px) calc(2rem - 1px);
+    background: var(--app-alert-success-l, #E8F7F2);
+
+    .mkr__chips__label {
+      color: map.get(colors.$colors, 'neutral-dark');
+    }
+  }
+
   &__icon {
     margin-right: 1.5rem;
     position: relative;
