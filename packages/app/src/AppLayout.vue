@@ -83,6 +83,7 @@ h1{
   align-items: flex-start;
 }
 .card-like {
+  overflow-y: scroll;
   background-color: white;
   border: 1px solid rgba(33, 46, 59, 0.2);
   border-radius: 15px;

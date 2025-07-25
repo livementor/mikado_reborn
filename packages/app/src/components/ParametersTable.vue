@@ -1,7 +1,3 @@
-<script setup lang="ts">
-
-</script>
-
 <template>
   <div
     class="parameters"
@@ -25,6 +21,7 @@
 <style lang="scss">
 table{ width: 100% }
   .parameters{
+    min-height: 40vh;
     margin: 15px -15px -15px; padding: 15px; width: calc(100% + 30px); background: #f8f8f8; border-radius: 5px;
     th{ opacity: .8; text-align: start; padding: 10px 0; }
     td{
