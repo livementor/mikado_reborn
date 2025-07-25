@@ -51,16 +51,26 @@
     padding: 2rem;
     text-align: center;
 
+    &.mkr__chips--light_selected {
+      padding: calc(2rem - 1px);
+    }
+
     .mkr__chips__label {
       display: flex;
+      color: map.get(colors.$colors, 'neutral-dark');
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      height: 100%;
       width: 100%;
     }
 
     .mkr__chips__icon {
       display: none;
+    }
+
+    .mkr__chips__illustration {
+      display: flex;
     }
   }
 
@@ -90,5 +100,14 @@
     .mkr__chips__description {
       margin-top: 0rem;
     }
+  }
+
+  &__illustration {
+    width: 40px;
+    height: 40px;
+    margin: 0 auto 1.5rem;
+    display: none;
+    align-items: center;
+    justify-content: center;
   }
 }

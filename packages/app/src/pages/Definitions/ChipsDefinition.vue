@@ -38,7 +38,7 @@ const model = ref(null);
           value="chat"
         />
         <MkrChips
-          label="Perroquet"
+          label="Perroquet, qui est un label plus long"
           value="perroquet"
         />
       </MkrChipsList>
@@ -52,16 +52,19 @@ const model = ref(null);
           label="Chien"
           value="chien"
           icon="cog"
+          illustration="freelance"
         />
         <MkrChips
           label="Chat"
           value="chat"
           icon="download"
+          illustration="rse"
         />
         <MkrChips
-          label="Perroquet"
+          label="Perroquet, qui est un label plus long"
           value="perroquet"
           icon="lock-closed"
+          illustration="therapeute"
         />
       </MkrChipsList>
     </div>
@@ -76,18 +79,21 @@ const model = ref(null);
           label="Chien"
           value="chien"
           icon="cog"
+          illustration="freelance"
           description="Description du chien"
         />
         <MkrChips
           label="Chat"
           value="chat"
           icon="download"
+          illustration="rse"
           description="Description du chat"
         />
         <MkrChips
-          label="Perroquet"
+          label="Perroquet, qui est un label plus long"
           value="perroquet"
           icon="lock-closed"
+          illustration="therapeute"
           description="Description du perroquet"
         />
       </MkrChipsList>

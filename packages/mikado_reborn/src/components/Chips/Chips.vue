@@ -8,6 +8,18 @@
     @click="selectValue"
     ref="chipRef"
   >
+    <div 
+      v-if="illustration" 
+      class="mkr__chips__illustration"
+    >
+      <img 
+        :src="illustrationSrc"
+        :alt="illustration"
+        width="40"
+        height="40"
+        @error="onImageError"
+      >
+    </div>
     <div class="mkr__chips__label">
       <mkr-icon
         v-if="icon"
@@ -49,13 +61,15 @@ const props = withDefaults(
     label?: string,
     value?: string,
     icon?: string,
-    description?: string
+    description?: string,
+    illustration?: string,
   }>(),
   {
     label: '',
     value: '',
     icon: '',
     description: '',
+    illustration: '',
   },
 );
 
@@ -74,6 +88,27 @@ const classes = computed(() => {
       'mkr__chips--small': list ? list.size === 'small' : false
     }
   ]});
+
+const illustrationSrc = computed(() => {
+  if (!props.illustration) return '';
+  
+  try {
+    // Import dynamique des SVG depuis les assets
+    return new URL(`../../assets/illustrations/${props.illustration}.svg`, import.meta.url).href;
+  } catch (error) {
+    console.warn(`Failed to load illustration: ${props.illustration}`, error);
+    return '';
+  }
+});
+
+const onImageError = (event: Event) => {
+  console.warn(`Failed to load illustration: ${props.illustration}`);
+  // Optionally hide the illustration container on error
+  const target = event.target as HTMLImageElement;
+  if (target?.parentElement) {
+    target.parentElement.style.display = 'none';
+  }
+};
 
 const selectValue = () => {
   if (list) {
