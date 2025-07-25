@@ -28,15 +28,24 @@
     color: map.get(colors.$colors, 'white');
     border-color: map.get(colors.$colors, 'success');
 
-    .mkr__icon {
+    .mkr__chips__selected-icon {
       margin-right: 1.5rem;
     }
+  }
+
+  &__icon {
+    margin-right: 1.5rem;
   }
 
   &--small {
     height: 4rem;
     padding: 0.5rem 1rem;
-    &#{$chips}--selected .mkr__icon{
+    
+    &#{$chips}--selected .mkr__chips__selected-icon {
+      margin-right: 0.5rem;
+    }
+
+    .mkr__chips__icon {
       margin-right: 0.5rem;
     }
   }

@@ -43,6 +43,28 @@ const model = ref(null);
         />
       </MkrChipsList>
     </div>
+    <div>
+      <MkrChipsList
+        v-bind="propsBinding"
+        v-model="model"
+      >
+        <MkrChips
+          label="Chien"
+          value="chien"
+          icon="cog"
+        />
+        <MkrChips
+          label="Chat"
+          value="chat"
+          icon="download"
+        />
+        <MkrChips
+          label="Perroquet"
+          value="perroquet"
+          icon="lock-closed"
+        />
+      </MkrChipsList>
+    </div>
   </section>
 
   <ParametersTable>

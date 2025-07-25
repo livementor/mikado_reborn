@@ -8,7 +8,16 @@
     @click="selectValue"
     ref="chipRef"
   >
-    <mkr-icon v-if="selected" name="check" />
+    <mkr-icon
+      v-if="icon"
+      :name="icon"
+      class="mkr__chips__icon"
+    />
+    <mkr-icon
+      v-else-if="selected"
+      name="check"
+      :class="['mkr__chips__icon', 'mkr__chips__icon--selected']"
+    />
     {{ label }}
   </li>
 </template>
@@ -28,11 +37,13 @@ const uuid = generateUUID();
 const props = withDefaults(
   defineProps<{
     label?: string,
-    value?: string
+    value?: string,
+    icon?: string
   }>(),
   {
     label: '',
     value: '',
+    icon: '',
   },
 );
 
