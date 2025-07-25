@@ -18,5 +18,13 @@ export default {
         api: 'modern-compiler' // or "modern"
       }
     }
+  },
+  optimizeDeps: {
+    exclude: ['@livementor/mikado_reborn']
+  },
+  server: {
+    fs: {
+      allow: ['..']
+    }
   }
 }
