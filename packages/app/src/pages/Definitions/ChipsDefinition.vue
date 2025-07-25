@@ -13,7 +13,7 @@ onBeforeMount(() => {
 })
 let componentProps: MkdComponentProp[] = [
   // { name: 'name', type: 'text' },
-  { name: 'size', type: 'select', options: ['medium', 'small'].map(value => ({value})), value: 'medium' },
+  { name: 'size', type: 'select', options: ['medium', 'small', 'square'].map(value => ({value})), value: 'medium' },
   { name: 'orientation', type: 'select', options: ['row', 'column'].map(value => ({value})) },
   { name: 'wrap', type: 'boolean' },
 ]

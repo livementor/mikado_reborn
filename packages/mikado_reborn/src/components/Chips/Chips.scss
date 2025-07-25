@@ -45,6 +45,25 @@
     }
   }
 
+  &--square {
+    max-width: 150px;
+    min-width: 120px;
+    padding: 2rem;
+    text-align: center;
+
+    .mkr__chips__label {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+    }
+
+    .mkr__chips__icon {
+      display: none;
+    }
+  }
+
   &__icon {
     margin-right: 1.5rem;
     position: relative;
@@ -54,6 +73,7 @@
   &__description {
     opacity: 0.8;
     margin-top: 1rem;
+    line-height: 1.1;
   }
 
   &--small {

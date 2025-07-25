@@ -63,14 +63,17 @@ const componentId = computed(() => `chips-${uuid}`);
 const selected = computed(() => (list ? list.model === props.value : false));
 const chipRef = ref<HTMLElement | null>(null);
 
-const classes = computed(() => [
+const classes = computed(() => {
+  const isSquare = list ? list.size === 'square' : false;
+  return [
     'mkr__chips',
     {
-      'mkr__chips--light_selected': props.description && selected.value,
-      'mkr__chips--selected': !props.description &&selected.value,
+      'mkr__chips--square': isSquare,
+      'mkr__chips--light_selected': (props.description || isSquare) && selected.value,
+      'mkr__chips--selected': !(props.description || isSquare) && selected.value,
       'mkr__chips--small': list ? list.size === 'small' : false
     }
-  ]);
+  ]});
 
 const selectValue = () => {
   if (list) {

@@ -22,7 +22,7 @@ import {
 } from 'vue'
 
 export type ChipsListProvide = {
-  size: 'medium' | 'small';
+  size: 'medium' | 'small' | 'square';
   orientation: 'row' | 'column';
   wrap: boolean;
   model: string
