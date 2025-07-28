@@ -7,16 +7,19 @@
   @include fonts.font('button-small');
   --padding: 1.5rem 2rem;
   --padding--icon-only: 1.5rem;
+  --icon-margin: 1.5rem;
 
   &--large {
     @include fonts.font('button-medium');
     --padding: 2rem 3rem;
     --padding--icon-only: 2rem;
+    --icon-margin: 2rem;
   }
 
   &--small {
     --padding: 0.5rem;
     --padding--icon-only: 0.5rem;
+    --icon-margin: 0.5rem;
   }
 
   & {
@@ -41,7 +44,8 @@
     cursor: pointer;
   }
 
-  &:disabled, &[disabled=true] {
+  &:disabled,
+  &[disabled=true] {
     color: map.get(colors.$colors, 'neutral-60');
     cursor: not-allowed;
   }
@@ -67,10 +71,11 @@
   &:not(&--icon-only) {
     #{$button}__icon {
       &--left {
-        margin-right: 1rem;
+        margin-right: var(--icon-margin);
       }
+
       &--right {
-        margin-left: 1rem;
+        margin-left: var(--icon-margin);
       }
     }
   }

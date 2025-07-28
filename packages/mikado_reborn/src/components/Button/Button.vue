@@ -41,6 +41,7 @@ const props = withDefaults(
   {
     disabled: false,
     size: 'medium',
+    icon: '',
     iconSide: 'left',
     variant: 'contained',
     theme: '',
