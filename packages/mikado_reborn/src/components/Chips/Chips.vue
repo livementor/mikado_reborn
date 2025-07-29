@@ -13,7 +13,7 @@
       class="mkr__chips__illustration"
     >
       <img 
-        :src="illustrationSrc"
+        :src="`${publicFolder}/${props.illustration}.svg`"
         :alt="illustration"
         width="40"
         height="40"
@@ -63,6 +63,7 @@ const props = withDefaults(
     icon?: string,
     description?: string,
     illustration?: string,
+    publicFolder?: string, 
   }>(),
   {
     label: '',
@@ -70,6 +71,7 @@ const props = withDefaults(
     icon: '',
     description: '',
     illustration: '',
+    publicFolder: '/illustrations',
   },
 );
 
@@ -89,17 +91,6 @@ const classes = computed(() => {
     }
   ]});
 
-const illustrationSrc = computed(() => {
-  if (!props.illustration) return '';
-  
-  try {
-    // Import dynamique des SVG depuis les assets
-    return new URL(`../../assets/illustrations/${props.illustration}.svg`, import.meta.url).href;
-  } catch (error) {
-    console.warn(`Failed to load illustration: ${props.illustration}`, error);
-    return '';
-  }
-});
 
 const onImageError = (event: Event) => {
   console.warn(`Failed to load illustration: ${props.illustration}`);
