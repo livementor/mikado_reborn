@@ -25,6 +25,6 @@
   letter-spacing: 0.48px;
 
   .error {
-    color: var(--color-text-alert-danger);
+    color: map.get(colors.$colors, 'danger');
   }
 }
