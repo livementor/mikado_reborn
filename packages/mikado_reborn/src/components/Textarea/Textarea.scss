@@ -12,5 +12,19 @@
     width: 100%;
     resize: none;
     appearance: none;
-  };
+  }
+
+}
+
+.mkr__counter {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 0.5rem;
+  align-items: center;
+  font-size: 1.4rem;
+  letter-spacing: 0.48px;
+
+  .error {
+    color: var(--color-text-alert-danger);
+  }
 }

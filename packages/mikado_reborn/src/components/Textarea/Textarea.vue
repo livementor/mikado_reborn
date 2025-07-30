@@ -1,27 +1,56 @@
 <template>
-  <div :class="['mkr__textarea', { error: error }]">
-    <textarea
-      v-model="model"
-      :placeholder="placeholder"
-      :maxlength="maxlength"
-      :minlength="minlength"
-      :rows="rows"
-    />
+  <div>
+    <div
+      :class="['mkr__textarea', { error: globalError }]"
+    >
+      <textarea
+        v-model="model"
+        :placeholder="placeholder"
+        :maxlength="maxlength"
+        :minlength="minlength"
+        :rows="rows"
+        @blur="hasBeenBlurred = true"
+      />
+    </div>
+    <div
+      v-if="showCounter"
+      class="mkr__counter"
+      color="neutral-60"
+    >
+      <div
+        v-if="minlength"
+        :class="['mkr__counter__total', { error: globalError }]"
+      >
+        {{ minlength }} caractères minimum
+      </div>
+      <div class="mkr__counter__max">
+        <span
+          :class="['mkr_counter__current_length', { error: globalError }]"
+        >{{ (model || '').length }}</span>
+        <span v-if="maxlength">/{{ maxlength }}</span>
+      </div>
+    </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-defineProps<{
+import { computed, watch, ref } from 'vue';
+const props = defineProps<{
   value?: string,
   minlength?: number,
   maxlength?: number,
   placeholder?: string,
   error?: boolean,
   rows?: number,
+  showCounter?: boolean,
 }>();
 defineEmits(['input', 'change']);
 
 const model = defineModel<string>();
+
+const hasBeenBlurred = ref(false);
+const lengthError = computed(() => props.minlength && model.value && hasBeenBlurred.value ? model.value.length < props.minlength : false);
+const globalError = computed(() => props.error || lengthError.value);
 
 </script>
 

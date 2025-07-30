@@ -26,6 +26,14 @@ let componentProps: MkdComponentProp[] = [
   <section>
     <MkrTextarea v-bind="bindingProps" />
   </section>
+  <section>
+    <MkrTextarea
+      v-bind="bindingProps"
+      :minlength="10"
+      :maxlength="100"
+      show-counter
+    />
+  </section>
 
   <ParametersTable>
     <PropParameters
