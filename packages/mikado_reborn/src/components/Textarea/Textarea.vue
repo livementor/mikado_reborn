@@ -15,7 +15,6 @@
     <div
       v-if="showCounter"
       class="mkr__counter"
-      color="neutral-60"
     >
       <div
         v-if="minlength"

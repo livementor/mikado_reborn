@@ -1,4 +1,6 @@
+@use "sass:map";
 @use '../../assets/styles/styles.scss';
+@use '../../assets/styles/settings/colors';
 
 .mkr__textarea {
   @include styles.mkr__input;
@@ -23,6 +25,7 @@
   align-items: center;
   font-size: 1.4rem;
   letter-spacing: 0.48px;
+  color: map.get(colors.$colors, 'neutral-60');
 
   .error {
     color: map.get(colors.$colors, 'danger');
