@@ -9,7 +9,9 @@
         :maxlength="maxlength"
         :minlength="minlength"
         :rows="rows"
-        @blur="hasBeenBlurred = true"
+        :style="'resize:' + (resizable ? 'vertical' : 'none')"
+        @blur="isFocused = false"
+        @focus="isFocused = true"
       />
     </div>
     <div
@@ -33,7 +35,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, watch, ref } from 'vue';
+import { computed, watch, ref, onMounted } from 'vue';
 const props = defineProps<{
   value?: string,
   minlength?: number,
@@ -42,21 +44,29 @@ const props = defineProps<{
   error?: boolean,
   rows?: number,
   showCounter?: boolean,
+  resizable?: boolean,
 }>();
-const emit = defineEmits(['input', 'change', 'valid']);
+const emit = defineEmits(['input', 'change', 'is-valid']);
 
 const model = defineModel<string>();
 
-const hasBeenBlurred = ref(false);
-const lengthError = computed(() => props.minlength && model.value && hasBeenBlurred.value ? model.value.length < props.minlength : false);
+const isFocused = ref(false);
+const lengthError = computed(() => props.minlength && model.value && !isFocused.value ? model.value.length < props.minlength : false);
 const globalError = computed(() => props.error || lengthError.value);
 
-watch(globalError, (newVal, oldVal) => {
+const isValid = computed(() => {
+  return model.value && model.value.length >= (props.minlength || 0)
+})
+
+watch(isValid, (newVal, oldVal) => {
   if (newVal !== oldVal) {
-    console.log('emit.valid', newVal === false);
-    emit('valid', newVal === false);
+    emit('is-valid', newVal);
   }
 });
+
+onMounted(() => {
+  emit('is-valid', !!isValid.value);
+})
 
 </script>
 

@@ -20,6 +20,10 @@ let componentProps: MkdComponentProp[] = [
   { name: 'rows', type: 'number' },
 ]
 
+const log = (isValid: boolean) => {
+  console.log('isValid', isValid);
+}
+
 </script>
 
 <template>
@@ -31,7 +35,10 @@ let componentProps: MkdComponentProp[] = [
       v-bind="bindingProps"
       :minlength="10"
       :maxlength="100"
+      resizable
+      :rows="10"
       show-counter
+      @is-valid="log"
     />
   </section>
 

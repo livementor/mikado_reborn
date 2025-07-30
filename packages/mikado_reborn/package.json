@@ -1,6 +1,6 @@
 {
   "name": "@livementor/mikado_reborn",
-  "version": "1.2.5",
+  "version": "1.2.5b",
   "type": "module",
   "scripts": {
     "dev": "vite",
