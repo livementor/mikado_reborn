@@ -44,13 +44,20 @@ const props = defineProps<{
   rows?: number,
   showCounter?: boolean,
 }>();
-defineEmits(['input', 'change']);
+const emit = defineEmits(['input', 'change', 'valid']);
 
 const model = defineModel<string>();
 
 const hasBeenBlurred = ref(false);
 const lengthError = computed(() => props.minlength && model.value && hasBeenBlurred.value ? model.value.length < props.minlength : false);
 const globalError = computed(() => props.error || lengthError.value);
+
+watch(globalError, (newVal, oldVal) => {
+  if (newVal !== oldVal) {
+    console.log('emit.valid', newVal === false);
+    emit('valid', newVal === false);
+  }
+});
 
 </script>
 
