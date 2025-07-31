@@ -16,9 +16,10 @@ let componentProps: MkdComponentProp[] = [
   { name: 'size', type: 'select', options: ['small', 'medium', 'square'].map(value => ({value})), value: 'medium' },
   { name: 'orientation', type: 'select', options: ['row', 'column'].map(value => ({value})) },
   { name: 'wrap', type: 'boolean' },
+  { name: 'multiple', type: 'boolean' },
 ]
 
-const model = ref(null);
+const model = ref<string | string[]>();
 
 </script>
 

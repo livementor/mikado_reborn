@@ -76,7 +76,12 @@ const props = withDefaults(
 );
 
 const componentId = computed(() => `chips-${uuid}`);
-const selected = computed(() => (list ? list.model === props.value : false));
+const selected = computed(() => {
+  if(!list) return false;
+  return list.multiple 
+    ? list.model?.indexOf(props.value) !== -1 
+    : list.model === props.value;
+})
 const chipRef = ref<HTMLElement | null>(null);
 
 const classes = computed(() => {
@@ -103,11 +108,7 @@ const onImageError = (event: Event) => {
 
 const selectValue = () => {
   if (list) {
-    if (selected.value) {
-      list.updateValue('');
-    } else {
       list.updateValue(props.value);
-    }
   }
 };
 

@@ -25,17 +25,19 @@ export type ChipsListProvide = {
   size: 'medium' | 'small' | 'square';
   orientation: 'row' | 'column';
   wrap: boolean;
-  model: string
+  model: string | string[]
+  multiple: boolean,
   updateValue: (value: string) => void
 };
 
-const model = defineModel();
+const model = defineModel<string | string[]>();
 
 const props = withDefaults(
   defineProps<{
-    size?: 'medium' | 'small',
+    size?: 'medium' | 'small' | 'square',
     orientation?: 'row' | 'column',
     wrap?: boolean,
+    multiple?: boolean,
   }>(),
   {
     size: 'small',
@@ -51,14 +53,30 @@ const list = reactive({
   size: props.size,
   orientation: props.orientation,
   wrap: props.wrap,
+  multiple: props.multiple,
   updateValue: (value: string) => {
-    model.value = value;
+    if(props.multiple) {
+      if(model.value?.indexOf(value) === -1) {
+        model.value = [...(model.value || []), value]
+      }
+      else {
+        model.value = (model.value as string[] || []).filter((v: string) => v !== value)
+      }
+    }
+    else {
+      model.value = model.value === value ? '' : value;
+    }
   },
 });
 
 provide('list', list);
 watch(() => props.size, () => {
   list.size = props.size
+})
+watch(() => props.multiple, () => {
+  list.multiple = props.multiple
+  list.model = props.multiple ? [] : ''
+  model.value = list.model
 })
 
 watch(() => model.value, (value) => {
