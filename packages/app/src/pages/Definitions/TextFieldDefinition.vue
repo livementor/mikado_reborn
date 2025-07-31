@@ -17,6 +17,7 @@ let componentProps: MkdComponentProp[] = [
   { name: 'type', type: 'select', options: ['text', 'email', 'password', 'date'].map(value => ({value})), value: "text" },
   { name: 'iconName', type: 'select', options: icons.map(value => ({value})) },
   { name: 'error', type: 'boolean' },
+  { name: 'disabled', type: 'boolean' },
 ]
 
 </script>
