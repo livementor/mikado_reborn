@@ -37,9 +37,7 @@
       class="mkr__chips__description"
       v-if="description"
     >
-      <small>
-        {{ description }}
-      </small>
+      <small v-html="description" />
     </div>
   </li>
 </template>
