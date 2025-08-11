@@ -18,6 +18,9 @@ let componentProps: MkdComponentProp[] = [
   { name: 'iconName', type: 'select', options: icons.map(value => ({value})) },
   { name: 'error', type: 'boolean' },
   { name: 'disabled', type: 'boolean' },
+  { name: 'minlength', type: 'number' },
+  { name: 'maxlength', type: 'number' },
+  { name: 'showCounter', type: 'boolean' },
 ]
 
 </script>
