@@ -10,8 +10,8 @@
         :minlength="minlength"
         :rows="rows"
         :style="'resize:' + (resizable ? 'vertical' : 'none')"
-        @blur="isFocused = false"
-        @focus="isFocused = true"
+        @blur="handleBlur"
+        @focus="handleFocus"
       />
     </div>
     <div
@@ -36,7 +36,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, watch, ref, onMounted } from 'vue';
+import { computed, watch, onMounted } from 'vue';
 const props = defineProps<{
   value?: string,
   minlength?: number,
@@ -47,12 +47,21 @@ const props = defineProps<{
   showCounter?: boolean,
   resizable?: boolean,
 }>();
-const emit = defineEmits(['input', 'change', 'is-valid']);
+const emit = defineEmits(['input', 'change', 'is-valid', 'focus', 'blur']);
 
 const model = defineModel<string>();
 
-const isFocused = ref(false);
-const lengthError = computed(() => props.minlength && model.value && !isFocused.value ? model.value.length < props.minlength : false);
+let isFocused = false;
+const handleBlur = () => {
+  isFocused = false
+  emit('focus')
+} 
+const handleFocus = () => {
+  isFocused = true
+  emit('focus')
+}
+
+const lengthError = computed(() => props.minlength && model.value && !isFocused ? model.value.length < props.minlength : false);
 const globalError = computed(() => props.error || lengthError.value);
 
 const isValid = computed(() => {
