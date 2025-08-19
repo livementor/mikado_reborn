@@ -17,6 +17,7 @@
     <div
       v-if="showCounter"
       class="mkr__counter"
+      :style="!!minlength ? 'justify-content: space-between': 'justify-content: end'"
     >
       <div
         v-if="minlength"
@@ -55,7 +56,7 @@ const lengthError = computed(() => props.minlength && model.value && !isFocused.
 const globalError = computed(() => props.error || lengthError.value);
 
 const isValid = computed(() => {
-  return model.value && model.value.length >= (props.minlength || 0)
+  return !!model.value?.trim() && model.value.length >= (props.minlength || 0)
 })
 
 watch(isValid, (newVal, oldVal) => {

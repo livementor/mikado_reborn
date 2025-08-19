@@ -35,6 +35,7 @@
     <div
       v-if="showCounter"
       class="mkr__counter"
+      :style="!!minlength ? 'justify-content: space-between': 'justify-content: end'"
     >
       <div
         v-if="minlength"
@@ -66,7 +67,7 @@ const props = withDefaults(
   defineProps<{
     placeholder?: string,
     error?: boolean,
-    type?: 'text' | 'email' | 'password' | 'date',
+    type?: 'text' | 'email' | 'password' | 'date' | 'url',
     disabled?: boolean,
     iconName?: string,
     minlength?: number,
@@ -93,7 +94,11 @@ const globalError = computed(() => props.error || lengthError.value);
 const showPasswordClick = () => { showPassword.value = !showPassword.value; };
 
 const isValid = computed(() => {
-  return model.value && model.value.length >= (props.minlength || 0)
+  if(props.type === 'url'){
+    const urlRegex = /^(https?:\/\/)([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,63}([^\s]*)?$/;
+    return urlRegex.test(model.value?.toString() || '')
+  }
+  else return !!model.value?.trim() && model.value.length >= (props.minlength || 0)
 })
 
 watch(isValid, (newVal, oldVal) => {

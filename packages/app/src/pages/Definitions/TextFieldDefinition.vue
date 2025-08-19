@@ -14,7 +14,7 @@ onBeforeMount(() => {
 })
 let componentProps: MkdComponentProp[] = [
   { name: 'placeholder', type: 'text', value: "Placeholder..." },
-  { name: 'type', type: 'select', options: ['text', 'email', 'password', 'date'].map(value => ({value})), value: "text" },
+  { name: 'type', type: 'select', options: ['text', 'email', 'password', 'date', 'url'].map(value => ({value})), value: "text" },
   { name: 'iconName', type: 'select', options: icons.map(value => ({value})) },
   { name: 'error', type: 'boolean' },
   { name: 'disabled', type: 'boolean' },
@@ -23,11 +23,18 @@ let componentProps: MkdComponentProp[] = [
   { name: 'showCounter', type: 'boolean' },
 ]
 
+const isValid = ref(true)
+
 </script>
 
 <template>
   <section>
-    <MkrTextfield v-bind="bindingProps" />
+    <MkrTextfield
+      v-bind="bindingProps"
+      @is-valid="isValid = $event"
+    />
+
+    <pre>{{ isValid }}</pre>
   </section>
 
   <ParametersTable>
