@@ -55,7 +55,7 @@
 
 <script lang="ts" setup>
 import {
-  computed, ref, watch, onMounted
+  computed, ref, watch, nextTick
 } from 'vue';
 import MkrIcon from '../Icon/Icon.vue';
 import MkrContainedButton from '../Button/Contained/ContainedButton.vue';
@@ -101,15 +101,11 @@ const isValid = computed(() => {
   else return !!model.value?.trim() && model.value.length >= (props.minlength || 0)
 })
 
-watch(isValid, (newVal, oldVal) => {
-  if (newVal !== oldVal) {
-    emit('is-valid', newVal);
-  }
-});
+watch(model, async () => {
+  await nextTick();
+  emit('is-valid', isValid.value);
+}, { immediate: true });
 
-onMounted(() => {
-  emit('is-valid', !!isValid.value);
-})
 
 </script>
 
