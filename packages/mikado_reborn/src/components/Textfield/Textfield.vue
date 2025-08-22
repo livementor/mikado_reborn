@@ -10,6 +10,8 @@
         <input
           v-bind="$attrs"
           v-model="model"
+          :minlength="minlength"
+          :maxlength="maxlength"
           :type="getType"
           :disabled="disabled"
           :placeholder="placeholder"
