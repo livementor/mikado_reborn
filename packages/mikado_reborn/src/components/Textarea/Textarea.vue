@@ -36,7 +36,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, watch, onMounted } from 'vue';
+import { computed, watch, onMounted, ref } from 'vue';
 const props = defineProps<{
   value?: string,
   minlength?: number,
@@ -51,17 +51,17 @@ const emit = defineEmits(['input', 'change', 'is-valid', 'focus', 'blur']);
 
 const model = defineModel<string>();
 
-let isFocused = false;
+const isFocused = ref(false);
 const handleBlur = () => {
-  isFocused = false
-  emit('focus')
+  isFocused.value = false
+  emit('blur')
 } 
 const handleFocus = () => {
-  isFocused = true
+  isFocused.value = true
   emit('focus')
 }
 
-const lengthError = computed(() => props.minlength && model.value && !isFocused ? model.value.length < props.minlength : false);
+const lengthError = computed(() => props.minlength && model.value && !isFocused.value ? model.value.length < props.minlength : false);
 const globalError = computed(() => props.error || lengthError.value);
 
 const isValid = computed(() => {
