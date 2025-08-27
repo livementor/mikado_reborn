@@ -1,13 +1,22 @@
 <template>
-  <div class="mkr__tooltip">
+  <div
+    class="mkr__tooltip"
+    disabled="false"
+  >
     <div
       class="mkr__tooltip__anchor"
       ref="anchor"
+      @click="onClick"
+      @mouseenter="showTooltip"
+      @mouseleave="hideTooltip"
     >
-      <slot />
+      <div>
+        <slot />
+      </div>
     </div>
     <div
       :id="`tooltip-${uuid}`"
+      v-bind="$attrs"
       class="mkr__tooltip__label"
       ref="tooltip"
       :class="{ 'mkr__tooltip__label--hidden': !isOpened }"
@@ -27,7 +36,7 @@
 
 <script lang="ts" setup>
 import {
-  computed, nextTick, onBeforeUnmount, onMounted, ref, watch,
+  computed, nextTick, onBeforeUnmount, onMounted, ref, watch
 } from 'vue';
 import { createPopper, Instance as PopperInstance, Placement } from '@popperjs/core';
 import useUuid from '../../composables/useUuid';
@@ -63,35 +72,34 @@ const updatePopper = async () => {
   await popperInstance.value?.update();
 };
 
-const setupListeners = () => {
-  if (!anchor.value || !tooltip.value) return;
+let hideTimeout: ReturnType<typeof setTimeout>;
 
+const onClick = (e: PointerEvent) => {
+  e.stopPropagation()
+  if ( !props.disabled ) {
+    showTooltip()
+  }
+}
 
-  let hideTimeout: ReturnType<typeof setTimeout>;
-  const anchorEl = anchor.value.children[0] as HTMLElement;
-  const tooltipEl = tooltip.value;
-
-  const showTooltip = () => {
+const showTooltip = () => {
+  if ( !props.disabled ) {
     clearTimeout(hideTimeout);
     opened.value = true;
-  };
+  }
+}
 
-  const hideTooltip = () => {
-    hideTimeout = setTimeout(() => {
-      opened.value = false;
-    }, props.keepOpen ? 100 : 0);
-  };
-
-  // Ajouter les événements de souris et de focus pour l’ancre
-  ['focus', 'mouseenter'].forEach((event) => anchorEl.addEventListener(event, showTooltip));
-  ['blur', 'mouseleave'].forEach((event) => anchorEl.addEventListener(event, hideTooltip));
-
-  // Ajouter des écouteurs d'événements sur le tooltip lui-même
-  tooltipEl.addEventListener('mouseenter', showTooltip);
-  tooltipEl.addEventListener('mouseleave', hideTooltip);
-
-  anchorEl.setAttribute('aria-describedby', `tooltip-${uuid}`);
+const hideTooltip = () => {
+  hideTimeout = setTimeout(() => {
+    opened.value = false;
+  }, props.keepOpen ? 100 : 0);
 };
+
+const wrapper = ref<HTMLElement | null>(null)
+const handleClickOutside = (event: MouseEvent) => {
+  if (wrapper.value && !wrapper.value.contains(event.target as Node)) {
+    hideTooltip()
+  }
+}
 
 // lifecycle hooks
 onMounted(() => resetPopper());
@@ -113,13 +121,16 @@ const resetPopper = () => {
     ],
   });
 
-  setupListeners();
+  document.addEventListener('click', handleClickOutside)
+  
 }
 
 onBeforeUnmount(() => {
   if (props.topLevel && tooltip.value) {
     tooltip.value.remove();
   }
+  document.removeEventListener('click', handleClickOutside)
+
 });
 
 watch(() => opened.value, updatePopper);
