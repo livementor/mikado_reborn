@@ -87,7 +87,17 @@ const icons = [
   'sun',
   'tribe',
   'user-group',
-  'user'
+  'user',
+  'open',
+  'loop',
+  'settings',
+  'social-linkedin',
+  'social-tiktok',
+  'social-x',
+  'social-youtube',
+  'windows-right',
+  'windows-left',
+  'stars'
 ];
 
 export default icons;
