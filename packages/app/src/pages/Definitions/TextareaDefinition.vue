@@ -18,6 +18,7 @@ let componentProps: MkdComponentProp[] = [
   { name: 'placeholder', type: 'text', value: "Placeholder..." },
   { name: 'error', type: 'boolean' },
   { name: 'rows', type: 'number' },
+  { name: 'autosize', type: 'boolean'}
 ]
 
 const log = (isValid: boolean) => {
