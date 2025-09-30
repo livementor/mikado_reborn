@@ -12,6 +12,8 @@
         :style="'resize:' + (resizable ? 'vertical' : 'none')"
         @blur="handleBlur"
         @focus="handleFocus"
+        @input="emit('input', $event)"
+        @change="emit('change', $event)"
       />
     </div>
     <div
