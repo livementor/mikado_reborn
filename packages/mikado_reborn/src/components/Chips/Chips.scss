@@ -18,10 +18,16 @@
   cursor: pointer;
   outline: none;
 
-  &:hover:not(&--selected),
-  &:focus:not(&--selected) {
+  &:hover:not(&--selected):not(&--disabled),
+  &:focus:not(&--selected):not(&--disabled) {
     border-color: map.get(colors.$colors, 'secondary');
     color: map.get(colors.$colors, 'neutral-dark');
+  }
+
+  &--disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
   }
 
   &--selected {

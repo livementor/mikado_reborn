@@ -32,6 +32,11 @@ export type ChipsListProvide = {
 
 const model = defineModel<string | string[]>();
 
+const emit = defineEmits<{
+  change: [value: string | string[]],
+  update: [value: string | string[]]
+}>();
+
 const props = withDefaults(
   defineProps<{
     size?: 'medium' | 'small' | 'square',
@@ -81,6 +86,8 @@ watch(() => props.multiple, () => {
 
 watch(() => model.value, (value) => {
   list.model = value;
+  emit('change', value as string | string[]);
+  emit('update', value as string | string[]);
 });
 
 </script>

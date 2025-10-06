@@ -61,7 +61,8 @@ const props = withDefaults(
     icon?: string,
     description?: string,
     illustration?: string,
-    publicFolder?: string, 
+    publicFolder?: string,
+    disabled?: boolean,
   }>(),
   {
     label: '',
@@ -70,6 +71,7 @@ const props = withDefaults(
     description: '',
     illustration: '',
     publicFolder: '/illustrations',
+    disabled: false,
   },
 );
 
@@ -90,7 +92,8 @@ const classes = computed(() => {
       'mkr__chips--square': isSquare,
       'mkr__chips--light_selected': (props.description || isSquare) && selected.value,
       'mkr__chips--selected': !(props.description || isSquare) && selected.value,
-      'mkr__chips--small': list ? list.size === 'small' : false
+      'mkr__chips--small': list ? list.size === 'small' : false,
+      'mkr__chips--disabled': props.disabled
     }
   ]});
 
@@ -105,6 +108,7 @@ const onImageError = (event: Event) => {
 };
 
 const selectValue = () => {
+  if (props.disabled) return;
   if (list) {
       list.updateValue(props.value);
   }
