@@ -394,3 +394,7 @@
 .icon-stars:before {
   content: "\e960";
 }
+
+.icon-star:before {
+  content: "\e963";
+}

@@ -97,7 +97,8 @@ const icons = [
   'social-youtube',
   'windows-right',
   'windows-left',
-  'stars'
+  'stars',
+  'star'
 ];
 
 export default icons;
