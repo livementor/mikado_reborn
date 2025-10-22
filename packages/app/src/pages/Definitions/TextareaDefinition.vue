@@ -21,25 +21,27 @@ let componentProps: MkdComponentProp[] = [
   { name: 'autosize', type: 'boolean'}
 ]
 
-const log = (isValid: boolean) => {
-  console.log('isValid', isValid);
-}
-
 </script>
 
 <template>
   <section>
-    <MkrTextarea v-bind="bindingProps" />
+    <MkrTextarea   
+      :min-rows="1"
+      :max-rows="10"
+      v-bind="bindingProps"
+      placeholder="Interrogez l’assistant ou décrivez ce que vous voudriez apprendre... Interrogez l’assistant ou décrivez ce que vous voudriez apprendre... Interrogez l’assistant ou décrivez ce que vous voudriez apprendre... Interrogez l’assistant ou décrivez ce que vous voudriez apprendre..."
+      autosize
+      style="line-height: 1.5;"
+    />
   </section>
   <section>
     <MkrTextarea
-      v-bind="bindingProps"
       :minlength="10"
       :maxlength="100"
+      :min-rows="3"
       resizable
-      :rows="10"
       show-counter
-      @is-valid="log"
+      v-bind="bindingProps"
     />
   </section>
 

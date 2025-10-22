@@ -10,7 +10,7 @@
         :maxlength="maxlength"
         :minlength="minlength"
         :rows="computedRows"
-        :style="'resize:' + (props.autosize || !resizable ? 'none' : 'vertical')"
+        :class="{ 'mkr__textarea__resizable': resizable && !autosize }"
         @blur="handleBlur"
         @focus="handleFocus"
         @input="emit('input', $event)"
@@ -72,24 +72,37 @@ const adjustHeight = () => {
   if (!props.autosize || !textareaRef.value) return;
 
   const textarea = textareaRef.value;
-  textarea.style.height = 'auto';
 
   const style = getComputedStyle(textarea);
-  const lineHeight = parseInt(style.lineHeight);
-  const paddingTop = parseInt(style.paddingTop);
-  const paddingBottom = parseInt(style.paddingBottom);
+  const fontSize = parseFloat(style.fontSize);
 
+  // Récupérer et calculer le lineHeight correctement
+  let lineHeight = parseFloat(style.lineHeight);
+  if (isNaN(lineHeight) || style.lineHeight === 'normal') {
+    // Si lineHeight est "normal", utiliser 1.2x la font-size (standard)
+    lineHeight = fontSize * 1.2;
+  }
+
+  const paddingTop = parseFloat(style.paddingTop) || 0;
+  const paddingBottom = parseFloat(style.paddingBottom) || 0;
+  const borderTop = parseFloat(style.borderTopWidth) || 0;
+  const borderBottom = parseFloat(style.borderBottomWidth) || 0;
+
+  // Réinitialiser la hauteur pour mesurer le scrollHeight
+  textarea.style.height = 'auto';
   let scrollHeight = textarea.scrollHeight;
 
   // Si le textarea est vide mais a un placeholder, calculer la hauteur nécessaire
   if (!model.value && props.placeholder) {
     const lines = props.placeholder.split('\n').length;
-    const placeholderHeight = lines * lineHeight + paddingTop + paddingBottom;
+    const placeholderHeight = lines * lineHeight + paddingTop + paddingBottom + borderTop + borderBottom;
     scrollHeight = Math.max(scrollHeight, placeholderHeight);
   }
 
-  const minHeight = props.minRows ? props.minRows * lineHeight + paddingTop + paddingBottom : scrollHeight;
-  const maxHeight = props.maxRows ? props.maxRows * lineHeight + paddingTop + paddingBottom : Infinity;
+  // Toujours utiliser minRows comme hauteur minimum (défaut: 1)
+  const minHeight = (props.minRows || 1) * lineHeight + paddingTop + paddingBottom + borderTop + borderBottom;
+  // Utiliser maxRows comme hauteur maximum (défaut: aucune limite)
+  const maxHeight = props.maxRows ? props.maxRows * lineHeight + paddingTop + paddingBottom + borderTop + borderBottom : Infinity;
 
   const newHeight = Math.min(Math.max(scrollHeight, minHeight), maxHeight);
   textarea.style.height = `${newHeight}px`;
@@ -104,7 +117,10 @@ const isValid = computed(() => {
 })
 
 const computedRows = computed(() => {
-  if (props.autosize) return undefined;
+  if (props.autosize) {
+    // En mode autosize, utiliser minRows comme hauteur initiale
+    return props.minRows || 1;
+  }
   return props.rows;
 });
 
