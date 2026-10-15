@@ -17,6 +17,8 @@ let componentProps: MkdComponentProp[] = [
   { name: 'icon', type: 'select', options: icons.map(value => ({value})), value: 'bell' },
   { name: 'title', type: 'text', value: 'Tooltip' },
   { name: 'active', type: 'boolean', value: true },
+  { name: 'locked', type: 'boolean', value: false },
+  { name: 'lockTooltip', type: 'text', value: 'Disponible uniquement en formation.' },
 ]
 
 const groupPropsBinding = ref({});

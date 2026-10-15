@@ -23,6 +23,10 @@
     }
   }
 
+  &--locked {
+    color: map.get(colors.$colors, 'neutral-40');
+  }
+
   &:not(&--icon-only) .mkr__icon:first-child {
     margin-right: 1.5rem;
   }

@@ -96,4 +96,12 @@
       }
     }
   }
+
+  .mkr__nav-item.mkr__nav-item--locked {
+    &,
+    &:hover,
+    &:focus-within {
+      color: map.get(colors.$colors, 'neutral-40');
+    }
+  }
 }
