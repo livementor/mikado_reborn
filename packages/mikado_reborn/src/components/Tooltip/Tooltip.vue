@@ -1,5 +1,6 @@
 <template>
   <div
+    ref="wrapper"
     class="mkr__tooltip"
     disabled="false"
   >
@@ -7,8 +8,9 @@
       class="mkr__tooltip__anchor"
       ref="anchor"
       @click="onClick"
-      @mouseenter="showTooltip"
-      @mouseleave="hideTooltip"
+      @pointerdown="onPointerDown"
+      @pointerenter="onPointerEnter"
+      @pointerleave="onPointerLeave"
     >
       <div>
         <slot />
@@ -48,18 +50,21 @@ const props = withDefaults(
     placement?: Placement,
     topLevel?: boolean,
     addScrollListener?: boolean,
-    keepOpen?: boolean
+    keepOpen?: boolean,
+    closeOnScroll?: boolean,
   }>(),
   {
     label: '',
     disabled: false,
-    placement: '',
+    placement: undefined,
     topLevel: false,
     addScrollListener: false,
+    closeOnScroll: false,
   },
 );
 
 const uuid = useUuid().generateUUID();
+const wrapper = ref<HTMLElement | null>(null);
 const anchor = ref<HTMLElement | null>(null);
 const tooltip = ref<HTMLElement | null>(null);
 const opened = ref(false);
@@ -74,12 +79,10 @@ const updatePopper = async () => {
 
 let hideTimeout: ReturnType<typeof setTimeout>;
 
-const onClick = (e: PointerEvent) => {
-  e.stopPropagation()
-  if ( !props.disabled ) {
-    showTooltip()
-  }
-}
+// Touch devices have no hover: a tap toggles the tooltip instead of only opening it,
+// and emulated mouse events must not reopen it right after.
+let lastPointerType = '';
+const isTouch = (pointerType: string) => pointerType === 'touch';
 
 const showTooltip = () => {
   if ( !props.disabled ) {
@@ -94,12 +97,57 @@ const hideTooltip = () => {
   }, props.keepOpen ? 100 : 0);
 };
 
-const wrapper = ref<HTMLElement | null>(null)
-const handleClickOutside = (event: MouseEvent) => {
-  if (wrapper.value && !wrapper.value.contains(event.target as Node)) {
-    hideTooltip()
+const closeTooltip = () => {
+  clearTimeout(hideTimeout);
+  opened.value = false;
+};
+
+const onPointerDown = (e: PointerEvent) => {
+  lastPointerType = e.pointerType;
+};
+
+const onPointerEnter = (e: PointerEvent) => {
+  if (!isTouch(e.pointerType)) showTooltip();
+};
+
+const onPointerLeave = (e: PointerEvent) => {
+  if (!isTouch(e.pointerType)) hideTooltip();
+};
+
+const onClick = (e: MouseEvent) => {
+  e.stopPropagation()
+  if ( props.disabled ) return;
+
+  if (isTouch(lastPointerType) && opened.value) {
+    closeTooltip();
+  } else {
+    showTooltip();
   }
+  lastPointerType = '';
 }
+
+const isInside = (target: EventTarget | null) => {
+  const node = target as Node | null;
+  return !!node && (!!wrapper.value?.contains(node) || !!tooltip.value?.contains(node));
+};
+
+const onDocumentPointerDown = (e: PointerEvent) => {
+  if (!isInside(e.target)) closeTooltip();
+};
+
+const onDocumentScroll = () => closeTooltip();
+
+const addGlobalListeners = () => {
+  document.addEventListener('pointerdown', onDocumentPointerDown, true);
+  if (props.closeOnScroll) {
+    document.addEventListener('scroll', onDocumentScroll, { capture: true, passive: true });
+  }
+};
+
+const removeGlobalListeners = () => {
+  document.removeEventListener('pointerdown', onDocumentPointerDown, true);
+  document.removeEventListener('scroll', onDocumentScroll, true);
+};
 
 // lifecycle hooks
 onMounted(() => resetPopper());
@@ -120,20 +168,25 @@ const resetPopper = () => {
       { name: 'eventListeners', options: { scroll: props.addScrollListener } },
     ],
   });
-
-  document.addEventListener('click', handleClickOutside)
-  
 }
 
 onBeforeUnmount(() => {
+  removeGlobalListeners();
+  clearTimeout(hideTimeout);
+  popperInstance.value?.destroy();
   if (props.topLevel && tooltip.value) {
     tooltip.value.remove();
   }
-  document.removeEventListener('click', handleClickOutside)
-
 });
 
-watch(() => opened.value, updatePopper);
+watch(isOpened, (open) => {
+  if (open) {
+    addGlobalListeners();
+  } else {
+    removeGlobalListeners();
+  }
+  updatePopper();
+});
 watch(() => props.placement, updatePopper);
 
 </script>
